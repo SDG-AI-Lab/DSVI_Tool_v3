@@ -32,8 +32,10 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Git workflow
 
 Please follow the steps for making changes in the project:
+<div>
+<img src="https://gisgeography.com/wp-content/uploads/2015/05/Map-Algebra.png" width="300"/>
+</div><center><i>Source: https://iili.io/XH7wMB.png </i></center>
 
-![Workflow Git](![XH7wMB.png](https://iili.io/XH7wMB.png)
 
 
 ## Learn More
