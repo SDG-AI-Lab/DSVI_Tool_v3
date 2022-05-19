@@ -1,6 +1,6 @@
 # UNDP DSVI Tool
 
-Code base seated on repo  [UNDP DSVI Tool]([https://github.com/SDG-AI-Lab/Digital_Technologies_Radar](https://github.com/SDG-AI-Lab/DSVI_Tool_v3/)).
+Code base seated on repo  [UNDP DSVI Tool]([](https://github.com/SDG-AI-Lab/DSVI_Tool_v3/)).
 
 ## Available Scripts
 
@@ -33,8 +33,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Please follow the steps for making changes in the project:
 <div>
-<img src="https://gisgeography.com/wp-content/uploads/2015/05/Map-Algebra.png" width="300"/>
-</div><center><i>Source: https://iili.io/XH7wMB.png </i></center>
+<img src="https://iili.io/XH7wMB.png" width="300"/>
 
 
 
