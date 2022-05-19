@@ -33,7 +33,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Please follow the steps for making changes in the project:
 <div>
-<img src="https://iili.io/XH7wMB.png" width="300"/>
+<img src="https://iili.io/XH7wMB.png" width="600"/>
 
 
 
