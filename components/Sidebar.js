@@ -421,7 +421,7 @@ const Sidebar = () => {
           </svg>
 
           <span className={showSidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
-            Map Filters
+            Menu
 
 
           </span>

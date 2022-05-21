@@ -7,7 +7,7 @@ const Footer = () => {
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
 
             <img src="/images/sdglogodark.jpg" className=" h-12" />
-            <span className="ml-3 text-xl">DSVI TOOL DEMO</span>
+            <span className="ml-3 text-xl">DSVI Tajikistan Development Tool</span>
           </a>
           <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2022 —
             <a href="https://sdgailab.org/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@SDG AI LAB</a>

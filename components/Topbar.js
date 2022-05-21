@@ -13,7 +13,7 @@ const TopBar = () => {
                          */
                     }
   
-                <span class="ml-3 text-xl">DSVI TOOL DEMO</span>
+                <span class="ml-3 text-xl">DSVI Tajikistan Development Tool</span>
                 </a>
                 <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">

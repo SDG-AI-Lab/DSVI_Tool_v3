@@ -1,4 +1,4 @@
-const AppName="DSVI TOOL DEMO";
+const AppName="DSVI Tajikistan Development Tool";
 const organization="";
 const organizationWebsite="https://"
 const Facebook="www.facebook.com/";
