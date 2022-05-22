@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Modal } from 'react-responsive-modal';
-import SidebarExternalMenu from './SidebarExternalMenu';
+//import SidebarExternalMenu from './SidebarExternalMenu';
 import TopBar from './Topbar';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
@@ -421,7 +421,7 @@ const Sidebar = () => {
           </svg>
 
           <span className={showSidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
-            Menu
+            Map Filters
 
 
           </span>
@@ -438,7 +438,13 @@ const Sidebar = () => {
 
 
           <div className="absolute -right-10 object-center top-1/2 z-20">
-            <SidebarExternalMenu />
+            {
+              /**
+               * 
+               *   <SidebarExternalMenu />
+               */
+            }
+          
           </div>
 
           <div className=" overflow-y-auto h-screen ">
@@ -453,7 +459,7 @@ const Sidebar = () => {
 
                   </div>
                   <div class="grow ml-3">
-                    <p class="text-sm font-semibold text-blue-600"> DSVI Demo
+                    <p class="text-sm font-semibold text-blue-600"> DSVI Tajikistan Development Tool
 
 
                       <svg xmlns="http://www.w3.org/2000/svg"

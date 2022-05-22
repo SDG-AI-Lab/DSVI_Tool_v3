@@ -30,8 +30,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
     return (
         <MapContainer
-            center={[38.408,71.976]}
-            zoom={7}
+            center={[13.883084, 120.921398]}
+            zoom={15}
             scrollWheelZone={true}
             className={styles.container}
         >
@@ -40,7 +40,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+             //   url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+            
+           // url="https://api.mapbox.com/styles/v1/osmph/cjqrqpuiq3dl12rscralpdxyo/tiles/{z}/{x}/{y}?access_token=sk.eyJ1Ijoib3NtcGgiLCJhIjoiY2pxbjF6czN2MGllbTQ4bXVuOW44ZDlpbSJ9.pUqHal3xOR1yZUaM6LbLkg"
+url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
             />
 
             <Marker

@@ -74,27 +74,30 @@ const Navbar = () => {
 
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
           <Link href={'/'} as={`/`}>
-            <a class="mr-5 hover:text-gray-900 flex px-2">
-
-              <svg xmlns="http://www.w3.org/2000/svg" className={pathname == '/' ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>{" "}
-
-              <span className={pathname == '/' ? 'text-blue-700 pl-2' : 'pl-2'}>About the App</span>
-
-
-            </a>
-          </Link>
-          <Link href="/map">
-            <a class="mr-5 hover:text-gray-900 px-2 flex ">
+          <a class="mr-5 hover:text-gray-900 px-2 flex ">
             <svg xmlns="http://www.w3.org/2000/svg" className={pathname == 'map1' ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className={pathname == 'map' ? 'text-blue-700 pl-2' : 'pl-2'}>Map</span>
+              <span className={pathname == '/' ? 'text-blue-700 pl-2' : 'pl-2'}>Map</span>
 
             </a>
           </Link>
+          <Link href="/about">
+            <a class="mr-5 hover:text-gray-900 px-2 flex ">
+            <svg xmlns="http://www.w3.org/2000/svg" className={pathname == 'about' ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+
+              </svg>
+
+
+              <span className={pathname == 'about' ? 'text-blue-700 pl-2' : 'pl-2'}>About</span>
+
+            </a>
+          </Link>
+
+
+
 
         </nav>
 
