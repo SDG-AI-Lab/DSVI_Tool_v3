@@ -8,6 +8,8 @@ import { FilterContext } from '../context/FilterContext'
 const Sidebar = () => {
 
   const { state, dispatch } = useContext(FilterContext);
+
+  const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
   const socioeconomicStatus2 = state["socioeconomic"];
   const geodata = state["geodata"];
@@ -20,7 +22,7 @@ const Sidebar = () => {
   const selectedDataColumn = state["selected_data_column"];
   
   
-  const [showSidebar, setShowSidebar] = useState(false);
+
   const [sidebarButton, setSidebarButton] = useState(1);
   const [areaofInterestStatus, setAreaofInterestStatus] = useState(false);
 
@@ -411,16 +413,16 @@ const Sidebar = () => {
 
 
         <button
-          className={showSidebar == true ? 'rounded-3xl bg-white border-2 border-blue-700 px-5 py-2 flex' : 'rounded-3xl bg-white border-2 border-black px-5 py-2 flex'}
-          onClick={() => setShowSidebar(!showSidebar)}
+          className={show_sidebar == true ? 'rounded-3xl bg-white border-2 border-blue-700 px-5 py-2 flex' : 'rounded-3xl bg-white border-2 border-black px-5 py-2 flex'}
+          onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
         >
 
 
-          <svg xmlns="http://www.w3.org/2000/svg" className={showSidebar == true ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" className={show_sidebar == true ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
           </svg>
 
-          <span className={showSidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
+          <span className={show_sidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
             Map Filters
 
 
@@ -431,7 +433,7 @@ const Sidebar = () => {
 
 
       <div
-        className={` top-0 left-0 w-[18vw]   text-white fixed h-full z-40  ease-in-out duration-300 ${showSidebar ? "-translate-x-0 " : "-translate-x-full"
+        className={` top-0 left-0 w-[18vw]   text-white fixed h-full z-40  ease-in-out duration-300 ${show_sidebar ? "-translate-x-0 " : "-translate-x-full"
           }`}
       >
         <div class=" w-60  h-full shadow-md bg-white absolute" id="sidenavSecExample">
@@ -463,7 +465,7 @@ const Sidebar = () => {
 
 
                       <svg xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => setShowSidebar(!showSidebar)}
+                        onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
 
                         className=" absolute -right-6 z-20 bg-white p-2 border-2 rounded-full h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -501,6 +503,7 @@ const Sidebar = () => {
                 <a class="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false" aria-controls="collapseSidenavSecEx2"
 
                   //  onClick={() => setScioEconomicLayersStatus(!socioEconomicLayersStatus)}
+                 
                   onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
                 >
 
