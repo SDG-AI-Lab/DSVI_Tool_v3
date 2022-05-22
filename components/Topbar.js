@@ -17,7 +17,7 @@ const TopBar = () => {
                 </a>
                 <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                <img src="/images/sdglogodark.jpg" className="w-50 h-20"/>
+                <img src="/images/logo512.png" className="w-50 h-20"/>
                    
                 </a>
                 </nav>
