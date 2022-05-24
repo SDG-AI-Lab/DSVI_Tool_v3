@@ -46,6 +46,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     },
   })
 
+  
   var customIcon = new LeafIcon({ iconUrl: '/images/marker2.png' })
 
   const redOptions = { color: 'red' }
@@ -82,28 +83,30 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             />
           </LayersControl.BaseLayer>
         </LayersControl>
-
+      
         {educational_facilities_status &&
           edudata.features.map((edulibrary) => (
             <Polyline
               pathOptions={redOptions}
-              positions={edulibrary.geometry.coordinates[0][0]}
+              positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])}
             />
           ))}
-
         {financial_institutions_status &&
           fianancialdata.features.map((finanlibrary) => (
+            
             <Polyline
               pathOptions={purpleOptions}
-              positions={finanlibrary.geometry.coordinates[0][0]}
+              positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
+              
             />
+           
           ))}
 
         {health_care_institutions_status &&
           healthdata.features.map((healthlibrary) => (
             <Polyline
               pathOptions={orangeOptions}
-              positions={healthlibrary.geometry.coordinates[0][0]}
+              positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
             />
           ))}
       </MapContainer>
@@ -111,3 +114,4 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   )
 }
 export default OsmMap
+
