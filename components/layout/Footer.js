@@ -1,9 +1,16 @@
+import { useContext } from 'react'
+import { FilterContext } from '../../context/FilterContext' 
+
 const Footer = () => {
+
+  const { state } = useContext(FilterContext);
+  const show_sidebar = state["show_sidebar"];
+
   return (
     <>
 
       <footer className="bg-white text-gray-600 body-font">
-        <div className="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col">
+        <div className={show_sidebar == true ? "container px-5 py-2 ml-64 mx-auto flex items-center sm:flex-row flex-col" : "container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col" }>
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
 
             <img src="/images/sdglogodark.jpg" className=" h-12" />

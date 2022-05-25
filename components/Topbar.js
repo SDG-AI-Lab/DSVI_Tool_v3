@@ -1,7 +1,16 @@
+import { useContext } from "react";
+import { FilterContext } from '../context/FilterContext'
+
 const TopBar = () => {
+    const { state } = useContext(FilterContext);
+    const show_sidebar = state["show_sidebar"];
+
+    //var leftmargin = `${show_sidebar == true ? 'container ml:-64 mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center' : 'container ml:auto mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center'}`
+    //var headercontainer = "container mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center" + leftmargin
+
     return (
         <header class="bg-white text-gray-600 body-font ">
-            <div class="container mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center">
+            <div class={show_sidebar == true ? 'container ml-64 mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center' : 'container ml-auto mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center'}>
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
 
                     {
