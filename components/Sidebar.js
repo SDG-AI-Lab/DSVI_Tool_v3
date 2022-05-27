@@ -20,7 +20,10 @@ const Sidebar = () => {
   const drawofInterestStatus = state["draw_area_of_interest"];
   const statisticsStatus = state["statistics"];
   const selectedDataColumn = state["selected_data_column"];
-  
+
+
+  const socioEconomicLayers = state["socioeconomic"]["data"];
+  const geodataLayers = state["geodata"]["data"];
   
 
   const [sidebarButton, setSidebarButton] = useState(1);
@@ -84,7 +87,7 @@ const Sidebar = () => {
     ]
   );
 
-  const [socioEconomicLayers, setSocioEconomicLayers] = useState([
+  const [socioEconomicLayers2, setSocioEconomicLayers] = useState([
     {
       id: 1,
       slug: 'realtive_wealth_district',
@@ -160,7 +163,7 @@ const Sidebar = () => {
 
   ]);
 
-  const [geodataLayers, setGeodataLayers] = useState([
+  const [geodataLayers2, setGeodataLayers] = useState([
     {
       id: 1,
       slug: 'distance_maps',
@@ -372,12 +375,14 @@ const Sidebar = () => {
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-
+console.log("es"+JSON.stringify(result));
     const items = Array.from(socioEconomicLayers);
+    console.log("2"+JSON.stringify(items));
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
-    setSocioEconomicLayers(items);
+    console.log("3"+JSON.stringify(items));
+   // setSocioEconomicLayers(items);
+    dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: items })
   }
 
   function handleOnDragEndCategory(result) {
@@ -400,7 +405,7 @@ const Sidebar = () => {
     const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
     items[index]['data'].splice(result.destination.index, 0, reorderedItem);
 
-    setGeodataLayers(items);
+    dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
 
   return (
