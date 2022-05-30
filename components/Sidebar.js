@@ -591,6 +591,20 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                     id="exampleNumber0"
                                                     value={parseInt(val.value)}
 
+                                                    onChange={(event) => {
+                                                      const newItems = [...socioeconomicStatus2.data];
+                                                      newItems[index] = {
+                                                        id: val.id,
+                                                        slug: val.slug,
+                                                        title: val.title,
+                                                        status: val.status,
+                                                        value: event.target.value
+
+                                                      };
+                                                      dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
+                                                      // setSocioEconomicLayers(newItems);
+                                                    }}
+
                                                   />
 
                                                   <input type="range" class="w-full" min="1" max="100" step="1" value={val.value}
@@ -755,6 +769,19 @@ focus:outline-none focus:ring-0 focus:shadow-none"/>
   "
                                                               id="exampleNumber0"
                                                               value={parseInt(val2.value)}
+                                                              onChange={(event) => {
+                                                                const newItems = [...geodata.data];
+                                                                newItems[index]['data'][index2] = {
+                                                                  id: val2.id,
+                                                                  slug: val2.slug,
+                                                                  title: val2.title,
+                                                                  status: val2.status,
+                                                                  value: event.target.value
+                                                                };
+
+                                                                dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                              }}
+
 
                                                             />
                                                             <input type="range" class="w-full" min="1" max="100" step="1" value={val2.value} className=" form-range
