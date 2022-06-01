@@ -1,12 +1,15 @@
 import React, { useRef, useMemo, useContext,useEffect,useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Polyline, LayersControl,Tooltip } from 'react-leaflet'
+import { MapContainer, TileLayer, Polyline,Polygon, LayersControl,Tooltip,Popup } from 'react-leaflet'
+
 import styles from './Map.module.scss'
 import edudata from '/public/static/edu.json'
 import fianancialdata from '/public/static/finan.json'
 import healthdata from '/public/static/health.json'
 
 import { FilterContext } from '../../context/FilterContext'
+
+import TextPath from 'react-leaflet-textpath';
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
 
@@ -98,10 +101,58 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
        
         {educational_facilities_status &&
           edudata.features.map((edulibrary) => (
+    <>
+         <Polygon pathOptions={{  weight: 1,fillColor: 'yellow',color:'white',opacity:educational_facilities_value/100,fillOpacity:educational_facilities_value/100 }}  positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])} 
+ 
+ children={
+
+   <>
+
+<Tooltip direction="center" offset={[0, 0]}   permanent className='p-0 m-0 bg-transparent  border-none '>
+      <span  className={`bg-red-900  p-1 text-white rounded-full`} 
+      
+      style={{ opacity: educational_facilities_value/100 }}
+      
+      >{edulibrary.properties.osm_id_count==null?'NA':`${' '} ${edulibrary.properties.osm_id_count}`}</span>
+      </Tooltip>
+
+      <Popup maxWidth="500" maxHeight="auto" className='bg-white p-0 m-0 rounded-lg'>
+
+
+<div className='w-full '>
+<div className='text-slate-700 font-bold text-xs'>
+NAME_1:- {' '}<span className=''>{edulibrary.properties.NAME_1==null?'No Data':edulibrary.properties.NAME_1}</span><br/>
+</div>
+<div className='text-slate-700 font-bold text-xs'>
+NAME_2:- {' '}<span className=''>{edulibrary.properties.NAME_2==null?'No Data':edulibrary.properties.NAME_2}</span><br/>
+</div>
+<div className='text-slate-700 font-bold text-xs'>
+GID:- {' '}<span className=''>{edulibrary.properties.GID_3==null?'No Data':edulibrary.properties.GID_3}</span><br/>
+</div>
+
+<div className='text-slate-700 font-bold text-xs'>
+
+COUNT:- {' '}<span className=''>{edulibrary.properties.osm_id_count==null?'No Data':edulibrary.properties.osm_id_count}</span><br/>
+</div>
+
+</div> </Popup>
+   </>
+
+
+
+ }      
+onClick={(e)=>{
+  
+  e.prevantDefault();
+  console.log("dsffff");
+  alert("hjdjdj");}}
+ />
     
+    </>
         
 
-            <Polyline pathOptions={{ color:'red',opacity:educational_facilities_value/100 }}  positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])} />
+       
+    
           ))}
         {financial_institutions_status &&
           fianancialdata.features.map((finanlibrary) => (

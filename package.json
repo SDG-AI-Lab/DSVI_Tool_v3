@@ -17,8 +17,11 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-leaflet": "^4.0.0",
+    "react-leaflet-editable-popup": "^2.0.3",
+    "react-leaflet-textpath": "^2.1.1",
     "react-map-gl": "^7.0.11",
-    "react-responsive-modal": "^6.2.0"
+    "react-responsive-modal": "^6.2.0",
+    "reactjs-popup": "^2.0.5"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
