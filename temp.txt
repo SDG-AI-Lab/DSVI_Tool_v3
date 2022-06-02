@@ -1,0 +1,6 @@
+fontwesome 5.6 package
+strokeLinecap
+strokeLinejoin
+strokeWidth
+
+something geolocation

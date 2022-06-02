@@ -4,13 +4,6 @@
 @import "~leaflet-defaulticon-compatibility";
 @import 'react-responsive-modal/styles.css';
 
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip{
-
-}
-
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -14,6 +14,7 @@ const SidebarModal = (props) => {
                 menu && menu.map((val, index) => {
                     return (
                         <div
+                        key={index}
                             className={selectedMenu == val.id ? "h-10 w-10 bg-white  flex justify-center self-center items-center border-r-2 border-orange-500"
                                 :
                                 "h-10 w-10 bg-orange-500  flex justify-center self-center items-center hover:bg-orange-700 hover:border-r-2 hover:border-white"
@@ -45,17 +46,17 @@ const SidebarModal = (props) => {
 
                 center>
                 <div></div>
-                <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
+                <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
 
                     <div>
-                        <h2 class="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
+                        <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
                         <hr />
 
 
                     </div>
-                    <div class="flex justify-end mt-4">
-                        <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                    <div className="flex justify-end mt-4">
+                        <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 
                             onClick={() => {
 
