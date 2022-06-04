@@ -1,6 +1,7 @@
 import React, { useRef, useMemo, useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Polyline, Polygon, LayersControl, Popup } from 'react-leaflet'
+import Control from 'react-leaflet-custom-control'
 import CustomTooltip from '../map/Tooltip';
 import CustomPopup from '../map/Popup';
 import styles from './Map.module.scss'
@@ -10,7 +11,8 @@ import healthdata from '/public/static/health.json'
 import { FilterContext } from '../../context/FilterContext'
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
-
+  const show_data = state['show_data'];
+  const show_sidebar_data = state['show_sidebar_data'];
   const socioeconomic = state['socioeconomic']['data']
   var health_care_institutions = socioeconomic.find(
     (e) => e.slug === 'health_care_institutions'
@@ -42,8 +44,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       scrollWheelZone={true}
       className={styles.container}
     >
+
       <LayersControl position="topright">
         <LayersControl.BaseLayer name="Osm">
+          
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             // url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
@@ -64,6 +68,39 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           />
         </LayersControl.BaseLayer>
       </LayersControl>
+      <Control position='topright' >
+
+<div className="border-none flex items-center"> 
+<svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-2 h-10 w-10 ${show_data==true?'stroke-blue-500':'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+      
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        dispatch({ type: "TOGGLE_SHOW_DATA", payload: {} })}}
+      
+      >
+  <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+</svg>
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-10 w-10 ${show_sidebar_data==true?'stroke-blue-500':'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+         onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          
+          dispatch({ type: "TOGGLE_SIDEBAR_DATA", payload: {} })}}
+
+>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+</svg>
+</div>
+     
+
+
+    
+      </Control>
 
       {educational_facilities_status &&
         edudata.features.map((edulibrary) => (
@@ -72,8 +109,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
               children={
                 <>
+        
                   <CustomTooltip direction="center" offset={[0, 0]} opacity={educational_facilities_value / 100} count={edulibrary.properties.osm_id_count}
-                    bgcolor="bg-red-900" textcolor="text-white" />
+                    bgcolor="bg-red-900" textcolor="text-white" 
+                    show_data ={show_data}
+                    
+                    />
 
                   <CustomPopup maxWidth="500" maxHeight="auto"
                     bgcolor="bg-white"
@@ -132,4 +173,3 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   )
 }
 export default OsmMap
-

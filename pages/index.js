@@ -1,6 +1,7 @@
 import React,{useState,useContext} from "react";
 import dynamic from 'next/dynamic';
 import Sidebar from "../components/Sidebar";
+import DataSidebar from "../components/map/DataSidebar";
 import { FilterContext } from '../context/FilterContext'
 const OsmMapNoSSR =dynamic(()=>import("../components/mapbox/Map"),{
     ssr:false,
@@ -24,6 +25,7 @@ const Map1=()=>{
                 }}
             />                
             </div>
+            <DataSidebar/>
         </>
     )
 }

@@ -216,22 +216,26 @@ const Sidebar = () => {
                                     <>
                                       <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
-                                        <div className="flex i items-center">
+                                        <div className="flex i items-center"
+                                        
+                                        onClick={() => {
+                                          const newItems = [...socioeconomicStatus2.data];
+                                          newItems[index] = {
+                                            id: val.id,
+                                            slug: val.slug,
+                                            title: val.title,
+                                            status: !val.status,
+                                            value: val.value
+
+                                          };
+                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                          // setSocioEconomicLayers(newItems);
+                                        }}
+                                        
+                                        >
                                           <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
                                             checked={val.status}
-                                            onClick={() => {
-                                              const newItems = [...socioeconomicStatus2.data];
-                                              newItems[index] = {
-                                                id: val.id,
-                                                slug: val.slug,
-                                                title: val.title,
-                                                status: !val.status,
-                                                value: val.value
 
-                                              };
-                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
-                                              // setSocioEconomicLayers(newItems);
-                                            }}
 
 
                                           />
@@ -393,24 +397,28 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                               <>
                                                 <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
-                                                  <div className="flex i items-center">
+                                                  <div className="flex i items-center"
+                                                  
+                                                  onClick={() => {
+                                                    const newItems = [...geodata.data];
+                                                    newItems[index]['data'][index2] = {
+                                                      id: val2.id,
+                                                      slug: val2.slug,
+                                                      title: val2.title,
+                                                      status: !val2.status,
+                                                      value: val2.value
+                                                    };
+
+                                                    dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+
+                                                  }}
+                                                  
+                                                  >
                                                     <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
 
 
                                                       checked={val2.status}
-                                                      onClick={() => {
-                                                        const newItems = [...geodata.data];
-                                                        newItems[index]['data'][index2] = {
-                                                          id: val2.id,
-                                                          slug: val2.slug,
-                                                          title: val2.title,
-                                                          status: !val2.status,
-                                                          value: val2.value
-                                                        };
 
-                                                        dispatch({ type: "CHANGE_GEODATA", payload: newItems })
-
-                                                      }}
 
 
                                                     />
