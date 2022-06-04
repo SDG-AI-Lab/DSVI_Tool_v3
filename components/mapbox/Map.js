@@ -20,13 +20,19 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   var health_care_institutions_status = health_care_institutions.status
   var health_care_institutions_value = health_care_institutions.value
+  var health_pathOptions = {
+    weight: 1, fillColor: 'purple', color: 'white', opacity: health_care_institutions_value / 100, fillOpacity: educational_facilities_value / 100
+  }
+
 
   var financial_institutions = socioeconomic.find(
     (e) => e.slug === 'financial_institutions'
   )
   var financial_institutions_status = financial_institutions.status
   var financial_institutions_value = financial_institutions.value
-
+  var financial_pathOptions = {
+    weight: 1, fillColor: 'orange', color: 'white', opacity: financial_institutions_value / 100, fillOpacity: educational_facilities_value / 100
+  }
 
   var educational_facilities = socioeconomic.find(
     (e) => e.slug === 'educational_facilities'
@@ -47,7 +53,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
       <LayersControl position="topright">
         <LayersControl.BaseLayer name="Osm">
-          
+
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             // url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
@@ -70,36 +76,38 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       </LayersControl>
       <Control position='topright' >
 
-<div className="border-none flex items-center"> 
-<svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-2 h-10 w-10 ${show_data==true?'stroke-blue-500':'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-      
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        dispatch({ type: "TOGGLE_SHOW_DATA", payload: {} })}}
-      
-      >
-  <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-</svg>
+        <div className="border-none flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-2 h-10 w-10 ${show_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+
+              dispatch({ type: "TOGGLE_SHOW_DATA", payload: {} })
+            }}
+
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+          </svg>
 
 
 
-<svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-10 w-10 ${show_sidebar_data==true?'stroke-blue-500':'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-         onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          
-          dispatch({ type: "TOGGLE_SIDEBAR_DATA", payload: {} })}}
+          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-10 w-10 ${show_sidebar_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
 
->
-  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
-</svg>
-</div>
-     
+              dispatch({ type: "TOGGLE_SIDEBAR_DATA", payload: {} })
+            }}
+
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        </div>
 
 
-    
+
+
       </Control>
 
       {educational_facilities_status &&
@@ -109,12 +117,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
               children={
                 <>
-        
+
                   <CustomTooltip direction="center" offset={[0, 0]} opacity={educational_facilities_value / 100} count={edulibrary.properties.osm_id_count}
-                    bgcolor="bg-red-900" textcolor="text-white" 
-                    show_data ={show_data}
-                    
-                    />
+                    bgcolor="bg-red-900" textcolor="text-white"
+                    show_data={show_data}
+
+                  />
 
                   <CustomPopup maxWidth="500" maxHeight="auto"
                     bgcolor="bg-white"
@@ -153,20 +161,87 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       {financial_institutions_status &&
         fianancialdata.features.map((finanlibrary) => (
 
-          <Polyline
-            pathOptions={{ color: 'orange', opacity: financial_institutions_value / 100 }}
-            positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
+          <Polygon pathOptions={financial_pathOptions} positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
 
-          />
+          children={
+            <>
+
+              <CustomTooltip direction="center" offset={[0, 0]} opacity={financial_institutions_value / 100} count={finanlibrary.properties.osm_id_count}
+                bgcolor="bg-red-900" textcolor="text-white"
+                show_data={show_data}
+
+              />
+
+              <CustomPopup maxWidth="500" maxHeight="auto"
+                bgcolor="bg-white"
+                textcolor="text-slate-700"
+                data={
+                  [
+                    {
+                      "key": "NAME_1",
+                      "value": finanlibrary.properties.NAME_1
+                    },
+                    {
+                      "key": "NAME_2",
+                      "value": finanlibrary.properties.NAME_2
+                    },
+                    {
+                      "key": "GID",
+                      "value": finanlibrary.properties.GID_3
+                    },
+                    {
+                      "key": "COUNT",
+                      "value": finanlibrary.properties.osm_id_count
+                    }
+                  ]
+                }
+              />
+            </>
+          }
+        />
 
         ))}
 
       {health_care_institutions_status &&
         healthdata.features.map((healthlibrary) => (
-          <Polyline
-            pathOptions={{ color: 'purple', opacity: health_care_institutions_value / 100 }}
-            positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
-          />
+          <Polygon pathOptions={health_pathOptions} positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
+
+          children={
+            <>
+
+              <CustomTooltip direction="center" offset={[0, 0]} opacity={health_care_institutions_value / 100} count={healthlibrary.properties.osm_id_count}
+                bgcolor="bg-red-900" textcolor="text-white"
+                show_data={show_data}
+
+              />
+
+              <CustomPopup maxWidth="500" maxHeight="auto"
+                bgcolor="bg-white"
+                textcolor="text-slate-700"
+                data={
+                  [
+                    {
+                      "key": "NAME_1",
+                      "value": healthlibrary.properties.NAME_1
+                    },
+                    {
+                      "key": "NAME_2",
+                      "value": healthlibrary.properties.NAME_2
+                    },
+                    {
+                      "key": "GID",
+                      "value": healthlibrary.properties.GID_3
+                    },
+                    {
+                      "key": "COUNT",
+                      "value": healthlibrary.properties.osm_id_count
+                    }
+                  ]
+                }
+              />
+            </>
+          }
+        />
         ))}
     </MapContainer>
 
