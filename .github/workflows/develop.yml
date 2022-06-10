@@ -1,0 +1,27 @@
+name: CI Development
+
+on:
+  pull_request:
+    branches:
+    - master
+    - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: install
+        run: |
+          yarn install
+
+      - name: build
+        run: |
+          yarn build
