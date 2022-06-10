@@ -1,4 +1,6 @@
 export const initalState = {
+    "show_data":true,
+    "show_sidebar_data":false,
     "show_sidebar":false,
     "show_area_of_interest": false,
     "socioeconomic": {
@@ -352,7 +354,16 @@ export const initalState = {
 
 export const reducer = (state, action) => {
     switch (action.type) {
-
+        case "TOGGLE_SHOW_DATA":
+            return {
+                ...state,
+                show_data: !state.show_data,
+            };
+            case "TOGGLE_SIDEBAR_DATA":
+                return {
+                    ...state,
+                    show_sidebar_data: !state.show_sidebar_data,
+                };
         case "TOGGLE_SIDEBAR":
             return {
                 ...state,

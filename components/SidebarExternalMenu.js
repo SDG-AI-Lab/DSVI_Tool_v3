@@ -30,6 +30,7 @@ const SidebarExternalMenu = () => {
                 menu && menu.map((val, index) => {
                     return (
                         <div
+                        key={index}
                             className={selectedMenu == val.id ? "h-10 w-10 bg-white  flex justify-center self-center items-center border-r-2 border-orange-500"
                                 :
                                 "h-10 w-10 bg-orange-500  flex justify-center self-center items-center hover:bg-orange-700 hover:border-r-2 hover:border-white"
