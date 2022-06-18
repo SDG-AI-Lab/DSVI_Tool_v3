@@ -8,6 +8,7 @@ import { FilterContext } from '../context/FilterContext'
 const Sidebar = () => {
 
   const { state, dispatch } = useContext(FilterContext);
+  const level = state["level"];
 
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
@@ -67,29 +68,35 @@ const Sidebar = () => {
 
     <>
 
-
-      <div className="flex justify-center self-center items-center my-2 ">
-
-
-
-        <button
-          className={show_sidebar == true ? 'rounded-3xl bg-white border-2 border-blue-700 px-5 py-2 flex' : 'rounded-3xl bg-white border-2 border-black px-5 py-2 flex'}
-          onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
-        >
-
-
-          <svg xmlns="http://www.w3.org/2000/svg" className={show_sidebar == true ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-          </svg>
-
-          <span className={show_sidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
-            Map Filters
-
-
-          </span>
-        </button>
-
-      </div>
+      {
+        /*
+      }
+      
+            <div className="flex justify-center self-center items-center my-2 ">
+      
+      
+      
+              <button
+                className={show_sidebar == true ? 'rounded-3xl bg-white border-2 border-blue-700 px-5 py-2 flex' : 'rounded-3xl bg-white border-2 border-black px-5 py-2 flex'}
+                onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
+              >
+      
+      
+                <svg xmlns="http://www.w3.org/2000/svg" className={show_sidebar == true ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+      
+                <span className={show_sidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
+                  Map Filters
+      
+      
+                </span>
+              </button>
+      
+            </div>
+      
+      */
+      }
 
 
       <div
@@ -153,6 +160,73 @@ const Sidebar = () => {
             <hr className="p-2 m-2" />
             <div className="">
               <ul className="relative px-1 ">
+
+
+                <li className="relative">
+                  <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                  // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
+                  //  onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
+
+                  >
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                    <span>Select Level</span>
+                  </span>
+
+                  <ul className="flex">
+                    {
+
+
+                      [{
+                        slug: 1,
+                        title: 'One'
+                      },
+                      {
+                        slug: 2,
+                        title: 'Two'
+                      },
+                      {
+                        slug: 3,
+                        title: 'Three'
+                      }].map((val, index) => {
+                        return (
+
+                          <>
+                          
+                          <div className="flex" onClick={() =>{dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}}>
+
+<input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
+  checked={val.slug == level ? true : false}
+  //defaultChecked={false}
+
+  onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
+
+/>
+<a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+
+</div>    
+                          <div className="text-gray-700">
+           
+                            </div>
+                          </>
+
+                        )
+                      })
+                    }
+
+                  </ul>
+                </li>
+
+
+
+
+
+
+
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
@@ -217,25 +291,27 @@ const Sidebar = () => {
                                       <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
                                         <div className="flex i items-center"
-                                        
-                                        onClick={() => {
-                                          const newItems = [...socioeconomicStatus2.data];
-                                          newItems[index] = {
-                                            id: val.id,
-                                            slug: val.slug,
-                                            title: val.title,
-                                            status: !val.status,
-                                            value: val.value
 
-                                          };
-                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
-                                          // setSocioEconomicLayers(newItems);
-                                        }}
-                                        
+                                          onClick={() => {
+                                            const newItems = [...socioeconomicStatus2.data];
+                                            newItems[index] = {
+                                              id: val.id,
+                                              slug: val.slug,
+                                              title: val.title,
+                                              status: !val.status,
+                                              value: val.value,
+                                              priority: val.priority,
+                                              legend: val.legend
+
+                                            };
+                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                            // setSocioEconomicLayers(newItems);
+                                          }}
+
                                         >
                                           <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
                                             checked={val.status}
-
+                                            defaultChecked={false}
 
 
                                           />
@@ -265,8 +341,9 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                         slug: val.slug,
                                                         title: val.title,
                                                         status: val.status,
-                                                        value: event.target.value
-
+                                                        value: event.target.value,
+                                                        priority: val.priority,
+                                                        legend: val.legend
                                                       };
                                                       dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                       // setSocioEconomicLayers(newItems);
@@ -274,7 +351,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                                                   />
                                                   <div>
-                                                    <input type="range"  min="1" max="100" step="1" value={val.value}
+                                                    <input type="range" min="0" max="100" step="1" value={val.value}
 
                                                       onChange={(event) => {
                                                         const newItems = [...socioeconomicStatus2.data];
@@ -283,15 +360,16 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                           slug: val.slug,
                                                           title: val.title,
                                                           status: val.status,
-                                                          value: event.target.value
+                                                          value: event.target.value,
+                                                          legend: val.legend
 
                                                         };
                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                         // setSocioEconomicLayers(newItems);
                                                       }}
                                                       className=" form-range h-6 p-0focus:outline-none focus:ring-0 focus:shadow-none"
-                                                      
-                                                      />
+
+                                                    />
 
                                                   </div>
 
@@ -398,25 +476,25 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                 <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
                                                   <div className="flex i items-center"
-                                                  
-                                                  onClick={() => {
-                                                    const newItems = [...geodata.data];
-                                                    newItems[index]['data'][index2] = {
-                                                      id: val2.id,
-                                                      slug: val2.slug,
-                                                      title: val2.title,
-                                                      status: !val2.status,
-                                                      value: val2.value
-                                                    };
 
-                                                    dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                    onClick={() => {
+                                                      const newItems = [...geodata.data];
+                                                      newItems[index]['data'][index2] = {
+                                                        id: val2.id,
+                                                        slug: val2.slug,
+                                                        title: val2.title,
+                                                        status: !val2.status,
+                                                        value: val2.value
+                                                      };
 
-                                                  }}
-                                                  
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+
+                                                    }}
+
                                                   >
                                                     <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
 
-
+                                                      defaultChecked={false}
                                                       checked={val2.status}
 
 
@@ -459,7 +537,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                                                             <div>
                                                               <div>
-                                                                <input type="range"  min="1" max="100" step="1" value={val2.value} className=" form-range
+                                                                <input type="range" min="1" max="100" step="1" value={val2.value} className=" form-range
   h-6
   p-0
   focus:outline-none focus:ring-0 focus:shadow-none"
@@ -585,6 +663,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                               <div className="flex i items-center">
                                                 <div className="text-red-400">{ }</div>
                                                 <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                  defaultChecked={false}
                                                   checked={val.status}
                                                   onClick={() => {
                                                     const newItems = [...categories];

@@ -1,250 +1,215 @@
 import React, { useRef, useMemo, useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Polyline, Polygon, LayersControl, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Polyline, Polygon, LayersControl, Popup, WMSTileLayer, GeoJSON } from 'react-leaflet'
 import Control from 'react-leaflet-custom-control'
 import CustomTooltip from '../map/Tooltip';
+import Legend from '../map/Legend';
 import CustomPopup from '../map/Popup';
 import styles from './Map.module.scss'
 import edudata from '/public/static/edu.json'
+import edudata_1 from '/public/static/edu_1.json'
+import edudata_2 from '/public/static/edu_2.json'
+import edudata_3 from '/public/static/edu_3.json'
+
+
 import fianancialdata from '/public/static/finan.json'
 import healthdata from '/public/static/health.json'
 import { FilterContext } from '../../context/FilterContext'
+import { LegendContext } from '../../context/LegendContext'
+import { Settings, TileProviders } from '../../config/map';
+import ControlMenu from '../map/ControlMenu';
+import { normalize } from 'path';
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
+
+  const [onselect, setOnselect] = useState({});
+  const polygonRefs = React.useRef()
+  const [flag, setFlag] = useState(false);
+  const [currentPolygon, setCurrentPolygon] = useState(16);
+
   const { state, dispatch } = useContext(FilterContext)
+  const { state:legenddata,dispatch: setLegendData } = useContext(LegendContext);
+
+  const level = state["level"];
   const show_data = state['show_data'];
   const show_sidebar_data = state['show_sidebar_data'];
-  const socioeconomic = state['socioeconomic']['data']
-  var health_care_institutions = socioeconomic.find(
-    (e) => e.slug === 'health_care_institutions'
-  )
 
-  var health_care_institutions_status = health_care_institutions.status
-  var health_care_institutions_value = health_care_institutions.value
-  var health_pathOptions = {
-    weight: 1, fillColor: 'purple', color: 'white', opacity: health_care_institutions_value / 100, fillOpacity: educational_facilities_value / 100
-  }
-
-
-  var financial_institutions = socioeconomic.find(
-    (e) => e.slug === 'financial_institutions'
-  )
-  var financial_institutions_status = financial_institutions.status
-  var financial_institutions_value = financial_institutions.value
-  var financial_pathOptions = {
-    weight: 1, fillColor: 'orange', color: 'white', opacity: financial_institutions_value / 100, fillOpacity: educational_facilities_value / 100
-  }
-
+  const socioeconomic = state['socioeconomic']['data'];
   var educational_facilities = socioeconomic.find(
     (e) => e.slug === 'educational_facilities'
   )
-  var educational_facilities_status = educational_facilities.status
-  var educational_facilities_value = educational_facilities.value;
+  var { status: educational_facilities_status, value: educational_facilities_value, legend: educational_facilities_legend } = educational_facilities;
   var educational_pathOptions = {
-    weight: 1, fillColor: 'yellow', color: 'white', opacity: educational_facilities_value / 100, fillOpacity: educational_facilities_value / 100
+    bubblingMouseEvents: false, weight: 1, fillColor: 'yellow',color:'white', opacity: educational_facilities_value / 100, fillOpacity: educational_facilities_value / 100
   }
+
+    /* function determining what should happen onmouseover, this function updates our state*/
+    const highlightFeature = (e=> {
+      var layer = e.target;
+      const { NAME_1, NAME_2, GID_3, osm_id_count } = e.target.feature.properties;
+      setOnselect({
+        NAME_1, NAME_2, GID_3, osm_id_count
+      });
+      layer.setStyle({
+          weight: 5,
+          color: "black",
+          fillOpacity: 1
+      });
+  });
+  /*resets our state i.e no properties should be displayed when a feature is not clicked or hovered over */
+  const resetHighlight= (e =>{
+      setOnselect({});
+      e.target.setStyle(style(e.target.feature));
+  })
+  /* this function is called when a feature in the map is hovered over or when a mouse moves out of it, the function calls two functions
+   highlightFeature and resetHighlight*/
+
+
+ 
+  const onEachFeature= (feature, layer)=> {
+
+
+
+      layer.on({
+          mouseover: highlightFeature,
+          mouseout: resetHighlight,
+      });
+  }
+
+const NormalizeData=(number,maxNumber,minNumber)=>{
+ var val=(number-minNumber) / (maxNumber-minNumber);
+  console.log("val",val);
+  return mapPolygonColorToDensity(val);
+}
+
+  const mapPolygonColorToDensity=(normalizeData => {
+
+    
+    return normalizeData = 0
+        ? '#00800A'
+        :normalizeData = 1
+        ? '#FF362C'
+        : normalizeData > 8
+        ? '#7BCA0C'
+        : normalizeData > 11
+        ? '#E8FF2C'
+        : normalizeData > 14
+        ? '#FFDE2C'
+        : normalizeData > 17
+        ? '#FFAF2C'
+        : '#FFEDA0';
+})
+const style = (feature => {
+  const {_stdev,_max,_min}=feature.properties;
+    return ({
+        fillColor: NormalizeData(_stdev,_max,_min),
+        weight: 1,
+        opacity: educational_facilities_value/100,
+        color: 'white',
+        dashArray: '2',
+        fillOpacity:educational_facilities_value/100
+    });
+});
+
 
   return (
     <MapContainer
-      center={[42.883084, 70.921398]}
-      zoom={8}
+      center={Settings.latlong}
+      zoom={Settings.zoom}
       scrollWheelZone={true}
       className={styles.container}
     >
-
       <LayersControl position="topright">
-        <LayersControl.BaseLayer name="Osm">
-
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            // url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
-            url="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Satellite" checked={true}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.esri.com">ESRI</a> '
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Mapbox">
-          <TileLayer
-            attribution='&copy; <a href="https://mapbox.com">Mapbox</a>'
-            url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
-            layers="GoogleMapsCompatible"
-          />
-        </LayersControl.BaseLayer>
+        {TileProviders.map(({ name, checked, args }) => (
+          <LayersControl.BaseLayer {...{ name, checked }} key={name}>
+            <WMSTileLayer {...{ ...args }} />
+          </LayersControl.BaseLayer>
+        ))}
       </LayersControl>
-      <Control position='topright' >
-
-        <div className="border-none flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-2 h-10 w-10 ${show_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-
-              dispatch({ type: "TOGGLE_SHOW_DATA", payload: {} })
-            }}
-
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-          </svg>
+      <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
+        children={
+      
+        educational_facilities_status?
+        <Legend />
+        :
+        null
+       
+       
+      
+      }
+      >
 
 
 
-          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-10 w-10 ${show_sidebar_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
+      </ControlMenu>
 
-              dispatch({ type: "TOGGLE_SIDEBAR_DATA", payload: {} })
-            }}
+      {
+      educational_facilities_status && level==1 &&
+      <GeoJSON 
+      
+      data={edudata_1} 
+      style={style} 
+      onEachFeature={onEachFeature}
+      children={
+        <>
 
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
-          </svg>
-        </div>
+          <CustomTooltip direction="center" offset={[0, 0]} opacity={educational_facilities_value / 100} count={4}
+            bgcolor="bg-black-900" textcolor="text-white"
+            show_data={show_data}
 
+          />
 
-
-
-      </Control>
-
-      {educational_facilities_status &&
-        edudata.features.map((edulibrary) => (
-          <>
-            <Polygon pathOptions={educational_pathOptions} positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])}
-
-              children={
-                <>
-
-                  <CustomTooltip direction="center" offset={[0, 0]} opacity={educational_facilities_value / 100} count={edulibrary.properties.osm_id_count}
-                    bgcolor="bg-red-900" textcolor="text-white"
-                    show_data={show_data}
-
-                  />
-
-                  <CustomPopup maxWidth="500" maxHeight="auto"
-                    bgcolor="bg-white"
-                    textcolor="text-slate-700"
-                    data={
-                      [
-                        {
-                          "key": "NAME_1",
-                          "value": edulibrary.properties.NAME_1
-                        },
-                        {
-                          "key": "NAME_2",
-                          "value": edulibrary.properties.NAME_2
-                        },
-                        {
-                          "key": "GID",
-                          "value": edulibrary.properties.GID_3
-                        },
-                        {
-                          "key": "COUNT",
-                          "value": edulibrary.properties.osm_id_count
-                        }
-                      ]
-                    }
-                  />
-                </>
-              }
-            />
-
-          </>
-
-
-
-
-        ))}
-      {financial_institutions_status &&
-        fianancialdata.features.map((finanlibrary) => (
-
-          <Polygon pathOptions={financial_pathOptions} positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
-
-          children={
-            <>
-
-              <CustomTooltip direction="center" offset={[0, 0]} opacity={financial_institutions_value / 100} count={finanlibrary.properties.osm_id_count}
-                bgcolor="bg-red-900" textcolor="text-white"
-                show_data={show_data}
-
-              />
-
-              <CustomPopup maxWidth="500" maxHeight="auto"
-                bgcolor="bg-white"
-                textcolor="text-slate-700"
-                data={
-                  [
-                    {
-                      "key": "NAME_1",
-                      "value": finanlibrary.properties.NAME_1
-                    },
-                    {
-                      "key": "NAME_2",
-                      "value": finanlibrary.properties.NAME_2
-                    },
-                    {
-                      "key": "GID",
-                      "value": finanlibrary.properties.GID_3
-                    },
-                    {
-                      "key": "COUNT",
-                      "value": finanlibrary.properties.osm_id_count
-                    }
-                  ]
+          <CustomPopup maxWidth="500" maxHeight="auto"
+            bgcolor="bg-white"
+            textcolor="text-slate-700"
+            data={
+              [
+                {
+                  "key": "NAME_1",
+                  "value": 5
+                },
+                {
+                  "key": "NAME_2",
+                  "value": 5
+                },
+                {
+                  "key": "GID",
+                  "value": 6
+                },
+                {
+                  "key": "COUNT",
+                  "value": 7
                 }
-              />
-            </>
-          }
-        />
+              ]
+            }
+          />
+        </>
+      }
 
-        ))}
+      
+      
+      />
+}
+{
+      educational_facilities_status && level==2 &&
+      <GeoJSON 
+      
+      data={edudata_2} 
+      style={style} 
+      onEachFeature={onEachFeature}/>
+}
+      {
+      educational_facilities_status && level==3 &&
+      <GeoJSON 
+      
+      data={edudata_3} 
+      style={style} 
+      onEachFeature={onEachFeature}/>
+}
 
-      {health_care_institutions_status &&
-        healthdata.features.map((healthlibrary) => (
-          <Polygon pathOptions={health_pathOptions} positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
 
-          children={
-            <>
+  
 
-              <CustomTooltip direction="center" offset={[0, 0]} opacity={health_care_institutions_value / 100} count={healthlibrary.properties.osm_id_count}
-                bgcolor="bg-red-900" textcolor="text-white"
-                show_data={show_data}
-
-              />
-
-              <CustomPopup maxWidth="500" maxHeight="auto"
-                bgcolor="bg-white"
-                textcolor="text-slate-700"
-                data={
-                  [
-                    {
-                      "key": "NAME_1",
-                      "value": healthlibrary.properties.NAME_1
-                    },
-                    {
-                      "key": "NAME_2",
-                      "value": healthlibrary.properties.NAME_2
-                    },
-                    {
-                      "key": "GID",
-                      "value": healthlibrary.properties.GID_3
-                    },
-                    {
-                      "key": "COUNT",
-                      "value": healthlibrary.properties.osm_id_count
-                    }
-                  ]
-                }
-              />
-            </>
-          }
-        />
-        ))}
     </MapContainer>
-
   )
 }
-export default OsmMap
+export default OsmMap;

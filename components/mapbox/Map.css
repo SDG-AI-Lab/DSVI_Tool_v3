@@ -1,0 +1,90 @@
+.header{
+    
+    background-color: #fcbba1;
+    padding-bottom: 10px;
+    width:85%;
+    margin:0 auto;
+    bottom:20px;
+    margin-top:5%;
+    color:white;
+
+}
+.heading{
+  padding-left:2%;
+}
+.text-muted{
+  padding-left:2%;
+  font-family:tohoma;
+}
+.census-info {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  top: 55px;
+  right: 150px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  color: white;
+  letter-spacing:2px;
+  background: rgba(0,0,0,0.8);
+  margin-top: 150px;
+  list-style: none;
+  width: 16%;
+  height: 20%;
+  font-size:12px;
+  position: absolute;
+  z-index: 999;
+  box-shadow: 0 0 5px 0 rgba(184, 140, 140, 0.3);
+}
+.census-info-hover{
+  z-index: 999;
+  top: 55px;
+  right: 150px;
+  height: 20%;
+  width:16%;
+  padding: 10px 10px;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  letter-spacing:2px;
+  margin-top:150px;
+  font-size: 14px;
+  box-shadow:  0 0 5px 0 rgba(184, 140, 140, 0.3);
+  background: rgba(0,0,0,0.8);
+}
+@media (max-width: 768px) {
+  .census-info {
+  align-items: right;
+  top: 120px;
+  right: 38px;
+  padding: 10px 10px;
+  width: 30%;
+  height: 15%;
+  font-size:8px;
+ 
+}
+.census-info-hover{
+  z-index: 999;
+  top: 120px;
+  right: 38px;
+  height: 15%;
+  width:30%;
+  padding: 10px 10px;
+  border-radius: 5px;
+  letter-spacing:1px;
+  margin-top:150px;
+  font-size:8px;
+ 
+}
+.heading{
+  padding:none;
+  
+}
+.heading h2{
+  font-size:20px;
+}
+.text-muted{
+  padding:none;
+}
+ 
+}

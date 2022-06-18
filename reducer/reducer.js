@@ -1,7 +1,8 @@
 export const initalState = {
-    "show_data":true,
+    "show_data":false,
     "show_sidebar_data":false,
-    "show_sidebar":false,
+    "show_sidebar":true,
+    "level":1,
     "show_area_of_interest": false,
     "socioeconomic": {
         "status": false,
@@ -11,70 +12,113 @@ export const initalState = {
                 slug: 'realtive_wealth_district',
                 title: 'Relative Wealth: District',
                 status: false,
-                value: 60
+                value: 70,
+                priority:1
             },
             {
                 id: 2,
                 slug: 'gdp_ppp',
                 title: 'GDP / PPP',
                 status: false,
-                value: 60
+                value: 70,
+                priority:2
             },
             {
                 id: 3,
                 slug: 'health_care_institutions',
                 title: 'Health Care Institutions',
                 status: false,
-                value: 60
+                value: 70,
+                priority:3,
+                "legend":[
+                    {
+                        status:true,
+                        position:'topbar',
+                        title:"Health Care Facilities",
+                        description:"Hover on map tile to see more data"
+                    },
+                    {
+                        status:false
+                    }
+                ]
             },
             {
                 id: 4,
                 slug: 'sv_ground_truth',
                 title: 'SV: Ground Truth',
                 status: false,
-                value: 60
+                value: 70,
+                priority:4
             },
             {
                 id: 5,
                 slug: 'financial_institutions',
                 title: 'Financial Institutions',
                 status: false,
-                value: 60
+                value: 70,
+                priority:5,
+                "legend":[
+                    {
+                        status:true,
+                        position:'topbar',
+                        title:"Financial Facilities",
+                        description:"Hover on map tile to see more data"
+                    },
+                    {
+                        status:false
+                    }
+                ]
             },
             {
                 id: 6,
                 slug: 'population_density',
                 title: 'Population Density',
                 status: false,
-                value: 60
+                value: 70,
+                priority:6
             },
             {
                 id: 7,
                 slug: 'educational_facilities',
                 title: 'Educational Facilities',
                 status: false,
-                value: 60
+                value: 70,
+                priority:7,
+                "legend":[
+                    {
+                        status:true,
+                        position:'topbar',
+                        title:"Educational Facilities",
+                        description:"Hover on map tile to see more data"
+                    },
+                    {
+                        status:false
+                    }
+                ]
             },
             {
                 id: 8,
                 slug: 'population_density_mask',
                 title: 'Population Density Mask',
                 status: false,
-                value: 60
+                value: 70,
+                priority:8
             },
             {
                 id: 9,
                 slug: 'built_environment',
                 title: 'Built Environment',
                 status: false,
-                value: 60
+                value: 70,
+                priority:9
             },
             {
                 id: 10,
                 slug: 'disaster_count',
                 title: 'Disaster Count',
                 status: false,
-                value: 60
+                value: 70,
+
             },
 
 
@@ -94,28 +138,28 @@ export const initalState = {
                         slug: 'distance_maps',
                         title: 'Distance Maps',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 1.2,
                         slug: 'distance_to_healthcare',
                         title: 'Distance to Healthcare',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 1.3,
                         slug: 'distance_to_coast',
                         title: 'Distance to Coast',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 1.4,
                         slug: 'distance_to_finance',
                         title: 'Distance to Finance',
                         status: false,
-                        value: 60
+                        value: 70
 
 
                     }
@@ -131,21 +175,21 @@ export const initalState = {
                         slug: 'Elevation',
                         title: 'Elevation',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 2.2,
                         slug: 'max_temp',
                         title: 'Max Temp',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 2.3,
                         slug: 'plant_health',
                         title: 'Plant Health',
                         status: false,
-                        value: 60
+                        value: 70
                     }
                 ]
             },
@@ -159,42 +203,42 @@ export const initalState = {
                         slug: 'sv_prediction',
                         title: 'SV_Prediction',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 3.2,
                         slug: 'nightlight_int',
                         title: 'Nightlight Int',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 3.3,
                         slug: 'pop_density',
                         title: 'Pop. Density',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 3.4,
                         slug: 'roads_lines',
                         title: 'Roads (lines)',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 3.5,
                         slug: ' healthsites_points',
                         title: 'Healthsites (points)',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                     {
                         id: 3.6,
                         slug: 'relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
-                        value: 60
+                        value: 70
                     },
                 ]
             }
@@ -369,6 +413,13 @@ export const reducer = (state, action) => {
                 ...state,
                 show_sidebar: !state.show_sidebar,
             };
+
+            case "CHANGE_LEVEL":
+                console.log("payload"+JSON.stringify(action.payload));
+                return {
+                    ...state,
+                    level: action.payload.level,
+                };    
         case "TOGGLE_AREA_OF_INTEREST":
             return {
                 ...state,
