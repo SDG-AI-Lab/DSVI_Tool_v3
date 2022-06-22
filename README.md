@@ -6,7 +6,11 @@ Code base seated on repo  [UNDP DSVI Tool]([](https://github.com/SDG-AI-Lab/DSVI
 
 In the project directory, you can run:
 
-### `npm run dev`
+### `yarn install`
+
+Install dependencies.
+
+### `yarn run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
