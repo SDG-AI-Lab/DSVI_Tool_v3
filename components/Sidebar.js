@@ -84,8 +84,6 @@ const Sidebar = () => {
 
           <span className={show_sidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
             Map Filters
-
-
           </span>
         </button>
 
@@ -102,7 +100,7 @@ const Sidebar = () => {
           <div className="absolute -right-10 object-center top-1/2 z-20">
             {
               /**
-               * 
+               *
                *   <SidebarExternalMenu />
                */
             }
@@ -217,7 +215,7 @@ const Sidebar = () => {
                                       <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
                                         <div className="flex i items-center"
-                                        
+
                                         onClick={() => {
                                           const newItems = [...socioeconomicStatus2.data];
                                           newItems[index] = {
@@ -231,7 +229,7 @@ const Sidebar = () => {
                                           dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                           // setSocioEconomicLayers(newItems);
                                         }}
-                                        
+
                                         >
                                           <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
                                             checked={val.status}
@@ -290,7 +288,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                         // setSocioEconomicLayers(newItems);
                                                       }}
                                                       className=" form-range h-6 p-0focus:outline-none focus:ring-0 focus:shadow-none"
-                                                      
+
                                                       />
 
                                                   </div>
@@ -398,7 +396,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                 <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
                                                   <div className="flex i items-center"
-                                                  
+
                                                   onClick={() => {
                                                     const newItems = [...geodata.data];
                                                     newItems[index]['data'][index2] = {
@@ -412,7 +410,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                     dispatch({ type: "CHANGE_GEODATA", payload: newItems })
 
                                                   }}
-                                                  
+
                                                   >
                                                     <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
 

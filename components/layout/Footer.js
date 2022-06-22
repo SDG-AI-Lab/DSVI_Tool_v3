@@ -2,18 +2,17 @@ import { useContext } from 'react';
 import Image from "next/image";
 import sdglogo from '/public/images/sdglogodark.jpg'
 import undp_logo from '/public/images/UNDP_Logo.png'
-import { FilterContext } from '../../context/FilterContext' 
+import { FilterContext } from '../../context/FilterContext'
 
 const Footer = () => {
 
   const { state } = useContext(FilterContext);
-  const show_sidebar = state["show_sidebar"];
 
   return (
     <>
 
       <footer className="bg-white text-gray-600 body-font">
-        <div className={show_sidebar == true ? "container px-5 py-2 ml-64 mx-auto flex items-center sm:flex-row flex-col" : "container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col" }>
+        <div className="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col">
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
 
           <Image
@@ -25,7 +24,7 @@ const Footer = () => {
                       className="h-12"
                     />
 
-         
+
             <span className="ml-3 text-xl">DSVI Tajikistan Development Tool</span>
           </a>
           <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2022 —
@@ -34,7 +33,7 @@ const Footer = () => {
 
 
           <span className="flex justify-center self-center items-center text-center  mx-auto">
-      
+
             <Image
                         src={undp_logo}
                         alt="undp logo"

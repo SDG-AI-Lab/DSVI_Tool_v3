@@ -5,10 +5,9 @@ import circular_logo from '/public/images/logo512.png'
 import undp_logo from '/public/images/UNDP_Logo.png'
 const TopBar = () => {
     const { state } = useContext(FilterContext);
-    const show_sidebar = state["show_sidebar"];
     return (
         <header className="bg-white text-gray-600 body-font ">
-            <div className={show_sidebar == true ? 'container ml-64 mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center' : 'container ml-auto mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center'}>
+            <div className="container ml-auto mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center">
                 <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                     <span className="ml-3 text-xl">DSVI Tajikistan Development Tool</span>
                 </a>
