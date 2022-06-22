@@ -8,10 +8,9 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = router.pathname.length == 1 && router.pathname == '/' ? router.pathname : router.pathname.substring(1);
   const { state } = useContext(FilterContext);
-  const show_sidebar = state["show_sidebar"];
   return (
     <header className="bg-white text-gray-600 body-font  dark:bg-black  dark:text-white">
-      <div className={show_sidebar == true ? "container ml-64 mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center" : "container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center"}>
+      <div className="container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center">
 
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
           <Link href={'/'} as={`/`}>
@@ -31,7 +30,7 @@ const Navbar = () => {
               <span className={pathname == 'about' ? 'text-blue-700 pl-2' : 'pl-2'}>About</span>
             </a>
           </Link>
-        </nav>       
+        </nav>
       </div>
     </header>
   )
