@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import '../styles/map.css'
 import Main from "../components/layout/Main"
 import {FilterProvider} from '../context/FilterContext'
 import {LegendProvider} from '../context/LegendContext'
