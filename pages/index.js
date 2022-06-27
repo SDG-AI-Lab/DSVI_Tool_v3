@@ -3,7 +3,8 @@ import dynamic from 'next/dynamic';
 import Sidebar from "../components/Sidebar";
 import DataSidebar from "../components/map/DataSidebar";
 import { FilterContext } from '../context/FilterContext'
-const OsmMapNoSSR =dynamic(()=>import("../components/mapbox/Map"),{
+
+const OsmMapNoSSR =dynamic(()=>import("../components/mapbox/Maplatest"),{
     ssr:false,
 })
 const Map1=()=>{

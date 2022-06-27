@@ -7,13 +7,36 @@ import { FilterContext } from '../context/FilterContext';
 const Navbar = () => {
   const router = useRouter();
   const pathname = router.pathname.length == 1 && router.pathname == '/' ? router.pathname : router.pathname.substring(1);
-  const { state } = useContext(FilterContext);
+  const { state, dispatch } = useContext(FilterContext);
   const show_sidebar = state["show_sidebar"];
   return (
     <header className="bg-white text-gray-600 body-font  dark:bg-black  dark:text-white">
       <div className={show_sidebar == true ? "container ml-64 mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center" : "container mx-auto flex flex-wrap p-2 flex-col md:flex-row items-center"}>
+      <button
+          className={show_sidebar == true ? 'rounded-3xl bg-white border-2 border-blue-700 px-5 py-2 flex' : 'rounded-3xl bg-white border-2 border-black px-5 py-2 flex'}
+          onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
+        >
 
+
+          <svg xmlns="http://www.w3.org/2000/svg" className={show_sidebar == true ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+          </svg>
+
+          <span className={show_sidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
+
+            {
+              show_sidebar == true ? 'Hide Map Filters':'Show Map Filters'
+            }
+       
+
+
+          </span>
+        </button>
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+          
+
+          
+          
           <Link href={'/'} as={`/`}>
           <a className="mr-5 hover:text-gray-900 px-2 flex ">
             <svg xmlns="http://www.w3.org/2000/svg" className={pathname == 'map1' ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" strokeWidth="2">
