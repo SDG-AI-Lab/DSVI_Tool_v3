@@ -76,7 +76,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   return (
     <MapContainer
-      center={[38.840184, 71.082684]}
+      center={[38.840184, -71.082684]}
       zoom={8}
       scrollWheelZone={true}
       className={styles.container}

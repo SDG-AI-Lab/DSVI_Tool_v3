@@ -5,7 +5,7 @@ import "leaflet-defaulticon-compatibility";
 
 const Map = () => {
   return (
-    <MapContainer center={[40.8054,-74.0241]} zoom={14} scrollWheelZoom={false} style={{height: "100%", width: "100%"}}>
+    <MapContainer center={[38.840184,-71.082684]} zoom={14} scrollWheelZoom={false} style={{height: "100%", width: "100%"}}> #38.840184, -71.082684
       <Marker 
       position={[40.8054,-74.0241]}
       draggable={true}
