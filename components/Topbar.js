@@ -3,39 +3,60 @@ import Image from "next/image";
 import { FilterContext } from '../context/FilterContext';
 import circular_logo from '/public/images/logo512.png'
 import undp_logo from '/public/images/UNDP_Logo.png'
+import sdglogo from '/public/images/sdglogodark.jpg'
+import Navbar from '../components/Navbar';
+
 const TopBar = () => {
     const { state } = useContext(FilterContext);
     const show_sidebar = state["show_sidebar"];
     return (
         <header className="bg-white text-gray-600 body-font ">
-            <div className={show_sidebar == true ? 'container ml-64 mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center' : 'container ml-auto mx-auto flex flex-wrap px-5 flex-col md:flex-row items-center'}>
-                <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                    <span className="ml-3 text-xl">DSVI Tajikistan Development Tool</span>
-                </a>
-                <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-                    <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                        <Image
-                            src={circular_logo}
-                            alt="circular"
-                            width="70px"
-                            height="70px"
-                            layout="intrinsic"
-                            className="w-50 h-20"
-                        />
-                    </a>
-                </nav>
-                <a className="inline-flex items-center  border-0 py-1 px-3   rounded text-base mt-4 md:mt-0">
-
-                    <Image
-                        src={undp_logo}
-                        alt="undp logo"
-                        width="60px"
-                        height="90px"
-                        layout="intrinsic"
-                        className=" h-20"
-                    />
-                </a>
-            </div>
+            <nav>
+                <ul className="flex justify-between px-5">
+                    <li className="flex items-center w-52">
+                        <a className="flex items-center">
+                            <Image
+                                src={sdglogo}
+                                alt="SDG LOGO"
+                                width="70px"
+                                height="70px"
+                                layout="intrinsic"
+                                className="rounded-full"
+                            />
+                        </a>
+                        <a className="flex items-center pl-2">
+                            <p className="text-sm w-28 text-blue-600">
+                                DSVI Tajikistan Development Tool
+                            </p>
+                        </a>
+                    </li>
+                    <li className="flex items-end">
+                        <Navbar/>
+                    </li>
+                    <li className="flex items-center w-52 justify-end">
+                        <a className="flex items-center">
+                            <Image
+                                src={circular_logo}
+                                alt="circular"
+                                width="70px"
+                                height="70px"
+                                layout="intrinsic"
+                                className="w-50 h-20"
+                            />
+                        </a>
+                        <a className="flex items-center pl-5">
+                            <Image
+                                src={undp_logo}
+                                alt="undp logo"
+                                width="60px"
+                                height="90px"
+                                layout="intrinsic"
+                                className="h-20"
+                            />
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </header>
     )
 }
