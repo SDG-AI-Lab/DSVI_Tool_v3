@@ -3,7 +3,7 @@ import TopBar from '../Topbar';
 import Navbar from '../Navbar';
 function Header() {
   return (
-    <>        
+    <>
       <Head>
         <meta charSet="UTF-8" />
         <title>SDG AI Lab | DSVI Tool</title>
@@ -19,9 +19,9 @@ function Header() {
 
          */}
 
-             </Head>
-      <TopBar/>
-      <Navbar />     
+      </Head>
+      <TopBar />
+      {/* <Navbar />      */}
     </>
   );
 }

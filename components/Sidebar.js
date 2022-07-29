@@ -65,112 +65,18 @@ const Sidebar = () => {
   }
 
   return (
-
     <>
+      <div className={`text-white min-h-[calc(100vh-90px)] min-w-[230px]`}>
 
-      {
-        /*
-      }
-      
-            <div className="flex justify-center self-center items-center my-2 ">
-      
-      
-      
-              <button
-                className={show_sidebar == true ? 'rounded-3xl bg-white border-2 border-blue-700 px-5 py-2 flex' : 'rounded-3xl bg-white border-2 border-black px-5 py-2 flex'}
-                onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
-              >
-      
-      
-                <svg xmlns="http://www.w3.org/2000/svg" className={show_sidebar == true ? 'stroke-blue-700 h-6 w-6' : 'h-6 w-6 stroke-slate-700'} fill="none" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                </svg>
-      
-                <span className={show_sidebar == true ? 'px-2 text-blue-700' : 'px-2'}>
-                  Map Filters
-      
-      
-                </span>
-              </button>
-      
-            </div>
-      
-      */
-      }
-
-
-      <div
-        className={` top-0 left-0 w-[18vw]   text-white fixed h-full z-40  ease-in-out duration-300 ${show_sidebar ? "-translate-x-0 " : "-translate-x-full"
-          }`}
-      >
-        <div className=" w-60  h-full shadow-md bg-white absolute" id="sidenavSecExample">
-
-
-          <div className="absolute -right-10 object-center top-1/2 z-20">
-            {
-              /**
-               * 
-               *   <SidebarExternalMenu />
-               */
-            }
-
-          </div>
-
-          <div className=" overflow-y-auto h-screen ">
-
-            <div className="pt-4 pb-2 px-4 ">
-              <a href="#!">
-                <div className="flex items-center">
-
-
-                  <div className="shrink-0">
-                    <Image
-                      src={sdglogo}
-                      alt="SDG LOGO"
-                      width="70px"
-                      height="70px"
-                      layout="intrinsic"
-                      className="rounded-full w-20"
-                    />
-
-
-                  </div>
-                  <div className="grow ml-3">
-                    <p className="text-sm font-semibold text-blue-600"> DSVI Tajikistan Development Tool
-
-
-                      <svg xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", payload: {} })}
-
-                        className=" absolute -right-6 z-20 bg-white p-2 border-2 rounded-full h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                      </svg>
-
-
-                    </p>
-
-
-
-                  </div>
-
-
-                </div>
-              </a>
-            </div>
-            <hr className="p-2 m-2" />
+        <div className="h-full bg-white" id="sidenavSecExample">
+          <div className=" overflow-y-auto">
             <div className="">
               <ul className="relative px-1 ">
-
-
                 <li className="relative">
                   <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
                   // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
                   //  onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
-
                   >
-
-
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
                     </svg>
@@ -179,8 +85,6 @@ const Sidebar = () => {
 
                   <ul className="flex">
                     {
-
-
                       [{
                         slug: 1,
                         title: 'One'
