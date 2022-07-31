@@ -10,7 +10,7 @@ const OsmMapNoSSR = dynamic(() => import("../components/mapbox/Maplatest"), {
 const Map1 = () => {
     const { state } = useContext(FilterContext);
     const show_sidebar = state["show_sidebar"];
-    const [location, setLocation] = useState({ lng: 42.883084, lat: 70.921398 })
+    const [location, setLocation] = useState({ lng: 38.917275, lat: 71.014469 }) // 38.917275, 71.014469
     return (
         <>
             <div className="flex">
