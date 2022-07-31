@@ -27,9 +27,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   var health_care_institutions_status = health_care_institutions.status
   var health_care_institutions_value = health_care_institutions.value
   var health_pathOptions = {
-    weight: 1, fillColor: 'purple', color: 'white', opacity: health_care_institutions_value / 100, fillOpacity: health_care_institutions_value / 100
+    weight: 1, fillColor: 'purple', color: 'white', opacity: health_care_institutions_value / 100, 
+    fillOpacity: health_care_institutions_value / 100
   }
-
 
   var financial_institutions = socioeconomic.find(
     (e) => e.slug === 'financial_institutions'
@@ -37,7 +37,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   var financial_institutions_status = financial_institutions.status
   var financial_institutions_value = financial_institutions.value
   var financial_pathOptions = {
-    weight: 1, fillColor: 'orange', color: 'white', opacity: financial_institutions_value / 100, fillOpacity: financial_institutions_value / 100
+    weight: 1, fillColor: 'orange', color: 'white', opacity: financial_institutions_value / 100, 
+    fillOpacity: financial_institutions_value / 100
   }
 
   var educational_facilities = socioeconomic.find(
@@ -47,7 +48,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   var educational_facilities_value = educational_facilities.value;
   var educational_facilities_legend = educational_facilities.legend;
   var educational_pathOptions = {
-    weight: 1, fillColor: 'yellow', color: 'white', opacity: educational_facilities_value / 100, fillOpacity: educational_facilities_value / 100
+    weight: 1, fillColor: 'yellow', color: 'white', opacity: educational_facilities_value / 100, 
+    fillOpacity: educational_facilities_value / 100
   }
   
     const highlightFeature = async(e,data) => {
@@ -135,10 +137,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
           </svg>
         </div>
-
-        
-        
-
 
       </Control>
       <Control position='topright' >

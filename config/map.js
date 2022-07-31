@@ -32,6 +32,6 @@ export const TileProviders = [
   ]
   
   export const Settings = {
-    latlong: [42.883084, 70.921398],
+    latlong: [38.917275, 71.014469], // 38.917275, 71.014469
     zoom: 7,
   }
