@@ -66,12 +66,17 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`text-white min-h-[calc(100vh-90px)] min-w-[230px]`}>
+      <div className={`bg-white h-[calc(100vh-90px)] w-[250px] min-w-[250px] overflow-auto`}>
 
-        <div className="h-full bg-white" id="sidenavSecExample">
-          <div className=" overflow-y-auto">
-            <div className="">
-              <ul className="relative px-1 ">
+        <div id="sidenavSecExample">
+          <div>
+            <div className='flex items-center justify-center h-8'>
+              <p className='text-gray-700'>Main</p>
+            </div>
+            <hr className="my-2" />
+            <div>
+              <ul className="relative px-1">
+                <li><p></p></li>
                 <li className="relative">
                   <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                   // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
@@ -100,21 +105,21 @@ const Sidebar = () => {
                         return (
 
                           <>
-                          
-                          <div className="flex" onClick={() =>{dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}}>
 
-<input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
-  checked={val.slug == level ? true : false}
-  //defaultChecked={false}
+                            <div className="flex" onClick={() => { dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } }) }}>
 
-  onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
+                              <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
+                                checked={val.slug == level ? true : false}
+                                //defaultChecked={false}
 
-/>
-<a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                                onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
 
-</div>    
-                          <div className="text-gray-700">
-           
+                              />
+                              <a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+
+                            </div>
+                            <div className="text-gray-700">
+
                             </div>
                           </>
 
@@ -124,13 +129,6 @@ const Sidebar = () => {
 
                   </ul>
                 </li>
-
-
-
-
-
-
-
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
@@ -144,39 +142,24 @@ const Sidebar = () => {
                     <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
                   </a>
                 </li>
-
-
                 <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false" aria-controls="collapseSidenavSecEx2"
-
                   //  onClick={() => setScioEconomicLayersStatus(!socioEconomicLayersStatus)}
-
                   onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
                 >
-
-
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-
                   <span>Socioeconomic Layers</span>
-
                   {
                     socioeconomicStatus2.status == true ?
-
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
-
                       :
-
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
                       </svg>
                   }
-
-
-
-
                 </a>
 
                 {
@@ -225,7 +208,7 @@ const Sidebar = () => {
 
                                         {
                                           val.status && val.status == true ?
-                                            <div className="flex flex-col space-y-2 p-2 w-80">
+                                            <div className="flex flex-col space-y-2 p-2">
                                               <div className="px-6">
                                                 <span className="text-gray-700 text-sm">opacity:
 
@@ -319,7 +302,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
 
                 <li className="relative" id="sidenavSecEx3">
-                  <a className="flex items-center text-sm mt-2 py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3" aria-expanded="false" aria-controls="collapseSidenavSecEx3"
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3" aria-expanded="false" aria-controls="collapseSidenavSecEx3"
 
 
                     // onClick={() => setGeodataLayersStatus(!geodataLayersStatus)}
@@ -410,7 +393,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                                                   {
                                                     val2.status && val2.status == true ?
-                                                      <div className="flex flex-col space-y-2 p-2 w-80">
+                                                      <div className="flex flex-col space-y-2 p-2">
                                                         <div className="px-6">
 
                                                           <span className="text-gray-700 text-sm">opacity:
@@ -519,185 +502,143 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                 </li>
               </ul>
               <hr className="my-2" />
+            
+              <ul>
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    onClick={() => dispatch({ type: "TOGGLE_VULNERABILTY", payload: {} })}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                    <span>{vulnerability == true ? 'Hide Vulnerabilty' : 'Show Vulnerabilty'}</span>
+                  </a>
+                  {
+                    vulnerability == true ?
+                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
+                        <li className="relative">
+                          <div className="flex i items-center ">
+                            <span className="text-gray-700 px-2 text-sm ml-3">
+                              Categories
+                            </span>
+                          </div>
+                          <div className="px-6">
+
+                            <DragDropContext onDragEnd={handleOnDragEndCategory}>
+
+                              <Droppable droppableId="categories">
+                                {(provided) => (
+                                  <ul className="categories" {...provided.droppableProps} ref={provided.innerRef}>
+                                    {categories.map((val, index) => {
+                                      return (
+
+                                        <Draggable key={val.id} draggableId={val.id.toString()} index={index}>
+                                          {(provided) => (
+                                            <>
+                                              <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+
+                                                <div className="flex i items-center">
+                                                  <div className="text-red-400">{ }</div>
+                                                  <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                    defaultChecked={false}
+                                                    checked={val.status}
+                                                    onClick={() => {
+                                                      const newItems = [...categories];
+                                                      newItems[index] = {
+                                                        id: val.id,
+                                                        slug: val.slug,
+                                                        title: val.title,
+                                                        status: !val.status
+
+                                                      };
+                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
+                                                    }}
+                                                  />
+                                                  <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                                                </div>
+                                              </li>
+                                              <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
+                                            </>
+                                          )}
+                                        </Draggable>
+                                      );
+                                    })}
+                                  </ul>
+                                )}
+                              </Droppable>
+                            </DragDropContext>
+                          </div>
+                        </li>
+                      </ul>
+                      : null
+                  }
+                </li>
+
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+
+                    onClick={() => dispatch({ type: "TOGGLE_DSV_INDICATOR", payload: {} })}
+                  >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    <span>{dsvIndicator == true ? 'Hide DSV Indicators' : 'Show DSV Indicators'}</span>
+                  </a>
+
+                  {
+                    dsvIndicator == true ?
+                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
+                        <li className="relative">
+                          <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                            onClick={() => { onOpenDsvModal() }}
+                          >
+
+
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                            <span>Select Data Column</span>
+                          </a>
+                        </li>
+                      </ul>
+                      : null
+                  }
 
-              <li className="relative">
-                <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                  onClick={() => dispatch({ type: "TOGGLE_VULNERABILTY", payload: {} })}
 
+                </li>
 
-                >
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
+                  //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
 
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
-                  <span>{vulnerability == true ? 'Hide Vulnerabilty' : 'Show Vulnerabilty'}</span>
-                </a>
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
 
-                {
-                  vulnerability == true ?
-                    <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
-                      <li className="relative">
-                        <div className="flex i items-center ">
-                          <span className="text-gray-700 px-2 text-sm ml-3">
+                    <span>Draw Area of Interest</span>
+                  </a>
+                </li>
 
-                            Categories
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
-                          </span>
+                  //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
 
+                  >
 
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span>Statistics</span>
+                  </a>
+                </li>
+              </ul>
 
-
-                        </div>
-                        <div className="px-6">
-
-                          <DragDropContext onDragEnd={handleOnDragEndCategory}>
-
-                            <Droppable droppableId="categories">
-                              {(provided) => (
-                                <ul className="categories" {...provided.droppableProps} ref={provided.innerRef}>
-                                  {categories.map((val, index) => {
-                                    return (
-
-                                      <Draggable key={val.id} draggableId={val.id.toString()} index={index}>
-                                        {(provided) => (
-                                          <>
-                                            <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-
-                                              <div className="flex i items-center">
-                                                <div className="text-red-400">{ }</div>
-                                                <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
-                                                  defaultChecked={false}
-                                                  checked={val.status}
-                                                  onClick={() => {
-                                                    const newItems = [...categories];
-                                                    newItems[index] = {
-                                                      id: val.id,
-                                                      slug: val.slug,
-                                                      title: val.title,
-                                                      status: !val.status
-
-                                                    };
-                                                    dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
-
-                                                  }}
-
-
-                                                />
-                                                <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-                                              </div>
-                                            </li>
-                                            <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
-
-                                          </>
-
-
-                                        )}
-                                      </Draggable>
-
-
-
-                                    );
-                                  })}
-                                </ul>
-                              )}
-                            </Droppable>
-
-
-                          </DragDropContext>
-
-
-
-
-
-
-
-                        </div>
-                      </li>
-
-                    </ul>
-                    : null
-
-                }
-
-
-
-
-
-
-
-
-              </li>
-
-
-
-
-              <li className="relative">
-                <a className="mt-2 flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-
-                  onClick={() => dispatch({ type: "TOGGLE_DSV_INDICATOR", payload: {} })}
-                >
-
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                  <span>{dsvIndicator == true ? 'Hide DSV Indicators' : 'Show DSV Indicators'}</span>
-                </a>
-
-                {
-                  dsvIndicator == true ?
-                    <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
-                      <li className="relative">
-                        <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                          onClick={() => { onOpenDsvModal() }}
-                        >
-
-
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                          </svg>
-                          <span>Select Data Column</span>
-                        </a>
-                      </li>
-                    </ul>
-                    : null
-                }
-
-
-              </li>
-
-
-
-              <li className="relative">
-                <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
-
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-
-                  <span>Draw Area of Interest</span>
-                </a>
-              </li>
-
-
-              <li className="relative">
-                <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
-
-                >
-
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                  <span>Statistics</span>
-                </a>
-              </li>
 
 
 
