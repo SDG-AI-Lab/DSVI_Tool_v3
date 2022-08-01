@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Modal } from 'react-responsive-modal';
 const SidebarModal = (props) => {
- 
 
     const [Modal, setModal] = useState(false);
-
     const onOpenModal = () => setModal(true);
     const onCloseModal = () => setModal(false);
 
@@ -25,7 +23,6 @@ const SidebarModal = (props) => {
                         >
                             <i
 
-
                                 className={selectedMenu == val.id ? `text-orange-500 ${val.icon}` : `text-white ${val.icon}`}></i>
                         </div>
 
@@ -34,7 +31,6 @@ const SidebarModal = (props) => {
                     )
                 })
             }
-
 
             <Modal open={dsvModal}
                 onClose={
@@ -52,7 +48,6 @@ const SidebarModal = (props) => {
                         <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
                         <hr />
-
 
                     </div>
                     <div className="flex justify-end mt-4">
@@ -73,8 +68,6 @@ const SidebarModal = (props) => {
 
         </>
     );
-
-
 
 }
 export default SidebarModal;

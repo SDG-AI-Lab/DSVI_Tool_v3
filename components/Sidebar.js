@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import Image from 'next/image';
-import sdglogo from '/public/images/sdglogodark.jpg'
 import { Modal } from 'react-responsive-modal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
@@ -28,8 +27,6 @@ const Sidebar = () => {
   const [dsvModal, setDsvModal] = useState(false);
   const onOpenDsvModal = () => setDsvModal(true);
   const onCloseDsvModal = () => setDsvModal(false);
-
-
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -62,11 +59,15 @@ const Sidebar = () => {
 
         <div id="sidenavSecExample">
           <div>
+          </div>
+            <hr className="my-0" />
+            <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-gray-700'>Main</p>
+              <p className='text-gray-700 h-2'>Main Menu</p>
             </div>
             <hr className="my-2" />
             <div>
+              
               <ul className="relative px-1">
                 <li><p></p></li>
                 <li className="relative">
@@ -74,10 +75,12 @@ const Sidebar = () => {
                   // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
                   //  onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
                   >
+                    
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
                     </svg>
-                    <span>Select Level</span>
+                    
+                    <span>Select administrative level</span>
                   </span>
 
                   <ul className="flex">
@@ -121,6 +124,7 @@ const Sidebar = () => {
 
                   </ul>
                 </li>
+                <hr className="my-2" />
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 

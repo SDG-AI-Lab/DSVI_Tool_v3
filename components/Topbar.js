@@ -1,57 +1,60 @@
+// This file actually DOES something. Deleteing will break the tool: tested: 01.08.22 by Martin Szigeti
+// It loads and instructs the styles of the logos
+
 import { useContext } from "react";
 import Image from "next/image";
 import { FilterContext } from '../context/FilterContext';
-import circular_logo from '/public/images/logo512.png'
+import circular_logo from '/public/images/SDG AI Lab black logo_transparent.png'
 import undp_logo from '/public/images/UNDP_Logo.png'
-import sdglogo from '/public/images/sdglogodark.jpg'
+import sdglogo from '/public/images/logo512.png'
 import Navbar from '../components/Navbar';
 
 const TopBar = () => {
     const { state } = useContext(FilterContext);
     const show_sidebar = state["show_sidebar"];
     return (
-        <header className="bg-white text-gray-600 body-font ">
+        <header className="bg-white text-gray-800 body-font">
             <nav>
-                <ul className="flex justify-between px-5">
-                    <li className="flex items-center w-52">
+                <ul className="h-36 flex justify-between px-3">
+                    <li className="flex items-center">
                         <a className="flex items-center">
                             <Image
                                 src={sdglogo}
                                 alt="SDG LOGO"
-                                width="70px"
-                                height="70px"
+                                width="100px"
+                                height="100px"
                                 layout="intrinsic"
                                 className="rounded-full"
                             />
                         </a>
-                        <a className="flex items-center pl-2">
-                            <p className="text-sm w-28 text-blue-600">
-                                DSVI Tajikistan Development Tool
+                        <a className="text-center flex pl-3 text-align: center">
+                            <p className="text-2xl font-bold">
+                                DSVI Tajikistan Tool
                             </p>
                         </a>
                     </li>
                     <li className="flex items-end">
                         <Navbar/>
                     </li>
-                    <li className="flex items-center w-52 justify-end">
+                    <li className="flex items-center justify-end">
                         <a className="flex items-center">
                             <Image
                                 src={circular_logo}
                                 alt="circular"
-                                width="70px"
-                                height="70px"
+                                width="120px"
+                                height="120px"
                                 layout="intrinsic"
-                                className="w-50 h-20"
+                                
                             />
                         </a>
                         <a className="flex items-center pl-5">
                             <Image
                                 src={undp_logo}
                                 alt="undp logo"
-                                width="60px"
-                                height="90px"
+                                width="80px"
+                                height="120px"
                                 layout="intrinsic"
-                                className="h-20"
+                                
                             />
                         </a>
                     </li>
