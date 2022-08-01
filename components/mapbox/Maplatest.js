@@ -18,7 +18,6 @@ import finandata_1 from '/public/static/finan_1.json'
 import finandata_2 from '/public/static/finan_2.json'
 import finandata_3 from '/public/static/finan_3.json'
 
-
 import healthdata_1 from '/public/static/health_1.json'
 import healthdata_2 from '/public/static/health_2.json'
 import healthdata_3 from '/public/static/health_3.json'
@@ -37,18 +36,21 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   var educational_facilities = socioeconomic.find(
     (e) => e.slug === 'educational_facilities'
   )
-  var { status: educational_facilities_status, value: educational_facilities_value, legend: educational_facilities_legend } = educational_facilities;
+  var { status: educational_facilities_status, value: educational_facilities_value, 
+    legend: educational_facilities_legend } = educational_facilities;
 
   var financial_institutions = socioeconomic.find(
     (e) => e.slug === 'financial_institutions'
   )
-  var { status: financial_institutions_status, value: financial_institutions_value, legend: financial_institutions_legend } = financial_institutions;
+  var { status: financial_institutions_status, value: financial_institutions_value, 
+    legend: financial_institutions_legend } = financial_institutions;
 
 
   var health_institutions = socioeconomic.find(
     (e) => e.slug === 'health_care_institutions'
   )
-  var { status: health_institutions_status, value: health_institutions_value, legend: health_institutions_legend } = health_institutions;
+  var { status: health_institutions_status, value: health_institutions_value, 
+    legend: health_institutions_legend } = health_institutions;
 
 
   const NormalizeData = (number, maxNumber, minNumber) => {
