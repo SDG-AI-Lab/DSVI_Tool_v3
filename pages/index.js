@@ -15,7 +15,7 @@ const Map1 = () => {
         <>
             <div className="flex">
                 <Sidebar />
-                <div className={`m-2 p-2 bg-white rounded-lg h-fit w-full`}>
+                {/* <div className={`m-2 p-2 bg-white rounded-lg h-fit w-full`}>
                     <OsmMapNoSSR
                         center={location}
                         location={location}
@@ -26,7 +26,17 @@ const Map1 = () => {
                             setLocation(loc);
                         }}
                     />
-                </div>
+                </div> */}
+                <OsmMapNoSSR
+                        center={location}
+                        location={location}
+                        draggable={false}
+                        title="testing"
+                        onDragMarker={(e) => {
+                            let loc = { lat: e.lat, lng: e.lng };
+                            setLocation(loc);
+                        }}
+                    />
                 <DataSidebar />
             </div>
         </>

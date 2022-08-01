@@ -1,8 +1,9 @@
 .container{
-    height:800px;
+
+    // height: 600px;
+    height: calc(100vh-90px);
     width:100%;
     z-index: 0 !important;
-
 }
 .popup{
     color:red;
