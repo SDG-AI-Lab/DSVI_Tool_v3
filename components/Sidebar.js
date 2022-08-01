@@ -24,12 +24,7 @@ const Sidebar = () => {
 
   const socioEconomicLayers = state["socioeconomic"]["data"];
   const geodataLayers = state["geodata"]["data"];
-
-
-
-
   const [dsvModal, setDsvModal] = useState(false);
-
   const onOpenDsvModal = () => setDsvModal(true);
   const onCloseDsvModal = () => setDsvModal(false);
 
