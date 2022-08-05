@@ -63,7 +63,7 @@ const Sidebar = () => {
             <hr className="my-0" />
             <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-gray-700 h-2'>Main Menu</p>
+              <p className='mb-3 text-lg text-gray-700 h-2'>Main Menu</p>
             </div>
             <hr className="my-2" />
             <div>

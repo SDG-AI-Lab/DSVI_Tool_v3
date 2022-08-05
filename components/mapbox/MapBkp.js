@@ -93,7 +93,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             url="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Satellite" checked={true}>
+        <LayersControl.BaseLayer name="SDSADASD" checked={true}>
           <TileLayer
             attribution='&copy; <a href="https://www.esri.com">ESRI</a> '
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

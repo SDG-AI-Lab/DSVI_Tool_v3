@@ -76,15 +76,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 : '#FFEDA0';
   })
 
-
-
   return (
-
-
 
       <MapContainer
         center={Settings.latlong}
         zoom={Settings.zoom}
+        position={Settings.bottomleft} // does nothing
         scrollWheelZone={true}
         className={styles.container}
       >

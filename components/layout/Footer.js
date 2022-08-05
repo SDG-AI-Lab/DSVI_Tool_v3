@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import Image from "next/image";
-import sdglogo from '/public/images/sdglogodark.jpg'
+import sdglogo from '/public/images/SDG AI Lab black logo_transparent.png'
 import undp_logo from '/public/images/UNDP_Logo.png'
 import { FilterContext } from '../../context/FilterContext' 
 
@@ -12,18 +12,18 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-white text-gray-600 body-font">
-        <ul className="flex items-center px-5">
+        <ul className="flex items-center px-2">
           <li key="1">
             <a className="flex title-font font-medium items-center text-gray-900 w-44">
             <Image
                 src={sdglogo}
                 alt="SDG LOGO"
                 width="120px"
-                height="100px"
+                height="120px"
                 layout="intrinsic"
                 className=""
               />
-            <p className="text-[12px] w-13 text-blue-600 pl-2">
+            <p className="text-[12px] w-13 text-blue-600 pl-1">
                 DSVI Tajikistan Development Tool
             </p>
           </a>

@@ -10,8 +10,8 @@ const ControlMenu = (props) => {
     <>
       <Control position={position} >
 
-        <div className="border-none flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-2 h-10 w-10 ${show_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+        <div className="bg-white  flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-white-600 border-2 p-2 h-10 w-10 ${show_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
 
             onClick={(e) => {
               e.stopPropagation();
@@ -26,7 +26,7 @@ const ControlMenu = (props) => {
 
 
 
-          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-10 w-10 ${show_sidebar_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+          <svg xmlns="http://www.w3.org/2000/svg" className={`transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-white-600 border-2 p-2 h-10 w-10 ${show_sidebar_data == true ? 'stroke-blue-500' : 'stroke-black-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();

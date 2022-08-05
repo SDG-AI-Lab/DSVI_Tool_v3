@@ -15,7 +15,7 @@ const TopBar = () => {
     return (
         <header className="bg-white text-gray-800 body-font">
             <nav>
-                <ul className="h-36 flex justify-between px-3">
+                <ul className="h-35 flex justify-between px-3">
                     <li className="flex items-center">
                         <a className="flex items-center">
                             <Image

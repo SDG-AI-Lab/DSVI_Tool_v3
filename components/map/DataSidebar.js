@@ -1,8 +1,4 @@
 import { useState, useContext } from "react";
-import Image from 'next/image';
-import sdglogo from '/public/images/sdglogodark.jpg'
-import { Modal } from 'react-responsive-modal';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../../context/FilterContext'
 
 const Sidebar = () => {
@@ -13,12 +9,10 @@ const Sidebar = () => {
 
     return (
 
-        <>
-
-
+        < >
 
 <div
-        className={`top-0 right-0 w-[40vw] bg-white  p-10 pl-20 shadow-2xl text-white fixed h-full z-40  ease-in-out duration-300 ${
+        className={`top-0 right-0 w-[40vw] bg-white  p-10 pl-20 shadow-2xl text-white fixed h-full z-40 ease-in-out duration-300 ${
             show_sidebar_data ? "translate-x-0 " : "translate-x-full" 
         }`}
       >
@@ -34,6 +28,7 @@ const Sidebar = () => {
         <h3 className="mt-20 text-4xl font-semibold ">
          Data will be here
         </h3>
+        
           </div>
 
       </div>
