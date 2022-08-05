@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, LayersControl, WMSTileLayer } from 'react-leaflet'
+import { MapContainer, LayersControl, WMSTileLayer, ZoomControl } from 'react-leaflet'
 import Legend from '../map/Legend';
 import CustomPopup from '../map/Popup';
 import styles from './Map.module.scss'
@@ -85,6 +85,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       <MapContainer
         center={Settings.latlong}
         zoom={Settings.zoom}
+        zoomControl={false}
         scrollWheelZone={true}
         className={styles.container}
       >
@@ -95,6 +96,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
+        <ZoomControl
+          position="bottomright"
+        />
         <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
           children={
             educational_facilities_status || financial_institutions_status || health_institutions_status ?
