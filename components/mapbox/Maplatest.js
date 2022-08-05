@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import L from 'leaflet'
 import { MapContainer, LayersControl, WMSTileLayer, ZoomControl } from 'react-leaflet'
 import Legend from '../map/Legend';
-import CustomPopup from '../map/Popup';
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
 import { LegendContext } from '../../context/LegendContext'
@@ -22,45 +21,35 @@ import healthdata_1 from '/public/static/health_1.json'
 import healthdata_2 from '/public/static/health_2.json'
 import healthdata_3 from '/public/static/health_3.json'
 
-
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
   const { state: legenddata, dispatch: setLegendData } = useContext(LegendContext);
   const level = state["level"];
   const show_data = state['show_data'];
   const show_sidebar_data = state['show_sidebar_data'];
-
   const socioeconomic = state['socioeconomic']['data'];
-
 
   var educational_facilities = socioeconomic.find(
     (e) => e.slug === 'educational_facilities'
   )
-  var { status: educational_facilities_status, value: educational_facilities_value, 
+  var { status: educational_facilities_status, value: educational_facilities_value,
     legend: educational_facilities_legend } = educational_facilities;
-
   var financial_institutions = socioeconomic.find(
     (e) => e.slug === 'financial_institutions'
   )
-  var { status: financial_institutions_status, value: financial_institutions_value, 
+  var { status: financial_institutions_status, value: financial_institutions_value,
     legend: financial_institutions_legend } = financial_institutions;
-
-
   var health_institutions = socioeconomic.find(
     (e) => e.slug === 'health_care_institutions'
   )
-  var { status: health_institutions_status, value: health_institutions_value, 
+  var { status: health_institutions_status, value: health_institutions_value,
     legend: health_institutions_legend } = health_institutions;
-
-
   const NormalizeData = (number, maxNumber, minNumber) => {
     var val = (number - minNumber) / (maxNumber - minNumber);
     return mapPolygonColorToDensity(val);
   }
 
   const mapPolygonColorToDensity = (normalizeData => {
-
-
     return normalizeData == 0
       ? '#00800A'
       : normalizeData == 1
@@ -76,12 +65,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 : '#FFEDA0';
   })
 
-
-
   return (
-
-
-
       <MapContainer
         center={Settings.latlong}
         zoom={Settings.zoom}
@@ -108,7 +92,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           }
         >
         </ControlMenu>
-
 
         {educational_facilities_status && level == 1 &&
           edudata_1.features.map((edulibrary, index) => {
@@ -204,7 +187,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             )
 
           })
-
         }
 
         {educational_facilities_status && level == 3 &&
@@ -253,9 +235,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             )
 
           })
-
         }
-
 
         {financial_institutions_status && level == 1 &&
           finandata_1.features.map((finanlibrary, index) => {
@@ -303,9 +283,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             )
 
           })
-
         }
-
 
         {financial_institutions_status && level == 2 &&
           finandata_2.features.map((finanlibrary, index) => {
@@ -351,11 +329,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 legendDescription={financial_institutions_legend[0]["description"]}
               />
             )
-
           })
-
         }
-
 
         {financial_institutions_status && level == 3 &&
           finandata_3.features.map((finanlibrary, index) => {
@@ -401,11 +376,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 legendDescription={financial_institutions_legend[0]["description"]}
               />
             )
-
           })
-
         }
-
 
         {health_institutions_status && level == 1 &&
           healthdata_1.features.map((healthlibrary, index) => {
@@ -451,9 +423,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 legendDescription={health_institutions_legend[0]["description"]}
               />
             )
-
           })
-
         }
         {health_institutions_status && level == 2 &&
           healthdata_2.features.map((healthlibrary, index) => {
@@ -499,9 +469,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 legendDescription={health_institutions_legend[0]["description"]}
               />
             )
-
           })
-
         }
         {health_institutions_status && level == 3 &&
           healthdata_3.features.map((healthlibrary, index) => {
@@ -547,15 +515,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 legendDescription={health_institutions_legend[0]["description"]}
               />
             )
-
           })
-
         }
-
       </MapContainer>
-
-    
-
   )
 }
 export default OsmMap;
