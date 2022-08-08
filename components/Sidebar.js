@@ -56,7 +56,7 @@ const Sidebar = () => {
   return (
     <>
       {/* <div className={`bg-white w-[250px] min-w-[250px] overflow-auto`}> */}
-      <div className={`bg-white h-[calc(100vh-224px)] w-[250px] min-w-[250px] overflow-auto`}>
+      <div className={`bg-white h-[calc(100vh-164px)] w-[250px] min-w-[250px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
