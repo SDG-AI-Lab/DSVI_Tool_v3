@@ -15,14 +15,14 @@ const TopBar = () => {
     return (
         <header className="bg-white text-gray-800 body-font">
             <nav>
-                <ul className="h-36 flex justify-between px-3">
+                <ul className="h-35 flex justify-between px-3">
                     <li className="flex items-center">
                         <a className="flex items-center">
                             <Image
                                 src={sdglogo}
                                 alt="SDG LOGO"
-                                width="100px"
-                                height="100px"
+                                width="70px"
+                                height="70px"
                                 layout="intrinsic"
                                 className="rounded-full"
                             />
@@ -41,8 +41,8 @@ const TopBar = () => {
                             <Image
                                 src={circular_logo}
                                 alt="circular"
-                                width="120px"
-                                height="120px"
+                                width="100px"
+                                height="100px"
                                 layout="intrinsic"
                                 
                             />
@@ -51,8 +51,8 @@ const TopBar = () => {
                             <Image
                                 src={undp_logo}
                                 alt="undp logo"
-                                width="80px"
-                                height="120px"
+                                width="60px"
+                                height="90px"
                                 layout="intrinsic"
                                 
                             />
