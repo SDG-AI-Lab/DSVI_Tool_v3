@@ -211,10 +211,7 @@ const Sidebar = () => {
 
                                                   <input
                                                     type="number"
-                                                    className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out
-input-sm
-focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-"
+                                                    className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                     id="exampleNumber0"
                                                     value={parseInt(val.value)}
 
@@ -265,17 +262,10 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                         }
 
 
-
-
-
-
-
-
                                       </li>
                                       <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
 
                                     </>
-
 
                                   )}
                                 </Draggable>
@@ -288,14 +278,10 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                         )}
                       </Droppable>
 
-
                     </DragDropContext>
                     :
                     null
                 }
-
-
-
 
 
                 <li className="relative" id="sidenavSecEx3">
@@ -313,9 +299,6 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                     <span>Geodata Layers</span>
 
 
-
-
-
                     {
                       geodata.status == true ?
 
@@ -329,9 +312,6 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                           <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
                         </svg>
                     }
-
-
-
 
 
                   </a>
@@ -397,10 +377,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                                                             <input
                                                               type="number"
-                                                              className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out
-        input-sm
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-  "
+                                                              className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                               id="exampleNumber0"
                                                               value={parseInt(val2.value)}
                                                               onChange={(event) => {
@@ -421,10 +398,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                                                             <div>
                                                               <div>
-                                                                <input type="range" min="1" max="100" step="1" value={val2.value} className=" form-range
-  h-6
-  p-0
-  focus:outline-none focus:ring-0 focus:shadow-none"
+                                                                <input type="range" min="1" max="100" step="1" value={val2.value} className=" form-range h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
 
 
                                                                   onChange={(event) => {
@@ -440,9 +414,7 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                                                     dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                                   }}
 
-
                                                                 />
-
 
                                                               </div>
 
@@ -458,20 +430,10 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                                                 </li>
 
-
-
-
-
-
-
                                               </>
-
-
-
 
                                             )}
                                           </Draggable>
-
                                         )
                                       })
                                     }
@@ -488,12 +450,6 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
                       })
                     }
-
-
-
-
-
-
 
                   </ul>
                 </li>
@@ -636,14 +592,6 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                 </li>
               </ul>
 
-
-
-
-
-
-
-
-
             </div>
           </div>
 
@@ -706,32 +654,12 @@ focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
 
               }}
 
-
             >Apply</button>
 
           </div>
         </div>
       </Modal>
     </>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   )
