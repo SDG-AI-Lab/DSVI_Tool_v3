@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import L from 'leaflet'
-import { MapContainer, LayersControl, WMSTileLayer, ZoomControl, Popup, Marker } from 'react-leaflet'
+import { MapContainer, LayersControl, WMSTileLayer, ZoomControl, Popup, Marker, GeoJSON } from 'react-leaflet'
 import Legend from '../map/Legend';
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
@@ -8,6 +8,10 @@ import { LegendContext } from '../../context/LegendContext'
 import { Settings, TileProviders } from '../../config/map';
 import ControlMenu from '../map/ControlMenu';
 import CustomPolygon from '../map/Polygon';
+
+
+//
+
 
 import edudata_1 from '/public/static/edu_1.json'
 import edudata_2 from '/public/static/edu_2.json'
@@ -34,11 +38,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   )
   var { status: educational_facilities_status, value: educational_facilities_value,
     legend: educational_facilities_legend } = educational_facilities;
+  
   var financial_institutions = socioeconomic.find(
     (e) => e.slug === 'financial_institutions'
   )
   var { status: financial_institutions_status, value: financial_institutions_value,
     legend: financial_institutions_legend } = financial_institutions;
+  
   var health_institutions = socioeconomic.find(
     (e) => e.slug === 'health_care_institutions'
   )
@@ -132,7 +138,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={educational_facilities_legend[0]["title"]}
                 legendDescription={educational_facilities_legend[0]["description"]}
               />
@@ -180,7 +186,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                //hoverColor="white"
                 legendTitle={educational_facilities_legend[0]["title"]}
                 legendDescription={educational_facilities_legend[0]["description"]}
               />
@@ -228,7 +234,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={educational_facilities_legend[0]["title"]}
                 legendDescription={educational_facilities_legend[0]["description"]}
               />
@@ -276,7 +282,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={financial_institutions_legend[0]["title"]}
                 legendDescription={financial_institutions_legend[0]["description"]}
               />
@@ -324,7 +330,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={financial_institutions_legend[0]["title"]}
                 legendDescription={financial_institutions_legend[0]["description"]}
               />
@@ -371,7 +377,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={financial_institutions_legend[0]["title"]}
                 legendDescription={financial_institutions_legend[0]["description"]}
               />
@@ -379,7 +385,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           })
         }
 
-        {/* {health_institutions_status && level == 1 &&
+
+        {/* Health Layer 1 */}
+
+        {health_institutions_status && level == 1 &&
           healthdata_1.features.map((healthlibrary, index) => {
             const { NAME_1, NAME_2, GID_1, _count, _stdev, _max, _min } = healthlibrary.properties;
             const data = [
@@ -418,15 +427,15 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={health_institutions_legend[0]["title"]}
                 legendDescription={health_institutions_legend[0]["description"]}
               />
             )
           })
-        } */}
+        }
 
-        {health_institutions_status && level == 1 &&
+        {/* {health_institutions_status && level == 1 &&
           healthdata_1.features.map(() => {
             return (
               <WMSTileLayer
@@ -442,7 +451,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 opacity={health_institutions_value / 100}/>
             )
           })
-        }
+        } */}
         
         {health_institutions_status && level == 2 &&
           healthdata_2.features.map((healthlibrary, index) => {
@@ -483,7 +492,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={health_institutions_legend[0]["title"]}
                 legendDescription={health_institutions_legend[0]["description"]}
               />
@@ -529,7 +538,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 popupBgColor="bg-white"
                 popupTextColor="text-slate-700"
                 data={data}
-                hoverColor="purple"
+                hoverColor="white"
                 legendTitle={health_institutions_legend[0]["title"]}
                 legendDescription={health_institutions_legend[0]["description"]}
               />
