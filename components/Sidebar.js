@@ -361,12 +361,9 @@ const Sidebar = () => {
                                                       defaultChecked={false}
                                                       checked={val2.status}
 
-
-
                                                     />
                                                     <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val2.title}</a>
                                                   </div>
-
 
                                                   {
                                                     val2.status && val2.status == true ?
@@ -393,13 +390,11 @@ const Sidebar = () => {
                                                                 dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                               }}
 
-
                                                             />
 
                                                             <div>
                                                               <div>
                                                                 <input type="range" min="1" max="100" step="1" value={val2.value} className=" form-range h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
-
 
                                                                   onChange={(event) => {
                                                                     const newItems = [...geodata.data];
@@ -415,23 +410,16 @@ const Sidebar = () => {
                                                                   }}
 
                                                                 />
-
                                                               </div>
-
                                                             </div>
-
-
                                                           </span>
                                                         </div>
 
                                                       </div>
                                                       : null
                                                   }
-
                                                 </li>
-
                                               </>
-
                                             )}
                                           </Draggable>
                                         )
@@ -445,9 +433,7 @@ const Sidebar = () => {
                             </DragDropContext>
 
                           </li>
-
                         )
-
                       })
                     }
 
