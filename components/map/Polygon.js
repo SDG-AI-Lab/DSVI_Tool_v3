@@ -13,7 +13,7 @@ const CustomPolygon = (props) => {
       key={index}
       pathOptions={
         {
-          bubblingMouseEvents: false, weight: 1, color: 'blue', opacity: opacity, fillOpacity: opacity
+          bubblingMouseEvents: true, weight: 1, color: 'blue', opacity: opacity, fillOpacity: opacity
 
         }
 
@@ -38,11 +38,13 @@ const CustomPolygon = (props) => {
         </>
       }
 
+      // control color of polygon!!!
+      
       eventHandlers={{
         mouseover: (e) => {
           let layer = e.target;
           layer.setStyle({
-            fillColor: 'purple',
+            fillColor: 'white',
             weight: 5
           });
           setLegendData({ type: "CHANGE_ALL_DATA", payload: { title: legendTitle, description: legendDescription, data: data } });
