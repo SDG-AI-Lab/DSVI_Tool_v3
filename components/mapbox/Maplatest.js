@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import L from 'leaflet'
-import { MapContainer, LayersControl, WMSTileLayer, ZoomControl } from 'react-leaflet'
+import { MapContainer, LayersControl, WMSTileLayer, ZoomControl, Popup, Marker } from 'react-leaflet'
 import Legend from '../map/Legend';
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
@@ -379,7 +379,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           })
         }
 
-        {health_institutions_status && level == 1 &&
+        {/* {health_institutions_status && level == 1 &&
           healthdata_1.features.map((healthlibrary, index) => {
             const { NAME_1, NAME_2, GID_1, _count, _stdev, _max, _min } = healthlibrary.properties;
             const data = [
@@ -424,7 +424,26 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               />
             )
           })
+        } */}
+
+        {health_institutions_status && level == 1 &&
+          healthdata_1.features.map(() => {
+            return (
+              <WMSTileLayer
+                params={{
+                  layers: "sdg-ai-lab:scaled_r_norm_health_dd_spd_10k",
+                  format: "image/png",
+                  transparent: true,
+                  version: "1.1.0",
+                  style: "sdg-ai-lab:xgboost",
+                }}
+                url="http://129.151.248.181/geoserver/sdg-ai-lab/wms"
+                zIndex="9999"
+                opacity={health_institutions_value / 100}/>
+            )
+          })
         }
+        
         {health_institutions_status && level == 2 &&
           healthdata_2.features.map((healthlibrary, index) => {
             const { NAME_1, NAME_2, GID_2, _count, _stdev, _max, _min } = healthlibrary.properties;
