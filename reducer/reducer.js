@@ -130,7 +130,7 @@ export const initalState = {
         "data": [
             {
                 id: 1,
-                slug: 'sv_maps',
+                slug: 'social_vulnerability',
                 title: 'Social Vulnerability',
                 data: [
                     {
@@ -143,13 +143,13 @@ export const initalState = {
                     {
                         id: 1.2,
                         slug: 'sv_xgboost',
-                        title: 'SV: XGBoost',
+                        title: 'SV: XG Boost',
                         status: false,
                         value: 70
                     },
                     {
                         id: 1.3,
-                        slug: 'sv_rf',
+                        slug: 'sv_random_forest',
                         title: 'SV: Random Forest',
                         status: false,
                         value: 70
@@ -187,40 +187,40 @@ export const initalState = {
                 ]
             },
             {
-                id: 2,
+                id: 3,
                 slug: 'bio_physical',
                 title: 'Bio Physical Layers',
                 data: [
                     {
-                        id: 2.1,
+                        id: 3.1,
                         slug: 'elevation',
-                        title: 'Elevation in meter',
+                        title: 'Elevation in meters',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 2.2,
+                        id: 3.2,
                         slug: 'slope',
                         title: 'Slope in degrees',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 2.3,
+                        id: 3.3,
                         slug: 'max_temp',
                         title: 'Max Temp Winter',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 2.4,
+                        id: 3.4,
                         slug: 'plant_health',
                         title: 'Plant Health (NDVI)',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 2.5,
+                        id: 3.5,
                         slug: 'precipitation',
                         title: 'Rainfall',
                         status: false,
@@ -229,54 +229,47 @@ export const initalState = {
                 ]
             },
             {
-                id: 3,
+                id: 4,
                 slug: 'socio_economic',
                 title: 'Socio Economic',
                 data: [
                     {
-                        id: 3.1,
-                        slug: 'ntl',
+                        id: 4.1,
+                        slug: 'nightlight_intensity',
                         title: 'Nightlight Intensity',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 3.2,
-                        slug: 'nightlight_int',
-                        title: 'Nightlight Intensity',
-                        status: false,
-                        value: 70
-                    },
-                    {
-                        id: 3.3,
+                        id: 4.2,
                         slug: 'pop_density',
                         title: 'Population Density',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 3.4,
+                        id: 4.3,
                         slug: 'celltower',
                         title: 'Celltower Density',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 3.5,
+                        id: 4.4,
                         slug: 'road_density',
                         title: 'Road Density',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 3.6,
+                        id: 4.5,
                         slug: 'relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
                         value: 70
                     },
                     {
-                        id: 3.7,
+                        id: 4.6,
                         slug: 'gdp',
                         title: 'Gross Domestic Product',
                         status: false,
