@@ -29,7 +29,7 @@
   "devDependencies": {
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
-    "autoprefixer": "^10.4.0",
+    "autoprefixer": "^10.4.5",
     "gh-pages": "^4.0.0",
     "json-loader": "^0.5.7",
     "postcss": "^8.4.5",
