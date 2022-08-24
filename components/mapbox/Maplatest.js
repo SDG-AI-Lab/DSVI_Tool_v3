@@ -52,27 +52,22 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   );
   var { status: health_institutions_status, value: health_institutions_value,
     legend: health_institutions_legend } = health_institutions;
-  
+
   const NormalizeData = (number, maxNumber, minNumber) => {
-    var val = (number - minNumber) / (maxNumber - minNumber);
+    const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
     return mapPolygonColorToDensity(val);
   };
 
   const mapPolygonColorToDensity = (normalizeData => {
-    return normalizeData == 0
-      ? '#00800A'
-      : normalizeData == 1
-        ? '#FF362C'
-        : normalizeData > 8
-          ? '#7BCA0C'
-          : normalizeData > 11
-            ? '#E8FF2C'
-            : normalizeData > 14
-              ? '#FFDE2C'
-              : normalizeData > 17
-                ? '#FFAF2C'
-                : '#FFEDA0';
-  });
+    switch (true) {
+      case normalizeData > 0.85: return '#00800A';
+      case normalizeData > 0.7: return '#FF362C';
+      case normalizeData > 0.55: return '#0c58ca';
+      case normalizeData > 0.4: return '#ff962c';
+      case normalizeData > 0.25: return '#FFDE2C';
+      default: return '#f2a0ff';
+    }
+  })
   /* Socioeconomic. END */
 
   /* Geodata Layers. START */
@@ -172,8 +167,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       (e) => e.slug === 'gdp'
     );
     var { status: gdp_status, value: gdp_value} = gdp;
-
-    
 
   /* Geodata Layers. END */
 
