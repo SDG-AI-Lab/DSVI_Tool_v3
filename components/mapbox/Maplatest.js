@@ -188,7 +188,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         <ZoomControl
           position="bottomright"
         />
-        {/* <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
+        <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
           children={
             educational_facilities_status || financial_institutions_status || health_institutions_status ?
               <Legend />
@@ -196,7 +196,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               null
           }
         >
-        </ControlMenu> */}
+        </ControlMenu>
 
       {/* Geodata layer. START */}
       {sv_linear_model_status ?
