@@ -1,19 +1,21 @@
-import {Tooltip} from "react-leaflet"
+import { Tooltip } from "react-leaflet"
 
-const CustomTooltip = (props) => {
-
-    const {direction, offset, opacity, count, bgcolor, textcolor, show_data} = props;
-
-    if (!show_data) {
-        return null;
-    }
-
-    return (<Tooltip direction={direction} offset={offset} permanent
-                     className='p-0 m-0 bg-transparent  border-none'
-                     style={{opacity: opacity}}>
-            <span className={`${bgcolor}  p-1 ${textcolor} rounded-full`} style={{opacity: opacity}}>
-              {count == null ? 'NA' : `  ${count}`}
-            </span>
-        </Tooltip>)
+const CustomTooltip=(props)=>{
+    const {direction,offset,opacity,count,bgcolor,textcolor,show_data,tooltipName_1,tooltipName_2}=props;
+    
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--custom_bg_color');
+    document.documentElement.style.setProperty('--custom_bg_color', bgcolor);
+  
+    return (
+        <Tooltip direction={direction} offset={offset} className={`p-0 m-0 border-none`} opacity={opacity}>
+            <p className={`p-1 ${textcolor}`}>
+                {tooltipName_1 == null ? 'Name_1: no data' : `${'Name_1: '} ${tooltipName_1}`}
+                <br/>
+                {tooltipName_2 == null ? 'Name_2: no data' : `${'Name_2: '} ${tooltipName_2}`}
+                <br/>
+                {count == null ? 'Count: No data' : `${'Count: '} ${count}`}
+            </p>
+        </Tooltip>
+    );
 }
 export default CustomTooltip;

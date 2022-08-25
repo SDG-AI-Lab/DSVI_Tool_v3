@@ -37,38 +37,51 @@ const CustomPolygon = (props) => {
             fillColor={fillColor}
             positions={positions}
 
-            children={<>
-                <CustomTooltip direction={tooltipDirection} offset={tooltipOffset} opacity={opacity}
-                               count={tooltipCount}
-                               bgcolor={tooltipBgcolor} textcolor={tooltipTextColor}
-                               show_data={show_data}
-
-                />
-                <CustomPopup maxWidth={popupMaxWidth} maxHeight={popupMaxHeight}
-                             bgcolor={popupBgColor}
-                             textcolor={popupTextColor}
-                             data={data}
-                />
-            </>}
+            children={
+                <>
+                    <CustomTooltip direction={tooltipDirection} offset={tooltipOffset} count={tooltipCount}
+                        bgcolor={tooltipBgcolor} textcolor={tooltipTextColor} tooltipName_1={tooltipName_1} tooltipName_2={tooltipName_2}
+                    />
+                    <CustomPopup maxWidth={popupMaxWidth} maxHeight={popupMaxHeight}
+                        bgcolor={popupBgColor}
+                        textcolor={popupTextColor}
+                        data={data}
+                    />
+                </>
+            }
 
             // control color of polygon!!!
             eventHandlers={{
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: 'white', weight: 5
+                        fillColor: 'white'
                     });
-                    setLegendData({
-                        type: "CHANGE_ALL_DATA",
-                        payload: {title: legendTitle, description: legendDescription, data: data}
-                    });
-                }, mouseout: (e) => {
+                },
+                mouseout: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: fillColor, weight: 1
+                        fillColor: fillColor
                     });
-                    setLegendData({type: "RESET_DATA", payload: {}});
                 },
+
+                // mouseover: (e) => {
+                //   let layer = e.target;
+                //   layer.setStyle({
+                //     fillColor: 'white',
+                //     weight: 1,
+                //   });
+                //   setLegendData({ type: "CHANGE_ALL_DATA", payload: { title: legendTitle, description: legendDescription, data: data } });
+                //   setShowData({ type: "TOGGLE_SHOW_DATA", payload: { show_data: true} });
+                // },
+                // mouseout: (e) => {
+                //   let layer = e.target;
+                //   layer.setStyle({
+                //     fillColor: fillColor,
+                //   });
+                //   setLegendData({ type: "RESET_DATA", payload: {} });
+                //   setShowData({ type: "TOGGLE_SHOW_DATA", payload: { show_data: false} });
+                // },
             }}
         />)
 }

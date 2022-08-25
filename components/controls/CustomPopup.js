@@ -1,18 +1,24 @@
-import {Popup} from "react-leaflet"
+import { Popup } from "react-leaflet"
+const CustomPopup=(props)=>{
+    const {maxWidth,maxHeight,bgcolor,textcolor,data}=props;
 
-const CustomPopup = (props) => {
-
-    const {maxWidth, maxHeight, bgcolor, textcolor, data} = props;
-
-    return (<Popup maxWidth={maxWidth} maxHeight={maxHeight} className={`${bgcolor} p-0 m-0 rounded-lg`}>
+    return(
+        <Popup maxWidth={maxWidth} maxHeight={maxHeight} className={`p-0 m-0 rounded-lg`}>
             <div className='w-full '>
-                {data.map((val, index) => {
-                    return (<div key={index} className={`${textcolor} font-bold text-xs`}>
-                            {val.key}:- {' '}<span
-                            className=''>{val.value == null ? 'No Data' : val.value}</span><br/>
-                        </div>)
-                })}
-            </div>
-        </Popup>)
+                {
+                    data.map((val,index)=>{
+                        return(
+                            <div key={index} className={`${textcolor} font-bold text-xs`}>
+                                {val.key}: {' '}<span className=''>{val.value == null ? 'no data' : val.value}</span><br />
+                            </div>  
+                        )
+                    })
+                }
+            </div> 
+        </Popup>
+    )
 }
 export default CustomPopup;
+
+
+

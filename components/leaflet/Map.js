@@ -31,25 +31,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const socioeconomic = state['socioeconomic']['data'];
   const geodata = state['geodata']['data'];
 
-  /* Socioeconomic. START */
-  var educational_facilities = socioeconomic.find(
-    (e) => e.slug === 'educational_facilities'
-  );
-  var { status: educational_facilities_status, value: educational_facilities_value,
-    legend: educational_facilities_legend } = educational_facilities;
-
-  var financial_institutions = socioeconomic.find(
-    (e) => e.slug === 'financial_institutions'
-  );
-  var { status: financial_institutions_status, value: financial_institutions_value,
-    legend: financial_institutions_legend } = financial_institutions;
-
-  var health_institutions = socioeconomic.find(
-    (e) => e.slug === 'health_care_institutions'
-  );
-  var { status: health_institutions_status, value: health_institutions_value,
-    legend: health_institutions_legend } = health_institutions;
-
   const NormalizeData = (number, maxNumber, minNumber) => {
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
     return mapPolygonColorToDensity(val);
@@ -65,6 +46,35 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       default: return '#f2a0ff';
     }
   })
+
+  /* Socioeconomic. START */
+  var SE_social_vulnerability = socioeconomic.find(
+    (e) => e.slug === 'social_vulnerability');
+    var social_vulnerability_random_forest = SE_social_vulnerability.data.find(
+      (e) => e.slug === 'social_vulnerability_random_forest'
+    );
+    var { status: social_vulnerability_random_forest_status, 
+      value: social_vulnerability_random_forest_value} = social_vulnerability_random_forest;
+
+    var social_vulnerability_random_forest = SE_social_vulnerability.data.find(
+      (e) => e.slug === 'social_vulnerability_random_forest'
+    );
+    var { status: social_vulnerability_random_forest_status, 
+      value: social_vulnerability_random_forest_value} = social_vulnerability_random_forest;
+
+    var social_vulnerability_xgboost = SE_social_vulnerability.data.find(
+        (e) => e.slug === 'social_vulnerability_xgboost'
+    );
+    var { status: social_vulnerability_xgboost_status, 
+        value: social_vulnerability_xgboost_value} = social_vulnerability_xgboost;
+
+  var drive_time = socioeconomic.find(
+    (e) => e.slug === 'drive_time');
+    var dt_education_facility = drive_time.data.find(
+        (e) => e.slug === 'dt_education_facility'
+    );
+    var { status: dt_education_facility_status, 
+        value: dt_education_facility_value} = dt_education_facility;
   /* Socioeconomic. END */
 
   /* Geodata Layers. START */
@@ -185,7 +195,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         <ZoomControl
           position="bottomright"
         />
-        <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
+        {/* <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
           children={
             educational_facilities_status || financial_institutions_status || health_institutions_status ?
               <Legend />
@@ -193,8 +203,146 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               null
           }
         >
-        </ControlMenu>
-
+        </ControlMenu> */}
+      
+      {/* NEW. Socioeconomic. START */}
+      {social_vulnerability_random_forest_status && level === 3 &&
+        SocEco_random_forest_3.features.map((randomForstLibrary, index) => {
+            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = randomForstLibrary.properties;
+            const data = [
+              {
+                "key": "NAME_1",
+                "value": NAME_1
+              },
+              {
+                "key": "NAME_2",
+                "value": NAME_2
+              },
+              {
+                "key": "GID_3",
+                "value": GID_3
+              },
+              {
+                "key": "COUNT",
+                "value": _count
+              }
+            ];
+            const fillColor = NormalizeData(_stdev, _max, _min);
+            return (
+              <CustomPolygon
+                key={index}
+                positions={L.GeoJSON.coordsToLatLngs(randomForstLibrary.geometry.coordinates[0][0])}
+                fillColor={fillColor}
+                opacity={social_vulnerability_random_forest_value/100}
+                tooltipDirection="auto"
+                tooltipOffset={[20, 0]}
+                tooltipCount={randomForstLibrary.properties._count}
+                tooltipName_1={randomForstLibrary.properties.NAME_1}
+                tooltipName_2={randomForstLibrary.properties.NAME_2}
+                tooltipBgcolor="rgb(255 255 255)"
+                tooltipTextColor="text-slate-700"
+                show_data={show_data}
+                popupMaxWidth="500"
+                popupMaxHeight="auto"
+                popupBgColor="bg-white"
+                popupTextColor="text-slate-700"
+                data={data}
+              />
+            )
+          })
+        }
+      {social_vulnerability_xgboost_status && level === 3 &&
+        SocEco_XGBoost_3.features.map((library, index) => {
+          const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
+          const data = [
+              {
+              "key": "NAME_1",
+              "value": NAME_1
+              },
+              {
+              "key": "NAME_2",
+              "value": NAME_2
+              },
+              {
+              "key": "GID_3",
+              "value": GID_3
+              },
+              {
+              "key": "COUNT",
+              "value": _count
+              }
+          ];
+          const fillColor = NormalizeData(_stdev, _max, _min);
+          return (
+              <CustomPolygon
+              key={index}
+              positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+              fillColor={fillColor}
+              opacity={social_vulnerability_xgboost_value/100}
+              tooltipDirection="auto"
+              tooltipOffset={[20, 0]}
+              tooltipCount={library.properties._count}
+              tooltipName_1={library.properties.NAME_1}
+              tooltipName_2={library.properties.NAME_2}
+              tooltipBgcolor="rgb(255 255 255)"
+              tooltipTextColor="text-slate-700"
+              show_data={show_data}
+              popupMaxWidth="500"
+              popupMaxHeight="auto"
+              popupBgColor="bg-white"
+              popupTextColor="text-slate-700"
+              data={data}
+              />
+          )
+        })
+      }
+      {dt_education_facility_status && level === 1 &&
+        DriveTime_1.features.map((library, index) => {
+            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
+            const data = [
+                {
+                "key": "NAME_1",
+                "value": NAME_1
+                },
+                {
+                "key": "NAME_2",
+                "value": NAME_2
+                },
+                {
+                "key": "GID_3",
+                "value": GID_3
+                },
+                {
+                "key": "COUNT",
+                "value": _count
+                }
+            ];
+            const fillColor = NormalizeData(_stdev, _max, _min);
+            return (
+                <CustomPolygon
+                key={index}
+                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+                fillColor={fillColor}
+                opacity={dt_education_facility_value/100}
+                tooltipDirection="auto"
+                tooltipOffset={[20, 0]}
+                tooltipCount={library.properties._count}
+                tooltipName_1={library.properties.NAME_1}
+                tooltipName_2={library.properties.NAME_2}
+                tooltipBgcolor="rgb(255 255 255)"
+                tooltipTextColor="text-slate-700"
+                show_data={show_data}
+                popupMaxWidth="500"
+                popupMaxHeight="auto"
+                popupBgColor="bg-white"
+                popupTextColor="text-slate-700"
+                data={data}
+                />
+            )
+        })
+      }
+      {/* NEW. Socioeconomic. END */}
+      
       {/* Geodata layer. START */}
       {sv_linear_model_status ?
           <WMSTileLayer
@@ -240,7 +388,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={sv_random_forest_value / 100}/>
       : null
       }
-
+      
       {distance_to_healthcare_status ?
         <WMSTileLayer
           params={{
@@ -270,7 +418,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={distance_to_finance_value / 100}/>
       : null
       }
-
+      
       {distance_to_edu_status ?
         <WMSTileLayer
           params={{
@@ -330,7 +478,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={max_temp_value / 100}/>
       : null
       }
-
+      
       {plant_health_status ?
         <WMSTileLayer
           params={{
@@ -452,408 +600,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
       {/* Geodata layer. END */}
 
-
-        {educational_facilities_status && level == 1 &&
-          edudata_1.features.map((edulibrary, index) => {
-            const { NAME_1, NAME_2, GID_1, _count, _stdev, _max, _min } = edulibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_1
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={educational_facilities_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={edulibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={educational_facilities_legend[0]["title"]}
-                legendDescription={educational_facilities_legend[0]["description"]}
-              />
-            )
-
-          })
-
-        }
-        {educational_facilities_status && level == 2 &&
-          edudata_2.features.map((edulibrary, index) => {
-            const { NAME_1, NAME_2, GID_2, _count, _stdev, _max, _min } = edulibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_2
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={educational_facilities_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={edulibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                //hoverColor="white"
-                legendTitle={educational_facilities_legend[0]["title"]}
-                legendDescription={educational_facilities_legend[0]["description"]}
-              />
-            )
-
-          })
-        }
-
-        {educational_facilities_status && level == 3 &&
-          edudata_3.features.map((edulibrary, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = edulibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_3
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(edulibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={educational_facilities_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={edulibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={educational_facilities_legend[0]["title"]}
-                legendDescription={educational_facilities_legend[0]["description"]}
-              />
-            )
-
-          })
-        }
-
-        {financial_institutions_status && level == 1 &&
-          finandata_1.features.map((finanlibrary, index) => {
-            const { NAME_1, NAME_2, GID_1, _count, _stdev, _max, _min } = finanlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_1
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={financial_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={finanlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={financial_institutions_legend[0]["title"]}
-                legendDescription={financial_institutions_legend[0]["description"]}
-              />
-            )
-
-          })
-        }
-
-        {financial_institutions_status && level == 2 &&
-          finandata_2.features.map((finanlibrary, index) => {
-            const { NAME_1, NAME_2, GID_2, _count, _stdev, _max, _min } = finanlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_2
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={financial_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={finanlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={financial_institutions_legend[0]["title"]}
-                legendDescription={financial_institutions_legend[0]["description"]}
-              />
-            )
-          })
-        }
-
-        {financial_institutions_status && level == 3 &&
-          finandata_3.features.map((finanlibrary, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = finanlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_3
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(finanlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={financial_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={finanlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={financial_institutions_legend[0]["title"]}
-                legendDescription={financial_institutions_legend[0]["description"]}
-              />
-            )
-          })
-        }
-
-
-        {/* Health Layer 1 */}
-
-        {health_institutions_status && level == 1 &&
-          healthdata_1.features.map((healthlibrary, index) => {
-            const { NAME_1, NAME_2, GID_1, _count, _stdev, _max, _min } = healthlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_1
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={health_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={healthlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={health_institutions_legend[0]["title"]}
-                legendDescription={health_institutions_legend[0]["description"]}
-              />
-            )
-          })
-        }
-
-        {/* {health_institutions_status && level == 1 &&
-          healthdata_1.features.map(() => {
-            return (
-              <WMSTileLayer
-                params={{
-                  layers: "sdg-ai-lab:scaled_r_norm_health_dd_spd_10k",
-                  format: "image/png",
-                  transparent: true,
-                  version: "1.1.0",
-                  style: "sdg-ai-lab:xgboost",
-                }}
-                url="http://129.151.248.181/geoserver/sdg-ai-lab/wms"
-                zIndex="9999"
-                opacity={health_institutions_value / 100}/>
-            )
-          })
-        } */}
-
-        {health_institutions_status && level == 2 &&
-          healthdata_2.features.map((healthlibrary, index) => {
-            const { NAME_1, NAME_2, GID_2, _count, _stdev, _max, _min } = healthlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_2
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={health_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={healthlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={health_institutions_legend[0]["title"]}
-                legendDescription={health_institutions_legend[0]["description"]}
-              />
-            )
-          })
-        }
-        {health_institutions_status && level == 3 &&
+      {/* Legacy SocEconm Layers. Don't use pls. START */}
+        {/* {health_institutions_status && level == 3 &&
           healthdata_3.features.map((healthlibrary, index) => {
             const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = healthlibrary.properties;
             const data = [
@@ -898,7 +646,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               />
             )
           })
-        }
+        } */}
+      {/* Legacy SocEconm Layers. END */}
 
         <CircleMarkers />
       </MapContainer>
