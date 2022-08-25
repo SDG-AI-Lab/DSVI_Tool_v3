@@ -10,6 +10,7 @@ const CircleMarkers = () => {
   const {state, dispatch} = useContext(FilterContext)
   const selected_dhs_data_column = state['selected_dhs_data_column']
   const dhs_data_column = state['dhs_data_column']
+  const dhsIndicator = state["dhs_indicator"];
   const csv_data = state['csv_data']
   let normalized_csv_data = csv_data
   const selected_dhs_column = dhs_data_column.filter( c => c.id == selected_dhs_data_column )[0]
@@ -50,7 +51,7 @@ const CircleMarkers = () => {
   }
 
   return <>
-    {(csv_data && selected_dhs_data_column > 0) && normalized_csv_data.map((point, index) => {
+    {(dhsIndicator && csv_data && selected_dhs_data_column > 0) && normalized_csv_data.map((point, index) => {
       const {lat, lng} = L.latLng(point.lat, point.lon)
       return (
         <CircleMarker center={[lat, lng]} key={index} radius={2} pathOptions={{ color: getColor(point[selected_dhs_column.title]) }}>
