@@ -1,17 +1,13 @@
 import React, { useContext } from 'react'
 import L from 'leaflet'
-import { MapContainer, LayersControl, WMSTileLayer, ZoomControl, Popup, Marker, GeoJSON } from 'react-leaflet'
-import Legend from '../map/Legend';
+import {MapContainer, LayersControl, WMSTileLayer, ZoomControl} from 'react-leaflet'
+import Legend from '../controls/Legend';
 import styles from './Map.module.scss'
-import { FilterContext } from '../../context/FilterContext'
-import { LegendContext } from '../../context/LegendContext'
-import { Settings, TileProviders } from '../../config/map';
-import ControlMenu from '../map/ControlMenu';
-import CustomPolygon from '../map/Polygon';
-
-
-//
-
+import {FilterContext} from '../../context/FilterContext'
+import {LegendContext} from '../../context/LegendContext'
+import {Settings, TileProviders} from '../../config/MapConfiguration';
+import ControlMenu from '../controls/ControlMenu';
+import CustomPolygon from '../controls/CustomPolygon';
 
 import edudata_1 from '/public/static/edu_1.json'
 import edudata_2 from '/public/static/edu_2.json'
