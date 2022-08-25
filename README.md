@@ -53,4 +53,4 @@ You can learn more about the routing solution in the [React Router docs](https:/
 
 ## Thanks to United Nations Volunteers(UNVs)
 
-UNVs are actively make contributions to the Digital Technologies Radar project. Many thanks to all of the UNVs who contributed with their expertises:
+UNVs are actively make contributions to the DSVI Tool project. Many thanks to all of the UNVs who contributed with their expertises:
