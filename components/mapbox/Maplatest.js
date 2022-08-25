@@ -20,6 +20,7 @@ import finandata_3 from '/public/static/finan_3.json'
 import healthdata_1 from '/public/static/health_1.json'
 import healthdata_2 from '/public/static/health_2.json'
 import healthdata_3 from '/public/static/health_3.json'
+import CircleMarkers from '../marker/CircleMarkers';
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -517,6 +518,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             )
           })
         }
+
+        <CircleMarkers />
       </MapContainer>
   )
 }
