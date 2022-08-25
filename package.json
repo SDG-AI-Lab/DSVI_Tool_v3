@@ -24,6 +24,7 @@
     "react-map-gl": "^7.0.11",
     "react-responsive-modal": "^6.2.0",
     "reactjs-popup": "^2.0.5",
+    "sass": "^1.54.5",
     "use-dynamic-refs": "^1.0.0"
   },
   "devDependencies": {
