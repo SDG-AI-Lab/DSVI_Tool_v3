@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import Image from 'next/image';
 import { Modal } from 'react-responsive-modal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
