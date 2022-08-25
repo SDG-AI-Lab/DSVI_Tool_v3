@@ -1,8 +1,8 @@
 export const initalState = {
-    "show_data":false,
-    "show_sidebar_data":false,
-    "show_sidebar":true,
-    "level":1,
+    "show_data": false,
+    "show_sidebar_data": false,
+    "show_sidebar": true,
+    "level": 1,
     "show_area_of_interest": false,
     "socioeconomic": {
         "status": false,
@@ -1220,18 +1220,15 @@ export const reducer = (state, action) => {
     switch (action.type) {
         case "TOGGLE_SHOW_DATA":
             return {
-                ...state,
-                show_data: !state.show_data,
+                ...state, show_data: !state.show_data,
             };
-            case "TOGGLE_SIDEBAR_DATA":
-                return {
-                    ...state,
-                    show_sidebar_data: !state.show_sidebar_data,
-                };
+        case "TOGGLE_SIDEBAR_DATA":
+            return {
+                ...state, show_sidebar_data: !state.show_sidebar_data,
+            };
         case "TOGGLE_SIDEBAR":
             return {
-                ...state,
-                show_sidebar: !state.show_sidebar,
+                ...state, show_sidebar: !state.show_sidebar,
             };
 
             case "CHANGE_LEVEL":
@@ -1242,54 +1239,40 @@ export const reducer = (state, action) => {
                 };
         case "TOGGLE_AREA_OF_INTEREST":
             return {
-                ...state,
-                show_area_of_interest: !state.show_area_of_interest,
+                ...state, show_area_of_interest: !state.show_area_of_interest,
             };
 
         case "TOGGLE_SOCIOECONOMIC":
             return {
-                ...state,
-                socioeconomic: {
-                    status: !state.socioeconomic.status,
-                    data: state.socioeconomic.data
+                ...state, socioeconomic: {
+                    status: !state.socioeconomic.status, data: state.socioeconomic.data
                 }
             };
         case "CHANGE_SOCIOECONOMIC":
             return {
-                ...state,
-                socioeconomic: {
-                    status: state.socioeconomic.status,
-                    data: action.payload
+                ...state, socioeconomic: {
+                    status: state.socioeconomic.status, data: action.payload
                 }
             };
         case "TOGGLE_GEODATA":
             return {
-                ...state,
-                geodata: {
-                    status: !state.geodata.status,
-                    data: state.geodata.data
+                ...state, geodata: {
+                    status: !state.geodata.status, data: state.geodata.data
                 }
             };
         case "CHANGE_GEODATA":
             return {
-                ...state,
-                geodata: {
-                    status: state.geodata.status,
-                    data: action.payload
+                ...state, geodata: {
+                    status: state.geodata.status, data: action.payload
                 }
             };
         case "TOGGLE_VULNERABILTY":
             return {
-                ...state,
-                vulnerability: !state.vulnerability,
+                ...state, vulnerability: !state.vulnerability,
             };
-
-
-
         case "CHANGE_CATEGORIES":
             return {
-                ...state,
-                categories: action.payload
+                ...state, categories: action.payload
             };
         case "TOGGLE_DSV_INDICATOR":
             return {
@@ -1315,8 +1298,7 @@ export const reducer = (state, action) => {
             }
         case "TOGGLE_DRAW_OF_INTEREST":
             return {
-                ...state,
-                draw_area_of_interest: !state.draw_area_of_interest,
+                ...state, draw_area_of_interest: !state.draw_area_of_interest,
             };
         case "TOGGLE_STATISTICS":
             return {
@@ -1331,5 +1313,4 @@ export const reducer = (state, action) => {
         default:
             return state
     }
-
 }
