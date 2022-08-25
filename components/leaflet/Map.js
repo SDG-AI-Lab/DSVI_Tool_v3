@@ -20,6 +20,7 @@ import finandata_3 from '/public/static/finan_3.json'
 import healthdata_1 from '/public/static/health_1.json'
 import healthdata_2 from '/public/static/health_2.json'
 import healthdata_3 from '/public/static/health_3.json'
+import CircleMarkers from '../marker/CircleMarkers';
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -36,13 +37,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   );
   var { status: educational_facilities_status, value: educational_facilities_value,
     legend: educational_facilities_legend } = educational_facilities;
-  
+
   var financial_institutions = socioeconomic.find(
     (e) => e.slug === 'financial_institutions'
   );
   var { status: financial_institutions_status, value: financial_institutions_value,
     legend: financial_institutions_legend } = financial_institutions;
-  
+
   var health_institutions = socioeconomic.find(
     (e) => e.slug === 'health_care_institutions'
   );
@@ -138,7 +139,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       (e) => e.slug === 'nightlight_intensity'
     );
     var { status: nightlight_intensity_status, value: nightlight_intensity_value} = nightlight_intensity;
-    
+
     var pop_density = socio_economic.data.find(
       (e) => e.slug === 'pop_density'
     );
@@ -239,7 +240,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={sv_random_forest_value / 100}/>
       : null
       }
-      
+
       {distance_to_healthcare_status ?
         <WMSTileLayer
           params={{
@@ -269,7 +270,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={distance_to_finance_value / 100}/>
       : null
       }
-      
+
       {distance_to_edu_status ?
         <WMSTileLayer
           params={{
@@ -329,7 +330,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={max_temp_value / 100}/>
       : null
       }
-      
+
       {plant_health_status ?
         <WMSTileLayer
           params={{
@@ -805,7 +806,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             )
           })
         } */}
-        
+
         {health_institutions_status && level == 2 &&
           healthdata_2.features.map((healthlibrary, index) => {
             const { NAME_1, NAME_2, GID_2, _count, _stdev, _max, _min } = healthlibrary.properties;
@@ -899,9 +900,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           })
         }
 
-
-
-
+        <CircleMarkers />
       </MapContainer>
   )
 }

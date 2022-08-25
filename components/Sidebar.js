@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Modal } from 'react-responsive-modal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
@@ -16,16 +16,22 @@ const Sidebar = () => {
   const categories = state["categories"];
   const dsvIndicator = state["dsv_indicator"];
   const dataColumn = state["data_column"];
+  const dhsIndicator = state["dhs_indicator"];
+  const dhsDataColumn = state["dhs_data_column"];
   const drawofInterestStatus = state["draw_area_of_interest"];
   const statisticsStatus = state["statistics"];
   const selectedDataColumn = state["selected_data_column"];
+  const selectedDhsDataColumn = state["selected_dhs_data_column"];
 
 
   const socioEconomicLayers = state["socioeconomic"]["data"];
   const geodataLayers = state["geodata"]["data"];
   const [dsvModal, setDsvModal] = useState(false);
+  const [dhsModal, setDhsModal] = useState(false);
   const onOpenDsvModal = () => setDsvModal(true);
   const onCloseDsvModal = () => setDsvModal(false);
+  const onOpenDhsModal = () => setDhsModal(true);
+  const onCloseDhsModal = () => setDhsModal(false);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -67,7 +73,7 @@ const Sidebar = () => {
             </div>
             <hr className="my-2" />
             <div>
-              
+
               <ul className="relative px-1">
                 <li><p></p></li>
                 <li className="relative">
@@ -75,11 +81,11 @@ const Sidebar = () => {
                   // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
                   //  onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
                   >
-                    
+
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
                     </svg>
-                    
+
                     <span>Select administrative level</span>
                   </span>
 
@@ -99,7 +105,7 @@ const Sidebar = () => {
                       }].map((val, index) => {
                         return (
 
-                          <>
+                          <div key={index}>
 
                             <div className="flex" onClick={() => { dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } }) }}>
 
@@ -116,7 +122,7 @@ const Sidebar = () => {
                             <div className="text-gray-700">
 
                             </div>
-                          </>
+                          </div>
 
                         )
                       })
@@ -440,7 +446,7 @@ const Sidebar = () => {
                 </li>
               </ul>
               <hr className="my-2" />
-            
+
               <ul>
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
@@ -532,6 +538,42 @@ const Sidebar = () => {
                           <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                             onClick={() => { onOpenDsvModal() }}
+                          >
+
+
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                            <span>Select Data Column</span>
+                          </a>
+                        </li>
+                      </ul>
+                      : null
+                  }
+
+
+                </li>
+
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+
+                    onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
+                  >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    <span>{dhsIndicator == true ? 'Hide DHS Indicators' : 'Show DHS Indicators'}</span>
+                  </a>
+
+                  {
+                    dhsIndicator == true ?
+                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" data-bs-parent="#sidenavSecExample">
+                        <li className="relative">
+                          <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                            onClick={() => { onOpenDhsModal() }}
                           >
 
 
@@ -644,9 +686,68 @@ const Sidebar = () => {
           </div>
         </div>
       </Modal>
+
+      <Modal open={dhsModal}
+        onClose={
+          () => {
+
+            onCloseDhsModal()
+          }
+        }
+        styles={{modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '95vh'}}}
+
+        center>
+
+        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
+
+          <div className="overflow-y-scroll" style={{height: '75vh'}}>
+            <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
+
+            <hr />
+            {
+              dhsDataColumn.map((val, index) => {
+                return (
+                  <div key={index}>
+                    <input className=" px-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
+
+                      checked={val.id == selectedDhsDataColumn}
+
+                      onClick={() => {
+                        dispatch({ type: "SELECT_DHS_DATA_COLUMN", payload: val.id });
+
+                      }}
+
+
+                    />
+
+                    <span className="px-2 text-gray-700 text-sm"></span>  {val.title}</div>
+                )
+              })
+            }
+
+          </div>
+          <div className="flex justify-end mt-4">
+            <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+
+              onClick={() => {
+
+                if (selectedDhsDataColumn == "0") {
+                  alert("Select Column First")
+
+                }
+                else {
+                  onCloseDhsModal()
+                }
+
+              }}
+
+
+            >Apply</button>
+
+          </div>
+        </div>
+      </Modal>
     </>
-
-
   )
 
 }
