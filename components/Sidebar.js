@@ -10,7 +10,7 @@ const Sidebar = () => {
 
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
-  const socioeconomicStatus2 = state["socioeconomic"];
+  const socioeconomic = state["socioeconomic"];
   const geodata = state["geodata"];
   const vulnerability = state["vulnerability"];
   const categories = state["categories"];
@@ -60,7 +60,6 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* <div className={`bg-white w-[250px] min-w-[250px] overflow-auto`}> */}
       <div className={`bg-white h-[calc(100vh-164px)] w-[250px] min-w-[250px] overflow-auto`}>
 
         <div id="sidenavSecExample">
@@ -77,15 +76,14 @@ const Sidebar = () => {
               <ul className="relative px-1">
                 <li><p></p></li>
                 <li className="relative">
-                  <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                  // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
-                  //  onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
+                  <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden 
+                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
+                    hover:bg-blue-50 transition duration-300 ease-in-out" 
+                    href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                   >
-
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
                     </svg>
-
                     <span>Select administrative level</span>
                   </span>
 
@@ -104,26 +102,17 @@ const Sidebar = () => {
                         title: 'Three'
                       }].map((val, index) => {
                         return (
-
                           <div key={index}>
-
                             <div className="flex" onClick={() => { dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } }) }}>
-
                               <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
                                 checked={val.slug == level ? true : false}
-                                //defaultChecked={false}
-
                                 onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
-
                               />
                               <a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-
                             </div>
                             <div className="text-gray-700">
-
                             </div>
                           </div>
-
                         )
                       })
                     }
@@ -132,11 +121,10 @@ const Sidebar = () => {
                 </li>
                 <hr className="my-2" />
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                    // onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden 
+                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
+                    hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
-
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -144,208 +132,197 @@ const Sidebar = () => {
                     <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
                   </a>
                 </li>
-                <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false" aria-controls="collapseSidenavSecEx2"
-                  //  onClick={() => setScioEconomicLayersStatus(!socioEconomicLayersStatus)}
-                  onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>Socioeconomic Layers</span>
-                  {
-                    socioeconomicStatus2.status == true ?
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
-                      :
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                      </svg>
-                  }
-                </a>
-
-                {
-                  socioeconomicStatus2.status == true ?
-                    <DragDropContext onDragEnd={handleOnDragEnd}>
-
-                      <Droppable droppableId="socioeconomiclayer">
-                        {(provided) => (
-                          <ul className="socioeconomiclayer" {...provided.droppableProps} ref={provided.innerRef}>
-                            {socioeconomicStatus2.data.map((val, index) => {
-                              return (
-
-                                <Draggable key={val.id} draggableId={val.id.toString()} index={index}>
-                                  {(provided) => (
-                                    <>
-                                      <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-
-                                        <div className="flex i items-center"
-
-                                          onClick={() => {
-                                            const newItems = [...socioeconomicStatus2.data];
-                                            newItems[index] = {
-                                              id: val.id,
-                                              slug: val.slug,
-                                              title: val.title,
-                                              status: !val.status,
-                                              value: val.value,
-                                              priority: val.priority,
-                                              legend: val.legend
-
-                                            };
-                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
-                                            // setSocioEconomicLayers(newItems);
-                                          }}
-
-                                        >
-                                          <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
-                                            checked={val.status}
-                                            defaultChecked={false}
-
-
-                                          />
-                                          <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-                                        </div>
-
-
-                                        {
-                                          val.status && val.status == true ?
-                                            <div className="flex flex-col space-y-2 p-2">
-                                              <div className="px-6">
-                                                <span className="text-gray-700 text-sm">opacity:
-
-                                                  <input
-                                                    type="number"
-                                                    className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="exampleNumber0"
-                                                    value={parseInt(val.value)}
-
-                                                    onChange={(event) => {
-                                                      const newItems = [...socioeconomicStatus2.data];
-                                                      newItems[index] = {
-                                                        id: val.id,
-                                                        slug: val.slug,
-                                                        title: val.title,
-                                                        status: val.status,
-                                                        value: event.target.value,
-                                                        priority: val.priority,
-                                                        legend: val.legend
-                                                      };
-                                                      dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
-                                                      // setSocioEconomicLayers(newItems);
-                                                    }}
-
-                                                  />
-                                                  <div>
-                                                    <input type="range" min="0" max="100" step="1" value={val.value}
-
-                                                      onChange={(event) => {
-                                                        const newItems = [...socioeconomicStatus2.data];
-                                                        newItems[index] = {
-                                                          id: val.id,
-                                                          slug: val.slug,
-                                                          title: val.title,
-                                                          status: val.status,
-                                                          value: event.target.value,
-                                                          legend: val.legend
-
-                                                        };
-                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
-                                                        // setSocioEconomicLayers(newItems);
-                                                      }}
-                                                      className=" form-range h-6 p-0focus:outline-none focus:ring-0 focus:shadow-none"
-
-                                                    />
-
-                                                  </div>
-
-                                                </span>
-                                              </div>
-
-                                            </div>
-                                            : null
-                                        }
-
-
-                                      </li>
-                                      <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
-
-                                    </>
-
-                                  )}
-                                </Draggable>
-
-
-
-                              );
-                            })}
-                          </ul>
-                        )}
-                      </Droppable>
-
-                    </DragDropContext>
-                    :
-                    null
-                }
-
-
+                
                 <li className="relative" id="sidenavSecEx3">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3" aria-expanded="false" aria-controls="collapseSidenavSecEx3"
-
-
-                    // onClick={() => setGeodataLayersStatus(!geodataLayersStatus)}
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis 
+                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 
+                    ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" 
+                    data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false" 
+                    aria-controls="collapseSidenavSecEx2"
+                    onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" 
+                      stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" 
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 
+                        0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Socioeconomic Layers</span>
+                    {
+                      socioeconomic.status == true ?
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 
+                            111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 
+                            01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                        </svg>
+                    }
+                  </a>
+                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" 
+                    data-bs-parent="#sidenavSecExample">
+                      {
+                          socioeconomic.status == true && socioeconomic.data.map((val, index) => {
+                              return (
+                                  <li className="relative" key={index}>
+                                      <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6 
+                                        overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
+                                        hover:bg-blue-50 transition duration-300 ease-in-out"
+                                                          data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                                      <DragDropContext onDragEnd={handleOnDragEnd2}>
+                                          <Droppable droppableId={val.id.toString()}>
+                                              {(provided) => (
+                                                  <ul className={val.id} {...provided.droppableProps} ref={provided.innerRef}>
+                                                      {
+                                                        val.data && val.data.map((val2, index2) => {
+                                                              return (
+                                                                  <Draggable key={val2.id} draggableId={val2.id.toString()} index={index2}>
+                                                                      {(provided) => (
+                                                                          <>
+                                                                              <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                                                  <div className="flex i items-center"
+                                                                                      onClick={() => {
+                                                                                          const newItems = [...socioeconomic.data];
+                                                                                          newItems[index]['data'][index2] = {
+                                                                                              id: val2.id,
+                                                                                              slug: val2.slug,
+                                                                                              title: val2.title,
+                                                                                              status: !val2.status,
+                                                                                              value: val2.value
+                                                                                          };
+                                                                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                      }}
+                                                                                  >
+                                                                                      <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+                                                                                          id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                                                          checked={val2.status}
+                                                                                          onChange={(event) => {
+                                                                                              const newItems = [...socioeconomic.data];
+                                                                                              newItems[index]['data'][index2] = {
+                                                                                                  id: val2.id,
+                                                                                                  slug: val2.slug,
+                                                                                                  title: val2.title,
+                                                                                                  status: !val2.status,
+                                                                                                  value: val2.value
+                                                                                              };
+                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                          }}
+                                                                                      />
+                                                                                      <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 
+                                                                                          text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition 
+                                                                                          duration-300 ease-in-out"
+                                                                                          data-mdb-ripple="true" data-mdb-ripple-color="primary">{val2.title}</a>
+                                                                                  </div>
+                                                                                  {
+                                                                                    val2.status == true ?
+                                                                                        <div className="flex flex-col space-y-2 p-2">
+                                                                                            <div className="px-6">
+                                                                                                <span className="text-gray-700 text-sm">opacity:
+                                                                                                    <input
+                                                                                                        type="number"
+                                                                                                        className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
+                                                                                                            border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white 
+                                                                                                            focus:border-blue-600 focus:outline-none"
+                                                                                                        value={parseInt(val2.value)}
+                                                                                                        onChange={(event) => {
+                                                                                                            const newItems = [...socioeconomic.data];
+                                                                                                            newItems[index]['data'][index2] = {
+                                                                                                                id: val2.id,
+                                                                                                                slug: val2.slug,
+                                                                                                                title: val2.title,
+                                                                                                                status: val2.status,
+                                                                                                                value: event.target.value
+                                                                                                            };
+                                                                                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                                        }}
+                                                                                                    />
+                                                                                                    <div>
+                                                                                                        <div>
+                                                                                                            <input type="range" min="1" max="100" step="1" value={val2.value} className="form-range h-6 p-0 
+                                                                                                                focus:outline-none focus:ring-0 focus:shadow-none"
+                                                                                                                onChange={(event) => {
+                                                                                                                    const newItems = [...socioeconomic.data];
+                                                                                                                    newItems[index]['data'][index2] = {
+                                                                                                                        id: val2.id,
+                                                                                                                        slug: val2.slug,
+                                                                                                                        title: val2.title,
+                                                                                                                        status: val2.status,
+                                                                                                                        value: event.target.value
+                                                                                                                    };
+                                                                                                                    dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                                                }}
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        : null
+                                                                                  }
+                                                                              </li>
+                                                                          </>
+                                                                      )}
+                                                                  </Draggable>
+                                                              )
+                                                          })
+                                                      }
+                                                  </ul>
+                                              )}
+                                          </Droppable>
+                                      </DragDropContext>
+                                  </li>
+                              )
+                          })
+                      }
+                  </ul>
+                </li>
+                <li className="relative" id="sidenavSecEx3">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis 
+                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" 
+                    data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3" 
+                    aria-expanded="false" aria-controls="collapseSidenavSecEx3"
                     onClick={() => dispatch({ type: "TOGGLE_GEODATA", payload: {} })}
                   >
-
-
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>Geodata Layers</span>
-
-
                     {
                       geodata.status == true ?
-
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-16" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
-
                         :
-
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-16" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
                         </svg>
                     }
-
-
                   </a>
-                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" data-bs-parent="#sidenavSecExample">
-
+                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" 
+                    data-bs-parent="#sidenavSecExample">
                     {
                       geodata.status == true && geodata.data.map((val, index) => {
                         return (
                           <li className="relative" key={index}>
-                            <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                            <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6 
+                              overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded 
+                              hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" 
+                              data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
 
                             <DragDropContext onDragEnd={handleOnDragEnd2}>
-                              <Droppable droppableId={val.id}>
+                              <Droppable droppableId={val.id.toString()}>
                                 {(provided) => (
-
                                   <ul className={val.id} {...provided.droppableProps} ref={provided.innerRef}>
-
                                     {
                                       val.data && val.data.map((val2, index2) => {
                                         return (
-
                                           <Draggable key={val2.id} draggableId={val2.id.toString()} index={index2}>
                                             {(provided) => (
-
                                               <>
                                                 <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-
                                                   <div className="flex i items-center"
-
                                                     onClick={() => {
                                                       const newItems = [...geodata.data];
                                                       newItems[index]['data'][index2] = {
@@ -355,32 +332,42 @@ const Sidebar = () => {
                                                         status: !val2.status,
                                                         value: val2.value
                                                       };
-
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
-
                                                     }}
-
                                                   >
-                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
-
-                                                      defaultChecked={false}
+                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" 
+                                                      id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                       checked={val2.status}
-
+                                                      onChange={(event) => {
+                                                      const newItems = [...geodata.data];
+                                                      newItems[index]['data'][index2] = {
+                                                          id: val2.id,
+                                                          slug: val2.slug,
+                                                          title: val2.title,
+                                                          status: !val2.status,
+                                                          value: val2.value
+                                                      };
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                      }}
                                                     />
-                                                    <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val2.title}</a>
+                                                    <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 
+                                                      overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded 
+                                                      hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" 
+                                                      data-mdb-ripple="true" data-mdb-ripple-color="primary">
+                                                      {val2.title}
+                                                    </a>
                                                   </div>
-
                                                   {
-                                                    val2.status && val2.status == true ?
+                                                    val2.status == true ?
                                                       <div className="flex flex-col space-y-2 p-2">
                                                         <div className="px-6">
-
                                                           <span className="text-gray-700 text-sm">opacity:
-
                                                             <input
                                                               type="number"
-                                                              className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                              id="exampleNumber0"
+                                                              className="mx-2 w-14 text-base font-normal text-gray-700 bg-white 
+                                                                bg-clip-padding border border-solid border-gray-300 rounded transition 
+                                                                ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                                                focus:outline-none"
                                                               value={parseInt(val2.value)}
                                                               onChange={(event) => {
                                                                 const newItems = [...geodata.data];
@@ -391,16 +378,13 @@ const Sidebar = () => {
                                                                   status: val2.status,
                                                                   value: event.target.value
                                                                 };
-
                                                                 dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                               }}
-
                                                             />
-
                                                             <div>
                                                               <div>
-                                                                <input type="range" min="1" max="100" step="1" value={val2.value} className=" form-range h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
-
+                                                                <input type="range" min="1" max="100" step="1" value={val2.value} 
+                                                                  className="form-range h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
                                                                   onChange={(event) => {
                                                                     const newItems = [...geodata.data];
                                                                     newItems[index]['data'][index2] = {
@@ -410,16 +394,13 @@ const Sidebar = () => {
                                                                       status: val2.status,
                                                                       value: event.target.value
                                                                     };
-
                                                                     dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                                   }}
-
                                                                 />
                                                               </div>
                                                             </div>
                                                           </span>
                                                         </div>
-
                                                       </div>
                                                       : null
                                                   }
@@ -431,17 +412,13 @@ const Sidebar = () => {
                                       })
                                     }
                                   </ul>
-
                                 )}
                               </Droppable>
-
                             </DragDropContext>
-
                           </li>
                         )
                       })
                     }
-
                   </ul>
                 </li>
               </ul>

@@ -15,6 +15,8 @@ const CustomPolygon = (props) => {
         tooltipDirection,
         tooltipOffset,
         tooltipCount,
+        tooltipName_1, 
+        tooltipName_2,
         tooltipBgcolor,
         tooltipTextColor,
         show_data,

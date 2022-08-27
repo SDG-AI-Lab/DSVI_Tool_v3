@@ -9,19 +9,19 @@ export const initalState = {
         "data": [
             {
                 id: 1,
-                slug: 'social_vulnerability',
+                slug: 'se_social_vulnerability',
                 title: 'Social Vulnerability',
                 data: [                    
                     {
                         id: 1.1,
-                        slug: 'social_vulnerability_random_forest',
+                        slug: 'se_random_forest',
                         title: 'SV: Random Forest',
                         status: false,
                         value: 70
                     },
                     {
                         id: 1.2,
-                        slug: 'social_vulnerability_xgboost',
+                        slug: 'se_xgboost',
                         title: 'SV: XGBoost',
                         status: false,
                         value: 70
@@ -30,18 +30,109 @@ export const initalState = {
             },
             {
                 id: 2,
-                slug: 'drive_time',
+                slug: 'se_drive_time',
                 title: 'Drive Time',
                 data: [                    
                     {
                         id: 2.1,
-                        slug: 'dt_education_facility',
+                        slug: 'se_education_facility',
                         title: 'DT: Education Facility',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 2.2,
+                        slug: 'se_health_institution',
+                        title: 'DT: Health Institution',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 2.3,
+                        slug: 'se_financial_service',
+                        title: 'DT: Financial Service',
+                        status: false,
+                        value: 70
+                    },
+                ]
+            },
+            {
+                id: 3,
+                slug: 'se_socio_economic',
+                title: 'Socio Economic',
+                data: [                    
+                    {
+                        id: 3.1,
+                        slug: 'se_population_counts',
+                        title: 'Population Counts',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 3.2,
+                        slug: 'se_celltowers',
+                        title: 'Celltowers',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 3.3,
+                        slug: 'se_nightlight_intensity',
+                        title: 'Nightlight Intensity',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 3.4,
+                        slug: 'se_relative_wealth',
+                        title: 'Relative Wealth',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 3.5,
+                        slug: 'se_GDP',
+                        title: 'GDP',
                         status: false,
                         value: 70
                     }
                 ]
             },
+            {
+                id: 4,
+                slug: 'se_bio_physical',
+                title: 'Bio-Physical',
+                data: [                    
+                    {
+                        id: 4.1,
+                        slug: 'se_plant_health',
+                        title: 'Plant Health',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 4.2,
+                        slug: 'se_temperature_max',
+                        title: 'Temperature (Max)',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 4.3,
+                        slug: 'se_land_use_class',
+                        title: 'Land Use Class',
+                        status: false,
+                        value: 70
+                    },
+                    {
+                        id: 4.4,
+                        slug: 'se_elevation',
+                        title: 'Elevation',
+                        status: false,
+                        value: 70
+                    }
+                ]
+            }
                 // {
                 //     id: 7,
                 //     slug: 'educational_facilities',
