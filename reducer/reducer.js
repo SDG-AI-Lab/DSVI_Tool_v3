@@ -1,8 +1,9 @@
 export const initalState = {
-    "show_data": false,
-    "show_sidebar_data": false,
-    "show_sidebar": true,
-    "level": 1,
+    "show_data":false,
+    "show_sidebar_data":false,
+    "show_infoBox_data": false,
+    "show_sidebar":true,
+    "level":1,
     "show_area_of_interest": false,
     "socioeconomic": {
         "status": false,
@@ -1201,6 +1202,11 @@ export const reducer = (state, action) => {
             return {
                 ...state, show_sidebar_data: !state.show_sidebar_data,
             };
+        case "TOGGLE_INFOBOX_DATA":
+            return {
+                ...state,
+                show_infoBox_data: !state.show_infoBox_data
+            }
         case "TOGGLE_SIDEBAR":
             return {
                 ...state, show_sidebar: !state.show_sidebar,
