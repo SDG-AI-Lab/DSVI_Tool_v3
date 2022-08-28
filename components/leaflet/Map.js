@@ -55,6 +55,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const level = state["level"];
   const show_data = state['show_data'];
   const show_sidebar_data = state['show_sidebar_data'];
+  const show_infoBox_data = state['show_infoBox_data']
   const socioeconomic = state['socioeconomic']['data'];
   const geodata = state['geodata']['data'];
 
@@ -285,15 +286,15 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         <ZoomControl
           position="bottomright"
         />
-        {/* <ControlMenu position="topRight" show_data={show_data} show_sidebar_data={show_sidebar_data}
+        <ControlMenu position="topRight" show_data={show_data} show_infoBox_data={show_infoBox_data}
           children={
-            educational_facilities_status || financial_institutions_status || health_institutions_status ?
+            distance_to_healthcare_status ?
               <Legend />
               :
               null
           }
         >
-        </ControlMenu> */}
+        </ControlMenu>
       
       {/* NEW. Socioeconomic. START */}
       {se_random_forest_status && level === 3 &&

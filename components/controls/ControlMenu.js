@@ -1,10 +1,19 @@
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import Control from 'react-leaflet-custom-control'
-import {FilterContext} from '../../context/FilterContext'
+import {FilterContext} from '../../context/FilterContext';
+import { Modal } from 'react-responsive-modal';
+import Dropdown from 'react-dropdown';
+import { Carousel } from 'react-responsive-carousel';
+
+const dropDownOptions = [
+    'Datasets', 'Layer 1', 'Layer 2'
+]
+
 
 const ControlMenu = (props) => {
-    const {position, show_data, show_sidebar_data} = props;
+    const {position, show_data, show_sidebar_data, show_infoBox_data} = props;
     const {dispatch} = useContext(FilterContext);
+    const [dropdownValue, setDropdownValue] = useState(dropDownOptions[0])
     return (<>
             <Control position={position}>
                 <div className="border-black flex items-center">
@@ -22,13 +31,14 @@ const ControlMenu = (props) => {
                     </svg>
 
                     <svg xmlns="http://www.w3.org/2000/svg"
-                         className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-11 w-11 bg-opacity-75 ${show_sidebar_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
+                         className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-11 w-11 bg-opacity-75 ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
                          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
                          onClick={(e) => {
                              e.stopPropagation();
                              e.preventDefault();
+                             console.log('dispatching')
 
-                             dispatch({type: "TOGGLE_SIDEBAR_DATA", payload: {}})
+                             dispatch({type: "TOGGLE_INFOBOX_DATA", payload: {}})
                          }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16"/>
                     </svg>
@@ -37,7 +47,206 @@ const ControlMenu = (props) => {
             {props.children && <Control position={position}>
                 {props.children}
             </Control>}
+            {
+        <Modal classNames={{modal: 'opacity-80 px-0 py-2 top-20'}} showCloseIcon={false} open={show_infoBox_data} closeOnOverlayClick={true} onClose={() => {dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {}})}}>
+            <Tabs />
+            <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => setDropdownValue(e.value)} value={dropdownValue} placeholder="Select an option" />
+            <div className='max-w-md px-4 mt-5'>
+              <h2 className='font-bold'>SIDS Geospatial Platform</h2>
+              <p className='my-3'>This map visualizes data for the SIDS at different resolutions. Select a dataset above or a country to view spatial data about the region.</p>
+            </div>
+        </Modal>
+      }
         </>
     )
 }
+const Tabs = () => {
+    const [openTab, setOpenTab] = useState(1);
+    return (
+      <>
+        <div className="flex items-start mb-3">
+          <ul
+            className="nav nav-tabs mr-4 flex w-1/2 list-none flex-col flex-wrap border-b-0 pl-0"
+            role="tablist"
+          >
+            <li
+              className="nav-item flex-grow text-left"
+              style={{
+                background: openTab === 1 ? '#9d969659' : 'transparent',
+              }}
+            >
+              <a
+                className={
+                  'block rounded px-5 py-3 text-xs leading-normal text-black '
+                }
+                onClick={(e) => {
+                  e.preventDefault()
+                  setOpenTab(1)
+                }}
+                data-toggle="tab"
+                href="#link1"
+                role="tablist"
+              >
+                SIDS Offer Pillars
+              </a>
+            </li>
+            <li
+              className="nav-item flex-grow text-left"
+              style={{
+                background: openTab === 2 ? '#9d969659' : 'transparent',
+              }}
+            >
+              <a
+                className={
+                  'block rounded px-5 py-3 text-xs leading-normal text-black '
+                }
+                onClick={(e) => {
+                  e.preventDefault()
+                  setOpenTab(2)
+                }}
+                data-toggle="tab"
+                href="#link2"
+                role="tablist"
+              >
+                SDGs
+              </a>
+            </li>
+            <li
+              className="nav-item flex-grow text-left"
+              style={{
+                background: openTab === 3 ? '#9d969659' : 'transparent',
+              }}
+            >
+              <a
+                className={
+                  'block rounded px-5 py-3 text-xs leading-normal text-black'
+                }
+                onClick={(e) => {
+                  e.preventDefault()
+                  setOpenTab(3)
+                }}
+                data-toggle="tab"
+                href="#link3"
+                role="tablist"
+              >
+                SAMOA Pathway
+              </a>
+            </li>
+          </ul>
+          <div className="tab-content w-1/2">
+            <div className="flex-auto px-2 py-3">
+              <div
+                className={`${
+                  openTab === 1 ? 'block' : 'hidden'
+                } tab-pane fade show active`}
+                style={{ width: '200px' }}
+                id="link1"
+              >
+                <Carousel
+                  className="info_carousel"
+                  showArrows={true}
+                  showIndicators={false}
+                  showThumbs={false}
+                  showStatus={false}
+                >
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                </Carousel>
+              </div>
+              <div
+                className={`${
+                  openTab === 2 ? 'block' : 'hidden'
+                } tab-pane fade show active`}
+                style={{ width: '200px' }}
+                id="link2"
+              >
+                <Carousel
+                  className="info_carousel"
+                  showArrows={true}
+                  showIndicators={false}
+                  showThumbs={false}
+                  showStatus={false}
+                >
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                </Carousel>
+              </div>
+              <div
+                className={`${
+                  openTab === 3 ? 'block' : 'hidden'
+                } tab-pane fade show active`}
+                style={{ width: '200px' }}
+                id="link3"
+              >
+                <Carousel
+                  className="info_carousel"
+                  showArrows={true}
+                  showIndicators={false}
+                  showThumbs={false}
+                  showStatus={false}
+                >
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                  <img
+                    style={{ width: '100px' }}
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    alt="poverty"
+                  />
+                </Carousel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  };
 export default ControlMenu;
