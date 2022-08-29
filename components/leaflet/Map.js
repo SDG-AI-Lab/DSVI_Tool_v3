@@ -12,7 +12,7 @@ import CircleMarkers from '../marker/CircleMarkers';
 
 import se_random_forest_3 from '/public/static/adm3_random_forest_zonal_stats.json'
 import se_xgboost_3 from '/public/static/adm3_XGBoost_zonal_stats.json'
-import se_edu_1 from '/public/static/edu_1.json'
+import se_edu_1 from '/public/static/edu_1.geojson'
 import se_edu_2 from '/public/static/edu_2.json'
 import se_edu_3 from '/public/static/edu_3.json'
 import se_health_1 from '/public/static/health_1.json'
