@@ -77,197 +77,131 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   })
 
   /* Socioeconomic. START */
-  var se_social_vulnerability = socioeconomic.find(
-    (e) => e.slug === 'se_social_vulnerability');
-    var se_random_forest = se_social_vulnerability.data.find(
-      (e) => e.slug === 'se_random_forest'
-    );
-    var { status: se_random_forest_status, 
-      value: se_random_forest_value} = se_random_forest;
+  const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
 
-    var se_xgboost = se_social_vulnerability.data.find(
-        (e) => e.slug === 'se_xgboost'
-    );
-    var { status: se_xgboost_status, 
-        value: se_xgboost_value} = se_xgboost;
+  const se_random_forest = se_social_vulnerability.data.find((e) => e.slug === 'se_random_forest');
+  const {status: se_random_forest_status, value: se_random_forest_value} = se_random_forest;
+  const se_xgboost = se_social_vulnerability.data.find((e) => e.slug === 'se_xgboost');
+  const {status: se_xgboost_status, value: se_xgboost_value} = se_xgboost;
 
-  var se_drive_time = socioeconomic.find(
-    (e) => e.slug === 'se_drive_time');
-    var se_education_facility = se_drive_time.data.find(
-        (e) => e.slug === 'se_education_facility'
-    );
-    var { status: se_education_facility_status, 
-        value: se_education_facility_value} = se_education_facility;
+  const se_drive_time = socioeconomic.find((e) => e.slug === 'se_drive_time');
+  const se_education_facility = se_drive_time.data.find((e) => e.slug === 'se_education_facility');
+  const {status: se_education_facility_status, value: se_education_facility_value} = se_education_facility;
+  const se_health_institution = se_drive_time.data.find((e) => e.slug === 'se_health_institution');
+  const {status: se_health_institution_status, value: dt_health_institution_value} = se_health_institution;
+  const se_financial_service = se_drive_time.data.find((e) => e.slug === 'se_financial_service');
+  const {status: se_financial_service_status, value: se_financial_service_value} = se_financial_service;
 
-    var se_health_institution = se_drive_time.data.find(
-      (e) => e.slug === 'se_health_institution'
-    );
-    var { status: se_health_institution_status, 
-        value: dt_health_institution_value} = se_health_institution;
+  const se_socio_economic = socioeconomic.find((e) => e.slug === 'se_socio_economic');
+  const se_population_counts = se_socio_economic.data.find((e) => e.slug === 'se_population_counts');
+  const {status: se_population_counts_status, value: population_counts_value} = se_population_counts;
+  const se_celltowers = se_socio_economic.data.find((e) => e.slug === 'se_celltowers');
+  const {status: se_celltowers_status, value: se_celltowers_value} = se_celltowers;
+  const se_nightlight_intensity = se_socio_economic.data.find((e) => e.slug === 'se_nightlight_intensity');
+  const {status: se_nightlight_intensity_status, value: se_nightlight_intensity_value} = se_nightlight_intensity;
+  const se_relative_wealth = se_socio_economic.data.find((e) => e.slug === 'se_relative_wealth');
+  const {status: se_relative_wealth_status, value: se_relative_wealth_value} = se_relative_wealth;
+  const se_GDP = se_socio_economic.data.find((e) => e.slug === 'se_GDP');
+  const {status: se_GDP_status, value: se_GDP_value} = se_GDP;
 
-    var se_financial_service = se_drive_time.data.find(
-      (e) => e.slug === 'se_financial_service'
-    );
-    var { status: se_financial_service_status, 
-        value: se_financial_service_value} = se_financial_service;
-
-  var se_socio_economic = socioeconomic.find(
-    (e) => e.slug === 'se_socio_economic');
-    var se_population_counts = se_socio_economic.data.find(
-      (e) => e.slug === 'se_population_counts'
-    );
-    var { status: se_population_counts_status, 
-        value: population_counts_value} = se_population_counts;
-
-    var se_celltowers = se_socio_economic.data.find(
-      (e) => e.slug === 'se_celltowers'
-    );
-    var { status: se_celltowers_status, 
-        value: se_celltowers_value} = se_celltowers;
-
-    var se_nightlight_intensity = se_socio_economic.data.find(
-      (e) => e.slug === 'se_nightlight_intensity'
-    );
-    var { status: se_nightlight_intensity_status, 
-        value: se_nightlight_intensity_value} = se_nightlight_intensity;
-
-    var se_relative_wealth = se_socio_economic.data.find(
-      (e) => e.slug === 'se_relative_wealth'
-    );
-    var { status: se_relative_wealth_status, 
-        value: se_relative_wealth_value} = se_relative_wealth;
-
-    var se_GDP = se_socio_economic.data.find(
-      (e) => e.slug === 'se_GDP'
-    );
-    var { status: se_GDP_status, 
-        value: se_GDP_value} = se_GDP;
-
-  var se_bio_physical = socioeconomic.find(
-    (e) => e.slug === 'se_bio_physical');
-    var se_plant_health = se_bio_physical.data.find(
-      (e) => e.slug === 'se_plant_health'
-    );
-    var { status: se_plant_health_status, 
-        value: se_plant_health_value} = se_plant_health;
-
-    var se_temperature_max = se_bio_physical.data.find(
-      (e) => e.slug === 'se_temperature_max'
-    );
-    var { status: se_temperature_max_status, 
-        value: se_temperature_max_value} = se_temperature_max;
-    
-    var se_land_use_class = se_bio_physical.data.find(
-      (e) => e.slug === 'se_land_use_class'
-    );
-    var { status: se_land_use_class_status, 
-        value: se_land_use_class_value} = se_land_use_class;
-
-    var se_elevation = se_bio_physical.data.find(
-      (e) => e.slug === 'se_elevation'
-    );
-    var { status: se_elevation_status, 
-        value: se_elevation_value} = se_elevation;
+  const se_bio_physical = socioeconomic.find((e) => e.slug === 'se_bio_physical');
+  const se_plant_health = se_bio_physical.data.find((e) => e.slug === 'se_plant_health');
+  const {status: se_plant_health_status, value: se_plant_health_value} = se_plant_health;
+  const se_temperature_max = se_bio_physical.data.find((e) => e.slug === 'se_temperature_max');
+  const {status: se_temperature_max_status, value: se_temperature_max_value} = se_temperature_max;
+  const se_land_use_class = se_bio_physical.data.find((e) => e.slug === 'se_land_use_class');
+  const {status: se_land_use_class_status, value: se_land_use_class_value} = se_land_use_class;
+  const se_elevation = se_bio_physical.data.find((e) => e.slug === 'se_elevation');
+  const {status: se_elevation_status, value: se_elevation_value} = se_elevation;
   /* Socioeconomic. END */
 
   /* Geodata Layers. START */
-  var social_vulnerability = geodata.find(
-    (e) => e.slug === 'social_vulnerability'
-  );
-    var sv_linear_model = social_vulnerability.data.find(
-      (e) => e.slug === 'sv_linear_model'
-    );
-    var { status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  const social_vulnerability = geodata.find((e) => e.slug === 'social_vulnerability');
+  const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
+  const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  const sv_xgboost = social_vulnerability.data.find((e) => e.slug === 'sv_xgboost');
+  const {status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
+  const sv_random_forest = social_vulnerability.data.find((e) => e.slug === 'sv_random_forest');
+  const {status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
 
-    var sv_xgboost = social_vulnerability.data.find(
-      (e) => e.slug === 'sv_xgboost'
-    );
-    var { status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
+  const distance_maps = geodata.find((e) => e.slug === 'distance_maps');
+  const distance_to_healthcare = distance_maps.data.find((e) => e.slug === 'distance_to_healthcare');
+  const {status: distance_to_healthcare_status, value: distance_to_healthcare_value} = distance_to_healthcare;
+  const distance_to_finance = distance_maps.data.find((e) => e.slug === 'distance_to_finance');
+  const {status: distance_to_finance_status, value: distance_to_finance_value} = distance_to_finance;
+  const distance_to_edu = distance_maps.data.find((e) => e.slug === 'distance_to_edu');
+  const {status: distance_to_edu_status, value: distance_to_edu_value} = distance_to_edu;
 
-    var sv_random_forest = social_vulnerability.data.find(
-      (e) => e.slug === 'sv_random_forest'
-    );
-    var { status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
+  const bio_physical = geodata.find((e) => e.slug === 'bio_physical');
+  const elevation = bio_physical.data.find((e) => e.slug === 'elevation');
+  const {status: elevation_status, value: elevation_value} = elevation;
+  const slope = bio_physical.data.find((e) => e.slug === 'slope');
+  const {status: slope_status, value: slope_value} = slope;
+  const max_temp = bio_physical.data.find((e) => e.slug === 'max_temp');
+  const {status: max_temp_status, value: max_temp_value} = max_temp;
+  const plant_health = bio_physical.data.find((e) => e.slug === 'plant_health');
+  const {status: plant_health_status, value: plant_health_value} = plant_health;
+  const precipitation = bio_physical.data.find((e) => e.slug === 'precipitation');
+  const {status: precipitation_status, value: precipitation_value} = precipitation;
 
-  var distance_maps = geodata.find(
-    (e) => e.slug === 'distance_maps'
-  );
-    var distance_to_healthcare = distance_maps.data.find(
-      (e) => e.slug === 'distance_to_healthcare'
-    );
-    var { status: distance_to_healthcare_status, value: distance_to_healthcare_value} = distance_to_healthcare;
-
-    var distance_to_finance = distance_maps.data.find(
-      (e) => e.slug === 'distance_to_finance'
-    );
-    var { status: distance_to_finance_status, value: distance_to_finance_value} = distance_to_finance;
-
-    var distance_to_edu = distance_maps.data.find(
-      (e) => e.slug === 'distance_to_edu'
-    );
-    var { status: distance_to_edu_status, value: distance_to_edu_value} = distance_to_edu;
-
-  var bio_physical = geodata.find(
-    (e) => e.slug === 'bio_physical'
-  );
-    var elevation = bio_physical.data.find(
-      (e) => e.slug === 'elevation'
-    );
-    var { status: elevation_status, value: elevation_value} = elevation;
-
-    var slope = bio_physical.data.find(
-      (e) => e.slug === 'slope'
-    );
-    var { status: slope_status, value: slope_value} = slope;
-
-    var max_temp = bio_physical.data.find(
-      (e) => e.slug === 'max_temp'
-    );
-    var { status: max_temp_status, value: max_temp_value} = max_temp;
-
-    var plant_health = bio_physical.data.find(
-      (e) => e.slug === 'plant_health'
-    );
-    var { status: plant_health_status, value: plant_health_value} = plant_health;
-
-    var precipitation = bio_physical.data.find(
-      (e) => e.slug === 'precipitation'
-    );
-    var { status: precipitation_status, value: precipitation_value} = precipitation;
-
-  var socio_economic = geodata.find(
-    (e) => e.slug === 'socio_economic'
-  );
-    var nightlight_intensity = socio_economic.data.find(
-      (e) => e.slug === 'nightlight_intensity'
-    );
-    var { status: nightlight_intensity_status, value: nightlight_intensity_value} = nightlight_intensity;
-
-    var pop_density = socio_economic.data.find(
-      (e) => e.slug === 'pop_density'
-    );
-    var { status: pop_density_status, value: pop_density_value} = pop_density;
-
-    var celltower = socio_economic.data.find(
-      (e) => e.slug === 'celltower'
-    );
-    var { status: celltower_status, value: celltower_value} = celltower;
-
-    var road_density = socio_economic.data.find(
-      (e) => e.slug === 'road_density'
-    );
-    var { status: road_density_status, value: road_density_value} = road_density;
-
-    var relative_wealth = socio_economic.data.find(
-      (e) => e.slug === 'relative_wealth'
-    );
-    var { status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
-
-    var gdp = socio_economic.data.find(
-      (e) => e.slug === 'gdp'
-    );
-    var { status: gdp_status, value: gdp_value} = gdp;
+  const socio_economic = geodata.find((e) => e.slug === 'socio_economic');
+  const nightlight_intensity = socio_economic.data.find((e) => e.slug === 'nightlight_intensity');
+  const {status: nightlight_intensity_status, value: nightlight_intensity_value} = nightlight_intensity;
+  const pop_density = socio_economic.data.find((e) => e.slug === 'pop_density');
+  const {status: pop_density_status, value: pop_density_value} = pop_density;
+  const celltower = socio_economic.data.find((e) => e.slug === 'celltower');
+  const {status: celltower_status, value: celltower_value} = celltower;
+  const road_density = socio_economic.data.find((e) => e.slug === 'road_density');
+  const {status: road_density_status, value: road_density_value} = road_density;
+  const relative_wealth = socio_economic.data.find((e) => e.slug === 'relative_wealth');
+  const {status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
+  const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
+  const {status: gdp_status, value: gdp_value} = gdp;
   /* Geodata Layers. END */
+
+  const newProjection = (library, index, layer_opacity) => {
+    const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
+    const data = [
+      {
+        "key": "NAME_1",
+        "value": NAME_1
+      },
+      {
+        "key": "NAME_2",
+        "value": NAME_2
+      },
+      {
+        "key": "GID_3",
+        "value": GID_3
+      },
+      {
+        "key": "COUNT",
+        "value": _count
+      }
+    ];
+    const fillColor = NormalizeData(_stdev, _max, _min);
+    return (
+        <CustomPolygon
+            key={index}
+            positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+            fillColor={fillColor}
+            opacity={layer_opacity/100}
+            tooltipDirection="auto"
+            tooltipOffset={[20, 0]}
+            tooltipCount={library.properties._count}
+            tooltipName_1={library.properties.NAME_1}
+            tooltipName_2={library.properties.NAME_2}
+            tooltipBgcolor="rgb(255 255 255)"
+            tooltipTextColor="text-slate-700"
+            show_data={show_data}
+            popupMaxWidth="500"
+            popupMaxHeight="auto"
+            popupBgColor="bg-white"
+            popupTextColor="text-slate-700"
+            data={data}
+        />
+    )
+  };
 
   return (
       <MapContainer
@@ -296,1675 +230,153 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           }
         >
         </ControlMenu>
-      
-      {/* NEW. Socioeconomic. START */}
-      {se_random_forest_status && level === 3 &&
-        se_random_forest_3.features.map((randomForstLibrary, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = randomForstLibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID_3",
-                "value": GID_3
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(randomForstLibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_random_forest_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={randomForstLibrary.properties._count}
-                tooltipName_1={randomForstLibrary.properties.NAME_1}
-                tooltipName_2={randomForstLibrary.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-              />
-            )
-          })
-        }
-      {se_xgboost_status && level === 3 &&
-        se_xgboost_3.features.map((library, index) => {
-          const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-          const data = [
-              {
-              "key": "NAME_1",
-              "value": NAME_1
-              },
-              {
-              "key": "NAME_2",
-              "value": NAME_2
-              },
-              {
-              "key": "GID_3",
-              "value": GID_3
-              },
-              {
-              "key": "COUNT",
-              "value": _count
-              }
-          ];
-          const fillColor = NormalizeData(_stdev, _max, _min);
-          return (
-              <CustomPolygon
-              key={index}
-              positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-              fillColor={fillColor}
-              opacity={se_xgboost_value/100}
-              tooltipDirection="auto"
-              tooltipOffset={[20, 0]}
-              tooltipCount={library.properties._count}
-              tooltipName_1={library.properties.NAME_1}
-              tooltipName_2={library.properties.NAME_2}
-              tooltipBgcolor="rgb(255 255 255)"
-              tooltipTextColor="text-slate-700"
-              show_data={show_data}
-              popupMaxWidth="500"
-              popupMaxHeight="auto"
-              popupBgColor="bg-white"
-              popupTextColor="text-slate-700"
-              data={data}
-              />
-          )
-        })
-      }
-      {se_education_facility_status && level === 1 &&
-        se_edu_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_education_facility_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_education_facility_status && level === 2 &&
-        se_edu_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_education_facility_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_education_facility_status && level === 3 &&
-        se_edu_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_education_facility_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_health_institution_status && level === 1 &&
-        se_health_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={dt_health_institution_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_health_institution_status && level === 2 &&
-        se_health_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={dt_health_institution_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_health_institution_status && level === 3 &&
-        se_health_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={dt_health_institution_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_financial_service_status && level === 1 &&
-        se_finance_1.features.map((library, index) => {
-          const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-          const data = [
-              {
-              "key": "NAME_1",
-              "value": NAME_1
-              },
-              {
-              "key": "NAME_2",
-              "value": NAME_2
-              },
-              {
-              "key": "GID_3",
-              "value": GID_3
-              },
-              {
-              "key": "COUNT",
-              "value": _count
-              }
-          ];
-          const fillColor = NormalizeData(_stdev, _max, _min);
-          return (
-              <CustomPolygon
-              key={index}
-              positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-              fillColor={fillColor}
-              opacity={se_financial_service_value/100}
-              tooltipDirection="auto"
-              tooltipOffset={[20, 0]}
-              tooltipCount={library.properties._count}
-              tooltipName_1={library.properties.NAME_1}
-              tooltipName_2={library.properties.NAME_2}
-              tooltipBgcolor="rgb(255 255 255)"
-              tooltipTextColor="text-slate-700"
-              show_data={show_data}
-              popupMaxWidth="500"
-              popupMaxHeight="auto"
-              popupBgColor="bg-white"
-              popupTextColor="text-slate-700"
-              data={data}
-              />
-          )
-        })
-      }
-      {se_financial_service_status && level === 2 &&
-        se_finance_2.features.map((library, index) => {
-          const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-          const data = [
-              {
-              "key": "NAME_1",
-              "value": NAME_1
-              },
-              {
-              "key": "NAME_2",
-              "value": NAME_2
-              },
-              {
-              "key": "GID_3",
-              "value": GID_3
-              },
-              {
-              "key": "COUNT",
-              "value": _count
-              }
-          ];
-          const fillColor = NormalizeData(_stdev, _max, _min);
-          return (
-              <CustomPolygon
-              key={index}
-              positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-              fillColor={fillColor}
-              opacity={se_financial_service_value/100}
-              tooltipDirection="auto"
-              tooltipOffset={[20, 0]}
-              tooltipCount={library.properties._count}
-              tooltipName_1={library.properties.NAME_1}
-              tooltipName_2={library.properties.NAME_2}
-              tooltipBgcolor="rgb(255 255 255)"
-              tooltipTextColor="text-slate-700"
-              show_data={show_data}
-              popupMaxWidth="500"
-              popupMaxHeight="auto"
-              popupBgColor="bg-white"
-              popupTextColor="text-slate-700"
-              data={data}
-              />
-          )
-        })
-      }
-      {se_financial_service_status && level === 3 &&
-        se_finance_3.features.map((library, index) => {
-          const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-          const data = [
-              {
-              "key": "NAME_1",
-              "value": NAME_1
-              },
-              {
-              "key": "NAME_2",
-              "value": NAME_2
-              },
-              {
-              "key": "GID_3",
-              "value": GID_3
-              },
-              {
-              "key": "COUNT",
-              "value": _count
-              }
-          ];
-          const fillColor = NormalizeData(_stdev, _max, _min);
-          return (
-              <CustomPolygon
-              key={index}
-              positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-              fillColor={fillColor}
-              opacity={se_financial_service_value/100}
-              tooltipDirection="auto"
-              tooltipOffset={[20, 0]}
-              tooltipCount={library.properties._count}
-              tooltipName_1={library.properties.NAME_1}
-              tooltipName_2={library.properties.NAME_2}
-              tooltipBgcolor="rgb(255 255 255)"
-              tooltipTextColor="text-slate-700"
-              show_data={show_data}
-              popupMaxWidth="500"
-              popupMaxHeight="auto"
-              popupBgColor="bg-white"
-              popupTextColor="text-slate-700"
-              data={data}
-              />
-          )
-        })
-      }
-      {se_population_counts_status && level === 1 &&
-        se_population_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={population_counts_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_population_counts_status && level === 2 &&
-        se_population_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={population_counts_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_population_counts_status && level === 3 &&
-        se_population_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={population_counts_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_celltowers_status && level === 1 &&
-        se_celltowers_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_celltowers_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_celltowers_status && level === 2 &&
-        se_celltowers_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_celltowers_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_celltowers_status && level === 3 &&
-        se_celltowers_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_celltowers_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_nightlight_intensity_status && level === 1 &&
-        se_nightlight_intensity_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_nightlight_intensity_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }      
-      {se_nightlight_intensity_status && level === 2 &&
-        se_nightlight_intensity_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_nightlight_intensity_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }      
-      {se_nightlight_intensity_status && level === 3 &&
-        se_nightlight_intensity_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_nightlight_intensity_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }      
-      {se_relative_wealth_status && level === 1 &&
-        se_relative_wealth_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_relative_wealth_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }   
-      {se_relative_wealth_status && level === 3 &&
-        se_relative_wealth_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_relative_wealth_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }   
-      {se_GDP_status && level === 1 &&
-        se_GDP_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_GDP_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }   
-      {se_GDP_status && level === 2 &&
-        se_GDP_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_GDP_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }   
-      {se_GDP_status && level === 3 &&
-        se_GDP_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_GDP_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_plant_health_status && level === 1 &&
-        se_plant_health_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_plant_health_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }    
-      {se_plant_health_status && level === 2 &&
-        se_plant_health_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_plant_health_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }    
-      {se_plant_health_status && level === 3 &&
-        se_plant_health_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_plant_health_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_temperature_max_status && level === 1 &&
-        se_temperature_max_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_temperature_max_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-        }
-      {se_temperature_max_status && level === 2 &&
-        se_temperature_max_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_temperature_max_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_temperature_max_status && level === 3 &&
-        se_temperature_max_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_temperature_max_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }    
-      {se_land_use_class_status && level === 1 &&
-        se_land_use_class_1.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_land_use_class_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_land_use_class_status && level === 2 &&
-        se_land_use_class_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_land_use_class_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_land_use_class_status && level === 3 &&
-        se_land_use_class_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_land_use_class_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-      }
-      {se_elevation_status && level === 1 &&
-        se_elevation_1.features.map((library, index) => {
-        const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-        const data = [
-            {
-            "key": "NAME_1",
-            "value": NAME_1
-            },
-            {
-            "key": "NAME_2",
-            "value": NAME_2
-            },
-            {
-            "key": "GID_3",
-            "value": GID_3
-            },
-            {
-            "key": "COUNT",
-            "value": _count
-            }
-        ];
-        const fillColor = NormalizeData(_stdev, _max, _min);
-        return (
-            <CustomPolygon
-            key={index}
-            positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-            fillColor={fillColor}
-            opacity={se_elevation_value/100}
-            tooltipDirection="auto"
-            tooltipOffset={[20, 0]}
-            tooltipCount={library.properties._count}
-            tooltipName_1={library.properties.NAME_1}
-            tooltipName_2={library.properties.NAME_2}
-            tooltipBgcolor="rgb(255 255 255)"
-            tooltipTextColor="text-slate-700"
-            show_data={show_data}
-            popupMaxWidth="500"
-            popupMaxHeight="auto"
-            popupBgColor="bg-white"
-            popupTextColor="text-slate-700"
-            data={data}
-            />
-        )
-        })
-    }
-    {se_elevation_status && level === 2 &&
-        se_elevation_2.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_elevation_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-    }
-    {se_elevation_status && level === 3 &&
-        se_elevation_3.features.map((library, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
-            const data = [
-                {
-                "key": "NAME_1",
-                "value": NAME_1
-                },
-                {
-                "key": "NAME_2",
-                "value": NAME_2
-                },
-                {
-                "key": "GID_3",
-                "value": GID_3
-                },
-                {
-                "key": "COUNT",
-                "value": _count
-                }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-                <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={se_elevation_value/100}
-                tooltipDirection="auto"
-                tooltipOffset={[20, 0]}
-                tooltipCount={library.properties._count}
-                tooltipName_1={library.properties.NAME_1}
-                tooltipName_2={library.properties.NAME_2}
-                tooltipBgcolor="rgb(255 255 255)"
-                tooltipTextColor="text-slate-700"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                />
-            )
-        })
-    }
-      {/* NEW. Socioeconomic. END */}
-      
+
+        {/* NEW. Socioeconomic. START */}
+
+        {/*Random Forest*/}
+        {se_random_forest_status && level === 3 && se_random_forest_3.features.map((library, index) => {
+          return newProjection(library, index, se_random_forest_value)
+        })}
+
+        {/*XG Boost*/}
+        {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
+          return newProjection(library, index, se_xgboost_value)
+        })}
+
+        {/*Education Facilities*/}
+        {se_education_facility_status && level === 1 && se_edu_1.features.map((library, index) => {
+          return newProjection(library, index, se_education_facility_value)
+        })}
+        {se_education_facility_status && level === 2 && se_edu_2.features.map((library, index) => {
+          return newProjection(library, index, se_education_facility_value)
+        })}
+        {se_education_facility_status && level === 3 && se_edu_3.features.map((library, index) => {
+          return newProjection(library, index, se_education_facility_value)
+        })}
+
+        {/*Health Institutions*/}
+        {se_health_institution_status && level === 1 && se_health_1.features.map((library, index) => {
+          return newProjection(library, index, dt_health_institution_value)
+        })}
+        {se_health_institution_status && level === 2 && se_health_2.features.map((library, index) => {
+          return newProjection(library, index, dt_health_institution_value)
+        })}
+        {se_health_institution_status && level === 3 && se_health_3.features.map((library, index) => {
+          return newProjection(library, index, dt_health_institution_value)
+        })}
+
+        {/*Financial Services*/}
+        {se_financial_service_status && level === 1 && se_finance_1.features.map((library, index) => {
+          return newProjection(library, index, se_financial_service_value)
+        })}
+        {se_financial_service_status && level === 2 && se_finance_2.features.map((library, index) => {
+          return newProjection(library, index, se_financial_service_value)
+        })}
+        {se_financial_service_status && level === 3 && se_finance_3.features.map((library, index) => {
+          return newProjection(library, index, se_financial_service_value)
+        })}
+
+        {/*Population Counts*/}
+        {se_population_counts_status && level === 1 && se_population_1.features.map((library, index) => {
+          return newProjection(library, index, population_counts_value)
+        })}
+        {se_population_counts_status && level === 2 && se_population_2.features.map((library, index) => {
+          return newProjection(library, index, population_counts_value)
+        })}
+        {se_population_counts_status && level === 3 && se_population_3.features.map((library, index) => {
+          return newProjection(library, index, population_counts_value)
+        })}
+
+        {/*Cell Towers*/}
+        {se_celltowers_status && level === 1 && se_celltowers_1.features.map((library, index) => {
+          return newProjection(library, index, se_celltowers_value)
+        })}
+        {se_celltowers_status && level === 2 && se_celltowers_2.features.map((library, index) => {
+          return newProjection(library, index, se_celltowers_value)
+        })}
+        {se_celltowers_status && level === 3 && se_celltowers_3.features.map((library, index) => {
+          return newProjection(library, index, se_celltowers_value)
+        })}
+
+        {/*Nightlight Intensity*/}
+        {se_nightlight_intensity_status && level === 1 && se_nightlight_intensity_1.features.map((library, index) => {
+          return newProjection(library, index, se_nightlight_intensity_value)
+        })}
+        {se_nightlight_intensity_status && level === 2 && se_nightlight_intensity_2.features.map((library, index) => {
+          return newProjection(library, index, se_nightlight_intensity_value)
+        })}
+        {se_nightlight_intensity_status && level === 3 && se_nightlight_intensity_3.features.map((library, index) => {
+          return newProjection(library, index, se_nightlight_intensity_value)
+        })}
+
+        {/*Relative Wealth*/}
+        {se_relative_wealth_status && level === 1 && se_relative_wealth_1.features.map((library, index) => {
+          return newProjection(library, index, se_relative_wealth_value)
+        })}
+        {se_relative_wealth_status && level === 2 && se_relative_wealth_2.features.map((library, index) => {
+          return newProjection(library, index, se_relative_wealth_value)
+        })}
+        {se_relative_wealth_status && level === 3 && se_relative_wealth_3.features.map((library, index) => {
+          return newProjection(library, index, se_relative_wealth_value)
+        })}
+
+        {/*GDP*/}
+        {se_GDP_status && level === 1 && se_GDP_1.features.map((library, index) => {
+          return newProjection(library, index, se_GDP_value)
+        })}
+        {se_GDP_status && level === 2 && se_GDP_2.features.map((library, index) => {
+          return newProjection(library, index, se_GDP_value)
+        })}
+        {se_GDP_status && level === 3 && se_GDP_3.features.map((library, index) => {
+          return newProjection(library, index, se_GDP_value)
+        })}
+
+        {/*Plant Health*/}
+        {se_plant_health_status && level === 1 && se_plant_health_1.features.map((library, index) => {
+          return newProjection(library, index, se_plant_health_value)
+        })}
+        {se_plant_health_status && level === 2 && se_plant_health_2.features.map((library, index) => {
+          return newProjection(library, index, se_plant_health_value)
+        })}
+        {se_plant_health_status && level === 3 && se_plant_health_3.features.map((library, index) => {
+          return newProjection(library, index, se_plant_health_value)
+        })}
+
+        {/*Temperature Max*/}
+        {se_temperature_max_status && level === 1 && se_temperature_max_1.features.map((library, index) => {
+          return newProjection(library, index, se_temperature_max_value)
+        })}
+        {se_temperature_max_status && level === 2 && se_temperature_max_2.features.map((library, index) => {
+          return newProjection(library, index, se_temperature_max_value)
+        })}
+        {se_temperature_max_status && level === 3 && se_temperature_max_3.features.map((library, index) => {
+          return newProjection(library, index, se_temperature_max_value)
+        })}
+
+        {/*Land Use*/}
+        {se_land_use_class_status && level === 1 && se_land_use_class_1.features.map((library, index) => {
+          return newProjection(library, index, se_land_use_class_value)
+        })}
+        {se_land_use_class_status && level === 2 && se_land_use_class_2.features.map((library, index) => {
+          return newProjection(library, index, se_land_use_class_value)
+        })}
+        {se_land_use_class_status && level === 3 && se_land_use_class_3.features.map((library, index) => {
+          return newProjection(library, index, se_land_use_class_value)
+        })}
+
+        {/*Elevation*/}
+        {se_elevation_status && level === 1 && se_elevation_1.features.map((library, index) => {
+          return newProjection(library, index, se_elevation_value)
+        })}
+        {se_elevation_status && level === 2 && se_elevation_2.features.map((library, index) => {
+          return newProjection(library, index, se_elevation_value)
+        })}
+        {se_elevation_status && level === 3 && se_elevation_3.features.map((library, index) => {
+          return newProjection(library, index, se_elevation_value)
+        })}
+
+        {/* NEW. Socioeconomic. END */}
+
       {/* Geodata layer. START */}
       {sv_linear_model_status ?
           <WMSTileLayer
@@ -2221,55 +633,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       : null
       }
       {/* Geodata layer. END */}
-
-      {/* Legacy SocEconm Layers. Don't use pls. START */}
-        {/* {health_institutions_status && level == 3 &&
-          healthdata_3.features.map((healthlibrary, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = healthlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_3
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={health_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={healthlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={health_institutions_legend[0]["title"]}
-                legendDescription={health_institutions_legend[0]["description"]}
-              />
-            )
-          })
-        } */}
-      {/* Legacy SocEconm Layers. END */}
 
         <CircleMarkers />
       </MapContainer>
