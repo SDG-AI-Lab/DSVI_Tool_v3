@@ -159,6 +159,50 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const {status: gdp_status, value: gdp_value} = gdp;
   /* Geodata Layers. END */
 
+  const newProjection = (library, index, layer_opacity) => {
+    const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
+    const data = [
+      {
+        "key": "NAME_1",
+        "value": NAME_1
+      },
+      {
+        "key": "NAME_2",
+        "value": NAME_2
+      },
+      {
+        "key": "GID_3",
+        "value": GID_3
+      },
+      {
+        "key": "COUNT",
+        "value": _count
+      }
+    ];
+    const fillColor = NormalizeData(_stdev, _max, _min);
+    return (
+        <CustomPolygon
+            key={index}
+            positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+            fillColor={fillColor}
+            opacity={layer_opacity/100}
+            tooltipDirection="auto"
+            tooltipOffset={[20, 0]}
+            tooltipCount={library.properties._count}
+            tooltipName_1={library.properties.NAME_1}
+            tooltipName_2={library.properties.NAME_2}
+            tooltipBgcolor="rgb(255 255 255)"
+            tooltipTextColor="text-slate-700"
+            show_data={show_data}
+            popupMaxWidth="500"
+            popupMaxHeight="auto"
+            popupBgColor="bg-white"
+            popupTextColor="text-slate-700"
+            data={data}
+        />
+    )
+  };
+
   return (
       <MapContainer
         center={Settings.latlong}
