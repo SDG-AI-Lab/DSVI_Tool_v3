@@ -634,55 +634,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
       {/* Geodata layer. END */}
 
-      {/* Legacy SocEconm Layers. Don't use pls. START */}
-        {/* {health_institutions_status && level == 3 &&
-          healthdata_3.features.map((healthlibrary, index) => {
-            const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = healthlibrary.properties;
-            const data = [
-              {
-                "key": "NAME_1",
-                "value": NAME_1
-              },
-              {
-                "key": "NAME_2",
-                "value": NAME_2
-              },
-              {
-                "key": "GID",
-                "value": GID_3
-              },
-              {
-                "key": "COUNT",
-                "value": _count
-              }
-            ];
-            const fillColor = NormalizeData(_stdev, _max, _min);
-            return (
-              <CustomPolygon
-                key={index}
-                positions={L.GeoJSON.coordsToLatLngs(healthlibrary.geometry.coordinates[0][0])}
-                fillColor={fillColor}
-                opacity={health_institutions_value / 100}
-                tooltipDirection="center"
-                tooltipOffset={[0, 0]}
-                tooltipCount={healthlibrary.properties._count}
-                tooltipBgcolor="bg-red-900"
-                tooltipTextColor="text-white"
-                show_data={show_data}
-                popupMaxWidth="500"
-                popupMaxHeight="auto"
-                popupBgColor="bg-white"
-                popupTextColor="text-slate-700"
-                data={data}
-                hoverColor="white"
-                legendTitle={health_institutions_legend[0]["title"]}
-                legendDescription={health_institutions_legend[0]["description"]}
-              />
-            )
-          })
-        } */}
-      {/* Legacy SocEconm Layers. END */}
-
         <CircleMarkers />
       </MapContainer>
   )
