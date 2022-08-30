@@ -77,196 +77,86 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   })
 
   /* Socioeconomic. START */
-  var se_social_vulnerability = socioeconomic.find(
-    (e) => e.slug === 'se_social_vulnerability');
-    var se_random_forest = se_social_vulnerability.data.find(
-      (e) => e.slug === 'se_random_forest'
-    );
-    var { status: se_random_forest_status, 
-      value: se_random_forest_value} = se_random_forest;
+  const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
 
-    var se_xgboost = se_social_vulnerability.data.find(
-        (e) => e.slug === 'se_xgboost'
-    );
-    var { status: se_xgboost_status, 
-        value: se_xgboost_value} = se_xgboost;
+  const se_random_forest = se_social_vulnerability.data.find((e) => e.slug === 'se_random_forest');
+  const {status: se_random_forest_status, value: se_random_forest_value} = se_random_forest;
+  const se_xgboost = se_social_vulnerability.data.find((e) => e.slug === 'se_xgboost');
+  const {status: se_xgboost_status, value: se_xgboost_value} = se_xgboost;
 
-  var se_drive_time = socioeconomic.find(
-    (e) => e.slug === 'se_drive_time');
-    var se_education_facility = se_drive_time.data.find(
-        (e) => e.slug === 'se_education_facility'
-    );
-    var { status: se_education_facility_status, 
-        value: se_education_facility_value} = se_education_facility;
+  const se_drive_time = socioeconomic.find((e) => e.slug === 'se_drive_time');
+  const se_education_facility = se_drive_time.data.find((e) => e.slug === 'se_education_facility');
+  const {status: se_education_facility_status, value: se_education_facility_value} = se_education_facility;
+  const se_health_institution = se_drive_time.data.find((e) => e.slug === 'se_health_institution');
+  const {status: se_health_institution_status, value: dt_health_institution_value} = se_health_institution;
+  const se_financial_service = se_drive_time.data.find((e) => e.slug === 'se_financial_service');
+  const {status: se_financial_service_status, value: se_financial_service_value} = se_financial_service;
 
-    var se_health_institution = se_drive_time.data.find(
-      (e) => e.slug === 'se_health_institution'
-    );
-    var { status: se_health_institution_status, 
-        value: dt_health_institution_value} = se_health_institution;
+  const se_socio_economic = socioeconomic.find((e) => e.slug === 'se_socio_economic');
+  const se_population_counts = se_socio_economic.data.find((e) => e.slug === 'se_population_counts');
+  const {status: se_population_counts_status, value: population_counts_value} = se_population_counts;
+  const se_celltowers = se_socio_economic.data.find((e) => e.slug === 'se_celltowers');
+  const {status: se_celltowers_status, value: se_celltowers_value} = se_celltowers;
+  const se_nightlight_intensity = se_socio_economic.data.find((e) => e.slug === 'se_nightlight_intensity');
+  const {status: se_nightlight_intensity_status, value: se_nightlight_intensity_value} = se_nightlight_intensity;
+  const se_relative_wealth = se_socio_economic.data.find((e) => e.slug === 'se_relative_wealth');
+  const {status: se_relative_wealth_status, value: se_relative_wealth_value} = se_relative_wealth;
+  const se_GDP = se_socio_economic.data.find((e) => e.slug === 'se_GDP');
+  const {status: se_GDP_status, value: se_GDP_value} = se_GDP;
 
-    var se_financial_service = se_drive_time.data.find(
-      (e) => e.slug === 'se_financial_service'
-    );
-    var { status: se_financial_service_status, 
-        value: se_financial_service_value} = se_financial_service;
-
-  var se_socio_economic = socioeconomic.find(
-    (e) => e.slug === 'se_socio_economic');
-    var se_population_counts = se_socio_economic.data.find(
-      (e) => e.slug === 'se_population_counts'
-    );
-    var { status: se_population_counts_status, 
-        value: population_counts_value} = se_population_counts;
-
-    var se_celltowers = se_socio_economic.data.find(
-      (e) => e.slug === 'se_celltowers'
-    );
-    var { status: se_celltowers_status, 
-        value: se_celltowers_value} = se_celltowers;
-
-    var se_nightlight_intensity = se_socio_economic.data.find(
-      (e) => e.slug === 'se_nightlight_intensity'
-    );
-    var { status: se_nightlight_intensity_status, 
-        value: se_nightlight_intensity_value} = se_nightlight_intensity;
-
-    var se_relative_wealth = se_socio_economic.data.find(
-      (e) => e.slug === 'se_relative_wealth'
-    );
-    var { status: se_relative_wealth_status, 
-        value: se_relative_wealth_value} = se_relative_wealth;
-
-    var se_GDP = se_socio_economic.data.find(
-      (e) => e.slug === 'se_GDP'
-    );
-    var { status: se_GDP_status, 
-        value: se_GDP_value} = se_GDP;
-
-  var se_bio_physical = socioeconomic.find(
-    (e) => e.slug === 'se_bio_physical');
-    var se_plant_health = se_bio_physical.data.find(
-      (e) => e.slug === 'se_plant_health'
-    );
-    var { status: se_plant_health_status, 
-        value: se_plant_health_value} = se_plant_health;
-
-    var se_temperature_max = se_bio_physical.data.find(
-      (e) => e.slug === 'se_temperature_max'
-    );
-    var { status: se_temperature_max_status, 
-        value: se_temperature_max_value} = se_temperature_max;
-    
-    var se_land_use_class = se_bio_physical.data.find(
-      (e) => e.slug === 'se_land_use_class'
-    );
-    var { status: se_land_use_class_status, 
-        value: se_land_use_class_value} = se_land_use_class;
-
-    var se_elevation = se_bio_physical.data.find(
-      (e) => e.slug === 'se_elevation'
-    );
-    var { status: se_elevation_status, 
-        value: se_elevation_value} = se_elevation;
+  const se_bio_physical = socioeconomic.find((e) => e.slug === 'se_bio_physical');
+  const se_plant_health = se_bio_physical.data.find((e) => e.slug === 'se_plant_health');
+  const {status: se_plant_health_status, value: se_plant_health_value} = se_plant_health;
+  const se_temperature_max = se_bio_physical.data.find((e) => e.slug === 'se_temperature_max');
+  const {status: se_temperature_max_status, value: se_temperature_max_value} = se_temperature_max;
+  const se_land_use_class = se_bio_physical.data.find((e) => e.slug === 'se_land_use_class');
+  const {status: se_land_use_class_status, value: se_land_use_class_value} = se_land_use_class;
+  const se_elevation = se_bio_physical.data.find((e) => e.slug === 'se_elevation');
+  const {status: se_elevation_status, value: se_elevation_value} = se_elevation;
   /* Socioeconomic. END */
 
   /* Geodata Layers. START */
-  var social_vulnerability = geodata.find(
-    (e) => e.slug === 'social_vulnerability'
-  );
-    var sv_linear_model = social_vulnerability.data.find(
-      (e) => e.slug === 'sv_linear_model'
-    );
-    var { status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  const social_vulnerability = geodata.find((e) => e.slug === 'social_vulnerability');
+  const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
+  const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  const sv_xgboost = social_vulnerability.data.find((e) => e.slug === 'sv_xgboost');
+  const {status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
+  const sv_random_forest = social_vulnerability.data.find((e) => e.slug === 'sv_random_forest');
+  const {status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
 
-    var sv_xgboost = social_vulnerability.data.find(
-      (e) => e.slug === 'sv_xgboost'
-    );
-    var { status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
+  const distance_maps = geodata.find((e) => e.slug === 'distance_maps');
+  const distance_to_healthcare = distance_maps.data.find((e) => e.slug === 'distance_to_healthcare');
+  const {status: distance_to_healthcare_status, value: distance_to_healthcare_value} = distance_to_healthcare;
+  const distance_to_finance = distance_maps.data.find((e) => e.slug === 'distance_to_finance');
+  const {status: distance_to_finance_status, value: distance_to_finance_value} = distance_to_finance;
+  const distance_to_edu = distance_maps.data.find((e) => e.slug === 'distance_to_edu');
+  const {status: distance_to_edu_status, value: distance_to_edu_value} = distance_to_edu;
 
-    var sv_random_forest = social_vulnerability.data.find(
-      (e) => e.slug === 'sv_random_forest'
-    );
-    var { status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
+  const bio_physical = geodata.find((e) => e.slug === 'bio_physical');
+  const elevation = bio_physical.data.find((e) => e.slug === 'elevation');
+  const {status: elevation_status, value: elevation_value} = elevation;
+  const slope = bio_physical.data.find((e) => e.slug === 'slope');
+  const {status: slope_status, value: slope_value} = slope;
+  const max_temp = bio_physical.data.find((e) => e.slug === 'max_temp');
+  const {status: max_temp_status, value: max_temp_value} = max_temp;
+  const plant_health = bio_physical.data.find((e) => e.slug === 'plant_health');
+  const {status: plant_health_status, value: plant_health_value} = plant_health;
+  const precipitation = bio_physical.data.find((e) => e.slug === 'precipitation');
+  const {status: precipitation_status, value: precipitation_value} = precipitation;
 
-  var distance_maps = geodata.find(
-    (e) => e.slug === 'distance_maps'
-  );
-    var distance_to_healthcare = distance_maps.data.find(
-      (e) => e.slug === 'distance_to_healthcare'
-    );
-    var { status: distance_to_healthcare_status, value: distance_to_healthcare_value} = distance_to_healthcare;
-
-    var distance_to_finance = distance_maps.data.find(
-      (e) => e.slug === 'distance_to_finance'
-    );
-    var { status: distance_to_finance_status, value: distance_to_finance_value} = distance_to_finance;
-
-    var distance_to_edu = distance_maps.data.find(
-      (e) => e.slug === 'distance_to_edu'
-    );
-    var { status: distance_to_edu_status, value: distance_to_edu_value} = distance_to_edu;
-
-  var bio_physical = geodata.find(
-    (e) => e.slug === 'bio_physical'
-  );
-    var elevation = bio_physical.data.find(
-      (e) => e.slug === 'elevation'
-    );
-    var { status: elevation_status, value: elevation_value} = elevation;
-
-    var slope = bio_physical.data.find(
-      (e) => e.slug === 'slope'
-    );
-    var { status: slope_status, value: slope_value} = slope;
-
-    var max_temp = bio_physical.data.find(
-      (e) => e.slug === 'max_temp'
-    );
-    var { status: max_temp_status, value: max_temp_value} = max_temp;
-
-    var plant_health = bio_physical.data.find(
-      (e) => e.slug === 'plant_health'
-    );
-    var { status: plant_health_status, value: plant_health_value} = plant_health;
-
-    var precipitation = bio_physical.data.find(
-      (e) => e.slug === 'precipitation'
-    );
-    var { status: precipitation_status, value: precipitation_value} = precipitation;
-
-  var socio_economic = geodata.find(
-    (e) => e.slug === 'socio_economic'
-  );
-    var nightlight_intensity = socio_economic.data.find(
-      (e) => e.slug === 'nightlight_intensity'
-    );
-    var { status: nightlight_intensity_status, value: nightlight_intensity_value} = nightlight_intensity;
-
-    var pop_density = socio_economic.data.find(
-      (e) => e.slug === 'pop_density'
-    );
-    var { status: pop_density_status, value: pop_density_value} = pop_density;
-
-    var celltower = socio_economic.data.find(
-      (e) => e.slug === 'celltower'
-    );
-    var { status: celltower_status, value: celltower_value} = celltower;
-
-    var road_density = socio_economic.data.find(
-      (e) => e.slug === 'road_density'
-    );
-    var { status: road_density_status, value: road_density_value} = road_density;
-
-    var relative_wealth = socio_economic.data.find(
-      (e) => e.slug === 'relative_wealth'
-    );
-    var { status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
-
-    var gdp = socio_economic.data.find(
-      (e) => e.slug === 'gdp'
-    );
-    var { status: gdp_status, value: gdp_value} = gdp;
+  const socio_economic = geodata.find((e) => e.slug === 'socio_economic');
+  const nightlight_intensity = socio_economic.data.find((e) => e.slug === 'nightlight_intensity');
+  const {status: nightlight_intensity_status, value: nightlight_intensity_value} = nightlight_intensity;
+  const pop_density = socio_economic.data.find((e) => e.slug === 'pop_density');
+  const {status: pop_density_status, value: pop_density_value} = pop_density;
+  const celltower = socio_economic.data.find((e) => e.slug === 'celltower');
+  const {status: celltower_status, value: celltower_value} = celltower;
+  const road_density = socio_economic.data.find((e) => e.slug === 'road_density');
+  const {status: road_density_status, value: road_density_value} = road_density;
+  const relative_wealth = socio_economic.data.find((e) => e.slug === 'relative_wealth');
+  const {status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
+  const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
+  const {status: gdp_status, value: gdp_value} = gdp;
   /* Geodata Layers. END */
 
   return (
