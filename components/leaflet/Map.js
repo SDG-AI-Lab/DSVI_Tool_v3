@@ -65,14 +65,16 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     return mapPolygonColorToDensity(val);
   };
 
+// Mouse HOVER color is WHITE
+
   const mapPolygonColorToDensity = (normalizeData => {
     switch (true) {
-      case normalizeData > 0.85: return '#00800A';
-      case normalizeData > 0.7: return '#FF362C';
-      case normalizeData > 0.55: return '#0c58ca';
-      case normalizeData > 0.4: return '#ff962c';
-      case normalizeData > 0.25: return '#FFDE2C';
-      default: return '#f2a0ff';
+      case normalizeData > 0.9: return '#0c58ca'; // BLUE
+      case normalizeData > 0.7:  return '#00800A'; // GREEN
+      case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
+      case normalizeData > 0.4:  return '#ff962c'; // ORANGE
+      case normalizeData > 0.25: return '#FF362C'; // RED
+      default: return '#000000 '; // BLACK
     }
   })
 
