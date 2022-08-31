@@ -12,7 +12,7 @@ export const initalState = {
                 id: 1,
                 slug: 'se_social_vulnerability',
                 title: 'Social Vulnerability',
-                data: [                    
+                data: [
                     {
                         id: 1.1,
                         slug: 'se_random_forest',
@@ -33,7 +33,7 @@ export const initalState = {
                 id: 2,
                 slug: 'se_drive_time',
                 title: 'Drive Time',
-                data: [                    
+                data: [
                     {
                         id: 2.1,
                         slug: 'se_education_facility',
@@ -61,7 +61,7 @@ export const initalState = {
                 id: 3,
                 slug: 'se_socio_economic',
                 title: 'Socio Economic',
-                data: [                    
+                data: [
                     {
                         id: 3.1,
                         slug: 'se_population_counts',
@@ -103,7 +103,7 @@ export const initalState = {
                 id: 4,
                 slug: 'se_bio_physical',
                 title: 'Bio-Physical',
-                data: [                    
+                data: [
                     {
                         id: 4.1,
                         slug: 'se_plant_health',
@@ -368,7 +368,8 @@ export const initalState = {
     }],
     "selected_data_column": "0",
     "dhs_indicator": false,
-    "dhs_data_column": [
+    "dhs_data_column": [],
+    /*"dhs_data_column": [
         {
             id: 0,
             slug: 'select_none',
@@ -1185,7 +1186,7 @@ export const initalState = {
             "title": "Water usually treated by: use water filter",
             "status": false
         }
-    ],
+    ],*/
     "selected_dhs_data_column": "0",
     "draw_area_of_interest": false,
     "statistics": false,
@@ -1286,6 +1287,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 csv_data: action.payload
+            };
+        case "FETCH_DHS_COLUMN":
+            return {
+                ...state,
+                dhs_data_column: action.payload
             };
         default:
             return state

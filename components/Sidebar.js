@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Modal } from 'react-responsive-modal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
+import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
 
 const Sidebar = () => {
 
@@ -32,6 +33,10 @@ const Sidebar = () => {
   const onCloseDsvModal = () => setDsvModal(false);
   const onOpenDhsModal = () => setDhsModal(true);
   const onCloseDhsModal = () => setDhsModal(false);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_DHS_COLUMN", payload: DHS_COLUMN });
+  }, [])
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -76,9 +81,9 @@ const Sidebar = () => {
               <ul className="relative px-1">
                 <li><p></p></li>
                 <li className="relative">
-                  <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden 
-                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
-                    hover:bg-blue-50 transition duration-300 ease-in-out" 
+                  <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
+                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
+                    hover:bg-blue-50 transition duration-300 ease-in-out"
                     href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -121,8 +126,8 @@ const Sidebar = () => {
                 </li>
                 <hr className="my-2" />
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden 
-                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
+                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
                     hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
                   >
@@ -132,43 +137,43 @@ const Sidebar = () => {
                     <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
                   </a>
                 </li>
-                
+
                 <li className="relative" id="sidenavSecEx3">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis 
-                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 
-                    ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary" 
-                    data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false" 
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
+                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300
+                    ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false"
                     aria-controls="collapseSidenavSecEx2"
                     onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" 
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
                       stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" 
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11
                         0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>Socioeconomic Layers</span>
                     {
                       socioeconomic.status == true ?
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 
+                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0
                             111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                         :
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 
+                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
                             01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
                         </svg>
                     }
                   </a>
-                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" 
+                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">
                       {
                           socioeconomic.status == true && socioeconomic.data.map((val, index) => {
                               return (
                                   <li className="relative" key={index}>
-                                      <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6 
-                                        overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
+                                      <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6
+                                        overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
                                         hover:bg-blue-50 transition duration-300 ease-in-out"
                                                           data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
                                       <DragDropContext onDragEnd={handleOnDragEnd2}>
@@ -210,8 +215,8 @@ const Sidebar = () => {
                                                                                               dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                           }}
                                                                                       />
-                                                                                      <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 
-                                                                                          text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition 
+                                                                                      <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
+                                                                                          text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition
                                                                                           duration-300 ease-in-out"
                                                                                           data-mdb-ripple="true" data-mdb-ripple-color="primary">{val2.title}</a>
                                                                                   </div>
@@ -222,8 +227,8 @@ const Sidebar = () => {
                                                                                                 <span className="text-gray-700 text-sm">opacity:
                                                                                                     <input
                                                                                                         type="number"
-                                                                                                        className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-                                                                                                            border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white 
+                                                                                                        className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid
+                                                                                                            border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white
                                                                                                             focus:border-blue-600 focus:outline-none"
                                                                                                         value={parseInt(val2.value)}
                                                                                                         onChange={(event) => {
@@ -240,7 +245,7 @@ const Sidebar = () => {
                                                                                                     />
                                                                                                     <div>
                                                                                                         <div>
-                                                                                                            <input type="range" min="1" max="100" step="1" value={val2.value} className="form-range h-6 p-0 
+                                                                                                            <input type="range" min="1" max="100" step="1" value={val2.value} className="form-range h-6 p-0
                                                                                                                 focus:outline-none focus:ring-0 focus:shadow-none"
                                                                                                                 onChange={(event) => {
                                                                                                                     const newItems = [...socioeconomic.data];
@@ -279,9 +284,9 @@ const Sidebar = () => {
                   </ul>
                 </li>
                 <li className="relative" id="sidenavSecEx3">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis 
-                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer" 
-                    data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3" 
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
+                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
+                    data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3"
                     aria-expanded="false" aria-controls="collapseSidenavSecEx3"
                     onClick={() => dispatch({ type: "TOGGLE_GEODATA", payload: {} })}
                   >
@@ -300,15 +305,15 @@ const Sidebar = () => {
                         </svg>
                     }
                   </a>
-                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" 
+                  <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">
                     {
                       geodata.status == true && geodata.data.map((val, index) => {
                         return (
                           <li className="relative" key={index}>
-                            <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6 
-                              overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded 
-                              hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" 
+                            <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6
+                              overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded
+                              hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                               data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
 
                             <DragDropContext onDragEnd={handleOnDragEnd2}>
@@ -335,7 +340,7 @@ const Sidebar = () => {
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                     }}
                                                   >
-                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" 
+                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
                                                       id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                       checked={val2.status}
                                                       onChange={(event) => {
@@ -350,9 +355,9 @@ const Sidebar = () => {
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                       }}
                                                     />
-                                                    <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 
-                                                      overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded 
-                                                      hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" 
+                                                    <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6
+                                                      overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded
+                                                      hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                                                       data-mdb-ripple="true" data-mdb-ripple-color="primary">
                                                       {val2.title}
                                                     </a>
@@ -364,9 +369,9 @@ const Sidebar = () => {
                                                           <span className="text-gray-700 text-sm">opacity:
                                                             <input
                                                               type="number"
-                                                              className="mx-2 w-14 text-base font-normal text-gray-700 bg-white 
-                                                                bg-clip-padding border border-solid border-gray-300 rounded transition 
-                                                                ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                                              className="mx-2 w-14 text-base font-normal text-gray-700 bg-white
+                                                                bg-clip-padding border border-solid border-gray-300 rounded transition
+                                                                ease-in-out input-sm focus:text-gray-700 focus:bg-white focus:border-blue-600
                                                                 focus:outline-none"
                                                               value={parseInt(val2.value)}
                                                               onChange={(event) => {
@@ -383,7 +388,7 @@ const Sidebar = () => {
                                                             />
                                                             <div>
                                                               <div>
-                                                                <input type="range" min="1" max="100" step="1" value={val2.value} 
+                                                                <input type="range" min="1" max="100" step="1" value={val2.value}
                                                                   className="form-range h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
                                                                   onChange={(event) => {
                                                                     const newItems = [...geodata.data];
@@ -689,7 +694,7 @@ const Sidebar = () => {
 
                       checked={val.id == selectedDhsDataColumn}
 
-                      onClick={() => {
+                      onChange={() => {
                         dispatch({ type: "SELECT_DHS_DATA_COLUMN", payload: val.id });
 
                       }}
@@ -697,7 +702,7 @@ const Sidebar = () => {
 
                     />
 
-                    <span className="px-2 text-gray-700 text-sm"></span>  {val.title}</div>
+                    <span className="px-2 text-gray-700 text-sm"></span>  {val.Name}</div>
                 )
               })
             }
