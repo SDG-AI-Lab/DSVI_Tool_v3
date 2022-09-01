@@ -1,4 +1,6 @@
-// import token from '/public/static/mapbox_token.txt'
+// import token .env"
+
+var mtoken = process.env.mapboxapikey;
 
 export const TileProviders = [
     {
@@ -25,7 +27,7 @@ export const TileProviders = [
       
       args: {
         url:
-          'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw}',
+          'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
         attribution:
           '&copy; <a href="https://mapbox.com">Mapbox</a>',
           layers:"GoogleMapsCompatible"

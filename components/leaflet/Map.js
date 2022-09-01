@@ -74,7 +74,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
       case normalizeData > 0.4:  return '#ff962c'; // ORANGE
       case normalizeData > 0.25: return '#FF362C'; // RED
-      default: return '#000000 '; // BLACK
+      default: return '#FFFFFF'; // WHITE
     }
   })
 
@@ -161,11 +161,18 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   /* Geodata Layers. END */
 
   const newProjection = (library, index, layer_opacity) => {
-    const { NAME_1, NAME_2, GID_3, _mean, _count, _stdev, _max, _min } = library.properties;
+    const {NAME_1, NAME_2, GID_3, _mean, _count, _stdev, _max, _min } = library.properties;
+    const {} = library.name;
     const data = [
+      
+      // These are shown when the user clicks on the polygon
       {
-        "key": "NAME_1",
+        "key": "Oblast",
         "value": NAME_1
+      },
+      {
+        "key": "Layer Name",
+        "value": library.name
       },
       {
         "key": "NAME_2",
