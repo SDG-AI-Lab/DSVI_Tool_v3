@@ -80,7 +80,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   /* Socioeconomic. START */
   const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
-
   const se_random_forest = se_social_vulnerability.data.find((e) => e.slug === 'se_random_forest');
   const {status: se_random_forest_status, value: se_random_forest_value} = se_random_forest;
   const se_xgboost = se_social_vulnerability.data.find((e) => e.slug === 'se_xgboost');
@@ -162,7 +161,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   /* Geodata Layers. END */
 
   const newProjection = (library, index, layer_opacity) => {
-    const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
+    const { NAME_1, NAME_2, GID_3, _mean, _count, _stdev, _max, _min } = library.properties;
     const data = [
       {
         "key": "NAME_1",
@@ -179,9 +178,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       {
         "key": "COUNT",
         "value": _count
+      },
+      {
+        "key": "MEAN",
+        "value": _mean
       }
     ];
-    const fillColor = NormalizeData(_stdev, _max, _min);
+    const fillColor = NormalizeData(_mean, _max, _min);
     return (
         <CustomPolygon
             key={index}
@@ -190,13 +193,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             opacity={layer_opacity/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
-            tooltipCount={library.properties._count}
+            tooltipCount={NormalizeData(_mean, _max, _min)} // library.properties._count
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
+            tooltipName_3={library.properties.NAME_2}
             tooltipBgcolor="rgb(255 255 255)"
             tooltipTextColor="text-slate-700"
             show_data={show_data}
-            popupMaxWidth="500"
+            popupMaxWidth="auto"
             popupMaxHeight="auto"
             popupBgColor="bg-white"
             popupTextColor="text-slate-700"
