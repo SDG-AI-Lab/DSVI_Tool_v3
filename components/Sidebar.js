@@ -642,7 +642,7 @@ const Sidebar = () => {
 
                     />
 
-                    <span className="px-2 text-gray-700 text-sm"></span>  {val.title}</div>
+                    <span className="px-2 text-gray-700 text-sm"></span>{val.title}</div>
                 )
               })
             }
@@ -676,7 +676,7 @@ const Sidebar = () => {
             onCloseDhsModal()
           }
         }
-        styles={{modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '95vh'}}}
+        styles={{modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '100vh'}}}
 
         center>
 
