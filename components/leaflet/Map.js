@@ -10,7 +10,11 @@ import ControlMenu from '../controls/ControlMenu';
 import CustomPolygon from '../controls/CustomPolygon';
 import CircleMarkers from '../marker/CircleMarkers';
 
+import se_random_forest_1 from '/public/static/rf_1.geojson'
+import se_random_forest_2 from '/public/static/rf_2.geojson'
 import se_random_forest_3 from '/public/static/rf_3.geojson'
+import se_xgboost_1 from '/public/static/XGBoost_1.geojson'
+import se_xgboost_2 from '/public/static/XGBoost_2.geojson'
 import se_xgboost_3 from '/public/static/XGBoost_3.geojson'
 import se_edu_1 from '/public/static/edu_1.geojson'
 import se_edu_2 from '/public/static/edu_2.geojson'
@@ -72,15 +76,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       case normalizeData > 0.9: return '#0c58ca'; // BLUE
       case normalizeData > 0.7:  return '#00800A'; // GREEN
       case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
-      case normalizeData > 0.4:  return '#ff962c'; // ORANGE
-      case normalizeData > 0.25: return '#FF362C'; // RED
-      default: return '#000000 '; // BLACK
+      case normalizeData > 0.25:  return '#ff962c'; // ORANGE
+      case normalizeData > 0: return '#FF362C'; // RED
+      default: return '#FFFFFF'; // WHITE
     }
   })
 
   /* Socioeconomic. START */
   const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
-
   const se_random_forest = se_social_vulnerability.data.find((e) => e.slug === 'se_random_forest');
   const {status: se_random_forest_status, value: se_random_forest_value} = se_random_forest;
   const se_xgboost = se_social_vulnerability.data.find((e) => e.slug === 'se_xgboost');
@@ -119,10 +122,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   /* Geodata Layers. START */
   const social_vulnerability = geodata.find((e) => e.slug === 'social_vulnerability');
+
   const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
   const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  
   const sv_xgboost = social_vulnerability.data.find((e) => e.slug === 'sv_xgboost');
   const {status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
+  
   const sv_random_forest = social_vulnerability.data.find((e) => e.slug === 'sv_random_forest');
   const {status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
 
@@ -159,29 +165,35 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const {status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
   const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
   const {status: gdp_status, value: gdp_value} = gdp;
+
+  
+  
   /* Geodata Layers. END */
 
   const newProjection = (library, index, layer_opacity) => {
-    const { NAME_1, NAME_2, GID_3, _count, _stdev, _max, _min } = library.properties;
+    const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min } = library.properties;
+    const {} = library.name;
     const data = [
+      
+      // These are shown when the user clicks on the polygon
       {
-        "key": "NAME_1",
+        "key": "Oblast",
         "value": NAME_1
       },
       {
-        "key": "NAME_2",
+        "key": "District",
         "value": NAME_2
       },
       {
-        "key": "GID_3",
-        "value": GID_3
+        "key": "Count",
+        "value": _count
       },
       {
-        "key": "COUNT",
-        "value": _count
+        "key": "Mean value:",
+        "value": _mean
       }
     ];
-    const fillColor = NormalizeData(_stdev, _max, _min);
+    const fillColor = NormalizeData(_mean, _max, _min);
     return (
         <CustomPolygon
             key={index}
@@ -190,13 +202,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             opacity={layer_opacity/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
-            tooltipCount={library.properties._count}
+            tooltipCount={library.properties._mean} // library.properties._count
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
+            tooltipName_3={library.properties.NAME_2}
             tooltipBgcolor="rgb(255 255 255)"
             tooltipTextColor="text-slate-700"
             show_data={show_data}
-            popupMaxWidth="500"
+            popupMaxWidth="auto"
             popupMaxHeight="auto"
             popupBgColor="bg-white"
             popupTextColor="text-slate-700"
@@ -236,10 +249,25 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* NEW. Socioeconomic. START */}
 
         {/*Random Forest*/}
+        {se_random_forest_status && level === 1 && se_random_forest_1.features.map((library, index) => {
+          return newProjection(library, index, se_random_forest_value)
+        })}
+        {/*Random Forest*/}
+        {se_random_forest_status && level === 2 && se_random_forest_2.features.map((library, index) => {
+          return newProjection(library, index, se_random_forest_value)
+        })}
+        {/*Random Forest*/}
         {se_random_forest_status && level === 3 && se_random_forest_3.features.map((library, index) => {
           return newProjection(library, index, se_random_forest_value)
         })}
-
+        {/*XG Boost*/}
+        {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
+        return newProjection(library, index, se_xgboost_value)
+        })}
+        {/*XG Boost*/}
+        {se_xgboost_status && level === 2 && se_xgboost_2.features.map((library, index) => {
+          return newProjection(library, index, se_xgboost_value)
+        })}
         {/*XG Boost*/}
         {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
           return newProjection(library, index, se_xgboost_value)
@@ -383,13 +411,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       {sv_linear_model_status ?
           <WMSTileLayer
             params={{
-              layers: "sdg-ai-lab:scaled_r_norm_health_dd_spd_10k",
+              layers: "sdg-ai-lab:Linear_SV",
               format: "image/png",
               transparent: true,
               version: "1.1.0",
               style: "sdg-ai-lab:xgboost",
             }}
-            url="http://129.151.248.181/geoserver/sdg-ai-lab/wms"
+            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             zIndex="9999"
             opacity={sv_linear_model_value / 100}/>
         : null
@@ -634,6 +662,22 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={gdp_value / 100}/>
       : null
       }
+
+      {/* {sv_linear_model ?
+        <WMSTileLayer
+          params={{
+            layers: "sdg-ai-lab:Linear_SV",
+            format: "image/png",
+            transparent: true,
+            version: "1.1.0",
+            style: "sdg-ai-lab:xgboost",
+          }}
+          url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          zIndex="9999"
+          opacity={sv_linear_model / 100}/>
+      : null
+      } */}
+
       {/* Geodata layer. END */}
 
         <CircleMarkers />

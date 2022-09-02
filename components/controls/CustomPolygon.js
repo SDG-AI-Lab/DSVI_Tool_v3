@@ -17,6 +17,7 @@ const CustomPolygon = (props) => {
         tooltipCount,
         tooltipName_1, 
         tooltipName_2,
+        tooltipName_3,
         tooltipBgcolor,
         tooltipTextColor,
         show_data,
@@ -42,7 +43,7 @@ const CustomPolygon = (props) => {
             children={
                 <>
                     <CustomTooltip direction={tooltipDirection} offset={tooltipOffset} count={tooltipCount}
-                        bgcolor={tooltipBgcolor} textcolor={tooltipTextColor} tooltipName_1={tooltipName_1} tooltipName_2={tooltipName_2}
+                        bgcolor={tooltipBgcolor} textcolor={tooltipTextColor} tooltipName_1={tooltipName_1} tooltipName_2={tooltipName_2} tooltipName_3={tooltipName_3}
                     />
                     <CustomPopup maxWidth={popupMaxWidth} maxHeight={popupMaxHeight}
                         bgcolor={popupBgColor}
@@ -57,7 +58,7 @@ const CustomPolygon = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: 'white'
+                        fillColor: fillColor
                     });
                 },
                 mouseout: (e) => {
