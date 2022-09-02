@@ -4,7 +4,7 @@ var mtoken = process.env.mapboxapikey;
 
 export const TileProviders = [
     {
-      name: 'Osm',
+      name: 'OSM',
       checked: true,
       args: {
         url:

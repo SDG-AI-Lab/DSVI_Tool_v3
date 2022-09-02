@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
 import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
 
+
 const Sidebar = () => {
 
   const { state, dispatch } = useContext(FilterContext);
@@ -443,13 +444,15 @@ const Sidebar = () => {
                     vulnerability == true ?
                       <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
                         <li className="relative">
-                          <div className="flex i items-center ">
+                          <div className="flex i items-center">
                             <span className="text-gray-700 px-2 text-sm ml-3">
                               Categories
                             </span>
                           </div>
                           <div className="px-6">
 
+                          {/* SHOW HIDE VULNERABILITY ITEMS STYLES */}
+                            
                             <DragDropContext onDragEnd={handleOnDragEndCategory}>
 
                               <Droppable droppableId="categories">
@@ -464,18 +467,20 @@ const Sidebar = () => {
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
                                                 <div className="flex i items-center">
-                                                  <div className="text-red-400">{ }</div>
+                                                
+                                                <div class="w-3 h-3 bg-red-400 rounded-full"></div>  
+                                                  
                                                   <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                     defaultChecked={false}
                                                     checked={val.status}
                                                     onClick={() => {
-                                                      const newItems = [...categories];
-                                                      newItems[index] = {
+                                                        const newItems = [...categories];
+                                                        newItems[index] = {
                                                         id: val.id,
                                                         slug: val.slug,
                                                         title: val.title,
-                                                        status: !val.status
-
+                                                        status: !val.status,
+                                                        color: val.color      
                                                       };
                                                       dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
                                                     }}
@@ -638,8 +643,6 @@ const Sidebar = () => {
                         dispatch({ type: "SELECT_DATA_COLUMN", payload: val.id });
 
                       }}
-
-
                     />
 
                     <span className="px-2 text-gray-700 text-sm"></span>{val.title}</div>
