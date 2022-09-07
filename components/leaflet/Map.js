@@ -53,6 +53,8 @@ import se_elevation_1 from '/public/static/dem_1.geojson'
 import se_elevation_2 from '/public/static/dem_2.geojson'
 import se_elevation_3 from '/public/static/dem_3.geojson'
 
+import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
+
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -424,6 +426,17 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
       {sv_xgboost_status ?
+          <BetterWMSTileLayer 
+            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            layers="sdg-ai-lab:XGBoost_tuned_scaled_clipped_final"
+            transparent= "true" 
+            zIndex="9999"
+            styles="sdg-ai-lab:xgboost"
+            opacity={sv_xgboost_value / 100}
+          />
+      : null
+      }
+      {/* OLD WMSTileLayer
         <WMSTileLayer
           params={{
             layers: "sdg-ai-lab:XGBoost_tuned_scaled_clipped_final",
@@ -434,9 +447,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           }}
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
           zIndex="9999"
-          opacity={sv_xgboost_value / 100}/>
-      : null
-      }
+          opacity={sv_xgboost_value / 100}/> */}
 
       {sv_random_forest_status ?
         <WMSTileLayer

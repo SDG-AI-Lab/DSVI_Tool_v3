@@ -47,3 +47,7 @@
     background-color: var(--custom_bg_color);
 }
 /* Popup. END*/
+
+.customPopup {
+	background-color: transparent;
+}
