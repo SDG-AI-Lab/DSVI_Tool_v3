@@ -450,227 +450,182 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           opacity={sv_xgboost_value / 100}/> */}
 
       {sv_random_forest_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:Random_Forest_tuned_scaled_clp_final",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
-          url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
-          zIndex="9999"
-          opacity={sv_random_forest_value / 100}/>
+        <BetterWMSTileLayer 
+            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            layers="sdg-ai-lab:Random_Forest_tuned_scaled_clp_final"
+            transparent= "true" 
+            zIndex="9999"
+            styles="sdg-ai-lab:xgboost"
+            opacity={sv_random_forest_value / 100}
+        />
       : null
       }
       
       {distance_to_healthcare_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_health_dd_spd_10k",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_health_dd_spd_10k"
+          transparent= "true" 
           zIndex="9999"
-          opacity={distance_to_healthcare_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={distance_to_healthcare_value / 100}
+          />
       : null
       }
 
       {distance_to_finance_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326"
+          transparent= "true" 
           zIndex="9999"
-          opacity={distance_to_finance_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={distance_to_finance_value / 100}
+        />
       : null
       }
       
       {distance_to_edu_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326"
+          transparent= "true" 
           zIndex="9999"
-          opacity={distance_to_edu_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={distance_to_edu_value / 100}
+        />
       : null
       }
 
       {elevation_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_DEM_Large",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_DEM_Large"
+          transparent= "true" 
           zIndex="9999"
-          opacity={elevation_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={elevation_value / 100}
+        />
       : null
       }
 
       {slope_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_slope",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_slope"
+          transparent= "true" 
           zIndex="9999"
-          opacity={slope_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={slope_value / 100}
+        />
       : null
       }
 
       {max_temp_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_maxtemp_feb",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_maxtemp_feb"
+          transparent= "true" 
           zIndex="9999"
-          opacity={max_temp_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={max_temp_value / 100}
+        />
       : null
       }
       
       {plant_health_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_NDVI",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_NDVI"
+          transparent= "true" 
           zIndex="9999"
-          opacity={plant_health_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={plant_health_value / 100}
+        />
       : null
       }
 
       {precipitation_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_precip",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_precip"
+          transparent= "true" 
           zIndex="9999"
-          opacity={precipitation_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={precipitation_value / 100}
+        />
       : null
       }
 
       {nightlight_intensity_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_NTL",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_NTL"
+          transparent= "true" 
           zIndex="9999"
-          opacity={nightlight_intensity_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={nightlight_intensity_value / 100}
+        />
       : null
       }
 
       {pop_density_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_pop",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_pop"
+          transparent= "true" 
           zIndex="9999"
-          opacity={pop_density_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={pop_density_value / 100}
+        />
       : null
       }
 
       {celltower_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_cellt",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_cellt"
+          transparent= "true" 
           zIndex="9999"
-          opacity={celltower_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={celltower_value / 100}
+        />
       : null
       }
 
       {road_density_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_road_density",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_road_density"
+          transparent= "true" 
           zIndex="9999"
-          opacity={road_density_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={road_density_value / 100}
+        />
       : null
       }
 
       {relative_wealth_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final"
+          transparent= "true" 
           zIndex="9999"
-          opacity={relative_wealth_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={relative_wealth_value / 100}
+        />
       : null
       }
 
       {gdp_status ?
-        <WMSTileLayer
-          params={{
-            layers: "sdg-ai-lab:scaled_r_norm_GDP_2015_intp",
-            format: "image/png",
-            transparent: true,
-            version: "1.1.0",
-            style: "sdg-ai-lab:xgboost",
-          }}
+        <BetterWMSTileLayer 
           url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+          layers="sdg-ai-lab:scaled_r_norm_GDP_2015_intp"
+          transparent= "true" 
           zIndex="9999"
-          opacity={gdp_value / 100}/>
+          styles="sdg-ai-lab:xgboost"
+          opacity={gdp_value / 100}
+        />
       : null
       }
 
