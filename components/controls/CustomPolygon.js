@@ -58,7 +58,7 @@ const CustomPolygon = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: fillColor
+                        fillColor: "white"
                     });
                 },
                 mouseout: (e) => {
