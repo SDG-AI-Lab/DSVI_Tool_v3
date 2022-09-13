@@ -468,12 +468,11 @@ const Sidebar = () => {
 
                                                 <div className="flex i items-center">
                                                 
-                                                <div class="w-3 h-3 bg-red-400 rounded-full"></div>  
+                                                <div className="w-3 h-3 bg-red-400 rounded-full"></div>  
                                                   
                                                   <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
-                                                    defaultChecked={false}
                                                     checked={val.status}
-                                                    onClick={() => {
+                                                    onChange={(event) => {
                                                         const newItems = [...categories];
                                                         newItems[index] = {
                                                         id: val.id,
