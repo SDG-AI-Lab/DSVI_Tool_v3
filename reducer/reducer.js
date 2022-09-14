@@ -310,12 +310,13 @@ export const initalState = {
         ]
     },
     "vulnerability": false,
+    "csv_data_vulnerability": [],
     "categories": [{
         id: 1, title: "Very Low", slug: 'very_low', color: 'rgb(59 130 246)', status: true
     }, {
         id: 2, title: "Low", slug: 'low', color: 'rgb(34 197 94)', status: true
     }, {
-        id: 3, title: "Middle", slug: 'middle', color: 'rgb(234 179 8)', status: true
+        id: 3, title: "Medium", slug: 'medium', color: 'rgb(234 179 8)', status: true
     }, {
         id: 4, title: "High", slug: 'high', color: 'rgb(249 115 22)', status: true
     }, {
@@ -1248,9 +1249,14 @@ export const reducer = (state, action) => {
                     status: state.geodata.status, data: action.payload
                 }
             };
-        case "TOGGLE_VULNERABILTY":
+        case "TOGGLE_VULNERABILITY":
             return {
                 ...state, vulnerability: !state.vulnerability,
+            };
+        case "FETCH_CSV_DATA_VULNERABILITY":
+            return {
+                ...state,
+                csv_data_vulnerability: action.payload
             };
         case "CHANGE_CATEGORIES":
             return {
