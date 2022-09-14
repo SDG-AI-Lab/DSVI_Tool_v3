@@ -9,6 +9,7 @@ import {Settings, TileProviders} from '../../config/MapConfiguration';
 import ControlMenu from '../controls/ControlMenu';
 import CustomPolygon from '../controls/CustomPolygon';
 import CircleMarkers from '../marker/CircleMarkers';
+import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability';
 
 import AOI from '/public/static/AOI.geojson'
 
@@ -56,7 +57,6 @@ import se_elevation_2 from '/public/static/dem_2.geojson'
 import se_elevation_3 from '/public/static/dem_3.geojson'
 
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
-
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -652,6 +652,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* Geodata layer. END */}
 
         <CircleMarkers />
+        <CircleMarkersVulnerability />
       </MapContainer>
   )
 }

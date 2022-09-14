@@ -58,7 +58,7 @@ export const reducer = (state, action) => {
                     status: state.geodata.status, data: action.payload
                 }
             };
-        case "TOGGLE_VULNERABILTY":
+        case "TOGGLE_VULNERABILITY":
             return {
                 ...state, vulnerability: !state.vulnerability,
             };

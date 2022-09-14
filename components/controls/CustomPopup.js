@@ -4,7 +4,7 @@ const CustomPopup=(props)=>{
 
     return(
         <Popup maxWidth={maxWidth} maxHeight={maxHeight} className={`p-0 m-0 rounded-lg`}>
-            <div className='w-full '>
+            <div className='w-full'>
                 {
                     data.map((val,index)=>{
                         return(
