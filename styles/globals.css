@@ -9,12 +9,12 @@
 
 @import 'react-dropdown/style.css';
 @import "react-responsive-carousel/lib/styles/carousel.min.css";
-:root {
+/* :root {
     --custom_bg_color: rgb(255 255 255);
-}
+} */
 
 /* Tooltip. START*/
-.leaflet-tooltip  {
+/* .leaflet-tooltip  {
     background-color: var(--custom_bg_color);
 }
 .leaflet-tooltip-left:before {
@@ -27,8 +27,8 @@
 	border-top-color: var(--custom_bg_color) !important;
 }
 .leaflet-tooltip-bottom:before {
-	border-bottom-color: var(--custom_bg_color) !important;
-}
+	border-bottom-color: var(--custom_bg_color) !important; */
+/* } */
 /* Tooltip. END*/
 /* Left START */
 .left-4p {
