@@ -9,7 +9,7 @@ const CustomPopup=(props)=>{
                     data.map((val,index)=>{
                         return(
                             <div key={index} className={`${textcolor} font-bold text-xs`}>
-                                {val.key}: {' '}<span className=''>{val.value == null ? 'no data' : val.value}</span><br />
+                                {val.key}: {' '}<span>{val.value == null ? 'no data' : val.value}</span><br />
                             </div>  
                         )
                     })
