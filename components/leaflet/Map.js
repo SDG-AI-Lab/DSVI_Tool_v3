@@ -10,6 +10,7 @@ import ControlMenu from '../controls/ControlMenu';
 import CustomPolygon from '../controls/CustomPolygon';
 import CircleMarkers from '../marker/CircleMarkers';
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability';
+import MapToolbar from '../controls/MapToolbar';
 
 import AOI from '/public/static/AOI.geojson'
 
@@ -130,10 +131,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
   const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
-  
+
   const sv_xgboost = social_vulnerability.data.find((e) => e.slug === 'sv_xgboost');
   const {status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
-  
+
   const sv_random_forest = social_vulnerability.data.find((e) => e.slug === 'sv_random_forest');
   const {status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
 
@@ -171,14 +172,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
   const {status: gdp_status, value: gdp_value} = gdp;
 
-  
-  
+
+
   /* Geodata Layers. END */
   const newProjection = (library, index, layer_opacity) => {
     const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min } = library.properties;
     const {} = library.name;
     const data = [
-      
+
       // These are shown when the user clicks on the polygon
       {
         "key": "Oblast",
@@ -432,10 +433,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           }
 
         {sv_xgboost_status ?
-            <BetterWMSTileLayer 
+            <BetterWMSTileLayer
               url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
               layers="sdg-ai-lab:XGBoost_tuned_scaled_clipped_final"
-              transparent= "true" 
+              transparent= "true"
               zIndex="9999"
               styles="sdg-ai-lab:xgboost"
               opacity={sv_xgboost_value / 100}
@@ -456,22 +457,22 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             opacity={sv_xgboost_value / 100}/> */}
 
         {sv_random_forest_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
               url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
               layers="sdg-ai-lab:Random_Forest_tuned_scaled_clp_final"
-              transparent= "true" 
+              transparent= "true"
               zIndex="9999"
               styles="sdg-ai-lab:xgboost"
               opacity={sv_random_forest_value / 100}
           />
         : null
         }
-        
+
         {distance_to_healthcare_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_health_dd_spd_10k"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={distance_to_healthcare_value / 100}
@@ -480,22 +481,22 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {distance_to_finance_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={distance_to_finance_value / 100}
           />
         : null
         }
-        
+
         {distance_to_edu_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={distance_to_edu_value / 100}
@@ -504,10 +505,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {elevation_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_DEM_Large"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={elevation_value / 100}
@@ -516,10 +517,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {slope_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_slope"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={slope_value / 100}
@@ -528,22 +529,22 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {max_temp_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_maxtemp_feb"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={max_temp_value / 100}
           />
         : null
         }
-        
+
         {plant_health_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_NDVI"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={plant_health_value / 100}
@@ -552,10 +553,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {precipitation_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_precip"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={precipitation_value / 100}
@@ -564,10 +565,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {nightlight_intensity_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_NTL"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={nightlight_intensity_value / 100}
@@ -576,10 +577,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {pop_density_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_pop"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={pop_density_value / 100}
@@ -588,10 +589,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {celltower_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_cellt"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={celltower_value / 100}
@@ -600,10 +601,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {road_density_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_road_density"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={road_density_value / 100}
@@ -612,10 +613,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {relative_wealth_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={relative_wealth_value / 100}
@@ -624,10 +625,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         }
 
         {gdp_status ?
-          <BetterWMSTileLayer 
+          <BetterWMSTileLayer
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_GDP_2015_intp"
-            transparent= "true" 
+            transparent= "true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
             opacity={gdp_value / 100}
@@ -652,6 +653,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* Geodata layer. END */}
 
         <CircleMarkers />
+        <MapToolbar />
         <CircleMarkersVulnerability />
       </MapContainer>
   )
