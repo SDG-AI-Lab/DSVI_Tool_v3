@@ -4,6 +4,7 @@ import {FilterContext} from '../../context/FilterContext';
 import { Modal } from 'react-responsive-modal';
 import Dropdown from 'react-dropdown';
 import { Carousel } from 'react-responsive-carousel';
+import MapControls from '../controls/MapControls';
 
 const dropDownOptions = [
     'Datasets', 'Layer 1', 'Layer 2'
@@ -47,6 +48,7 @@ const ControlMenu = (props) => {
             {props.children && <Control position={position}>
                 {props.children}
             </Control>}
+            <MapControls position={position}/>
             {
         <Modal classNames={{modal: 'opacity-80 px-0 py-2 top-20'}} showCloseIcon={false} open={show_infoBox_data} closeOnOverlayClick={true} onClose={() => {dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {}})}}>
             <Tabs />
