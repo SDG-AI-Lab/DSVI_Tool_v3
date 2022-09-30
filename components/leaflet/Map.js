@@ -194,7 +194,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         "value": _count
       },
       {
-        "key": "Mean value:",
+        "key": "Mean value",
         "value": _mean
       }
     ];

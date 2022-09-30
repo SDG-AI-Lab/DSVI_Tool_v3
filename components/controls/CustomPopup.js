@@ -3,18 +3,18 @@ const CustomPopup=(props)=>{
     const {maxWidth,maxHeight,bgcolor,textcolor,data}=props;
 
     return(
-        <Popup maxWidth={maxWidth} maxHeight={maxHeight} className={`p-0 m-0 rounded-lg`}>
-            <div className='w-full'>
+        <Popup className={`p-0 m-0 rounded-lg`}>
+            <ul className={`${textcolor}`}>
                 {
                     data.map((val,index)=>{
                         return(
-                            <div key={index} className={`${textcolor} font-bold text-xs`}>
-                                {val.key}: {' '}<span>{val.value == null ? 'no data' : val.value}</span><br />
-                            </div>  
+                            <li key={index}>
+                                {val.key}: {val.value == null ? 'no data' : val.value}
+                            </li>  
                         )
                     })
                 }
-            </div> 
+            </ul> 
         </Popup>
     )
 }

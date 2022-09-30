@@ -16,7 +16,7 @@ const CustomTooltip=(props)=>{
                 {tooltipName_2 == null ? 'District: no data' : `${'District: '} ${tooltipName_2}`}
                 <br/>
                 {/* {tooltipName_3 == null ? 'Jamoats: no data' : `${'Jamoats: '} ${tooltipName_3}`} */}
-                <br/>
+                {/* <br/> */}
                 {count == null ? 'Count: No data' : `${'Count: '} ${count}`}
             </p>
         </Tooltip>
