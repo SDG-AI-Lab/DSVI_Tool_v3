@@ -497,7 +497,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326"
             transparent= "true"
-            zIndex="9999"
+
             styles="sdg-ai-lab:xgboost"
             opacity={distance_to_edu_value / 100}
           />
