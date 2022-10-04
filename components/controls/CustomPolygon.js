@@ -28,7 +28,8 @@ const CustomPolygon = (props) => {
         data,
         hoverColor,
         legendTitle,
-        legendDescription
+        legendDescription,
+        normalizeDataValue
     } = props;
 
     return (<Polygon
@@ -43,7 +44,8 @@ const CustomPolygon = (props) => {
             children={
                 <>
                     <CustomTooltip direction={tooltipDirection} offset={tooltipOffset} count={tooltipCount}
-                        bgcolor={tooltipBgcolor} textcolor={tooltipTextColor} tooltipName_1={tooltipName_1} tooltipName_2={tooltipName_2} tooltipName_3={tooltipName_3}
+                        bgcolor={tooltipBgcolor} textcolor={tooltipTextColor} tooltipName_1={tooltipName_1}
+                        tooltipName_2={tooltipName_2} tooltipName_3={tooltipName_3} normalizeDataValue={normalizeDataValue}
                     />
                     <CustomPopup maxWidth={popupMaxWidth} maxHeight={popupMaxHeight}
                         bgcolor={popupBgColor}
