@@ -37,7 +37,7 @@ const NewLegend = (props) => {
   if (map) {
     useEffect(() => {
       const legend = new CustomControl();
-      legend.setPosition("bottomleft");
+      legend.setPosition("bottomright");
       legend.addTo(map);
       return () => legend.remove();
     }, [map]);

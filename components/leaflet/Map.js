@@ -241,7 +241,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           ))}
         </LayersControl>
         <ZoomControl
-          position="bottomright"
+          position="bottomleft"
         />
         <ControlMenu position="topRight" show_data={show_data} show_infoBox_data={show_infoBox_data}
           children={
