@@ -58,6 +58,8 @@ import se_elevation_2 from '/public/static/dem_2.geojson'
 import se_elevation_3 from '/public/static/dem_3.geojson'
 
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
+import NewLegend from '../controls/NewLegend';
+
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -69,24 +71,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const show_area_of_interest = state['show_area_of_interest'];
   const socioeconomic = state['socioeconomic']['data'];
   const geodata = state['geodata']['data'];
-
-  const NormalizeData = (number, maxNumber, minNumber) => {
-    const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
-    return mapPolygonColorToDensity(val);
-  };
-
-// Mouse HOVER color is WHITE
-
-  const mapPolygonColorToDensity = (normalizeData => {
-    switch (true) {
-      case normalizeData > 0.9: return '#0c58ca'; // BLUE
-      case normalizeData > 0.7:  return '#00800A'; // GREEN
-      case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
-      case normalizeData > 0.25:  return '#ff962c'; // ORANGE
-      case normalizeData > 0: return '#FF362C'; // RED
-      default: return '#FFFFFF'; // WHITE
-    }
-  })
 
   /* Socioeconomic. START */
   const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
@@ -172,7 +156,23 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
   const {status: gdp_status, value: gdp_value} = gdp;
 
+  const NormalizeData = (number, maxNumber, minNumber) => {
+    const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
+    return mapPolygonColorToDensity(val);
+  };
 
+  // Mouse HOVER color is WHITE
+  
+  const mapPolygonColorToDensity = (normalizeData => {
+    switch (true) {
+      case normalizeData > 0.9: return '#0c58ca'; // BLUE
+      case normalizeData > 0.7:  return '#00800A'; // GREEN
+      case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
+      case normalizeData > 0.25:  return '#ff962c'; // ORANGE
+      case normalizeData > 0: return '#FF362C'; // RED
+      default: return '#FFFFFF'; // WHITE
+    }
+  })
 
   /* Geodata Layers. END */
   const newProjection = (library, index, layer_opacity) => {
@@ -199,6 +199,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
     ];
     const fillColor = NormalizeData(_mean, _max, _min);
+    const normalizeDataValue = Math.abs((_mean - _min) / (_max - _min));
     return (
         <CustomPolygon
             key={index}
@@ -208,6 +209,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
             tooltipCount={library.properties._mean} // library.properties._count
+            normalizeDataValue={normalizeDataValue}
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
             tooltipName_3={library.properties.NAME_2}
@@ -239,7 +241,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           ))}
         </LayersControl>
         <ZoomControl
-          position="bottomright"
+          position="bottomleft"
         />
         <ControlMenu position="topRight" show_data={show_data} show_infoBox_data={show_infoBox_data}
           children={
@@ -250,7 +252,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           }
         >
         </ControlMenu>
-
+        {(se_random_forest_status || se_xgboost_status || se_education_facility_status ||
+          se_health_institution_status || se_financial_service_status || se_population_counts_status ||
+          se_celltowers_status || se_nightlight_intensity_status || se_relative_wealth_status ||
+          se_GDP_status || se_plant_health_status || se_temperature_max_status || se_land_use_class_status ||
+          se_elevation_status)
+          ? <NewLegend/>
+          : null}
+        
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
           return newProjection(library, index, 70)
