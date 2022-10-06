@@ -11,10 +11,8 @@ const ToolBarButton = () => {
 
 const MapToolbar = () => {
 
-    console.log("kkkk");
-
     return <>
-        <div class="d-flex toolbar-container toolbar">
+        <div className="d-flex toolbar-container toolbar">
             <ToolBarButton />
         </div>
     </>

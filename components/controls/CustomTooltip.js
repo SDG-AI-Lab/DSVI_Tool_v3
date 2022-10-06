@@ -3,7 +3,7 @@
 import { Tooltip } from "react-leaflet"
 
 const CustomTooltip=(props)=>{
-    const {direction,offset,opacity,count,bgcolor,textcolor,show_data,tooltipName_1,tooltipName_2, tooltipName_3}=props;
+    const {direction,offset,opacity,count,bgcolor,textcolor,show_data,tooltipName_1,tooltipName_2, tooltipName_3, normalizeDataValue}=props;
     
     // const bg = getComputedStyle(document.documentElement).getPropertyValue('--custom_bg_color');
     // document.documentElement.style.setProperty('--custom_bg_color', bgcolor);
@@ -16,8 +16,10 @@ const CustomTooltip=(props)=>{
                 {tooltipName_2 == null ? 'District: no data' : `${'District: '} ${tooltipName_2}`}
                 <br/>
                 {/* {tooltipName_3 == null ? 'Jamoats: no data' : `${'Jamoats: '} ${tooltipName_3}`} */}
-                <br/>
+                {/* <br/> */}
                 {count == null ? 'Count: No data' : `${'Count: '} ${count}`}
+                <br/>
+                {normalizeDataValue == null ? 'NormalizeDataValue: No data' : `${'NormalizeDataValue: '} ${normalizeDataValue}`}
             </p>
         </Tooltip>
     );

@@ -6,12 +6,10 @@ function MyApp({ Component, pageProps }) {
   return (
           <FilterProvider>
             <LegendProvider>
-            <Main>
+              <Main>
                   <Component {...pageProps} />
               </Main>
-
             </LegendProvider>
-
           </FilterProvider>
   )
 }

@@ -1192,6 +1192,7 @@ export const initalState = {
     "draw_area_of_interest": false,
     "statistics": false,
     "csv_data": [],
+    "on_homepage": true
 }
 
 export const reducer = (state, action) => {
@@ -1298,6 +1299,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 dhs_data_column: action.payload
+            };
+        case "QUIT_HOMEPAGE":
+            return {
+                ...state,
+                on_homepage: action.payload
             };
         default:
             return state
