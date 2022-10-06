@@ -11,8 +11,6 @@ const ToolBarButton = () => {
 
 const MapToolbar = () => {
 
-    // console.log("kkkk");
-
     return <>
         <div className="d-flex toolbar-container toolbar">
             <ToolBarButton />
