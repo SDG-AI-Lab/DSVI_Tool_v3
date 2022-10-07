@@ -1,0 +1,385 @@
+[
+  {
+    "id": 0,
+    "Name": "SELECT NONE",
+    "Additional Information": "None"
+  },
+  {
+    "id": 1,
+    "Name": "Urban / Rural",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 2,
+    "Name": "Age of household head",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 3,
+    "Name": "Average diastolic blood pressure",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 4,
+    "Name": "Average systolic blood pressure",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 5,
+    "Name": "Body Mass Index",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 6,
+    "Name": "Currently amenorrheic",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 7,
+    "Name": "Education in single years",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 8,
+    "Name": "Educational attainment",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 9,
+    "Name": "Ever been tested for HIV",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 10,
+    "Name": "Ever heard of a Sexually Transmitted Infection (STI)",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 11,
+    "Name": "Ever heard of AIDS",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 12,
+    "Name": "Frequency of listening to radio",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 13,
+    "Name": "Frequency of reading newspaper or magazine",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 14,
+    "Name": "Frequency of using internet last month",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 15,
+    "Name": "Frequency of watching television",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 16,
+    "Name": "Getting medical help for self: distance to health facility",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 17,
+    "Name": "Getting medical help for self: getting money needed for treatment",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 18,
+    "Name": "Getting medical help for self: getting permission to go",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 19,
+    "Name": "Getting medical help for self: not wanting to go alone",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 20,
+    "Name": "Had any STI in last 12 months",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 21,
+    "Name": "Has an account in a bank or other financial institution",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 22,
+    "Name": "Hemoglobin level (g/dl - 1 decimal)",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 23,
+    "Name": "Highest educational level",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 24,
+    "Name": "Highest year of education",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 25,
+    "Name": "Household has: bicycle",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 26,
+    "Name": "Household has: car/truck",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 27,
+    "Name": "Household has: electricity",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 28,
+    "Name": "Household has: motorcycle/scooter",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 29,
+    "Name": "Household has: radio",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 30,
+    "Name": "Household has: refrigerator",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 31,
+    "Name": "Household has: television",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 32,
+    "Name": "Literacy",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 33,
+    "Name": "Main floor material",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 34,
+    "Name": "Main roof material",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 35,
+    "Name": "Main wall material",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 36,
+    "Name": "Owns a house alone or jointly",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 37,
+    "Name": "Owns a mobile telephone",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 38,
+    "Name": "Respondent currently working",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 39,
+    "Name": "Respondent worked in last 12 months",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 40,
+    "Name": "Respondent's current age",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 41,
+    "Name": "Respondent's height in centimeters",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 42,
+    "Name": "Respondent's weight in kilograms",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 43,
+    "Name": "Sex of household head",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 44,
+    "Name": "Smokes cigarettes",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 45,
+    "Name": "Source of drinking water",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 46,
+    "Name": "Time to get to water source",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 47,
+    "Name": "Total children ever born",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 48,
+    "Name": "Type of toilet facility",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 49,
+    "Name": "Wealth index combined",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 50,
+    "Name": "Years lived in place of residence",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 51,
+    "Name": "Bed",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 52,
+    "Name": "Believes physical punishment necessary for child disciplinning",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 53,
+    "Name": "Freezer",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 54,
+    "Name": "Has a computer",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 55,
+    "Name": "Has mobile telephone",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 56,
+    "Name": "Has motorcycle/scooter",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 57,
+    "Name": "Has refrigerator",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 58,
+    "Name": "Number of rooms used for sleeping",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 59,
+    "Name": "Sex of head of household",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 60,
+    "Name": "Time to get to water source (minutes)",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 61,
+    "Name": "Total number of completed years of schooling",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  },
+  {
+    "id": 62,
+    "Name": "Type of place of residence",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 1,
+    "Additional Information": "None"
+  },
+  {
+    "id": 63,
+    "Name": "Washing machine",
+    "BlueGreenYellowRed? (0=No;1=Yes)": 0,
+    "Additional Information": "None"
+  }
+]
