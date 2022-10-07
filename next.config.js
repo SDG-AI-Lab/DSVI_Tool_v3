@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
+    loader: 'akamai',
+    path: '',
     domains: ['https://server.arcgisonline.com'],
   },
   env:{
