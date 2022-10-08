@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  basePath: '/DSVI_Tool_v3',
+  assetPrefix: '/DSVI_Tool_v3/',
   images: {
     loader: 'akamai',
     path: '',
