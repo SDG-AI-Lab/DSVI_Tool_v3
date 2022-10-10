@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import DataSidebar from "../components/controls/Sidebar";
 import { FilterContext } from '../context/FilterContext';
 import Image from "next/image";
+import bg from '../public/images/launch-background.jpeg'
 
 const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
     ssr: false,
@@ -18,7 +19,7 @@ const Application = () => {
     return (<>
         {on_homepage
 
-        ?   <div style={{backgroundImage: "url('/images/193276268-76e3acfa-fa08-41c4-b2a9-fa57c7dd0a98.jpeg')" }} className="bg-no-repeat bg-cover pl-16 pr-16 h-screen text-white flex flex-col">
+        ?   <div style={{backgroundImage: `url(${bg.src})` }} className="bg-no-repeat bg-cover pl-16 pr-16 h-screen text-white flex flex-col">
                 <div className="content-center text-center font-bold"><h1>DSVI Tool V3</h1> <p>Lorem ipsum dolor sit amet. Est alias tempore et galisum delectus et rerum nobis ex corrupti beatae ab voluptates earum? Aut iusto iste ad distinctio repellat sit enim voluptatem</p></div>
                 <div className="flex flex-row grow shrink basis-0 items-center">
                     <div className="basis-1/3">
