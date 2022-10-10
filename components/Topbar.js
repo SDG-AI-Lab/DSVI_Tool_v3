@@ -11,7 +11,7 @@ const TopBar = () => {
                     <li className="flex items-center">
                         <a className="flex items-center">
                             <Image
-                                src={sdglogo}
+                                src={sdglogo.src}
                                 alt="SDG LOGO"
                                 width="70px"
                                 height="70px"
@@ -31,7 +31,7 @@ const TopBar = () => {
                     <li className="flex items-center justify-end">
                         <a className="flex items-center">
                             <Image
-                                src={circular_logo}
+                                src={circular_logo.src}
                                 alt="circular"
                                 width="100px"
                                 height="100px"
@@ -40,7 +40,7 @@ const TopBar = () => {
                         </a>
                         <a className="flex items-center pl-5">
                             <Image
-                                src={undp_logo}
+                                src={undp_logo.src}
                                 alt="undp logo"
                                 width="60px"
                                 height="90px"

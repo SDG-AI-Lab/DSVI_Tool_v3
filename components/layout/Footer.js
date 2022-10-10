@@ -10,7 +10,7 @@ const Footer = () => {
                     <li key="1">
                         <a className="flex title-font font-medium items-center text-gray-900 w-44">
                             <Image
-                                src={sdglogo}
+                                src={sdglogo.src}
                                 alt="SDG LOGO"
                                 width="100px"
                                 height="100px"
@@ -45,7 +45,7 @@ const Footer = () => {
                     <li key="3">
                         <a className="flex items-center w-44 justify-end">
                             <Image
-                                src={undp_logo}
+                                src={undp_logo.src}
                                 alt="undp logo"
                                 width="40px"
                                 height="60px"

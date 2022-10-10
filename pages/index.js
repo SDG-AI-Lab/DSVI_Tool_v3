@@ -28,7 +28,7 @@ const Application = () => {
                 <div className="flex flex-row grow shrink basis-0 items-center">
                     <div className="basis-1/3">
                         <Image
-                            src={sdgFilled}
+                            src={sdgFilled.src}
                             alt="Logo"
                             width={300}
                             height={300}
@@ -44,7 +44,7 @@ const Application = () => {
                 <div className="flex justify-evenly">
                     <div>
                         <Image
-                            src={marker1}
+                            src={marker1.src}
                             alt="Logo"
                             width={90}
                             height={100}
@@ -52,7 +52,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src={undpWhite}
+                            src={undpWhite.src}
                             alt="Logo"
                             width={50}
                             height={100}
@@ -60,7 +60,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src={sdgAiLab}
+                            src={sdgAiLab.src}
                             alt="Logo"
                             width={100}
                             height={100}
