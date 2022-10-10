@@ -1,6 +1,6 @@
 import Image from "next/image";
-import sdglogo from '/public/images/SDG AI Lab black logo_transparent.png'
-import undp_logo from '/public/images/UNDP_Logo.png'
+import sdglogo from '../../public/images/logo-sdg-ai-lab-black-alpha.png'
+import undp_logo from '../../public/images/logo-undp-alpha.png'
 
 const Footer = () => {
 
