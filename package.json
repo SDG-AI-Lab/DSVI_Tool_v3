@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
+    "export": "next export & touch out/.nojekyll",
     "homepage": "https://sdg-ai-lab.github.io/DSVI_Tool_v3"
   },
   "dependencies": {

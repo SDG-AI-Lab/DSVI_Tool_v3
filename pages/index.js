@@ -5,6 +5,10 @@ import DataSidebar from "../components/controls/Sidebar";
 import { FilterContext } from '../context/FilterContext';
 import Image from "next/image";
 import bg from '../public/images/launch-background.jpeg'
+import sdgFilled from '../public/images/logo-sdg-filled.png'
+import marker1 from '../public/images/marker1.png'
+import undpWhite from '../public/images/logo-undp-white.png'
+import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
 
 const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
     ssr: false,
@@ -24,7 +28,7 @@ const Application = () => {
                 <div className="flex flex-row grow shrink basis-0 items-center">
                     <div className="basis-1/3">
                         <Image
-                            src="/images/pngegg (1).png"
+                            src={sdgFilled}
                             alt="Logo"
                             width={300}
                             height={300}
@@ -40,7 +44,7 @@ const Application = () => {
                 <div className="flex justify-evenly">
                     <div>
                         <Image
-                            src="/images/marker1.png"
+                            src={marker1}
                             alt="Logo"
                             width={90}
                             height={100}
@@ -48,7 +52,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src="/images/undp_logo (2).png"
+                            src={undpWhite}
                             alt="Logo"
                             width={50}
                             height={100}
@@ -56,7 +60,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src="/images/sdgailablogoblack.png"
+                            src={sdgAiLab}
                             alt="Logo"
                             width={100}
                             height={100}
