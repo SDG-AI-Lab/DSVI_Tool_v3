@@ -8,6 +8,7 @@ import {LegendContext} from '../../context/LegendContext'
 import {Settings, TileProviders} from '../../config/MapConfiguration';
 import ControlMenu from '../controls/ControlMenu';
 import CustomPolygon from '../controls/CustomPolygon';
+import CustomPolygon_AOI from '../controls/CustomPolygon_AOI';
 import CircleMarkers from '../marker/CircleMarkers';
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability';
 import MapToolbar from '../controls/MapToolbar';
@@ -185,15 +186,16 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
 
   const AOI_projection = (library, index, layer_opacity) => {
-    const fillColorAOI = 'rgb(255, 255, 255, .4)';
-    return (
-        <CustomPolygon
-            key={1}
-            positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
-            fillColor={fillColorAOI}
-            hovercolor = {fillColorAOI}
-            opacity={layer_opacity/100}
+   
+    const fillColorAOI = 'rgb(255, 255, 255, .5)';
 
+    return (
+        <CustomPolygon_AOI
+        key={index}
+        positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+        fillColor={fillColorAOI}
+        hovercolor = {fillColorAOI}
+        opacity={layer_opacity/100}
         />
     )
   };
