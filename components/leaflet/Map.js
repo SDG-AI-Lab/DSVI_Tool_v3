@@ -60,6 +60,7 @@ import se_elevation_3 from '/public/static/dem_3.geojson'
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
 import NewLegend from '../controls/NewLegend';
 import NewLegend_2 from '../controls/NewLegend_2';
+import { max } from 'lodash';
 
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
@@ -162,15 +163,18 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
 
   const NormalizeData = (number, maxNumber, minNumber) => {
+
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
     return mapPolygonColorToDensity(val);
+  
   };
 
-  // Mouse HOVER color is WHITE
+
+  // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
   
   const mapPolygonColorToDensity = (normalizeData => {
     switch (true) {
-      case normalizeData > 0.9: return '#0c58ca'; // BLUE
+      case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
       case normalizeData > 0.7:  return '#00800A'; // GREEN
       case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
       case normalizeData > 0.25:  return '#ff962c'; // ORANGE
@@ -179,14 +183,29 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     }
   })
 
-  // const AOI_projection = (library, index, layer_opacity) => {
-  //   const fillColorAOI = '#0000ffff';
-  //   return (
-  //       <Polygon
 
-  //       />
-  //   )
-  // };
+  const AOI_projection = (library, index, layer_opacity) => {
+    const fillColorAOI = 'rgb(255, 255, 255, .4)';
+    return (
+        <CustomPolygon
+            key={1}
+            positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+            fillColor={fillColorAOI}
+            hovercolor = {fillColorAOI}
+            opacity={layer_opacity/100}
+
+        />
+    )
+  };
+
+  function hexToRgb(hex) {
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    return r + "," + g + "," + b;
+}
   const newProjection = (library, index, layer_opacity) => {
     const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min } = library.properties;
     const {} = library.name;
@@ -211,23 +230,24 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
     ];
     const fillColor = NormalizeData(_mean, _max, _min);
-    const hovercolor = '#0000ffff';
+    console.log("FillColor:",fillColor);
+    const hovercolor = 'rgb(255, 255, 255, .8)';
     const normalizeDataValue = Math.abs((_mean - _min) / (_max - _min));
     return (
         <CustomPolygon
             key={index}
             positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
             fillColor={fillColor}
-            hovercolor = {hovercolor}
+            hovercolor = {fillColor}
             opacity={layer_opacity/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
-            tooltipCount={library.properties._mean} // library.properties._count
-            normalizeDataValue={normalizeDataValue}
+            tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
+            normalizeDataValue={normalizeDataValue.toFixed(2)}
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
             tooltipName_3={library.properties.NAME_2}
-            tooltipBgcolor="rgb(255 255 255)"
+            tooltipBgcolor="rgb(255 255 255, 0.8)"
             tooltipTextColor="text-slate-700"
             show_data={show_data}
             popupMaxWidth="auto"
@@ -278,7 +298,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          return newProjection(library, index)
+          return AOI_projection(library, index)
         })}
         {/* Show Area of Interest. END */}
 

@@ -6,6 +6,17 @@ import {
 } from '@react-leaflet/core';
 import L from 'leaflet';
 
+const lookupforgrayindex =(GRAY_INDEX =>
+    {
+        switch (true) {
+            case GRAY_INDEX > 0.9: return 'Low'; 
+            case GRAY_INDEX > 0.7:  return 'Mid'; 
+            case GRAY_INDEX > 0.55: return 'High'; 
+            case GRAY_INDEX > 0.25:  return 'Very High'; 
+            case GRAY_INDEX > 0: return 'High'; d
+            default: return 'Undefined'; 
+          }
+    });
 // import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
 
 {/* <BetterWMSTileLayer url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
@@ -101,6 +112,8 @@ const BetterWMS = L.TileLayer.WMS.extend({
       return url;
   },
 
+
+  
   showGetFeatureInfo: function (err, latlng, content) {
       if (err) { console.log(err); return; }
 
@@ -110,7 +123,7 @@ const BetterWMS = L.TileLayer.WMS.extend({
           // Otherwise show the content in a popup, or something.
           L.popup({ maxWidth: 400, className:"customPopup"})
               .setLatLng(latlng)
-              .setContent(`<p>GRAY_INDEX: ${GRAY_INDEX}</p>`)
+              .setContent(`<p>Value: ${GRAY_INDEX.toFixed(2)}, ${lookupforgrayindex(GRAY_INDEX)}</p>`)
               .openOn(this._map);
       }
   }

@@ -39,7 +39,7 @@ const CustomPolygon = (props) => {
             }}
 
             fillColor={fillColor}
-            hovercolor= {hovercolor}
+            hovercolor={hovercolor}
             positions={positions}
 
             children={
