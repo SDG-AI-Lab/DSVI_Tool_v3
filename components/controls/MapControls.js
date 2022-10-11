@@ -18,18 +18,19 @@ const ControlButton = (props) => {
 const MapControls = (props) => {
 
     return <Control position={props.position} style={{display: "flex"}}>
+       
         <ControlButton
             src="images/country-icon.7a31d42f.png"
             alt="contry selector"
-            tooltipName="Country select"
-            tooltipDescription="Some dummy text here...."
+            tooltipName="Dummy hover text"
+            tooltipDescription="Some dummy text here."
         />
         <ControlButton
             src="images/add-boundaries-icon.409e70b2.png"
             alt="Boundaries"
             className="ml-2"
-            tooltipName="Resolution"
-            tooltipDescription="Some dummy text here...."
+            tooltipName="Dummy hover text"
+            tooltipDescription="Some dummy text here."
         />
     </Control>
 }
