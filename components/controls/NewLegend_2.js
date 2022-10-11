@@ -9,7 +9,6 @@ const NewLegend_2 = (props) => {
   useEffect(() => {
     setShowUIElements(true);
   return () => {
-    // cancel the request before component unmounts
   };
   }, []);
 
