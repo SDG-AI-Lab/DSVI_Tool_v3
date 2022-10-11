@@ -13,8 +13,8 @@ const TopBar = () => {
                             <Image
                                 src={sdglogo.src}
                                 alt="SDG LOGO"
-                                width="70px"
-                                height="70px"
+                                width="40px"
+                                height="40px"
                                 layout="intrinsic"
                                 className="rounded-full"
                             />
@@ -33,8 +33,8 @@ const TopBar = () => {
                             <Image
                                 src={circular_logo.src}
                                 alt="circular"
-                                width="100px"
-                                height="100px"
+                                width="70px"
+                                height="70px"
                                 layout="intrinsic"
                             />
                         </a>
@@ -42,8 +42,8 @@ const TopBar = () => {
                             <Image
                                 src={undp_logo.src}
                                 alt="undp logo"
-                                width="60px"
-                                height="90px"
+                                width="40px"
+                                height="60px"
                                 layout="intrinsic"
                             />
                         </a>

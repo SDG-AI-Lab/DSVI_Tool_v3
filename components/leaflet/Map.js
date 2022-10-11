@@ -157,6 +157,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
   const {status: gdp_status, value: gdp_value} = gdp;
 
+
+  /* Geodata Layers. END */
+
+
   const NormalizeData = (number, maxNumber, minNumber) => {
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
     return mapPolygonColorToDensity(val);
@@ -175,7 +179,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     }
   })
 
-  /* Geodata Layers. END */
+  // const AOI_projection = (library, index, layer_opacity) => {
+  //   const fillColorAOI = '#0000ffff';
+  //   return (
+  //       <Polygon
+
+  //       />
+  //   )
+  // };
   const newProjection = (library, index, layer_opacity) => {
     const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min } = library.properties;
     const {} = library.name;
@@ -200,12 +211,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
     ];
     const fillColor = NormalizeData(_mean, _max, _min);
+    const hovercolor = '#0000ffff';
     const normalizeDataValue = Math.abs((_mean - _min) / (_max - _min));
     return (
         <CustomPolygon
             key={index}
             positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
             fillColor={fillColor}
+            hovercolor = {hovercolor}
             opacity={layer_opacity/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
@@ -264,7 +277,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          return newProjection(library, index, 70)
+          return newProjection(library, index)
         })}
         {/* Show Area of Interest. END */}
 

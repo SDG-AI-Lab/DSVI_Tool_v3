@@ -5,7 +5,7 @@ var mtoken = process.env.mapboxapikey;
 export const TileProviders = [
     {
       name: 'OSM',
-      checked: true,
+      checked: false,
       args: {
         url:
           'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -15,6 +15,7 @@ export const TileProviders = [
     },
     {
       name: 'Satellite',
+      checked: true,
       args: {
         url:
           'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',

@@ -1192,7 +1192,7 @@ export const initalState = {
     "draw_area_of_interest": false,
     "statistics": false,
     "csv_data": [],
-    "on_homepage": true
+    "on_homepage": false
 }
 
 export const reducer = (state, action) => {

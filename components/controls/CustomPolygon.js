@@ -11,6 +11,7 @@ const CustomPolygon = (props) => {
         index,
         positions,
         fillColor,
+        hovercolor,
         opacity,
         tooltipDirection,
         tooltipOffset,
@@ -26,7 +27,6 @@ const CustomPolygon = (props) => {
         popupBgColor,
         popupTextColor,
         data,
-        hoverColor,
         legendTitle,
         legendDescription,
         normalizeDataValue
@@ -35,10 +35,11 @@ const CustomPolygon = (props) => {
     return (<Polygon
             key={index}
             pathOptions={{
-                bubblingMouseEvents: true, weight: 1, color: 'blue', opacity: opacity, fillOpacity: opacity
+                bubblingMouseEvents: true, weight: 1, color: 'white', opacity: opacity, fillOpacity: opacity
             }}
 
             fillColor={fillColor}
+            hovercolor= {hovercolor}
             positions={positions}
 
             children={
@@ -60,7 +61,7 @@ const CustomPolygon = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: "white"
+                        fillColor: hovercolor
                     });
                 },
                 mouseout: (e) => {
