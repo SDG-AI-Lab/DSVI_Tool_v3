@@ -563,7 +563,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
                 version: "1.1.0",
                 style: "sdg-ai-lab:xgboost",
               }}
-              url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+              url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
               zIndex="9999"
               opacity={sv_linear_model_value / 100}/>
           : null
@@ -571,7 +571,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {sv_xgboost_status ?
             <BetterWMSTileLayer
-              url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+              url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
               layers="sdg-ai-lab:XGBoost_tuned_scaled_clipped_final"
               transparent= "true"
               zIndex="9999"
@@ -589,13 +589,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               version: "1.1.0",
               style: "sdg-ai-lab:xgboost",
             }}
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             zIndex="9999"
             opacity={sv_xgboost_value / 100}/> */}
 
         {sv_random_forest_status ?
           <BetterWMSTileLayer
-              url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+              url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
               layers="sdg-ai-lab:Random_Forest_tuned_scaled_clp_final"
               transparent= "true"
               zIndex="9999"
@@ -607,7 +607,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {distance_to_healthcare_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_health_dd_spd_10k"
             transparent= "true"
             zIndex="9999"
@@ -619,7 +619,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {distance_to_finance_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326"
             transparent= "true"
             zIndex="9999"
@@ -631,7 +631,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {distance_to_edu_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326"
             transparent= "true"
 
@@ -643,7 +643,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {elevation_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_DEM_Large"
             transparent= "true"
             zIndex="9999"
@@ -655,7 +655,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {slope_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_slope"
             transparent= "true"
             zIndex="9999"
@@ -667,7 +667,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {max_temp_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_maxtemp_feb"
             transparent= "true"
             zIndex="9999"
@@ -679,7 +679,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {plant_health_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_NDVI"
             transparent= "true"
             zIndex="9999"
@@ -691,7 +691,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {precipitation_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_precip"
             transparent= "true"
             zIndex="9999"
@@ -703,7 +703,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {nightlight_intensity_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_NTL"
             transparent= "true"
             zIndex="9999"
@@ -715,7 +715,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {pop_density_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_pop"
             transparent= "true"
             zIndex="9999"
@@ -727,7 +727,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {celltower_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_cellt"
             transparent= "true"
             zIndex="9999"
@@ -739,7 +739,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {road_density_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_road_density"
             transparent= "true"
             zIndex="9999"
@@ -751,7 +751,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {relative_wealth_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final"
             transparent= "true"
             zIndex="9999"
@@ -763,7 +763,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {gdp_status ?
           <BetterWMSTileLayer
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_GDP_2015_intp"
             transparent= "true"
             zIndex="9999"
@@ -782,7 +782,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               version: "1.1.0",
               style: "sdg-ai-lab:xgboost",
             }}
-            url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             zIndex="9999"
             opacity={sv_linear_model / 100}/>
         : null
