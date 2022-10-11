@@ -607,6 +607,7 @@ const Sidebar = () => {
         </div >
 
       </div >
+
       <Modal open={dsvModal}
         onClose={
           () => {
@@ -618,7 +619,7 @@ const Sidebar = () => {
         center>
         <div></div>
 
-        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto ">
+        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
 
           <div>
             <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
@@ -665,20 +666,23 @@ const Sidebar = () => {
         </div>
       </Modal>
 
+
       <Modal open={dhsModal}
         onClose={
           () => {
-
             onCloseDhsModal()
           }
         }
-        styles={{modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '100vh'}}}
 
-        center>
+        styles={{
+          modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '75vh', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '272px', marginTop: '102px'},    
+          overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
+        }}
+      >
 
         <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
 
-          <div className="overflow-y-scroll" style={{height: '75vh'}}>
+          <div className="overflow-y-scroll" style={{height: '42vh', width: '20vw'}}>
             <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
             <hr />
@@ -704,6 +708,7 @@ const Sidebar = () => {
             }
 
           </div>
+
           <div className="flex justify-end mt-4">
             <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 
