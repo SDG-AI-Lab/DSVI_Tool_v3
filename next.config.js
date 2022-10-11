@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV !== "production";
 module.exports = {
+  basePath: isDev ? '': '/DSVI_Tool_v3',
+  assetPrefix: isDev ? '': '/DSVI_Tool_v3/',
   images: {
     loader: 'akamai',
     path: '',

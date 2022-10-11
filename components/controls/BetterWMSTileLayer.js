@@ -8,7 +8,7 @@ import L from 'leaflet';
 
 // import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
 
-{/* <BetterWMSTileLayer url="http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms"
+{/* <BetterWMSTileLayer url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
     layers="sdg-ai-lab:XGBoost_tuned_scaled_clipped_final"
     transparent= "true" 
     zIndex="9999"
