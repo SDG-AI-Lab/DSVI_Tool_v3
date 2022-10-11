@@ -260,7 +260,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status || 
           se_land_use_class_status || se_elevation_status 
           ? <NewLegend_2 arrayOfLegends={arrayOfLegends}/> 
-          : null }
+          : null
+        }
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
