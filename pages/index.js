@@ -23,12 +23,12 @@ const Application = () => {
     return (<>
         {on_homepage
 
-        ?   <div style={{backgroundImage: `url(${bg.src})` }} className="bg-no-repeat bg-cover pl-16 pr-16 h-screen text-white flex flex-col">
+        ?   <div style={{backgroundImage: `url(${bg})` }} className="bg-no-repeat bg-cover pl-16 pr-16 h-screen text-white flex flex-col">
                 <div className="content-center text-center font-bold"><h1>DSVI Tool V3</h1> <p>Lorem ipsum dolor sit amet. Est alias tempore et galisum delectus et rerum nobis ex corrupti beatae ab voluptates earum? Aut iusto iste ad distinctio repellat sit enim voluptatem</p></div>
                 <div className="flex flex-row grow shrink basis-0 items-center">
                     <div className="basis-1/3">
                         <Image
-                            src={sdgFilled.src}
+                            src={sdgFilled}
                             alt="Logo"
                             width={300}
                             height={300}
