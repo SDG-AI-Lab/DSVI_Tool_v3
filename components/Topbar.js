@@ -1,7 +1,7 @@
 import Image from "next/image";
-import circular_logo from '../public/images/logo-sdg-ai-lab-black-alpha.png'
-import undp_logo from '../public/images/logo-undp-alpha.png'
-import sdglogo from '../public/images/logo-sdg-alpha.png'
+import circular_logo from '/public/images/logo-sdg-ai-lab-black-alpha.png'
+import undp_logo from '/public/images/logo-undp-alpha.png'
+import sdglogo from '/public/images/logo-sdg-alpha.png'
 import Navbar from '../components/Navbar';
 
 const TopBar = () => {
@@ -11,7 +11,7 @@ const TopBar = () => {
                     <li className="flex items-center">
                         <a className="flex items-center">
                             <Image
-                                src={sdglogo.src}
+                                src={sdglogo}
                                 alt="SDG LOGO"
                                 width="40px"
                                 height="40px"
@@ -31,7 +31,7 @@ const TopBar = () => {
                     <li className="flex items-center justify-end">
                         <a className="flex items-center">
                             <Image
-                                src={circular_logo.src}
+                                src={circular_logo}
                                 alt="circular"
                                 width="70px"
                                 height="70px"
@@ -40,7 +40,7 @@ const TopBar = () => {
                         </a>
                         <a className="flex items-center pl-5">
                             <Image
-                                src={undp_logo.src}
+                                src={undp_logo}
                                 alt="undp logo"
                                 width="40px"
                                 height="60px"
