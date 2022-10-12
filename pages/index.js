@@ -5,10 +5,10 @@ import DataSidebar from "../components/controls/Sidebar";
 import { FilterContext } from '../context/FilterContext';
 import Image from "next/image";
 import bg from '../public/images/launch-background.jpeg'
-import sdgFilled from '../public/images/logo-sdg-filled.png'
+import sdgFilled from '/public/images/logo-sdg-filled.png'
 import marker1 from '../public/images/marker1.png'
-import undpWhite from '../public/images/logo-undp-white.png'
-import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
+import undpWhite from '/public/images/logo-undp-white.png'
+import sdgAiLab from '/public/images/logo-sdg-ai-lab-black-alpha.png'
 
 const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
     ssr: false,
@@ -44,7 +44,7 @@ const Application = () => {
                 <div className="flex justify-evenly">
                     <div>
                         <Image
-                            src={marker1.src}
+                            src={marker1}
                             alt="Logo"
                             width={90}
                             height={100}
@@ -52,7 +52,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src={undpWhite.src}
+                            src={undpWhite}
                             alt="Logo"
                             width={50}
                             height={100}
@@ -60,7 +60,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src={sdgAiLab.src}
+                            src={sdgAiLab}
                             alt="Logo"
                             width={100}
                             height={100}
