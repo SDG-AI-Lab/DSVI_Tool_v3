@@ -23,17 +23,17 @@ export const TileProviders = [
           '&copy; <a href="https://www.esri.com">ESRI</a>',
       },
     },
-    {
-      name: 'Mapbox',
+    // {
+    //   name: 'Mapbox',
       
-      args: {
-        url:
-          'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
-        attribution:
-          '&copy; <a href="https://mapbox.com">Mapbox</a>',
-          layers:"GoogleMapsCompatible"
-        },
-    },
+    //   args: {
+    //     url:
+    //       'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
+    //     attribution:
+    //       '&copy; <a href="https://mapbox.com">Mapbox</a>',
+    //       layers:"GoogleMapsCompatible"
+    //     },
+    // },
     {
       name: 'Stamen',
       checked: false,
