@@ -10,6 +10,7 @@ import marker1 from '../public/images/marker1.png'
 import undpWhite from '/public/images/logo-undp-white.png'
 import sdgAiLab from '/public/images/logo-sdg-ai-lab-black-alpha.png'
 
+
 const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
     ssr: false,
 })
