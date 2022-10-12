@@ -75,6 +75,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const show_area_of_interest = state['show_area_of_interest'];
   const socioeconomic = state['socioeconomic']['data'];
   const geodata = state['geodata']['data'];
+  const socioeconomic_data_column = state['socioeconomic']['data_column'];
 
   /* Socioeconomic. START */
   const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
@@ -168,12 +169,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
     return mapPolygonColorToDensity(val);
-  
+
   };
 
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
-  
+
   const mapPolygonColorToDensity = (normalizeData => {
     switch (true) {
       case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
@@ -187,6 +188,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
 
   const AOI_projection = (library, index, layer_opacity) => {
+
     const fillColorAOI = 'rgb(255, 255, 255, .5)';
     return (
         <CustomPolygon_AOI
@@ -208,7 +210,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 //     return r + "," + g + "," + b;
 // }
   const newProjection = (library, index, layer_opacity) => {
-    const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min } = library.properties;
+    const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min, _sum, _avg } = library.properties;
     const {} = library.name;
     const data = [
 
@@ -230,10 +232,11 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         "value": _mean
       }
     ];
-    const fillColor = NormalizeData(_mean, _max, _min);
+
+    const fillColor = NormalizeData(library.properties[socioeconomic_data_column], _max, _min);
     console.log("FillColor:",fillColor);
     const hovercolor = 'rgb(255, 255, 255, .8)';
-    const normalizeDataValue = Math.abs((_mean - _min) / (_max - _min));
+    const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - _min) / (_max - _min));
     return (
         <CustomPolygon
             key={index}
@@ -332,13 +335,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         { se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
           se_financial_service_status || se_population_counts_status || se_celltowers_status || se_nightlight_intensity_status ||
-          se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status || 
-          se_land_use_class_status || se_elevation_status || 
+          se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
+          se_land_use_class_status || se_elevation_status ||
           sv_linear_model_status || sv_xgboost_status || sv_random_forest_status ||
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
           pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status
-          ? <NewLegend_2 arrayOfLegends={arrayOfLegends}/> 
+          ? <NewLegend_2 arrayOfLegends={arrayOfLegends}/>
           : null
         }
 

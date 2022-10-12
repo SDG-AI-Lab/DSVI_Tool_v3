@@ -153,7 +153,8 @@ export const initalState = {
                 //         }
                 //     ]
                 // },
-        ]
+        ],
+        "data_column": "_mean"
     },
     "geodata": {
         "status": false,
@@ -1246,13 +1247,19 @@ export const reducer = (state, action) => {
         case "TOGGLE_SOCIOECONOMIC":
             return {
                 ...state, socioeconomic: {
-                    status: !state.socioeconomic.status, data: state.socioeconomic.data
+                    status: !state.socioeconomic.status, data: state.socioeconomic.data, data_column: state.socioeconomic.data_column
                 }
             };
         case "CHANGE_SOCIOECONOMIC":
             return {
                 ...state, socioeconomic: {
-                    status: state.socioeconomic.status, data: action.payload
+                    status: state.socioeconomic.status, data: action.payload, data_column: state.socioeconomic.data_column
+                }
+            };
+        case "CHANGE_SOCIOECONOMIC_DATA_COLUMN":
+            return {
+                ...state, socioeconomic: {
+                    status: state.socioeconomic.status, data: state.socioeconomic.data, data_column: action.payload
                 }
             };
         case "TOGGLE_GEODATA":
