@@ -168,21 +168,24 @@ export const initalState = {
                         slug: 'sv_linear_model',
                         title: 'SV: Linear Model',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:Linear_SV'
                     },
                     {
                         id: 1.2,
                         slug: 'sv_xgboost',
                         title: 'SV: XG Boost',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:XGBoost_tuned_scaled_clipped_final'
                     },
                     {
                         id: 1.3,
                         slug: 'sv_random_forest',
                         title: 'SV: Random Forest',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:Random_Forest_tuned_scaled_clp_final'
                     }
 
                 ]
@@ -197,21 +200,24 @@ export const initalState = {
                         slug: 'distance_to_healthcare',
                         title: 'Distance to Healthcare',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_health_dd_spd_10k'
                     },
                     {
                         id: 2.2,
                         slug: 'distance_to_finance',
                         title: 'Distance to Finance',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326'
                     },
                     {
                         id: 2.3,
                         slug: 'distance_to_edu',
                         title: 'Distance to Education',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326'
                     }
 
                 ]
@@ -226,35 +232,40 @@ export const initalState = {
                         slug: 'elevation',
                         title: 'Elevation in meters',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_DEM_Large'
                     },
                     {
                         id: 3.2,
                         slug: 'slope',
                         title: 'Slope in degrees',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_slope'
                     },
                     {
                         id: 3.3,
                         slug: 'max_temp',
                         title: 'Max Temp Winter',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_maxtemp_feb'
                     },
                     {
                         id: 3.4,
                         slug: 'plant_health',
                         title: 'Plant Health (NDVI)',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_NDVI'
                     },
                     {
                         id: 3.5,
                         slug: 'precipitation',
                         title: 'Rainfall',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_precip'
                     }
                 ]
             },
@@ -268,42 +279,48 @@ export const initalState = {
                         slug: 'nightlight_intensity',
                         title: 'Nightlight Intensity',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_NTL'
                     },
                     {
                         id: 4.2,
                         slug: 'pop_density',
                         title: 'Population Density',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_pop'
                     },
                     {
                         id: 4.3,
                         slug: 'celltower',
                         title: 'Celltower Density',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_cellt'
                     },
                     {
                         id: 4.4,
                         slug: 'road_density',
                         title: 'Road Density',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_road_density'
                     },
                     {
                         id: 4.5,
                         slug: 'relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final'
                     },
                     {
                         id: 4.6,
                         slug: 'gdp',
                         title: 'Gross Domestic Product',
                         status: false,
-                        value: 70
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_GDP_2015_intp'
                     }
                 ]
             }
@@ -1192,7 +1209,7 @@ export const initalState = {
     "draw_area_of_interest": false,
     "statistics": false,
     "csv_data": [],
-    "on_homepage": true
+    "on_homepage": false
 }
 
 export const reducer = (state, action) => {
