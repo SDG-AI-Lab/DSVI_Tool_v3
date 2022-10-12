@@ -66,7 +66,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`bg-white h-[calc(100vh-164px)] w-[270px] min-w-[270px] overflow-auto`}>
+      <div className={`bg-white h-[calc(100vh-130px)] w-[270px] min-w-[270px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
@@ -74,12 +74,12 @@ const Sidebar = () => {
             <hr className="my-0" />
             <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-2xl h-6'>Main Menu</p>
+              <p className='text-xl h-5'>Main Menu</p>
             </div>
             <hr className="my-2" />
             <div>
 
-              <ul className="relative px-1">
+              <ul className="relative px-3">
                 <li><p></p></li>
                 <li className="relative">
                   <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
@@ -130,7 +130,7 @@ const Sidebar = () => {
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
                     text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
                     hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                    onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
+                    onClick={() => dispatch({ type: " y", payload: {} })}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -370,7 +370,8 @@ const Sidebar = () => {
                                                         slug: val2.slug,
                                                         title: val2.title,
                                                         status: !val2.status,
-                                                        value: val2.value
+                                                        value: val2.value,
+                                                        layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                     }}
@@ -385,7 +386,8 @@ const Sidebar = () => {
                                                           slug: val2.slug,
                                                           title: val2.title,
                                                           status: !val2.status,
-                                                          value: val2.value
+                                                          value: val2.value,
+                                                          layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                       }}
@@ -416,7 +418,8 @@ const Sidebar = () => {
                                                                   slug: val2.slug,
                                                                   title: val2.title,
                                                                   status: val2.status,
-                                                                  value: event.target.value
+                                                                  value: event.target.value,
+                                                                  layer: val2.layer
                                                                 };
                                                                 dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                               }}
@@ -432,7 +435,8 @@ const Sidebar = () => {
                                                                       slug: val2.slug,
                                                                       title: val2.title,
                                                                       status: val2.status,
-                                                                      value: event.target.value
+                                                                      value: event.target.value,
+                                                                      layer: val2.layer
                                                                     };
                                                                     dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                                   }}
@@ -466,7 +470,7 @@ const Sidebar = () => {
 
               <ul>
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_VULNERABILITY", payload: {} })}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -479,7 +483,7 @@ const Sidebar = () => {
                       <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
                         <li className="relative">
                           <div className="flex i items-center">
-                            <span className="text-gray-700 px-2 text-sm ml-3">
+                            <span className="text-gray-700 px-5 text-sm ml-1">
                               Categories
                             </span>
                           </div>
@@ -569,7 +573,7 @@ const Sidebar = () => {
                 </li> */}
 
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
 
                     onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
@@ -585,7 +589,7 @@ const Sidebar = () => {
                     dhsIndicator == true ?
                       <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" data-bs-parent="#sidenavSecExample">
                         <li className="relative">
-                          <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                          <a className="flex items-center text-sm py-4 px-8 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                             onClick={() => { onOpenDhsModal() }}
                           >
@@ -605,7 +609,7 @@ const Sidebar = () => {
                 </li>
 
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
 
@@ -619,7 +623,7 @@ const Sidebar = () => {
                 </li>
 
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
 
@@ -641,6 +645,7 @@ const Sidebar = () => {
         </div >
 
       </div >
+
       <Modal open={dsvModal}
         onClose={
           () => {
@@ -652,7 +657,7 @@ const Sidebar = () => {
         center>
         <div></div>
 
-        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto ">
+        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
 
           <div>
             <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
@@ -699,20 +704,23 @@ const Sidebar = () => {
         </div>
       </Modal>
 
+
       <Modal open={dhsModal}
         onClose={
           () => {
-
             onCloseDhsModal()
           }
         }
-        styles={{modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '100vh'}}}
 
-        center>
+        styles={{
+          modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '75vh', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '272px', marginTop: '102px'},    
+          overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
+        }}
+      >
 
         <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
 
-          <div className="overflow-y-scroll" style={{height: '75vh'}}>
+          <div className="overflow-y-scroll" style={{height: '42vh', width: '20vw'}}>
             <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
             <hr />
@@ -738,6 +746,7 @@ const Sidebar = () => {
             }
 
           </div>
+
           <div className="flex justify-end mt-4">
             <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 

@@ -4,6 +4,11 @@ import Sidebar from "../components/Sidebar";
 import DataSidebar from "../components/controls/Sidebar";
 import { FilterContext } from '../context/FilterContext';
 import Image from "next/image";
+import bg from '../public/images/launch-background.jpeg'
+import sdgFilled from '../public/images/logo-sdg-alpha.png'
+import marker1 from '../public/images/marker1.png'
+import undpWhite from '../public/images/logo-undp-white.png'
+import sdgAiLab from '../public/images/SDG-logo.png'
 
 const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
     ssr: false,
@@ -18,12 +23,12 @@ const Application = () => {
     return (<>
         {on_homepage
 
-        ?   <div style={{backgroundImage: "url('/images/193276268-76e3acfa-fa08-41c4-b2a9-fa57c7dd0a98.jpeg')" }} className="bg-no-repeat bg-cover pl-16 pr-16 h-screen text-white flex flex-col">
+        ?   <div style={{backgroundImage: `url(${bg.src})` }} className="bg-no-repeat bg-cover pl-16 pr-16 h-screen text-white flex flex-col">
                 <div className="content-center text-center font-bold"><h1>DSVI Tool V3</h1> <p>Lorem ipsum dolor sit amet. Est alias tempore et galisum delectus et rerum nobis ex corrupti beatae ab voluptates earum? Aut iusto iste ad distinctio repellat sit enim voluptatem</p></div>
                 <div className="flex flex-row grow shrink basis-0 items-center">
                     <div className="basis-1/3">
                         <Image
-                            src="/images/logo512.png"
+                            src={sdgFilled.src}
                             alt="Logo"
                             width={300}
                             height={300}
@@ -39,7 +44,7 @@ const Application = () => {
                 <div className="flex justify-evenly">
                     <div>
                         <Image
-                            src="/images/marker1.png"
+                            src={marker1.src}
                             alt="Logo"
                             width={90}
                             height={100}
@@ -47,7 +52,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src="/images/undp_logo (2).png"
+                            src={undpWhite.src}
                             alt="Logo"
                             width={50}
                             height={100}
@@ -55,7 +60,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src="/images/SDG-logo.png"
+                            src={sdgAiLab.src}
                             alt="Logo"
                             width={100}
                             height={100}

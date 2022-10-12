@@ -1,6 +1,6 @@
 import Image from "next/image";
-import sdglogo from '/public/images/SDG AI Lab black logo_transparent.png'
-import undp_logo from '/public/images/UNDP_Logo.png'
+import sdglogo from '../../public/images/logo-sdg-ai-lab-black-alpha.png'
+import undp_logo from '../../public/images/logo-undp-alpha.png'
 
 const Footer = () => {
 
@@ -10,7 +10,7 @@ const Footer = () => {
                     <li key="1">
                         <a className="flex title-font font-medium items-center text-gray-900 w-44">
                             <Image
-                                src={sdglogo}
+                                src={sdglogo.src}
                                 alt="SDG LOGO"
                                 width="100px"
                                 height="100px"
@@ -25,7 +25,7 @@ const Footer = () => {
                     <li className="text-sm text-gray-500 flex justify-self-center m-auto" key="2">
                         <a href="https://sdgailab.org/" className="text-gray-600 items-center m-auto"
                            rel="noopener noreferrer" target="_blank">© 2022 — @SDG AI LAB</a>
-                        <a className="ml-3 text-gray-500" href="https://sdgailab.org/">
+                        <a className="ml-3 text-gray-500" href="https://twitter.com/sdgailab">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                  className="w-5 h-5 drop-shadow-lg hover:drop-shadow-2xl hover:w-8 hover:h-8 hover:text-blue-400"
                                  viewBox="0 0 24 24">
@@ -33,7 +33,7 @@ const Footer = () => {
                                     d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                             </svg>
                         </a>
-                        <a className="ml-3 text-gray-500" href="https://twitter.com/sdgailab">
+                        <a className="ml-3 text-gray-500" href="https://sdgailab.org/">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="5"
                                  className="w-5 h-5 drop-shadow-lg hover:drop-shadow-2xl hover:w-8 hover:h-8 hover:text-purple-800"
                                  viewBox="0 0 24 24">
@@ -45,7 +45,7 @@ const Footer = () => {
                     <li key="3">
                         <a className="flex items-center w-44 justify-end">
                             <Image
-                                src={undp_logo}
+                                src={undp_logo.src}
                                 alt="undp logo"
                                 width="40px"
                                 height="60px"
