@@ -7,7 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import MapControls from '../controls/MapControls';
 
 const dropDownOptions = [
-    'Datasets', 'Layer 1', 'Layer 2'
+    'Select One', 'Vulnerability', 'GDP'
 ]
 
 
