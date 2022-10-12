@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {useContext, useEffect, useRef} from 'react'
 import {Polygon} from "react-leaflet";
 import CustomTooltip from "./CustomTooltip";
 import CustomPopup from "./CustomPopup";
@@ -15,7 +15,7 @@ const CustomPolygon = (props) => {
         tooltipDirection,
         tooltipOffset,
         tooltipCount,
-        tooltipName_1, 
+        tooltipName_1,
         tooltipName_2,
         tooltipName_3,
         tooltipBgcolor,
@@ -32,8 +32,18 @@ const CustomPolygon = (props) => {
         normalizeDataValue
     } = props;
 
+
+    const PolygonRef = useRef(null);
+
+    useEffect(() => {
+        PolygonRef.current.setStyle({
+            fillColor: fillColor
+        })
+    }, [fillColor])
+
     return (<Polygon
             key={index}
+            ref={PolygonRef}
             pathOptions={{
                 bubblingMouseEvents: true, weight: 1, color: 'blue', opacity: opacity, fillOpacity: opacity
             }}

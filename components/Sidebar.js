@@ -167,6 +167,40 @@ const Sidebar = () => {
                         </svg>
                     }
                   </a>
+                  {socioeconomic.status == true &&
+                    <ul className="flex">
+                      {
+                        [{
+                          slug: '_sum',
+                          title: 'Sum'
+                        },
+                        {
+                          slug: '_count',
+                          title: 'Count'
+                        },
+                        {
+                          slug: '_avg',
+                          title: 'AVG'
+                        }].map((val, index) => {
+                          return (
+                            <div key={index}>
+                              <div className="flex" onClick={ () => { dispatch({ type: "CHANGE_SOCIOECONOMIC_DATA_COLUMN", payload: val.slug }) }}>
+                                <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
+                                  checked={val.slug == socioeconomic.data_column ? true : false}
+                                  onChange={() => {dispatch({ type: "CHANGE_SOCIOECONOMIC_DATA_COLUMN", payload: val.slug })}}
+                                />
+                                <a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                              </div>
+                              <div className="text-gray-700">
+                              </div>
+                            </div>
+                          )
+                        })
+                      }
+
+                    </ul>
+                    }
+
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">
                       {
@@ -463,7 +497,7 @@ const Sidebar = () => {
                                             <>
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <div className="flex i items-center">
-                                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>  
+                                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
                                                   <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                     checked={val.status}
                                                     onChange={(event) => {
@@ -473,7 +507,7 @@ const Sidebar = () => {
                                                         slug: val.slug,
                                                         title: val.title,
                                                         status: !val.status,
-                                                        color: val.color      
+                                                        color: val.color
                                                       };
                                                       dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
                                                     }}

@@ -23,7 +23,7 @@ const Application = () => {
                 <div className="flex flex-row grow shrink basis-0 items-center">
                     <div className="basis-1/3">
                         <Image
-                            src="/images/pngegg (1).png"
+                            src="/images/logo512.png"
                             alt="Logo"
                             width={300}
                             height={300}
@@ -55,7 +55,7 @@ const Application = () => {
                     </div>
                     <div>
                         <Image
-                            src="/images/sdgailablogoblack.png"
+                            src="/images/SDG-logo.png"
                             alt="Logo"
                             width={100}
                             height={100}
