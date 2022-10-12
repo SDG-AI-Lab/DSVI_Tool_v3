@@ -18,8 +18,8 @@ const CustomPolygon_AOI = (props) => {
                 bubblingMouseEvents: true, weight: 2, color: 'blue'
             }}
 
-            fillColor={'rgb(255, 255, 255, .0)'}
-            hovercolor={'rgb(255, 255, 255, .0)'}
+            fillColor={'rgb(255, 255, 255, .5)'}
+            hovercolor={'rgb(255, 255, 255, .5)'}
             positions={positions}
 
 

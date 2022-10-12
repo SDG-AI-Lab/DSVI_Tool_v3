@@ -190,7 +190,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const AOI_projection = (library, index, layer_opacity) => {
 
     const fillColorAOI = 'rgb(255, 255, 255, .5)';
-
     return (
         <CustomPolygon_AOI
         key={index}
@@ -202,14 +201,14 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     )
   };
 
-  function hexToRgb(hex) {
-    var bigint = parseInt(hex, 16);
-    var r = (bigint >> 16) & 255;
-    var g = (bigint >> 8) & 255;
-    var b = bigint & 255;
+//   function hexToRgb(hex) {
+//     var bigint = parseInt(hex, 16);
+//     var r = (bigint >> 16) & 255;
+//     var g = (bigint >> 8) & 255;
+//     var b = bigint & 255;
 
-    return r + "," + g + "," + b;
-}
+//     return r + "," + g + "," + b;
+// }
   const newProjection = (library, index, layer_opacity) => {
     const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min, _sum, _avg } = library.properties;
     const {} = library.name;
@@ -287,7 +286,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   addRemoveLegendByStatus(se_temperature_max_status, se_temperature_max);
   addRemoveLegendByStatus(se_land_use_class_status, se_land_use_class);
   addRemoveLegendByStatus(se_elevation_status, se_elevation);
-
   addRemoveLegendByStatus(sv_xgboost_status, sv_xgboost);
   addRemoveLegendByStatus(sv_linear_model_status, sv_linear_model);
   addRemoveLegendByStatus(sv_random_forest_status, sv_random_forest);
@@ -325,7 +323,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         <ZoomControl
           position="bottomleft"
         />
-        <ControlMenu position="topRight" show_data={show_data} show_infoBox_data={show_infoBox_data}
+        <ControlMenu position="topLeft" show_data={show_data} show_infoBox_data={show_infoBox_data}
           children={
             distance_to_healthcare_status ?
               <Legend />
@@ -349,6 +347,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
+          console.log("AOI Toggeled")
           return AOI_projection(library, index)
         })}
         {/* Show Area of Interest. END */}
