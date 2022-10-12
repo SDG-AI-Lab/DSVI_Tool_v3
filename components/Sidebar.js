@@ -675,14 +675,14 @@ const Sidebar = () => {
         }
 
         styles={{
-          modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '75vh', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '272px', marginTop: '102px'},    
+          modal: {borderRadius: '0.5rem', overflowY: 'scroll', margin: 'auto', height: 'calc(100% - 265px)', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '280px', marginTop: '110px', padding: '0px'},    
           overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
         }}
       >
 
-        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
+        <div className="max-w-md py-2 px-2 bg-white rounded-lg my-0 overflow-y-auto overflow-x-hidden">
 
-          <div className="overflow-y-scroll" style={{height: '42vh', width: '20vw'}}>
+          <div className="overflow-y-scroll" style={{width: '30vw', height: 'calc(100vh-58vh)'}}>
             <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
             <hr />
@@ -702,7 +702,8 @@ const Sidebar = () => {
 
                     />
 
-                    <span className="px-2 text-gray-700 text-sm"></span>  {val.Name}</div>
+                    <span className="px-2 text-gray-700 text-xs">{val.Name}</span>
+                  </div>
                 )
               })
             }
