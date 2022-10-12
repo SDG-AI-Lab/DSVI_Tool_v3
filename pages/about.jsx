@@ -5,7 +5,7 @@ const data=[
   },
   {
     id:2,
-    text:"."
+    text:"The SDG AI Lab is a joint initiative of UNDP BPPS teams, and it is hosted under UNDP IICPSD. The Lab has a mission to harness the potential of frontier technologies such as Artificial Intelligence (AI), Machine Learning (ML), Geographic Information Systems (GIS) for sustainable development. SDG AI Lab provides research, development, and advisory services in the areas of frontier technologies and sustainable development. As well, the Lab supports UNDP’s internal capacity strengthening efforts for the increasing demand for digital solutions. To bridge the talent gap in the use of frontier technologies in development contexts, the Lab mobilizes a community of volunteer data scientists, connecting UNDP teams and highly skilled data scientists to address development challenges with digital solutions."
   },
   {
     id:3,
