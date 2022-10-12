@@ -336,7 +336,8 @@ const Sidebar = () => {
                                                         slug: val2.slug,
                                                         title: val2.title,
                                                         status: !val2.status,
-                                                        value: val2.value
+                                                        value: val2.value,
+                                                        layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                     }}
@@ -351,7 +352,8 @@ const Sidebar = () => {
                                                           slug: val2.slug,
                                                           title: val2.title,
                                                           status: !val2.status,
-                                                          value: val2.value
+                                                          value: val2.value,
+                                                          layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                       }}
@@ -382,7 +384,8 @@ const Sidebar = () => {
                                                                   slug: val2.slug,
                                                                   title: val2.title,
                                                                   status: val2.status,
-                                                                  value: event.target.value
+                                                                  value: event.target.value,
+                                                                  layer: val2.layer
                                                                 };
                                                                 dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                               }}
@@ -398,7 +401,8 @@ const Sidebar = () => {
                                                                       slug: val2.slug,
                                                                       title: val2.title,
                                                                       status: val2.status,
-                                                                      value: event.target.value
+                                                                      value: event.target.value,
+                                                                      layer: val2.layer
                                                                     };
                                                                     dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                                   }}
