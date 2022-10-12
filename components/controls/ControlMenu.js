@@ -7,7 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import MapControls from '../controls/MapControls';
 
 const dropDownOptions = [
-    'Select One', 'Vulnerability', 'GDP'
+    'Select One', 'Vulnerability', 'GDP', 'Hello'
 ]
 
 
@@ -86,7 +86,7 @@ const Tabs = () => {
                   setOpenTab(1)
                 }}
                 data-toggle="tab"
-                href="#link1"
+                href="https://sdgailab.org/"
                 role="tablist"
               >
                 What is Social Vulnerability
