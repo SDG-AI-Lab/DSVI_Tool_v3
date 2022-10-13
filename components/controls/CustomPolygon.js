@@ -3,10 +3,15 @@ import {Polygon} from "react-leaflet";
 import CustomTooltip from "./CustomTooltip";
 import CustomPopup from "./CustomPopup";
 import {LegendContext} from '../../context/LegendContext'
+import {FilterContext} from '../../context/FilterContext'
 
 const CustomPolygon = (props) => {
 
-    const {state: legenddata, dispatch: setLegendData} = useContext(LegendContext);
+    //const {state: legenddata, dispatch: setLegendData} = useContext(LegendContext);
+    const { state, dispatch } = useContext(FilterContext);
+    const vulnerability = state["vulnerability"];
+    const socioeconomic = state["socioeconomic"];
+
     const {
         index,
         positions,
@@ -34,6 +39,15 @@ const CustomPolygon = (props) => {
 
 
     const PolygonRef = useRef(null);
+
+
+    useEffect(() => {
+        if(socioeconomic.status == true && vulnerability == true){
+            if(PolygonRef.current){
+                PolygonRef.current.bringToBack();
+            }
+        }
+    }, [vulnerability])
 
     useEffect(() => {
         PolygonRef.current.setStyle({
