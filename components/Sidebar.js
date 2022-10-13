@@ -167,7 +167,7 @@ const Sidebar = () => {
                         </svg>
                     }
                   </a>
-                  {socioeconomic.status == true &&
+                  {/* {socioeconomic.status == true &&
                     <ul className="flex">
                       {
                         [{
@@ -199,7 +199,7 @@ const Sidebar = () => {
                       }
 
                     </ul>
-                    }
+                    } */}
 
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">
