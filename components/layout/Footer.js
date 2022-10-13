@@ -10,7 +10,7 @@ const Footer = () => {
                             <Image
                                 src="/images/logo-sdg-ai-lab-black-alpha.png"
                                 alt="SDG LOGO"
-                                width="100px"
+                                width="120px"
                                 height="100px"
                                 layout="intrinsic"
                                 className=""
