@@ -7,7 +7,7 @@ function Header() {
                 <meta charSet="UTF-8"/>
                 <title>SDG AI Lab | DSVI Tool</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <link rel="icon" href="/images/favicon.ico"/>
+                <link rel="icon" href="../public/images/favicon.ico"/>
                 <meta name="description" content="Social Vulnerability Tajikistan developed by SDG AI Lab and UN Online Volunteers"/>
                 <meta name="keywords" content="map,earthquake,social vulnerable"/>
                 <meta content="SDG AI LAB" name="author"/>
