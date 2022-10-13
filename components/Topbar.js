@@ -30,7 +30,7 @@ const TopBar = () => {
                             <Image
                                 src="images/logo-sdg-ai-lab-black-alpha.png"
                                 alt="circular"
-                                width="70px"
+                                width="85px"
                                 height="70px"
                                 layout="intrinsic"
                             />
@@ -39,8 +39,8 @@ const TopBar = () => {
                             <Image
                                 src="/images/logo-undp-alpha.png"
                                 alt="undp logo"
-                                width="40px"
-                                height="60px"
+                                width="50px"
+                                height="70px"
                                 layout="intrinsic"
                             />
                         </a>
