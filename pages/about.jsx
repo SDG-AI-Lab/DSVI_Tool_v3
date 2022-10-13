@@ -14,6 +14,7 @@ const data=[
   {
     id:4,
     text:"."
+    
   },
   {
     id:5,
@@ -23,13 +24,18 @@ const data=[
 
 const Home = () => {
     return (
+      
       <div className="bg-white my-2 mx-5 px-2 py-5 rounded-lg">
+        <img src="https://www.tutorialspoint.com/html/images/test.png" alt="Simply Easy Learning" width="200" height="80"></img>
         {
+          
           data.map((val,index)=>{
             return(
               <p key={val.id} className="font-sans text-gray-700 text-md font-normal py-2 px-5 ">
                 {val.text}
+                
               </p>
+              
             )
           })
         } 
