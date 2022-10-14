@@ -584,17 +584,6 @@ const Sidebar = () => {
                     </svg>
                     {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
                   </a>
-
-                  {
-                    //dhsIndicator == true ? () => onOpenDhsModal() : null
-                    // <a href="#!" data-mdb-ripple="true" onClick={() => { onOpenDhsModal() }}>
-                    //   <span>Select Data Column</span>
-                    // </a>
-                    //   : null
-                  }
-                  
-
-
                 </li>
 
                 <li className="relative">
