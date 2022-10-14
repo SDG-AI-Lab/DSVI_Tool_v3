@@ -67,7 +67,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`bg-white h-[calc(100vh-164px)] w-[270px] min-w-[270px] overflow-auto`}>
+      <div className={`bg-white h-[calc(100vh-130px)] w-[270px] min-w-[270px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
@@ -75,12 +75,12 @@ const Sidebar = () => {
             <hr className="my-0" />
             <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-2xl h-6'>Main Menu</p>
+              <p className='text-xl h-5'>Main Menu</p>
             </div>
             <hr className="my-2" />
             <div>
 
-              <ul className="relative px-1">
+              <ul className="relative px-3">
                 <li><p></p></li>
                 <li className="relative">
                   <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
@@ -168,6 +168,40 @@ const Sidebar = () => {
                         </svg>
                     }
                   </a>
+                  {/* {socioeconomic.status == true &&
+                    <ul className="flex">
+                      {
+                        [{
+                          slug: '_sum',
+                          title: 'Sum'
+                        },
+                        {
+                          slug: '_count',
+                          title: 'Count'
+                        },
+                        {
+                          slug: '_avg',
+                          title: 'AVG'
+                        }].map((val, index) => {
+                          return (
+                            <div key={index}>
+                              <div className="flex" onClick={ () => { dispatch({ type: "CHANGE_SOCIOECONOMIC_DATA_COLUMN", payload: val.slug }) }}>
+                                <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
+                                  checked={val.slug == socioeconomic.data_column ? true : false}
+                                  onChange={() => {dispatch({ type: "CHANGE_SOCIOECONOMIC_DATA_COLUMN", payload: val.slug })}}
+                                />
+                                <a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                              </div>
+                              <div className="text-gray-700">
+                              </div>
+                            </div>
+                          )
+                        })
+                      }
+
+                    </ul>
+                    } */}
+
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">
                       {
@@ -337,7 +371,8 @@ const Sidebar = () => {
                                                         slug: val2.slug,
                                                         title: val2.title,
                                                         status: !val2.status,
-                                                        value: val2.value
+                                                        value: val2.value,
+                                                        layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                     }}
@@ -352,7 +387,8 @@ const Sidebar = () => {
                                                           slug: val2.slug,
                                                           title: val2.title,
                                                           status: !val2.status,
-                                                          value: val2.value
+                                                          value: val2.value,
+                                                          layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                       }}
@@ -383,7 +419,8 @@ const Sidebar = () => {
                                                                   slug: val2.slug,
                                                                   title: val2.title,
                                                                   status: val2.status,
-                                                                  value: event.target.value
+                                                                  value: event.target.value,
+                                                                  layer: val2.layer
                                                                 };
                                                                 dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                               }}
@@ -399,7 +436,8 @@ const Sidebar = () => {
                                                                       slug: val2.slug,
                                                                       title: val2.title,
                                                                       status: val2.status,
-                                                                      value: event.target.value
+                                                                      value: event.target.value,
+                                                                      layer: val2.layer
                                                                     };
                                                                     dispatch({ type: "CHANGE_GEODATA", payload: newItems })
                                                                   }}
@@ -433,7 +471,7 @@ const Sidebar = () => {
 
               <ul>
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_VULNERABILITY", payload: {} })}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -446,7 +484,7 @@ const Sidebar = () => {
                       <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
                         <li className="relative">
                           <div className="flex i items-center">
-                            <span className="text-gray-700 px-2 text-sm ml-3">
+                            <span className="text-gray-700 px-5 text-sm ml-1">
                               Categories
                             </span>
                           </div>
@@ -464,7 +502,7 @@ const Sidebar = () => {
                                             <>
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <div className="flex i items-center">
-                                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>  
+                                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
                                                   <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                     checked={val.status}
                                                     onChange={(event) => {
@@ -474,7 +512,7 @@ const Sidebar = () => {
                                                         slug: val.slug,
                                                         title: val.title,
                                                         status: !val.status,
-                                                        color: val.color      
+                                                        color: val.color
                                                       };
                                                       dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
                                                     }}
@@ -536,7 +574,7 @@ const Sidebar = () => {
                 </li> */}
 
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                     onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
                   >
@@ -560,7 +598,7 @@ const Sidebar = () => {
                 </li>
 
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
 
@@ -574,7 +612,7 @@ const Sidebar = () => {
                 </li>
 
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
 

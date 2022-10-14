@@ -7,7 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import MapControls from '../controls/MapControls';
 
 const dropDownOptions = [
-    'Datasets', 'Layer 1', 'Layer 2'
+    'Select One', 'Vulnerability', 'GDP', 'Hello'
 ]
 
 
@@ -54,8 +54,8 @@ const ControlMenu = (props) => {
             <Tabs />
             <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => setDropdownValue(e.value)} value={dropdownValue} placeholder="Select an option" />
             <div className='max-w-md px-4 mt-5'>
-              <h2 className='font-bold'>SIDS Geospatial Platform</h2>
-              <p className='my-3'>This map visualizes data for the SIDS at different resolutions. Select a dataset above or a country to view spatial data about the region.</p>
+              <h2 className='font-bold'>Social Vulnerability Platform</h2>
+              <p className='my-3'>This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan.</p>
             </div>
         </Modal>
       }
@@ -86,10 +86,10 @@ const Tabs = () => {
                   setOpenTab(1)
                 }}
                 data-toggle="tab"
-                href="#link1"
+                href="https://sdgailab.org/"
                 role="tablist"
               >
-                SIDS Offer Pillars
+                What is Social Vulnerability
               </a>
             </li>
             <li
@@ -110,7 +110,7 @@ const Tabs = () => {
                 href="#link2"
                 role="tablist"
               >
-                SDGs
+                Data Exploration
               </a>
             </li>
             <li
@@ -131,7 +131,7 @@ const Tabs = () => {
                 href="#link3"
                 role="tablist"
               >
-                SAMOA Pathway
+                Methods
               </a>
             </li>
           </ul>
@@ -158,17 +158,17 @@ const Tabs = () => {
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
                     alt="poverty"
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
                     alt="poverty"
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
                     alt="poverty"
                   />
                 </Carousel>
@@ -194,17 +194,17 @@ const Tabs = () => {
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
                     alt="poverty"
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
                     alt="poverty"
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
                     alt="poverty"
                   />
                 </Carousel>
@@ -230,17 +230,17 @@ const Tabs = () => {
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
                     alt="poverty"
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
                     alt="poverty"
                   />
                   <img
                     style={{ width: '100px' }}
-                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                    src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
                     alt="poverty"
                   />
                 </Carousel>

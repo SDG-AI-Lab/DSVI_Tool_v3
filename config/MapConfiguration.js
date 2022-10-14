@@ -1,11 +1,24 @@
 // import token .env"
 
 var mtoken = process.env.mapboxapikey;
+console.log(mtoken)
 
 export const TileProviders = [
-    {
+     
+      {
+        name: 'Esri',
+        checked: true,
+        args: {
+          url:
+            'https://server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
+          attribution:
+              'Tiles &copy; Esri',
+          variant: 'World_Street_Map'
+          }
+        },
+      {
       name: 'OSM',
-      checked: true,
+      checked: false,
       args: {
         url:
           'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -15,6 +28,7 @@ export const TileProviders = [
     },
     {
       name: 'Satellite',
+      checked: false,
       args: {
         url:
           'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -22,17 +36,17 @@ export const TileProviders = [
           '&copy; <a href="https://www.esri.com">ESRI</a>',
       },
     },
-    {
-      name: 'Mapbox',
+    // {
+    //   name: 'Mapbox',
       
-      args: {
-        url:
-          'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
-        attribution:
-          '&copy; <a href="https://mapbox.com">Mapbox</a>',
-          layers:"GoogleMapsCompatible"
-        },
-    },
+    //   args: {
+    //     url:
+    //       'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
+    //     attribution:
+    //       '&copy; <a href="https://mapbox.com">Mapbox</a>',
+    //       layers:"GoogleMapsCompatible"
+    //     },
+    // },
     {
       name: 'Stamen',
       checked: false,
@@ -49,34 +63,23 @@ export const TileProviders = [
       },
 
       {
-        name: 'Esri',
+        name: 'NASA',
         checked: false,
         args: {
           url:
-            'https://server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
-          attribution:
-              'Tiles &copy; Esri',
-          variant: 'World_Street_Map'
+          'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_CityLights_2012/default//GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
+           // 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/{variant}/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
+          // attribution:
+          // 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System ' +
+					// '(<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+          // variant: 'VIIRS_CityLights_2012',
+          // minZoom: 1,
+			  	// maxZoom: 9,
+				  // format: 'jpg',
+				  // time: '',
+				  // tilematrixset: 'GoogleMapsCompatible_Level'
           },
       }       
-
-      // {
-      //   name: 'NASA',
-      //   checked: false,
-      //   args: {
-      //     url:
-      //       'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/{variant}/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
-      //     attribution:
-      //     'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System ' +
-			// 		'(<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
-      //     variant: 'VIIRS_CityLights_2012',
-      //     // minZoom: 1,
-			//   	// maxZoom: 9,
-			// 	  format: 'jpg',
-			// 	  time: '',
-			// 	  tilematrixset: 'GoogleMapsCompatible_Level'
-      //     },
-      // }       
   ]
   
   export const Settings = {

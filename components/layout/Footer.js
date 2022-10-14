@@ -1,6 +1,4 @@
 import Image from "next/image";
-import sdglogo from '../../public/images/logo-sdg-ai-lab-black-alpha.png'
-import undp_logo from '../../public/images/logo-undp-alpha.png'
 
 const Footer = () => {
 
@@ -10,9 +8,9 @@ const Footer = () => {
                     <li key="1">
                         <a className="flex title-font font-medium items-center text-gray-900 w-44">
                             <Image
-                                src={sdglogo.src}
+                                src="/images/logo-sdg-ai-lab-black-alpha.png"
                                 alt="SDG LOGO"
-                                width="100px"
+                                width="120px"
                                 height="100px"
                                 layout="intrinsic"
                                 className=""
@@ -45,7 +43,7 @@ const Footer = () => {
                     <li key="3">
                         <a className="flex items-center w-44 justify-end">
                             <Image
-                                src={undp_logo.src}
+                                src="/images/logo-undp-alpha.png"
                                 alt="undp logo"
                                 width="40px"
                                 height="60px"

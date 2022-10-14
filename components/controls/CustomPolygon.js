@@ -1,21 +1,27 @@
-import {useContext} from 'react'
+import {useContext, useEffect, useRef} from 'react'
 import {Polygon} from "react-leaflet";
 import CustomTooltip from "./CustomTooltip";
 import CustomPopup from "./CustomPopup";
 import {LegendContext} from '../../context/LegendContext'
+import {FilterContext} from '../../context/FilterContext'
 
 const CustomPolygon = (props) => {
 
-    const {state: legenddata, dispatch: setLegendData} = useContext(LegendContext);
+    //const {state: legenddata, dispatch: setLegendData} = useContext(LegendContext);
+    const { state, dispatch } = useContext(FilterContext);
+    const vulnerability = state["vulnerability"];
+    const socioeconomic = state["socioeconomic"];
+
     const {
         index,
         positions,
         fillColor,
+        hovercolor,
         opacity,
         tooltipDirection,
         tooltipOffset,
         tooltipCount,
-        tooltipName_1, 
+        tooltipName_1,
         tooltipName_2,
         tooltipName_3,
         tooltipBgcolor,
@@ -26,19 +32,38 @@ const CustomPolygon = (props) => {
         popupBgColor,
         popupTextColor,
         data,
-        hoverColor,
         legendTitle,
         legendDescription,
         normalizeDataValue
     } = props;
 
+
+    const PolygonRef = useRef(null);
+
+
+    useEffect(() => {
+        if(socioeconomic.status == true && vulnerability == true){
+            if(PolygonRef.current){
+                PolygonRef.current.bringToBack();
+            }
+        }
+    }, [vulnerability])
+
+    useEffect(() => {
+        PolygonRef.current.setStyle({
+            fillColor: fillColor
+        })
+    }, [fillColor])
+
     return (<Polygon
             key={index}
+            ref={PolygonRef}
             pathOptions={{
-                bubblingMouseEvents: true, weight: 1, color: 'blue', opacity: opacity, fillOpacity: opacity
+                bubblingMouseEvents: true, weight: 1, color: 'white', opacity: opacity, fillOpacity: opacity
             }}
 
             fillColor={fillColor}
+            hovercolor={hovercolor}
             positions={positions}
 
             children={
@@ -60,7 +85,7 @@ const CustomPolygon = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: "white"
+                        fillColor: hovercolor
                     });
                 },
                 mouseout: (e) => {
