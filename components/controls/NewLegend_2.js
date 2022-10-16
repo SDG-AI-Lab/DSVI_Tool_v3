@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import {FilterContext} from '../../context/FilterContext'
 import Control from 'react-leaflet-custom-control'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -113,23 +114,24 @@ const getWordExplanation = (index => {
 
 const NewLegend_2 = (props) => {
   const [showUIElements, setShowUIElements] = useState(false);
-  let arrayOfLegends = props.arrayOfLegends;
+  const {state, dispatch} = useContext(FilterContext);
+  const activeLegends = state['activeLegends'];
 
   useEffect(() => {
     setShowUIElements(true);
     return () => {
+    setShowUIElements(false);
     };
-  }, []);
+  }, [activeLegends]);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-
-    const items = arrayOfLegends;
+    const items = activeLegends;
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-  
-    arrayOfLegends = items;
+    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: items });
   }
+
   return (
     <Control position="bottomright">
       <div className='p-1 bg-[white] opacity-70 max-h-96 overflow-auto hover:overflow-scroll'>
@@ -139,9 +141,9 @@ const NewLegend_2 = (props) => {
               <Droppable droppableId="legends">
                 {(provided) => (
                   <ul className="legends" {...provided.droppableProps} ref={provided.innerRef}>
-                    {arrayOfLegends.map((item, index) => {
+                    {activeLegends.map((item, index) => {
                       return (
-                        <Draggable key={item.id+index} draggableId={item.id.toString()+index} index={index}>
+                        <Draggable key={index} draggableId={(index).toString()} index={index}>
                           {(provided) => (
                             <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               { item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title}/> : null }

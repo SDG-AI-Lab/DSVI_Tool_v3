@@ -12,6 +12,8 @@ const Sidebar = () => {
 
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
+
+  const activeLegends = state["activeLegends"];
   const socioeconomic = state["socioeconomic"];
   const geodata = state["geodata"];
   const vulnerability = state["vulnerability"];
@@ -62,6 +64,18 @@ const Sidebar = () => {
     const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
     items[index]['data'].splice(result.destination.index, 0, reorderedItem);
     dispatch({ type: "CHANGE_GEODATA", payload: items });
+  }
+
+  function addRemoveNewLegend(newItem) {
+    let newLegends = activeLegends;
+    if (newItem.status == true) {
+      newLegends.push(newItem);
+    } else if (newItem.status == false) {
+      newLegends = newLegends.filter(item => {
+        return item.slug != newItem.slug;
+      })
+    }
+    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newLegends });
   }
 
   return (
@@ -240,14 +254,16 @@ const Sidebar = () => {
                                                                                           checked={val2.status}
                                                                                           onChange={(event) => {
                                                                                               const newItems = [...socioeconomic.data];
-                                                                                              newItems[index]['data'][index2] = {
+                                                                                              const newItem = {
                                                                                                   id: val2.id,
                                                                                                   slug: val2.slug,
                                                                                                   title: val2.title,
                                                                                                   status: !val2.status,
                                                                                                   value: val2.value
                                                                                               };
-                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                              newItems[index]['data'][index2] = newItem;
+                                                                                              addRemoveNewLegend(newItem);
+                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                           }}
                                                                                       />
                                                                                       <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
@@ -380,8 +396,7 @@ const Sidebar = () => {
                                                       id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                       checked={val2.status}
                                                       onChange={(event) => {
-                                                      const newItems = [...geodata.data];
-                                                      newItems[index]['data'][index2] = {
+                                                      const newItem = {
                                                           id: val2.id,
                                                           slug: val2.slug,
                                                           title: val2.title,
@@ -389,7 +404,11 @@ const Sidebar = () => {
                                                           value: val2.value,
                                                           layer: val2.layer
                                                       };
-                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                      const newItems = [...geodata.data];
+                                                      newItems[index]['data'][index2] = newItem;
+
+                                                      addRemoveNewLegend(newItem);
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems });
                                                       }}
                                                     />
                                                     <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6

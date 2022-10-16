@@ -5,6 +5,7 @@ export const initalState = {
     "show_sidebar":true,
     "level":1,
     "show_area_of_interest": false,
+    "activeLegends": [],
     "socioeconomic": {
         "status": false,
         "data": [
@@ -1273,6 +1274,10 @@ export const reducer = (state, action) => {
                 ...state, geodata: {
                     status: state.geodata.status, data: action.payload
                 }
+            };
+        case "CHANGE_ACTIVE_LEGENDS":
+            return {
+                ...state, activeLegends: action.payload
             };
         case "TOGGLE_VULNERABILITY":
             return {

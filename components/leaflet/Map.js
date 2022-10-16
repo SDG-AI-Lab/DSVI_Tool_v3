@@ -76,6 +76,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const socioeconomic = state['socioeconomic']['data'];
   const geodata = state['geodata']['data'];
   const socioeconomic_data_column = state['socioeconomic']['data_column'];
+  const activeLegends = state['activeLegends'];
 
   /* Socioeconomic. START */
   const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
@@ -234,7 +235,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     ];
 
     const fillColor = NormalizeData(library.properties[socioeconomic_data_column], _max, _min);
-    console.log("FillColor:",fillColor);
+    // console.log("FillColor:",fillColor);
     const hovercolor = 'rgb(255, 255, 255, .8)';
     const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - _min) / (_max - _min));
     return (
@@ -263,46 +264,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     )
   };
 
-  let arrayOfLegends = [];
-
-  function addRemoveLegendByStatus (status, obj) {
-    if (status){
-      arrayOfLegends.push(obj);
-    }  else {
-      arrayOfLegends.filter(obj => obj.slug !== obj.slug);
-    }
-  }
-  addRemoveLegendByStatus(se_random_forest_status, se_random_forest);
-  addRemoveLegendByStatus(se_xgboost_status, se_xgboost);
-  addRemoveLegendByStatus(se_education_facility_status, se_education_facility);
-  addRemoveLegendByStatus(se_health_institution_status, se_health_institution);
-  addRemoveLegendByStatus(se_financial_service_status, se_financial_service);
-  addRemoveLegendByStatus(se_population_counts_status, se_population_counts);
-  addRemoveLegendByStatus(se_celltowers_status, se_celltowers);
-  addRemoveLegendByStatus(se_nightlight_intensity_status, se_nightlight_intensity);
-  addRemoveLegendByStatus(se_relative_wealth_status, se_relative_wealth);
-  addRemoveLegendByStatus(se_GDP_status, se_GDP);
-  addRemoveLegendByStatus(se_plant_health_status, se_plant_health);
-  addRemoveLegendByStatus(se_temperature_max_status, se_temperature_max);
-  addRemoveLegendByStatus(se_land_use_class_status, se_land_use_class);
-  addRemoveLegendByStatus(se_elevation_status, se_elevation);
-  addRemoveLegendByStatus(sv_xgboost_status, sv_xgboost);
-  addRemoveLegendByStatus(sv_linear_model_status, sv_linear_model);
-  addRemoveLegendByStatus(sv_random_forest_status, sv_random_forest);
-  addRemoveLegendByStatus(distance_to_healthcare_status, distance_to_healthcare);
-  addRemoveLegendByStatus(distance_to_finance_status, distance_to_finance);
-  addRemoveLegendByStatus(distance_to_edu_status, distance_to_edu);
-  addRemoveLegendByStatus(elevation_status, elevation);
-  addRemoveLegendByStatus(slope_status, slope);
-  addRemoveLegendByStatus(max_temp_status, max_temp);
-  addRemoveLegendByStatus(plant_health_status, plant_health);
-  addRemoveLegendByStatus(precipitation_status, precipitation);
-  addRemoveLegendByStatus(nightlight_intensity_status, nightlight_intensity);
-  addRemoveLegendByStatus(pop_density_status, pop_density);
-  addRemoveLegendByStatus(celltower_status, celltower);
-  addRemoveLegendByStatus(road_density_status, road_density);
-  addRemoveLegendByStatus(relative_wealth_status, relative_wealth);
-  addRemoveLegendByStatus(gdp_status, gdp);
+  console.log(`activeLegends: ${activeLegends}`);
+  console.log(activeLegends);
 
   return (
       <MapContainer
@@ -341,13 +304,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
           pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status
-          ? <NewLegend_2 arrayOfLegends={arrayOfLegends}/>
+          ? <NewLegend_2/>
           : null
         }
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          console.log("AOI Toggeled")
+          {/* console.log("AOI Toggeled") */}
           return AOI_projection(library, index)
         })}
         {/* Show Area of Interest. END */}
