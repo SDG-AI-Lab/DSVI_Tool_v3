@@ -31,7 +31,7 @@ const Sidebar = () => {
   const [dsvModal, setDsvModal] = useState(false);
   const [dhsModal, setDhsModal] = useState(false);
   const onOpenDsvModal = () => setDsvModal(true);
-  const onCloseDsvModal = () => setDsvModal(false);
+  const onCloseDsvModal = () => setDsvModal(false);  
   const onOpenDhsModal = () => setDhsModal(true);
   const onCloseDhsModal = () => setDhsModal(false);
 
@@ -63,6 +63,7 @@ const Sidebar = () => {
     items[index]['data'].splice(result.destination.index, 0, reorderedItem);
     dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
+ 
 
   return (
     <>
@@ -575,37 +576,14 @@ const Sidebar = () => {
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
-
                     onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
                   >
 
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
-                    <span>{dhsIndicator == true ? 'Hide DHS Indicators' : 'Show DHS Indicators'}</span>
+                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
                   </a>
-
-                  {
-                    dhsIndicator == true ?
-                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" data-bs-parent="#sidenavSecExample">
-                        <li className="relative">
-                          <a className="flex items-center text-sm py-4 px-8 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                            onClick={() => { onOpenDhsModal() }}
-                          >
-
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                            </svg>
-                            <span>Select Data Column</span>
-                          </a>
-                        </li>
-                      </ul>
-                      : null
-                  }
-
-
                 </li>
 
                 <li className="relative">
@@ -649,7 +627,6 @@ const Sidebar = () => {
       <Modal open={dsvModal}
         onClose={
           () => {
-
             onCloseDsvModal()
           }
         }
@@ -708,19 +685,19 @@ const Sidebar = () => {
       <Modal open={dhsModal}
         onClose={
           () => {
-            onCloseDhsModal()
+            onCloseDhsModal();
           }
         }
 
         styles={{
-          modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '75vh', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '272px', marginTop: '102px'},    
+          modal: {borderRadius: '0.5rem', overflowY: 'scroll', margin: 'auto', height: 'calc(100% - 265px)', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '280px', marginTop: '110px', padding: '0px'},    
           overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
         }}
       >
 
-        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
+        <div className="max-w-md py-2 px-2 bg-white rounded-lg my-0 overflow-y-auto overflow-x-hidden">
 
-          <div className="overflow-y-scroll" style={{height: '42vh', width: '20vw'}}>
+          <div className="overflow-y-scroll" style={{width: '30vw', height: 'calc(100vh-58vh)'}}>
             <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
             <hr />
@@ -740,7 +717,8 @@ const Sidebar = () => {
 
                     />
 
-                    <span className="px-2 text-gray-700 text-sm"></span>  {val.Name}</div>
+                    <span className="px-2 text-gray-700 text-xs">{val.Name}</span>
+                  </div>
                 )
               })
             }
