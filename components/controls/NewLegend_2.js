@@ -156,6 +156,7 @@ const getWordExplanation = (index => {
 const NewLegend_2 = (props) => {
   const [showUIElements, setShowUIElements] = useState(false);
   const {state, dispatch} = useContext(FilterContext);
+  const vulnerability = state["vulnerability"];
   const activeLegends = state['activeLegends'];
 
   useEffect(() => {
@@ -189,7 +190,7 @@ const NewLegend_2 = (props) => {
                             <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               { item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title}/> : null }
                               { item.slug.indexOf("sv_") === 0 ? <GeoLegend title={item.title} layer={item.layer}/> : null }
-                              { item.slug.indexOf("cats_") === 0 ? <Cats_Legend title={item.title} color={item.color}/> : null }
+                              { item.slug.indexOf("cats_") === 0 && vulnerability ? <Cats_Legend title={item.title} color={item.color}/> : null }
                             </li>
                           )}
                         </Draggable>
