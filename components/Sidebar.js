@@ -521,17 +521,20 @@ const Sidebar = () => {
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <div className="flex i items-center">
                                                 <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
-                                                  <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                  <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite"
+                                                    aria-describedby="flowbite" type="checkbox"
                                                     checked={val.status}
                                                     onChange={(event) => {
                                                         const newItems = [...categories];
-                                                        newItems[index] = {
+                                                        const newItem = {
                                                         id: val.id,
                                                         slug: val.slug,
                                                         title: val.title,
                                                         status: !val.status,
                                                         color: val.color
-                                                      };
+                                                        };
+                                                        newItems[index] = newItem;
+                                                      addRemoveNewLegend(newItem);
                                                       dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
                                                     }}
                                                   />
