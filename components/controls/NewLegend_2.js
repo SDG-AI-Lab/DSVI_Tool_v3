@@ -3,6 +3,46 @@ import {FilterContext} from '../../context/FilterContext'
 import Control from 'react-leaflet-custom-control'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+
+
+const SE_Legend = (props) => {
+  return (
+    <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
+    <h2 className='font-bold'>Socioeconomic Layers</h2>
+    <h3>Selected: {props.title}</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td className='bg-[#FF362C] w-5 h-5'></td>
+          <td className='pl-1'>0 - 0.25</td>
+          <td className='pl-1'>Very High</td>
+        </tr>
+        <tr>
+          <td className='bg-[#ff962c] w-5 h-5'></td>
+          <td className='pl-1'>0.25 - 0.55</td>
+          <td className='pl-1'>High</td>
+        </tr>
+        <tr>
+          <td className='bg-[#FFDE2C] w-5 h-5'></td>
+          <td className='pl-1'>0.55 - 0.7</td>
+          <td className='pl-1'>Middle</td>
+        </tr>
+        <tr>
+          <td className='bg-[#00800A] w-5 h-5'></td>
+          <td className='pl-1'>0.7 - 0.9</td>
+          <td className='pl-1'>Low</td>
+        </tr>
+        <tr>
+          <td className='bg-[#0c58ca] w-5 h-5'></td>
+          <td className='pl-1'>0.9+</td>
+          <td className='pl-1'>Very Low</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  );
+}
+
 const GeoLegend = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -63,38 +103,39 @@ const GeoLegend = (props) => {
   }
 }
 
-const SE_Legend = (props) => {
+const Cats_Legend = (props) => {
   return (
     <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
-    <h2 className='font-bold'>Socioeconomic Layers</h2>
-    <h3>Selected: {props.title}</h3>
+    <h2 className='font-bold'>Vulnerability</h2> 
+    <h3>Selected: Categories | {props.title}</h3>
     <table>
       <tbody>
         <tr>
-          <td className='bg-[#FF362C] w-5 h-5'></td>
-          <td className='pl-1'>0 - 0.25</td>
+          <td>
+            <div className="w-3 h-3 rounded-full" style={{backgroundColor: props.color}}></div>
+          </td>
+          <td className='pl-1'>{props.title}</td>
+        </tr>
+        {/* <tr>
+          <td className='bg-red-500 w-5 h-5 rounded-full'></td>
           <td className='pl-1'>Very High</td>
         </tr>
         <tr>
-          <td className='bg-[#ff962c] w-5 h-5'></td>
-          <td className='pl-1'>0.25 - 0.55</td>
+          <td className='bg-orange-500 w-5 h-5 rounded-full'></td>
           <td className='pl-1'>High</td>
         </tr>
         <tr>
-          <td className='bg-[#FFDE2C] w-5 h-5'></td>
-          <td className='pl-1'>0.55 - 0.7</td>
-          <td className='pl-1'>Middle</td>
+          <td className='bg-yellow-500 w-5 h-5 rounded-full'></td>
+          <td className='pl-1'>Medium</td>
         </tr>
         <tr>
-          <td className='bg-[#00800A] w-5 h-5'></td>
-          <td className='pl-1'>0.7 - 0.9</td>
+          <td className='bg-green-500 w-5 h-5 rounded-full'></td>
           <td className='pl-1'>Low</td>
         </tr>
         <tr>
-          <td className='bg-[#0c58ca] w-5 h-5'></td>
-          <td className='pl-1'>0.9+</td>
+          <td className='bg-blue-500 w-5 h-5 rounded-full'></td>
           <td className='pl-1'>Very Low</td>
-        </tr>
+        </tr> */}
       </tbody>
     </table>
   </div>
@@ -115,6 +156,7 @@ const getWordExplanation = (index => {
 const NewLegend_2 = (props) => {
   const [showUIElements, setShowUIElements] = useState(false);
   const {state, dispatch} = useContext(FilterContext);
+  // const vulnerability = state["vulnerability"];
   const activeLegends = state['activeLegends'];
 
   useEffect(() => {
@@ -122,7 +164,7 @@ const NewLegend_2 = (props) => {
     return () => {
     setShowUIElements(false);
     };
-  }, [activeLegends]);
+  }, []);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -147,7 +189,8 @@ const NewLegend_2 = (props) => {
                           {(provided) => (
                             <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               { item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title}/> : null }
-                              { item.slug.indexOf("se_") !== 0 ? <GeoLegend title={item.title} layer={item.layer}/> : null }
+                              { item.slug.indexOf("sv_") === 0 ? <GeoLegend title={item.title} layer={item.layer}/> : null }
+                              { item.slug.indexOf("cats_") === 0 ? <Cats_Legend title={item.title} color={item.color}/> : null }
                             </li>
                           )}
                         </Draggable>

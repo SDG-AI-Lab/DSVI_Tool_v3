@@ -239,15 +239,17 @@ const Sidebar = () => {
                                                                               <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                                                   <div className="flex i items-center"
                                                                                       onClick={() => {
-                                                                                          const newItems = [...socioeconomic.data];
-                                                                                          newItems[index]['data'][index2] = {
-                                                                                              id: val2.id,
-                                                                                              slug: val2.slug,
-                                                                                              title: val2.title,
-                                                                                              status: !val2.status,
-                                                                                              value: val2.value
-                                                                                          };
-                                                                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                        const newItems = [...socioeconomic.data];
+                                                                                        const newItem = {
+                                                                                            id: val2.id,
+                                                                                            slug: val2.slug,
+                                                                                            title: val2.title,
+                                                                                            status: !val2.status,
+                                                                                            value: val2.value
+                                                                                        };
+                                                                                        newItems[index]['data'][index2] = newItem;
+                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                        addRemoveNewLegend(newItem);
                                                                                       }}
                                                                                   >
                                                                                       <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
@@ -263,7 +265,6 @@ const Sidebar = () => {
                                                                                                   value: val2.value
                                                                                               };
                                                                                               newItems[index]['data'][index2] = newItem;
-                                                                                              addRemoveNewLegend(newItem);
                                                                                               dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                           }}
                                                                                       />
@@ -381,16 +382,18 @@ const Sidebar = () => {
                                                 <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                   <div className="flex i items-center"
                                                     onClick={() => {
-                                                      const newItems = [...geodata.data];
-                                                      newItems[index]['data'][index2] = {
-                                                        id: val2.id,
-                                                        slug: val2.slug,
-                                                        title: val2.title,
-                                                        status: !val2.status,
-                                                        value: val2.value,
-                                                        layer: val2.layer
+                                                      const newItem = {
+                                                          id: val2.id,
+                                                          slug: val2.slug,
+                                                          title: val2.title,
+                                                          status: !val2.status,
+                                                          value: val2.value,
+                                                          layer: val2.layer
                                                       };
+                                                      const newItems = [...geodata.data];
+                                                      newItems[index]['data'][index2] = newItem;
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                      addRemoveNewLegend(newItem);
                                                     }}
                                                   >
                                                     <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
@@ -407,8 +410,6 @@ const Sidebar = () => {
                                                       };
                                                       const newItems = [...geodata.data];
                                                       newItems[index]['data'][index2] = newItem;
-
-                                                      addRemoveNewLegend(newItem);
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItems });
                                                       }}
                                                     />
@@ -520,19 +521,36 @@ const Sidebar = () => {
                                           {(provided) => (
                                             <>
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <div className="flex i items-center">
+                                                <div className="flex i items-center"
+                                                    onClick={() => {
+                                                      const newItems = [...categories];
+                                                      const newItem = {
+                                                      id: val.id,
+                                                      slug: val.slug,
+                                                      title: val.title,
+                                                      status: !val.status,
+                                                      color: val.color
+                                                      };
+                                                      newItems[index] = newItem;
+                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
+                                                      addRemoveNewLegend(newItem);
+                                                    }}
+                                                  >
+
                                                 <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
-                                                  <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite"
+                                                    aria-describedby="flowbite" type="checkbox"
                                                     checked={val.status}
                                                     onChange={(event) => {
-                                                        const newItems = [...categories];
-                                                        newItems[index] = {
-                                                        id: val.id,
-                                                        slug: val.slug,
-                                                        title: val.title,
-                                                        status: !val.status,
-                                                        color: val.color
+                                                      const newItems = [...categories];
+                                                      const newItem = {
+                                                      id: val.id,
+                                                      slug: val.slug,
+                                                      title: val.title,
+                                                      status: !val.status,
+                                                      color: val.color
                                                       };
+                                                      newItems[index] = newItem;
                                                       dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
                                                     }}
                                                   />

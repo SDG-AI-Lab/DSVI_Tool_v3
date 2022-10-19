@@ -117,7 +117,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   /* Socioeconomic. END */
 
   /* Geodata Layers. START */
-  const social_vulnerability = geodata.find((e) => e.slug === 'social_vulnerability');
+  const social_vulnerability = geodata.find((e) => e.slug === 'sv_social_vulnerability');
 
   const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
   const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
@@ -128,43 +128,60 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const sv_random_forest = social_vulnerability.data.find((e) => e.slug === 'sv_random_forest');
   const {status: sv_random_forest_status, value: sv_random_forest_value} = sv_random_forest;
 
-  const distance_maps = geodata.find((e) => e.slug === 'distance_maps');
-  const distance_to_healthcare = distance_maps.data.find((e) => e.slug === 'distance_to_healthcare');
+  const distance_maps = geodata.find((e) => e.slug === 'sv_distance_maps');
+  const distance_to_healthcare = distance_maps.data.find((e) => e.slug === 'sv_distance_to_healthcare');
   const {status: distance_to_healthcare_status, value: distance_to_healthcare_value} = distance_to_healthcare;
-  const distance_to_finance = distance_maps.data.find((e) => e.slug === 'distance_to_finance');
+  const distance_to_finance = distance_maps.data.find((e) => e.slug === 'sv_distance_to_finance');
   const {status: distance_to_finance_status, value: distance_to_finance_value} = distance_to_finance;
-  const distance_to_edu = distance_maps.data.find((e) => e.slug === 'distance_to_edu');
+  const distance_to_edu = distance_maps.data.find((e) => e.slug === 'sv_distance_to_edu');
   const {status: distance_to_edu_status, value: distance_to_edu_value} = distance_to_edu;
 
-  const bio_physical = geodata.find((e) => e.slug === 'bio_physical');
-  const elevation = bio_physical.data.find((e) => e.slug === 'elevation');
+  const bio_physical = geodata.find((e) => e.slug === 'sv_bio_physical');
+  const elevation = bio_physical.data.find((e) => e.slug === 'sv_elevation');
   const {status: elevation_status, value: elevation_value} = elevation;
-  const slope = bio_physical.data.find((e) => e.slug === 'slope');
+  const slope = bio_physical.data.find((e) => e.slug === 'sv_slope');
   const {status: slope_status, value: slope_value} = slope;
-  const max_temp = bio_physical.data.find((e) => e.slug === 'max_temp');
+  const max_temp = bio_physical.data.find((e) => e.slug === 'sv_max_temp');
   const {status: max_temp_status, value: max_temp_value} = max_temp;
-  const plant_health = bio_physical.data.find((e) => e.slug === 'plant_health');
+  const plant_health = bio_physical.data.find((e) => e.slug === 'sv_plant_health');
   const {status: plant_health_status, value: plant_health_value} = plant_health;
-  const precipitation = bio_physical.data.find((e) => e.slug === 'precipitation');
+  const precipitation = bio_physical.data.find((e) => e.slug === 'sv_precipitation');
   const {status: precipitation_status, value: precipitation_value} = precipitation;
 
-  const socio_economic = geodata.find((e) => e.slug === 'socio_economic');
-  const nightlight_intensity = socio_economic.data.find((e) => e.slug === 'nightlight_intensity');
+  const socio_economic = geodata.find((e) => e.slug === 'sv_socio_economic');
+  const nightlight_intensity = socio_economic.data.find((e) => e.slug === 'sv_nightlight_intensity');
   const {status: nightlight_intensity_status, value: nightlight_intensity_value} = nightlight_intensity;
-  const pop_density = socio_economic.data.find((e) => e.slug === 'pop_density');
+  const pop_density = socio_economic.data.find((e) => e.slug === 'sv_pop_density');
   const {status: pop_density_status, value: pop_density_value} = pop_density;
-  const celltower = socio_economic.data.find((e) => e.slug === 'celltower');
+  const celltower = socio_economic.data.find((e) => e.slug === 'sv_celltower');
   const {status: celltower_status, value: celltower_value} = celltower;
-  const road_density = socio_economic.data.find((e) => e.slug === 'road_density');
+  const road_density = socio_economic.data.find((e) => e.slug === 'sv_road_density');
   const {status: road_density_status, value: road_density_value} = road_density;
-  const relative_wealth = socio_economic.data.find((e) => e.slug === 'relative_wealth');
+  const relative_wealth = socio_economic.data.find((e) => e.slug === 'sv_relative_wealth');
   const {status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
-  const gdp = socio_economic.data.find((e) => e.slug === 'gdp');
+  const gdp = socio_economic.data.find((e) => e.slug === 'sv_gdp');
   const {status: gdp_status, value: gdp_value} = gdp;
-
-
   /* Geodata Layers. END */
 
+   /*Categories. START*/
+   const vulnerability = state["vulnerability"];
+   const categories = state['categories'];
+ 
+   const cats_very_low = categories.find((e) => e.slug === 'cats_very_low');
+   const {status: cats_very_low_status} = cats_very_low;
+ 
+   const cats_low = categories.find((e) => e.slug === 'cats_low');
+   const {status: cats_low_status} = cats_low;
+ 
+   const cats_medium = categories.find((e) => e.slug === 'cats_medium');
+   const {status: cats_medium_status} = cats_medium;
+ 
+   const cats_high = categories.find((e) => e.slug === 'cats_high');
+   const {status: cats_high_status} = cats_high;
+ 
+   const cats_very_high = categories.find((e) => e.slug === 'cats_very_high');
+   const {status: cats_very_high_status} = cats_very_high;
+   /*Categories. END*/
 
   const NormalizeData = (number, maxNumber, minNumber) => {
 
@@ -296,14 +313,16 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         >
         </ControlMenu>
 
-        { se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
+        { 
+          se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
           se_financial_service_status || se_population_counts_status || se_celltowers_status || se_nightlight_intensity_status ||
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
           se_land_use_class_status || se_elevation_status ||
           sv_linear_model_status || sv_xgboost_status || sv_random_forest_status ||
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
-          pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status
+          pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status ||
+          cats_very_low_status || cats_low_status || cats_medium_status || cats_high_status || cats_very_high_status
           ? <NewLegend_2/>
           : null
         }
