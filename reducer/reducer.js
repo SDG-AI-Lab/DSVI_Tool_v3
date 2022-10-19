@@ -162,7 +162,7 @@ export const initalState = {
         "data": [
             {
                 id: 1,
-                slug: 'social_vulnerability',
+                slug: 'sv_social_vulnerability',
                 title: 'Social Vulnerability',
                 data: [
                     {
@@ -194,12 +194,12 @@ export const initalState = {
             },
             {
                 id: 2,
-                slug: 'distance_maps',
+                slug: 'sv_distance_maps',
                 title: 'Distance Maps',
                 data: [
                     {
                         id: 2.1,
-                        slug: 'distance_to_healthcare',
+                        slug: 'sv_distance_to_healthcare',
                         title: 'Distance to Healthcare',
                         status: false,
                         value: 70,
@@ -207,7 +207,7 @@ export const initalState = {
                     },
                     {
                         id: 2.2,
-                        slug: 'distance_to_finance',
+                        slug: 'sv_distance_to_finance',
                         title: 'Distance to Finance',
                         status: false,
                         value: 70,
@@ -215,7 +215,7 @@ export const initalState = {
                     },
                     {
                         id: 2.3,
-                        slug: 'distance_to_edu',
+                        slug: 'sv_distance_to_edu',
                         title: 'Distance to Education',
                         status: false,
                         value: 70,
@@ -226,12 +226,12 @@ export const initalState = {
             },
             {
                 id: 3,
-                slug: 'bio_physical',
+                slug: 'sv_bio_physical',
                 title: 'Bio Physical Layers',
                 data: [
                     {
                         id: 3.1,
-                        slug: 'elevation',
+                        slug: 'sv_elevation',
                         title: 'Elevation in meters',
                         status: false,
                         value: 70,
@@ -239,7 +239,7 @@ export const initalState = {
                     },
                     {
                         id: 3.2,
-                        slug: 'slope',
+                        slug: 'sv_slope',
                         title: 'Slope in degrees',
                         status: false,
                         value: 70,
@@ -247,7 +247,7 @@ export const initalState = {
                     },
                     {
                         id: 3.3,
-                        slug: 'max_temp',
+                        slug: 'sv_max_temp',
                         title: 'Max Temp Winter',
                         status: false,
                         value: 70,
@@ -255,7 +255,7 @@ export const initalState = {
                     },
                     {
                         id: 3.4,
-                        slug: 'plant_health',
+                        slug: 'sv_plant_health',
                         title: 'Plant Health (NDVI)',
                         status: false,
                         value: 70,
@@ -263,7 +263,7 @@ export const initalState = {
                     },
                     {
                         id: 3.5,
-                        slug: 'precipitation',
+                        slug: 'sv_precipitation',
                         title: 'Rainfall',
                         status: false,
                         value: 70,
@@ -273,12 +273,12 @@ export const initalState = {
             },
             {
                 id: 4,
-                slug: 'socio_economic',
+                slug: 'sv_socio_economic',
                 title: 'Socio Economic',
                 data: [
                     {
                         id: 4.1,
-                        slug: 'nightlight_intensity',
+                        slug: 'sv_nightlight_intensity',
                         title: 'Nightlight Intensity',
                         status: false,
                         value: 70,
@@ -286,7 +286,7 @@ export const initalState = {
                     },
                     {
                         id: 4.2,
-                        slug: 'pop_density',
+                        slug: 'sv_pop_density',
                         title: 'Population Density',
                         status: false,
                         value: 70,
@@ -294,7 +294,7 @@ export const initalState = {
                     },
                     {
                         id: 4.3,
-                        slug: 'celltower',
+                        slug: 'sv_celltower',
                         title: 'Celltower Density',
                         status: false,
                         value: 70,
@@ -302,7 +302,7 @@ export const initalState = {
                     },
                     {
                         id: 4.4,
-                        slug: 'road_density',
+                        slug: 'sv_road_density',
                         title: 'Road Density',
                         status: false,
                         value: 70,
@@ -310,7 +310,7 @@ export const initalState = {
                     },
                     {
                         id: 4.5,
-                        slug: 'relative_wealth',
+                        slug: 'sv_relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
                         value: 70,
@@ -318,7 +318,7 @@ export const initalState = {
                     },
                     {
                         id: 4.6,
-                        slug: 'gdp',
+                        slug: 'sv_gdp',
                         title: 'Gross Domestic Product',
                         status: false,
                         value: 70,
@@ -331,15 +331,15 @@ export const initalState = {
     "vulnerability": false,
     "csv_data_vulnerability": [],
     "categories": [{
-        id: 1, title: "Very Low", slug: 'very_low', color: 'rgb(59 130 246)', status: true
+        id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: false
     }, {
-        id: 2, title: "Low", slug: 'low', color: 'rgb(34 197 94)', status: true
+        id: 2, title: "Low", slug: 'cats_low', color: 'rgb(34 197 94)', status: false
     }, {
-        id: 3, title: "Medium", slug: 'medium', color: 'rgb(234 179 8)', status: true
+        id: 3, title: "Medium", slug: 'cats_medium', color: 'rgb(234 179 8)', status: false
     }, {
-        id: 4, title: "High", slug: 'high', color: 'rgb(249 115 22)', status: true
+        id: 4, title: "High", slug: 'cats_high', color: 'rgb(249 115 22)', status: false
     }, {
-        id: 5, title: "Very High", slug: 'very_high', color: 'rgb(239 68 68)', status: true
+        id: 5, title: "Very High", slug: 'cats_very_high', color: 'rgb(239 68 68)', status: false
     }],
     "dsv_indicator": false,
     "data_column": [{
