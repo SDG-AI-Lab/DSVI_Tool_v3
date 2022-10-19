@@ -672,11 +672,11 @@ const Sidebar = () => {
         <div></div>
 
         <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
+        <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
+        <hr />
           <div>
-            <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
-
-            <hr />
+            
             {
               dataColumn.map((val, index) => {
                 return (
@@ -727,22 +727,21 @@ const Sidebar = () => {
         }
 
         styles={{
-          modal: {borderRadius: '0.5rem', overflowY: 'scroll', margin: 'auto', height: 'calc(100% - 265px)', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '280px', marginTop: '110px', padding: '0px'},    
+          modal: {overflowY: 'visible', margin: 'auto', maxHeight: '75vh', maxWidth: '40vw', float: 'left', position: 'relative', marginLeft: '290px', marginTop: '85px'},    
           overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
         }}
       >
+      
+      <h2 className="text-gray-800 text-xl font-semibold mb-2">Select DHS Indicator</h2>
+        <div className="ax-w-md mx-auto bg-white rounded-xl">
+        <hr />
+          <div className="overflow-y-scroll " style={{height: '50vh', width: 'auto'}}>
 
-        <div className="max-w-md py-2 px-2 bg-white rounded-lg my-0 overflow-y-auto overflow-x-hidden">
-
-          <div className="overflow-y-scroll" style={{width: '30vw', height: 'calc(100vh-58vh)'}}>
-            <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
-
-            <hr />
             {
               dhsDataColumn.map((val, index) => {
                 return (
                   <div key={index}>
-                    <input className=" px-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
+                    <input className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
 
                       checked={val.id == selectedDhsDataColumn}
 
