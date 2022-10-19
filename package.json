@@ -8,9 +8,6 @@
     "homepage": "https://sdg-ai-lab.github.io/DSVI_Tool_v3"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@mui/material": "^5.10.10",
     "axios": "^0.27.2",
     "bootstrap": "5.2.0-beta1",
     "leaflet": "^1.8.0",
@@ -32,7 +29,6 @@
     "react-map-gl": "^7.0.11",
     "react-responsive-carousel": "^3.2.23",
     "react-responsive-modal": "^6.2.0",
-    "react-svg-tooltip": "^0.0.11",
     "reactjs-popup": "^2.0.5",
     "sass": "^1.54.5",
     "use-dynamic-refs": "^1.0.0"
