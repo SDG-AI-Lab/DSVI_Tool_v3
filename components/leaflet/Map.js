@@ -322,7 +322,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
           pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status ||
-          cats_very_low_status || cats_low_status || cats_medium_status || cats_high_status || cats_very_high_status
+          (vulnerability &&
+          (cats_very_low_status || cats_low_status || cats_medium_status || cats_high_status || cats_very_high_status))
           ? <NewLegend_2/>
           : null
         }

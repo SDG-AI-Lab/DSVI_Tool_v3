@@ -5,7 +5,17 @@ export const initalState = {
     "show_sidebar":true,
     "level":1,
     "show_area_of_interest": false,
-    "activeLegends": [],
+    "activeLegends": [{
+        id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: true
+    }, {
+        id: 2, title: "Low", slug: 'cats_low', color: 'rgb(34 197 94)', status: true
+    }, {
+        id: 3, title: "Medium", slug: 'cats_medium', color: 'rgb(234 179 8)', status: true
+    }, {
+        id: 4, title: "High", slug: 'cats_high', color: 'rgb(249 115 22)', status: true
+    }, {
+        id: 5, title: "Very High", slug: 'cats_very_high', color: 'rgb(239 68 68)', status: true
+    }],
     "socioeconomic": {
         "status": false,
         "data": [
@@ -331,15 +341,15 @@ export const initalState = {
     "vulnerability": false,
     "csv_data_vulnerability": [],
     "categories": [{
-        id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: false
+        id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: true
     }, {
-        id: 2, title: "Low", slug: 'cats_low', color: 'rgb(34 197 94)', status: false
+        id: 2, title: "Low", slug: 'cats_low', color: 'rgb(34 197 94)', status: true
     }, {
-        id: 3, title: "Medium", slug: 'cats_medium', color: 'rgb(234 179 8)', status: false
+        id: 3, title: "Medium", slug: 'cats_medium', color: 'rgb(234 179 8)', status: true
     }, {
-        id: 4, title: "High", slug: 'cats_high', color: 'rgb(249 115 22)', status: false
+        id: 4, title: "High", slug: 'cats_high', color: 'rgb(249 115 22)', status: true
     }, {
-        id: 5, title: "Very High", slug: 'cats_very_high', color: 'rgb(239 68 68)', status: false
+        id: 5, title: "Very High", slug: 'cats_very_high', color: 'rgb(239 68 68)', status: true
     }],
     "dsv_indicator": false,
     "data_column": [{
