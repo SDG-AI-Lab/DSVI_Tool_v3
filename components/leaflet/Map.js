@@ -193,7 +193,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
-
   const mapPolygonColorToDensity = (normalizeData => {
     switch (true) {
       case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
