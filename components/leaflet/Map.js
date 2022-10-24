@@ -77,6 +77,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const geodata = state['geodata']['data'];
   const socioeconomic_data_column = state['socioeconomic']['data_column'];
   const activeLegends = state['activeLegends'];
+  const dhsIndicator = state["dhs_indicator"];
 
   /* Socioeconomic. START */
   const se_social_vulnerability = socioeconomic.find((e) => e.slug === 'se_social_vulnerability');
@@ -281,7 +282,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     )
   };
 
-  console.log(`activeLegends: ${activeLegends}`);
+  console.log(`activeLegends from Map`);
   console.log(activeLegends);
 
   return (
@@ -323,7 +324,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
           pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status ||
           (vulnerability &&
-          (cats_very_low_status || cats_low_status || cats_medium_status || cats_high_status || cats_very_high_status))
+          (cats_very_low_status || cats_low_status || cats_medium_status || cats_high_status || cats_very_high_status)) ||
+          dhsIndicator
           ? <NewLegend_2/>
           : null
         }
