@@ -6,12 +6,6 @@ import Dropdown from 'react-dropdown';
 import { Carousel } from 'react-responsive-carousel';
 import MapControls from '../controls/MapControls';
 // import { Tooltip } from '@mui/material';
-
-
-import { Rnd } from 'react-rnd';
-
-
-
 import { Rnd } from 'react-rnd';
 
 
