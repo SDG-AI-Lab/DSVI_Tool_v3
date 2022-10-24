@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Component } from 'react'
 
 import L from 'leaflet'
 import {MapContainer, LayersControl, WMSTileLayer, ZoomControl} from 'react-leaflet'
@@ -18,6 +18,7 @@ import AOI from '/public/static/AOI.geojson'
 
 import se_random_forest_1 from '/public/static/rf_1.geojson'
 import se_random_forest_2 from '/public/static/rf_2.geojson'
+console.log(se_random_forest_2.invert)
 import se_random_forest_3 from '/public/static/rf_3.geojson'
 import se_xgboost_1 from '/public/static/XGBoost_1.geojson'
 import se_xgboost_2 from '/public/static/XGBoost_2.geojson'
@@ -60,9 +61,9 @@ import se_elevation_2 from '/public/static/dem_2.geojson'
 import se_elevation_3 from '/public/static/dem_3.geojson'
 
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
-import NewLegend from '../controls/NewLegend';
+//import NewLegend from '../controls/NewLegend';
 import NewLegend_2 from '../controls/NewLegend_2';
-import { max } from 'lodash';
+//import { max } from 'lodash';
 
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
@@ -184,15 +185,28 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
    /*Categories. END*/
 
   const NormalizeData = (number, maxNumber, minNumber) => {
-
+    // console.log("number:", number)
+    // console.log("maxNumber:", maxNumber)
+    // console.log("minNumber:", minNumber)
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
-    return mapPolygonColorToDensity(val);
+    console.log("val:", val)
+    // console.log("library.invert", library.invert)
+    console.log(se_random_forest_2.invert)
+      if (se_random_forest_2.invert == true) {
+        console.log("inverted")
+        return mapPolygonColorToDensity_inverted(val)
+      }
+      if (se_random_forest_2.invert == false) {
+        console.log("not inverted")
+        return mapPolygonColorToDensity(val)
+      }
+    ;
 
   };
 
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
-
+   
   const mapPolygonColorToDensity = (normalizeData => {
     switch (true) {
       case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
@@ -200,6 +214,17 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
       case normalizeData > 0.25:  return '#ff962c'; // ORANGE
       case normalizeData > 0: return '#FF362C'; // RED
+      default: return '#FFFFFF'; // WHITE
+    }
+  })
+
+  const mapPolygonColorToDensity_inverted = (normalizeData => {
+    switch (true) {
+      case normalizeData > 0.9 & normalizeData <= 1: return  '#FF362C'; // RED
+      case normalizeData > 0.7:  return '#ff962c'; // ORANGE
+      case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
+      case normalizeData > 0.25:  return '#00800A'; // GREEN
+      case normalizeData > 0: return '#0c58ca'; // BLUE
       default: return '#FFFFFF'; // WHITE
     }
   })
@@ -228,10 +253,11 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 //     return r + "," + g + "," + b;
 // }
   const newProjection = (library, index, layer_opacity) => {
-    const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min, _sum, _avg } = library.properties;
-    const {} = library.name;
+    const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min, _sum, _avg} = library.properties;
+    //const {} = library.name;
+    //const {invert} = library.invert;
     const data = [
-
+  
       // These are shown when the user clicks on the polygon
       {
         "key": "Oblast",
@@ -252,19 +278,26 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     ];
 
     const fillColor = NormalizeData(library.properties[socioeconomic_data_column], _max, _min);
-    // console.log("FillColor:",fillColor);
-    const hovercolor = 'rgb(255, 255, 255, .8)';
-    const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - _min) / (_max - _min));
+    console.log("FillColor:",fillColor);
+    console.log("socioeconomic_data_column:",socioeconomic_data_column);
+    console.log("Math.Max:",Math.max(library.properties[socioeconomic_data_column]));
+    ;
+    //const hovercolor = 'rgb(255, 255, 255, .8)';
+    
+    // Value Parsed to Polygon
+    //const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - Math.min(library.properties[socioeconomic_data_column]) / (Math.max(library.properties[socioeconomic_data_column]) - Math.min(library.properties[socioeconomic_data_column])));
+    const normalizeDataValue = library.properties[socioeconomic_data_column]
     return (
         <CustomPolygon
             key={index}
             positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
+            invert={library.invert}
             fillColor={fillColor}
             hovercolor = {fillColor}
             opacity={layer_opacity/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
-            tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
+            tooltipCount={library.properties._count.toFixed(2)} // library.properties._count
             normalizeDataValue={normalizeDataValue.toFixed(2)}
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
@@ -336,15 +369,15 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* Show Area of Interest. END */}
 
         {/* NEW. Socioeconomic. START */}
-        {/*Random Forest*/}
+        {/*Random Forest 1*/}
         {se_random_forest_status && level === 1 && se_random_forest_1.features.map((library, index) => {
           return newProjection(library, index, se_random_forest_value)
         })}
-        {/*Random Forest*/}
+        {/*Random Forest 2*/}
         {se_random_forest_status && level === 2 && se_random_forest_2.features.map((library, index) => {
           return newProjection(library, index, se_random_forest_value)
         })}
-        {/*Random Forest*/}
+        {/*Random Forest 3*/}
         {se_random_forest_status && level === 3 && se_random_forest_3.features.map((library, index) => {
           return newProjection(library, index, se_random_forest_value)
         })}

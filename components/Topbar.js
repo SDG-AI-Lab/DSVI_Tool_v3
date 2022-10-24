@@ -47,6 +47,7 @@ const TopBar = () => {
                     </li>
                 </ul>
             </nav>
+            <hr />
         </header>)
 }
 
