@@ -76,3 +76,29 @@
     margin-right: 8px;
     opacity: 0.7;
 }
+
+/* infoBox modal css */
+.info-box {
+    /* display: none; */
+    position: absolute;
+    z-index: 1000 !important;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 15px;
+    padding: 2rem 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.button-infoBox {
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    float: right;
+    top: 0;
+    right: 0;
+    position: absolute;
+    padding-top: 5px;
+    padding-right: 10px;
+}

@@ -33,7 +33,7 @@
     "react-map-gl": "^7.0.11",
     "react-responsive-carousel": "^3.2.23",
     "react-responsive-modal": "^6.2.0",
-    "react-svg-tooltip": "^0.0.11",
+    "react-rnd": "^10.3.7",
     "reactjs-popup": "^2.0.5",
     "sass": "^1.54.5",
     "use-dynamic-refs": "^1.0.0"
