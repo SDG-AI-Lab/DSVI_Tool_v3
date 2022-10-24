@@ -396,7 +396,7 @@ export const initalState = {
     }, {
         id: 16, slug: 'Day_Land_Surface_Temp_2005', title: 'Day_Land_Surface_Temp_2005', status: false
     }],
-    "selected_data_column": "0",
+    "selected_data_column": 0,
     "dhs_indicator": false,
     "dhs_data_column": [],
     /*"dhs_data_column": [
@@ -1217,7 +1217,7 @@ export const initalState = {
             "status": false
         }
     ],*/
-    "selected_dhs_data_column": "0",
+    "selected_dhs_data_column": 0,
     "draw_area_of_interest": false,
     "statistics": false,
     "csv_data": [],

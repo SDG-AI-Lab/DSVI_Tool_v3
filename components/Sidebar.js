@@ -76,6 +76,23 @@ const Sidebar = () => {
         return item.slug != newItem.slug;
       })
     }
+
+    /*For DHS indicators. ONLY*/
+    if (newItem.hasOwnProperty('Name') && (newItem.hasOwnProperty('Additional Information'))) {
+      newLegends = newLegends.filter(item => {
+        return !item.hasOwnProperty('Name');
+      })
+      if (newItem.id != 0) {
+        newLegends.push(newItem);
+      }
+      console.log('From addRemoveNewLegend');
+      console.log(`newItem.Name ${newItem.Name}`);
+      console.log(`newItem.id ${newItem.id}`);
+      console.log(`selectedDhsDataColumn ${selectedDhsDataColumn}`);
+      console.log(`newItem.Name ${newItem.Name !== null}`);
+      console.log(`newItem.id === selectedDhsDataColumn ${newItem.id === selectedDhsDataColumn}`);
+      console.log(newLegends);
+    }
     dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newLegends });
   }
 
@@ -248,7 +265,7 @@ const Sidebar = () => {
                                                                                             value: val2.value
                                                                                         };
                                                                                         newItems[index]['data'][index2] = newItem;
-                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                         addRemoveNewLegend(newItem);
                                                                                       }}
                                                                                   >
@@ -392,7 +409,7 @@ const Sidebar = () => {
                                                       };
                                                       const newItems = [...geodata.data];
                                                       newItems[index]['data'][index2] = newItem;
-                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems });
                                                       addRemoveNewLegend(newItem);
                                                     }}
                                                   >
@@ -687,7 +704,6 @@ const Sidebar = () => {
 
                       onClick={() => {
                         dispatch({ type: "SELECT_DATA_COLUMN", payload: val.id });
-
                       }}
                     />
 
@@ -702,7 +718,7 @@ const Sidebar = () => {
 
               onClick={() => {
 
-                if (selectedDataColumn == "0") {
+                if (selectedDataColumn == 0) {
                   alert("Select Column First")
 
                 }
@@ -723,6 +739,7 @@ const Sidebar = () => {
         onClose={
           () => {
             onCloseDhsModal();
+            addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
           }
         }
 
@@ -736,49 +753,35 @@ const Sidebar = () => {
         <div className="ax-w-md mx-auto bg-white rounded-xl">
         <hr />
           <div className="overflow-y-scroll " style={{height: '50vh', width: 'auto'}}>
-
             {
               dhsDataColumn.map((val, index) => {
                 return (
                   <div key={index}>
                     <input className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
-
                       checked={val.id == selectedDhsDataColumn}
-
                       onChange={() => {
                         dispatch({ type: "SELECT_DHS_DATA_COLUMN", payload: val.id });
-
                       }}
-
-
                     />
-
                     <span className="px-2 text-gray-700 text-xs">{val.Name}</span>
                   </div>
                 )
               })
             }
-
           </div>
-
           <div className="flex justify-end mt-4">
             <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-
               onClick={() => {
-
-                if (selectedDhsDataColumn == "0") {
+                if (selectedDhsDataColumn == 0) {
                   alert("Select Column First")
-
                 }
                 else {
-                  onCloseDhsModal()
+                  onCloseDhsModal();
+                  console.log(selectedDhsDataColumn);
+                  addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
                 }
-
               }}
-
-
             >Apply</button>
-
           </div>
         </div>
       </Modal>
