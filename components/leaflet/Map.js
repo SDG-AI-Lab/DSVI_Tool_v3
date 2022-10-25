@@ -184,26 +184,39 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
    const {status: cats_very_high_status} = cats_very_high;
    /*Categories. END*/
 
-  const NormalizeData = (number, maxNumber, minNumber) => {
-
+  const NormalizeData = (number, maxNumber, minNumber, layerObject) => {
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
-    return mapPolygonColorToDensity(val);
-
+    return mapPolygonColorToDensity(val, layerObject);
   };
 
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
-  const mapPolygonColorToDensity = (normalizeData => {
-    switch (true) {
-      case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
-      case normalizeData > 0.7:  return '#00800A'; // GREEN
-      case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
-      case normalizeData > 0.25:  return '#ff962c'; // ORANGE
-      case normalizeData > 0: return '#FF362C'; // RED
-      default: return '#FFFFFF'; // WHITE
+  // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
+  const mapPolygonColorToDensity = ((normalizeData, layerObject) => {
+    if (!layerObject.reverse_meaning) {
+      console.log(`!layerObject.reverse_meaning ${layerObject.reverse_meaning}`);
+      console.log(layerObject);
+      switch (true) {
+        case normalizeData > 0.9 & normalizeData <= 1: return '#FF362C'; // RED 
+        case normalizeData > 0.7:  return '#ff962c'; // ORANGE
+        case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
+        case normalizeData > 0.25:  return '#00800A'; // GREEN
+        case normalizeData > 0: return '#0c58ca'; // BLUE
+        default: return '#FFFFFF'; // WHITE
+      }
+    } else {
+      console.log(`layerObject.reverse_meaning ${layerObject.reverse_meaning}`);
+      console.log(layerObject);
+      switch (true) {
+        case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
+        case normalizeData > 0.7:  return '#00800A'; // GREEN
+        case normalizeData > 0.55: return '#FFDE2C'; // YELLOW
+        case normalizeData > 0.25:  return '#ff962c'; // ORANGE
+        case normalizeData > 0: return '#FF362C'; // RED
+        default: return '#FFFFFF'; // WHITE
+      }
     }
-  })
-
+  });
 
   const AOI_projection = (library, index, layer_opacity) => {
 
@@ -227,7 +240,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
 //     return r + "," + g + "," + b;
 // }
-  const newProjection = (library, index, layer_opacity) => {
+  const newProjection = (library, index, layerObject) => {
     const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min, _sum, _avg } = library.properties;
     const {} = library.name;
     const data = [
@@ -251,7 +264,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
     ];
 
-    const fillColor = NormalizeData(library.properties[socioeconomic_data_column], _max, _min);
+    const fillColor = NormalizeData(library.properties[socioeconomic_data_column], _max, _min, layerObject);
     // console.log("FillColor:",fillColor);
     const hovercolor = 'rgb(255, 255, 255, .8)';
     const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - _min) / (_max - _min));
@@ -261,7 +274,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
             fillColor={fillColor}
             hovercolor = {fillColor}
-            opacity={layer_opacity/100}
+            opacity={layerObject.value/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
             tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
@@ -280,9 +293,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         />
     )
   };
-
-  console.log(`activeLegends from Map`);
-  console.log(activeLegends);
 
   return (
       <MapContainer
@@ -339,159 +349,159 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* NEW. Socioeconomic. START */}
         {/*Random Forest*/}
         {se_random_forest_status && level === 1 && se_random_forest_1.features.map((library, index) => {
-          return newProjection(library, index, se_random_forest_value)
+          return newProjection(library, index, se_random_forest)
         })}
         {/*Random Forest*/}
         {se_random_forest_status && level === 2 && se_random_forest_2.features.map((library, index) => {
-          return newProjection(library, index, se_random_forest_value)
+          return newProjection(library, index, se_random_forest)
         })}
         {/*Random Forest*/}
         {se_random_forest_status && level === 3 && se_random_forest_3.features.map((library, index) => {
-          return newProjection(library, index, se_random_forest_value)
+          return newProjection(library, index, se_random_forest)
         })}
         {/*XG Boost*/}
         {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
-        return newProjection(library, index, se_xgboost_value)
+        return newProjection(library, index, se_xgboost)
         })}
         {/*XG Boost*/}
         {se_xgboost_status && level === 2 && se_xgboost_2.features.map((library, index) => {
-          return newProjection(library, index, se_xgboost_value)
+          return newProjection(library, index, se_xgboost)
         })}
         {/*XG Boost*/}
         {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
-          return newProjection(library, index, se_xgboost_value)
+          return newProjection(library, index, se_xgboost)
         })}
 
         {/*Education Facilities*/}
         {se_education_facility_status && level === 1 && se_edu_1.features.map((library, index) => {
-          return newProjection(library, index, se_education_facility_value)
+          return newProjection(library, index, se_education_facility)
         })}
         {se_education_facility_status && level === 2 && se_edu_2.features.map((library, index) => {
-          return newProjection(library, index, se_education_facility_value)
+          return newProjection(library, index, se_education_facility)
         })}
         {se_education_facility_status && level === 3 && se_edu_3.features.map((library, index) => {
-          return newProjection(library, index, se_education_facility_value)
+          return newProjection(library, index, se_education_facility)
         })}
 
         {/*Health Institutions*/}
         {se_health_institution_status && level === 1 && se_health_1.features.map((library, index) => {
-          return newProjection(library, index, dt_health_institution_value)
+          return newProjection(library, index, se_health_institution)
         })}
         {se_health_institution_status && level === 2 && se_health_2.features.map((library, index) => {
-          return newProjection(library, index, dt_health_institution_value)
+          return newProjection(library, index, se_health_institution)
         })}
         {se_health_institution_status && level === 3 && se_health_3.features.map((library, index) => {
-          return newProjection(library, index, dt_health_institution_value)
+          return newProjection(library, index, se_health_institution)
         })}
 
         {/*Financial Services*/}
         {se_financial_service_status && level === 1 && se_finance_1.features.map((library, index) => {
-          return newProjection(library, index, se_financial_service_value)
+          return newProjection(library, index, se_financial_service)
         })}
         {se_financial_service_status && level === 2 && se_finance_2.features.map((library, index) => {
-          return newProjection(library, index, se_financial_service_value)
+          return newProjection(library, index, se_financial_service)
         })}
         {se_financial_service_status && level === 3 && se_finance_3.features.map((library, index) => {
-          return newProjection(library, index, se_financial_service_value)
+          return newProjection(library, index, se_financial_service)
         })}
 
         {/*Population Counts*/}
         {se_population_counts_status && level === 1 && se_population_1.features.map((library, index) => {
-          return newProjection(library, index, population_counts_value)
+          return newProjection(library, index, se_population_counts)
         })}
         {se_population_counts_status && level === 2 && se_population_2.features.map((library, index) => {
-          return newProjection(library, index, population_counts_value)
+          return newProjection(library, index, se_population_counts)
         })}
         {se_population_counts_status && level === 3 && se_population_3.features.map((library, index) => {
-          return newProjection(library, index, population_counts_value)
+          return newProjection(library, index, se_population_counts)
         })}
 
         {/*Cell Towers*/}
         {se_celltowers_status && level === 1 && se_celltowers_1.features.map((library, index) => {
-          return newProjection(library, index, se_celltowers_value)
+          return newProjection(library, index, se_celltowers)
         })}
         {se_celltowers_status && level === 2 && se_celltowers_2.features.map((library, index) => {
-          return newProjection(library, index, se_celltowers_value)
+          return newProjection(library, index, se_celltowers)
         })}
         {se_celltowers_status && level === 3 && se_celltowers_3.features.map((library, index) => {
-          return newProjection(library, index, se_celltowers_value)
+          return newProjection(library, index, se_celltowers)
         })}
 
         {/*Nightlight Intensity*/}
         {se_nightlight_intensity_status && level === 1 && se_nightlight_intensity_1.features.map((library, index) => {
-          return newProjection(library, index, se_nightlight_intensity_value)
+          return newProjection(library, index, se_nightlight_intensity)
         })}
         {se_nightlight_intensity_status && level === 2 && se_nightlight_intensity_2.features.map((library, index) => {
-          return newProjection(library, index, se_nightlight_intensity_value)
+          return newProjection(library, index, se_nightlight_intensity)
         })}
         {se_nightlight_intensity_status && level === 3 && se_nightlight_intensity_3.features.map((library, index) => {
-          return newProjection(library, index, se_nightlight_intensity_value)
+          return newProjection(library, index, se_nightlight_intensity)
         })}
 
         {/*Relative Wealth*/}
         {se_relative_wealth_status && level === 1 && se_relative_wealth_1.features.map((library, index) => {
-          return newProjection(library, index, se_relative_wealth_value)
+          return newProjection(library, index, se_relative_wealth)
         })}
         {se_relative_wealth_status && level === 2 && se_relative_wealth_2.features.map((library, index) => {
-          return newProjection(library, index, se_relative_wealth_value)
+          return newProjection(library, index, se_relative_wealth)
         })}
         {se_relative_wealth_status && level === 3 && se_relative_wealth_3.features.map((library, index) => {
-          return newProjection(library, index, se_relative_wealth_value)
+          return newProjection(library, index, se_relative_wealth)
         })}
 
         {/*GDP*/}
         {se_GDP_status && level === 1 && se_GDP_1.features.map((library, index) => {
-          return newProjection(library, index, se_GDP_value)
+          return newProjection(library, index, se_GDP)
         })}
         {se_GDP_status && level === 2 && se_GDP_2.features.map((library, index) => {
-          return newProjection(library, index, se_GDP_value)
+          return newProjection(library, index, se_GDP)
         })}
         {se_GDP_status && level === 3 && se_GDP_3.features.map((library, index) => {
-          return newProjection(library, index, se_GDP_value)
+          return newProjection(library, index, se_GDP)
         })}
 
         {/*Plant Health*/}
         {se_plant_health_status && level === 1 && se_plant_health_1.features.map((library, index) => {
-          return newProjection(library, index, se_plant_health_value)
+          return newProjection(library, index, se_plant_health)
         })}
         {se_plant_health_status && level === 2 && se_plant_health_2.features.map((library, index) => {
-          return newProjection(library, index, se_plant_health_value)
+          return newProjection(library, index, se_plant_health)
         })}
         {se_plant_health_status && level === 3 && se_plant_health_3.features.map((library, index) => {
-          return newProjection(library, index, se_plant_health_value)
+          return newProjection(library, index, se_plant_health)
         })}
 
         {/*Temperature Max*/}
         {se_temperature_max_status && level === 1 && se_temperature_max_1.features.map((library, index) => {
-          return newProjection(library, index, se_temperature_max_value)
+          return newProjection(library, index, se_temperature_max)
         })}
         {se_temperature_max_status && level === 2 && se_temperature_max_2.features.map((library, index) => {
-          return newProjection(library, index, se_temperature_max_value)
+          return newProjection(library, index, se_temperature_max)
         })}
         {se_temperature_max_status && level === 3 && se_temperature_max_3.features.map((library, index) => {
-          return newProjection(library, index, se_temperature_max_value)
+          return newProjection(library, index, se_temperature_max)
         })}
 
         {/*Land Use*/}
         {se_land_use_class_status && level === 1 && se_land_use_class_1.features.map((library, index) => {
-          return newProjection(library, index, se_land_use_class_value)
+          return newProjection(library, index, se_land_use_class)
         })}
         {se_land_use_class_status && level === 2 && se_land_use_class_2.features.map((library, index) => {
-          return newProjection(library, index, se_land_use_class_value)
+          return newProjection(library, index, se_land_use_class)
         })}
         {se_land_use_class_status && level === 3 && se_land_use_class_3.features.map((library, index) => {
-          return newProjection(library, index, se_land_use_class_value)
+          return newProjection(library, index, se_land_use_class)
         })}
 
         {/*Elevation*/}
         {se_elevation_status && level === 1 && se_elevation_1.features.map((library, index) => {
-          return newProjection(library, index, se_elevation_value)
+          return newProjection(library, index, se_elevation)
         })}
         {se_elevation_status && level === 2 && se_elevation_2.features.map((library, index) => {
-          return newProjection(library, index, se_elevation_value)
+          return newProjection(library, index, se_elevation)
         })}
         {se_elevation_status && level === 3 && se_elevation_3.features.map((library, index) => {
-          return newProjection(library, index, se_elevation_value)
+          return newProjection(library, index, se_elevation)
         })}
         {/* NEW. Socioeconomic. END */}
 
