@@ -189,13 +189,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     return mapPolygonColorToDensity(val, layerObject);
   };
 
-
-  // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
   const mapPolygonColorToDensity = ((normalizeData, layerObject) => {
     if (!layerObject.reverse_meaning) {
-      console.log(`!layerObject.reverse_meaning ${layerObject.reverse_meaning}`);
-      console.log(layerObject);
       switch (true) {
         case normalizeData > 0.9 & normalizeData <= 1: return '#FF362C'; // RED 
         case normalizeData > 0.7:  return '#ff962c'; // ORANGE
@@ -205,8 +201,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         default: return '#FFFFFF'; // WHITE
       }
     } else {
-      console.log(`layerObject.reverse_meaning ${layerObject.reverse_meaning}`);
-      console.log(layerObject);
       switch (true) {
         case normalizeData > 0.9 & normalizeData <= 1: return '#0c58ca'; // BLUE
         case normalizeData > 0.7:  return '#00800A'; // GREEN
