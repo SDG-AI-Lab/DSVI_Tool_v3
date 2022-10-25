@@ -640,7 +640,8 @@ const Sidebar = () => {
                   </a>
                 </li>
 
-                <li className="relative">
+{/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
+                {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
@@ -652,9 +653,13 @@ const Sidebar = () => {
 
                     <span>Draw Area of Interest</span>
                   </a>
-                </li>
+                </li> */}
 
-                <li className="relative">
+
+{/* removed Statistics BEFORE ITS IMPLEMENTED */}
+
+
+                {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
@@ -666,7 +671,7 @@ const Sidebar = () => {
                     </svg>
                     <span>Statistics</span>
                   </a>
-                </li>
+                </li> */}
               </ul>
 
             </div>
