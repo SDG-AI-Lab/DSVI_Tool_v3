@@ -10,33 +10,63 @@ const SE_Legend = (props) => {
     <h2 className='font-bold'>Socioeconomic Layers</h2>
     <h3>Selected: {props.title}</h3>
     <table>
-      <tbody>
-        <tr>
-          <td className='bg-[#FF362C] w-5 h-5'></td>
-          <td className='pl-1'>0 - 0.25</td>
-          <td className='pl-1'>Very High</td>
-        </tr>
-        <tr>
-          <td className='bg-[#ff962c] w-5 h-5'></td>
-          <td className='pl-1'>0.25 - 0.55</td>
-          <td className='pl-1'>High</td>
-        </tr>
-        <tr>
-          <td className='bg-[#FFDE2C] w-5 h-5'></td>
-          <td className='pl-1'>0.55 - 0.7</td>
-          <td className='pl-1'>Middle</td>
-        </tr>
-        <tr>
-          <td className='bg-[#00800A] w-5 h-5'></td>
-          <td className='pl-1'>0.7 - 0.9</td>
-          <td className='pl-1'>Low</td>
-        </tr>
-        <tr>
-          <td className='bg-[#0c58ca] w-5 h-5'></td>
-          <td className='pl-1'>0.9+</td>
-          <td className='pl-1'>Very Low</td>
-        </tr>
-      </tbody>
+      {!props.reverse_meaning ? 
+        <tbody>
+          <tr>
+            <td className='bg-[#FF362C] w-5 h-5'></td>
+            <td className='pl-1'>0.9+</td>
+            <td className='pl-1'>Very High</td>
+          </tr>
+          <tr>
+            <td className='bg-[#ff962c] w-5 h-5'></td>
+            <td className='pl-1'>0.7 - 0.9</td>
+            <td className='pl-1'>High</td>
+          </tr>
+          <tr>
+            <td className='bg-[#FFDE2C] w-5 h-5'></td>
+            <td className='pl-1'>0.55 - 0.7</td>
+            <td className='pl-1'>Middle</td>
+          </tr>
+          <tr>
+            <td className='bg-[#00800A] w-5 h-5'></td>
+            <td className='pl-1'>0.25 - 0.55</td>
+            <td className='pl-1'>Low</td>
+          </tr>
+          <tr>
+            <td className='bg-[#0c58ca] w-5 h-5'></td>
+            <td className='pl-1'>0 - 0.25</td>
+            <td className='pl-1'>Very Low</td>
+          </tr>
+        </tbody>
+        :
+        <tbody>
+          <tr>
+            <td className='bg-[#0c58ca] w-5 h-5'></td>
+            <td className='pl-1'>0.9+</td>
+            <td className='pl-1'>Very High</td>
+          </tr>
+          <tr>
+            <td className='bg-[#00800A] w-5 h-5'></td>
+            <td className='pl-1'>0.7 - 0.9</td>
+            <td className='pl-1'>High</td>
+          </tr>
+          <tr>
+            <td className='bg-[#FFDE2C] w-5 h-5'></td>
+            <td className='pl-1'>0.55 - 0.7</td>
+            <td className='pl-1'>Middle</td>
+          </tr>
+          <tr>
+            <td className='bg-[#ff962c] w-5 h-5'></td>
+            <td className='pl-1'>0.25 - 0.55</td>
+            <td className='pl-1'>Low</td>
+          </tr>
+          <tr>
+            <td className='bg-[#FF362C] w-5 h-5'></td>
+            <td className='pl-1'>0 - 0.25</td>
+            <td className='pl-1'>Very Low</td>
+          </tr>
+        </tbody>
+      }
     </table>
   </div>
   );
@@ -228,7 +258,7 @@ const NewLegend_2 = (props) => {
                           {(provided) => (
                             <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               { item.hasOwnProperty('slug')
-                                && item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title}/> : null }
+                                && item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title} reverse_meaning={item.reverse_meaning}/> : null }
                               { item.hasOwnProperty('slug')
                                 &&item.slug.indexOf("sv_") === 0 ? <GeoLegend title={item.title} layer={item.layer}/> : null }
                               { item.hasOwnProperty('slug')

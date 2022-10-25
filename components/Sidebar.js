@@ -85,13 +85,6 @@ const Sidebar = () => {
       if (newItem.id != 0) {
         newLegends.push(newItem);
       }
-      console.log('From addRemoveNewLegend');
-      console.log(`newItem.Name ${newItem.Name}`);
-      console.log(`newItem.id ${newItem.id}`);
-      console.log(`selectedDhsDataColumn ${selectedDhsDataColumn}`);
-      console.log(`newItem.Name ${newItem.Name !== null}`);
-      console.log(`newItem.id === selectedDhsDataColumn ${newItem.id === selectedDhsDataColumn}`);
-      console.log(newLegends);
     }
     dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newLegends });
   }
@@ -438,7 +431,8 @@ const Sidebar = () => {
                                                                                             slug: val2.slug,
                                                                                             title: val2.title,
                                                                                             status: !val2.status,
-                                                                                            value: val2.value
+                                                                                            value: val2.value,
+                                                                                            reverse_meaning: val2.reverse_meaning
                                                                                         };
                                                                                         newItems[index]['data'][index2] = newItem;
                                                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -455,7 +449,8 @@ const Sidebar = () => {
                                                                                                   slug: val2.slug,
                                                                                                   title: val2.title,
                                                                                                   status: !val2.status,
-                                                                                                  value: val2.value
+                                                                                                  value: val2.value,
+                                                                                                  reverse_meaning: val2.reverse_meaning
                                                                                               };
                                                                                               newItems[index]['data'][index2] = newItem;
                                                                                               dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -484,7 +479,8 @@ const Sidebar = () => {
                                                                                                                 slug: val2.slug,
                                                                                                                 title: val2.title,
                                                                                                                 status: val2.status,
-                                                                                                                value: event.target.value
+                                                                                                                value: event.target.value,
+                                                                                                                reverse_meaning: val2.reverse_meaning
                                                                                                             };
                                                                                                             dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                         }}
@@ -500,7 +496,8 @@ const Sidebar = () => {
                                                                                                                         slug: val2.slug,
                                                                                                                         title: val2.title,
                                                                                                                         status: val2.status,
-                                                                                                                        value: event.target.value
+                                                                                                                        value: event.target.value,
+                                                                                                                        reverse_meaning: val2.reverse_meaning
                                                                                                                     };
                                                                                                                     dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                                 }}
@@ -794,7 +791,6 @@ const Sidebar = () => {
                 }
                 else {
                   onCloseDhsModal();
-                  console.log(selectedDhsDataColumn);
                   addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
                 }
               }}
