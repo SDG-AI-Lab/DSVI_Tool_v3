@@ -41,6 +41,3 @@ yarn-error.log*
 *.tsbuildinfo
 
 # yarn.lock
-yarn.lock
-components/mysidebar.js
-package-lock.json
