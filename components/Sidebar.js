@@ -744,7 +744,7 @@ const Sidebar = () => {
         }
 
         styles={{
-          modal: {borderRadius: '0.5rem', overflowY: 'scroll', margin: 'auto', height: 'calc(100% - 265px)', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '280px', marginTop: '80px', padding: '0px'},    
+          modal: {overflowY: 'visible', margin: 'auto', maxHeight: '75vh', maxWidth: '40vw', float: 'left', position: 'relative', marginLeft: '290px', marginTop: '85px'},    
           overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
         }}
       >
