@@ -28,16 +28,18 @@ const CircleMarkers = () => {
   }, [])
 
   const getColor = (value) => {
-    return !isBlueGreenYellowRed ? `hsl(${360 * (1 - value)}, 100%, 50%)` : `hsl(${value * 360}, 100%, 50%)`
+    return !isBlueGreenYellowRed ? `hsl(${240 * (1 - value)}, 100%, 50%)` : `hsl(${value * 240}, 100%, 50%)`
   }
 
   const normalizeValue = (column_name) => {
-    const maxValue = Math.max(...csv_data.map(p => p[column_name]))
+    const maxValue = Math.max(...csv_data.map(p => {
+      return p[column_name];
+    }));
     if(maxValue > 1){
       //should normalize values
       const minValue = Math.min(...csv_data.map(p => p[column_name]))
       normalized_csv_data = csv_data.map( p => {
-        p[column_name] = (p[column_name] - minValue) / (maxValue - minValue)
+        p[column_name] = (p[column_name] - minValue) / (maxValue - minValue);
         return p
       })
     }

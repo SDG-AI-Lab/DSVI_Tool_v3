@@ -12,6 +12,8 @@ const Sidebar = () => {
 
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
+
+  const activeLegends = state["activeLegends"];
   const socioeconomic = state["socioeconomic"];
   const geodata = state["geodata"];
   const vulnerability = state["vulnerability"];
@@ -31,7 +33,7 @@ const Sidebar = () => {
   const [dsvModal, setDsvModal] = useState(false);
   const [dhsModal, setDhsModal] = useState(false);
   const onOpenDsvModal = () => setDsvModal(true);
-  const onCloseDsvModal = () => setDsvModal(false);
+  const onCloseDsvModal = () => setDsvModal(false);  
   const onOpenDhsModal = () => setDhsModal(true);
   const onCloseDhsModal = () => setDhsModal(false);
 
@@ -62,6 +64,36 @@ const Sidebar = () => {
     const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
     items[index]['data'].splice(result.destination.index, 0, reorderedItem);
     dispatch({ type: "CHANGE_GEODATA", payload: items });
+  }
+ 
+
+  function addRemoveNewLegend(newItem) {
+    let newLegends = activeLegends;
+    if (newItem.status == true) {
+      newLegends.push(newItem);
+    } else if (newItem.status == false) {
+      newLegends = newLegends.filter(item => {
+        return item.slug != newItem.slug;
+      })
+    }
+
+    /*For DHS indicators. ONLY*/
+    if (newItem.hasOwnProperty('Name') && (newItem.hasOwnProperty('Additional Information'))) {
+      newLegends = newLegends.filter(item => {
+        return !item.hasOwnProperty('Name');
+      })
+      if (newItem.id != 0) {
+        newLegends.push(newItem);
+      }
+      console.log('From addRemoveNewLegend');
+      console.log(`newItem.Name ${newItem.Name}`);
+      console.log(`newItem.id ${newItem.id}`);
+      console.log(`selectedDhsDataColumn ${selectedDhsDataColumn}`);
+      console.log(`newItem.Name ${newItem.Name !== null}`);
+      console.log(`newItem.id === selectedDhsDataColumn ${newItem.id === selectedDhsDataColumn}`);
+      console.log(newLegends);
+    }
+    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newLegends });
   }
 
   return (
@@ -224,15 +256,17 @@ const Sidebar = () => {
                                                                               <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                                                   <div className="flex i items-center"
                                                                                       onClick={() => {
-                                                                                          const newItems = [...socioeconomic.data];
-                                                                                          newItems[index]['data'][index2] = {
-                                                                                              id: val2.id,
-                                                                                              slug: val2.slug,
-                                                                                              title: val2.title,
-                                                                                              status: !val2.status,
-                                                                                              value: val2.value
-                                                                                          };
-                                                                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                        const newItems = [...socioeconomic.data];
+                                                                                        const newItem = {
+                                                                                            id: val2.id,
+                                                                                            slug: val2.slug,
+                                                                                            title: val2.title,
+                                                                                            status: !val2.status,
+                                                                                            value: val2.value
+                                                                                        };
+                                                                                        newItems[index]['data'][index2] = newItem;
+                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
+                                                                                        addRemoveNewLegend(newItem);
                                                                                       }}
                                                                                   >
                                                                                       <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
@@ -240,14 +274,15 @@ const Sidebar = () => {
                                                                                           checked={val2.status}
                                                                                           onChange={(event) => {
                                                                                               const newItems = [...socioeconomic.data];
-                                                                                              newItems[index]['data'][index2] = {
+                                                                                              const newItem = {
                                                                                                   id: val2.id,
                                                                                                   slug: val2.slug,
                                                                                                   title: val2.title,
                                                                                                   status: !val2.status,
                                                                                                   value: val2.value
                                                                                               };
-                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                              newItems[index]['data'][index2] = newItem;
+                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                           }}
                                                                                       />
                                                                                       <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
@@ -364,24 +399,7 @@ const Sidebar = () => {
                                                 <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                   <div className="flex i items-center"
                                                     onClick={() => {
-                                                      const newItems = [...geodata.data];
-                                                      newItems[index]['data'][index2] = {
-                                                        id: val2.id,
-                                                        slug: val2.slug,
-                                                        title: val2.title,
-                                                        status: !val2.status,
-                                                        value: val2.value,
-                                                        layer: val2.layer
-                                                      };
-                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems })
-                                                    }}
-                                                  >
-                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
-                                                      id="flowbite" aria-describedby="flowbite" type="checkbox"
-                                                      checked={val2.status}
-                                                      onChange={(event) => {
-                                                      const newItems = [...geodata.data];
-                                                      newItems[index]['data'][index2] = {
+                                                      const newItem = {
                                                           id: val2.id,
                                                           slug: val2.slug,
                                                           title: val2.title,
@@ -389,7 +407,27 @@ const Sidebar = () => {
                                                           value: val2.value,
                                                           layer: val2.layer
                                                       };
-                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                      const newItems = [...geodata.data];
+                                                      newItems[index]['data'][index2] = newItem;
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems });
+                                                      addRemoveNewLegend(newItem);
+                                                    }}
+                                                  >
+                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+                                                      id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                      checked={val2.status}
+                                                      onChange={(event) => {
+                                                      const newItem = {
+                                                          id: val2.id,
+                                                          slug: val2.slug,
+                                                          title: val2.title,
+                                                          status: !val2.status,
+                                                          value: val2.value,
+                                                          layer: val2.layer
+                                                      };
+                                                      const newItems = [...geodata.data];
+                                                      newItems[index]['data'][index2] = newItem;
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems });
                                                       }}
                                                     />
                                                     <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6
@@ -500,19 +538,36 @@ const Sidebar = () => {
                                           {(provided) => (
                                             <>
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <div className="flex i items-center">
+                                                <div className="flex i items-center"
+                                                    onClick={() => {
+                                                      const newItems = [...categories];
+                                                      const newItem = {
+                                                      id: val.id,
+                                                      slug: val.slug,
+                                                      title: val.title,
+                                                      status: !val.status,
+                                                      color: val.color
+                                                      };
+                                                      newItems[index] = newItem;
+                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
+                                                      addRemoveNewLegend(newItem);
+                                                    }}
+                                                  >
+
                                                 <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
-                                                  <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite"
+                                                    aria-describedby="flowbite" type="checkbox"
                                                     checked={val.status}
                                                     onChange={(event) => {
-                                                        const newItems = [...categories];
-                                                        newItems[index] = {
-                                                        id: val.id,
-                                                        slug: val.slug,
-                                                        title: val.title,
-                                                        status: !val.status,
-                                                        color: val.color
+                                                      const newItems = [...categories];
+                                                      const newItem = {
+                                                      id: val.id,
+                                                      slug: val.slug,
+                                                      title: val.title,
+                                                      status: !val.status,
+                                                      color: val.color
                                                       };
+                                                      newItems[index] = newItem;
                                                       dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
                                                     }}
                                                   />
@@ -575,40 +630,18 @@ const Sidebar = () => {
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
-
                     onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
                   >
 
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
-                    <span>{dhsIndicator == true ? 'Hide DHS Indicators' : 'Show DHS Indicators'}</span>
+                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
                   </a>
-
-                  {
-                    dhsIndicator == true ?
-                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3" data-bs-parent="#sidenavSecExample">
-                        <li className="relative">
-                          <a className="flex items-center text-sm py-4 px-8 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                            onClick={() => { onOpenDhsModal() }}
-                          >
-
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                            </svg>
-                            <span>Select Data Column</span>
-                          </a>
-                        </li>
-                      </ul>
-                      : null
-                  }
-
-
                 </li>
 
-                <li className="relative">
+{/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
+                {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
@@ -620,9 +653,13 @@ const Sidebar = () => {
 
                     <span>Draw Area of Interest</span>
                   </a>
-                </li>
+                </li> */}
 
-                <li className="relative">
+
+{/* removed Statistics BEFORE ITS IMPLEMENTED */}
+
+
+                {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
                   //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
@@ -634,7 +671,7 @@ const Sidebar = () => {
                     </svg>
                     <span>Statistics</span>
                   </a>
-                </li>
+                </li> */}
               </ul>
 
             </div>
@@ -649,7 +686,6 @@ const Sidebar = () => {
       <Modal open={dsvModal}
         onClose={
           () => {
-
             onCloseDsvModal()
           }
         }
@@ -658,11 +694,11 @@ const Sidebar = () => {
         <div></div>
 
         <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
+        <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
 
+        <hr />
           <div>
-            <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
-
-            <hr />
+            
             {
               dataColumn.map((val, index) => {
                 return (
@@ -673,7 +709,6 @@ const Sidebar = () => {
 
                       onClick={() => {
                         dispatch({ type: "SELECT_DATA_COLUMN", payload: val.id });
-
                       }}
                     />
 
@@ -688,7 +723,7 @@ const Sidebar = () => {
 
               onClick={() => {
 
-                if (selectedDataColumn == "0") {
+                if (selectedDataColumn == 0) {
                   alert("Select Column First")
 
                 }
@@ -708,63 +743,50 @@ const Sidebar = () => {
       <Modal open={dhsModal}
         onClose={
           () => {
-            onCloseDhsModal()
+            onCloseDhsModal();
+            addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
           }
         }
 
         styles={{
-          modal: {overflowY: 'hidden', margin: 'auto', maxHeight: '75vh', maxWidth: '30vw', float: 'left', position: 'relative', marginLeft: '272px', marginTop: '102px'},    
+          modal: {overflowY: 'visible', margin: 'auto', maxHeight: '75vh', maxWidth: '40vw', float: 'left', position: 'relative', marginLeft: '290px', marginTop: '85px'},    
           overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
         }}
       >
-
-        <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-2 overflow-y-auto">
-
-          <div className="overflow-y-scroll" style={{height: '42vh', width: '20vw'}}>
-            <h2 className="text-gray-800 text-2xl font-semibold mb-3">Select Columns</h2>
-
-            <hr />
+      
+      <h2 className="text-gray-800 text-xl font-semibold mb-2">Select DHS Indicator</h2>
+        <div className="ax-w-md mx-auto bg-white rounded-xl">
+        <hr />
+          <div className="overflow-y-scroll " style={{height: '50vh', width: 'auto'}}>
             {
               dhsDataColumn.map((val, index) => {
                 return (
                   <div key={index}>
-                    <input className=" px-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
-
+                    <input className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" type="radio"
                       checked={val.id == selectedDhsDataColumn}
-
                       onChange={() => {
                         dispatch({ type: "SELECT_DHS_DATA_COLUMN", payload: val.id });
-
                       }}
-
-
                     />
-
-                    <span className="px-2 text-gray-700 text-sm"></span>  {val.Name}</div>
+                    <span className="px-2 text-gray-700 text-xs">{val.Name}</span>
+                  </div>
                 )
               })
             }
-
           </div>
-
           <div className="flex justify-end mt-4">
             <button type="button" className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-
               onClick={() => {
-
-                if (selectedDhsDataColumn == "0") {
+                if (selectedDhsDataColumn == 0) {
                   alert("Select Column First")
-
                 }
                 else {
-                  onCloseDhsModal()
+                  onCloseDhsModal();
+                  console.log(selectedDhsDataColumn);
+                  addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
                 }
-
               }}
-
-
             >Apply</button>
-
           </div>
         </div>
       </Modal>
