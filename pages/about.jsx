@@ -27,10 +27,10 @@ const Home = () => {
             })
           } 
 
-          <p className="py-5 px-5 ">
+<p className="py-5 px-5 ">
             <a href="/volunteer" class="volunteer-link" target="_blank">
               <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-              Volunteer            
+              United Nations Online Volunteers            
               </button>
             </a>
           </p> 

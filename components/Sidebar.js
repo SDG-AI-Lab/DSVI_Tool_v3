@@ -91,7 +91,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`bg-white h-[calc(100vh-130px)] w-[270px] min-w-[270px] overflow-auto`}>
+      <div className={`bg-white h-[calc(100vh-110px)] w-[270px] min-w-[270px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
@@ -99,7 +99,7 @@ const Sidebar = () => {
             <hr className="my-0" />
             <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-xl h-5'>Main Menu</p>
+              <p className='text-l font-bold h-4'>Map Settings</p>
             </div>
             {/* <hr className="my-2" /> */}
             <div>

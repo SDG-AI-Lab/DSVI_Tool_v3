@@ -8,15 +8,15 @@ const Footer = () => {
                     <li key="1">
                         <a className="flex title-font font-medium items-center text-gray-900 w-44">
                             <Image
-                                src="/images/logo-sdg-ai-lab-black-alpha.png"
-                                alt="SDG LOGO"
-                                width="120px"
-                                height="100px"
+                                src="/images/whitesquare.png"
+                                alt=""
+                                width="40px"
+                                height="40px"
                                 layout="intrinsic"
                                 className=""
                             />
                             <p className="text-[12px] w-13 text-blue-600 pl-2">
-                                DSVI Tajikistan Development Tool
+                                
                             </p>
                         </a>
                     </li>
@@ -40,7 +40,7 @@ const Footer = () => {
                             </svg>
                         </a>
                     </li>
-                    <li key="3">
+                    {/* <li key="3">
                         <a className="flex items-center w-44 justify-end">
                             <Image
                                 src="/images/logo-undp-alpha.png"
@@ -51,7 +51,7 @@ const Footer = () => {
                                 className=""
                             />
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
             </footer>
         </>);

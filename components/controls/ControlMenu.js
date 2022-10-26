@@ -10,7 +10,7 @@ import { Rnd } from 'react-rnd';
 
 
 const dropDownOptions = [
-  'Select One', 'Vulnerability', 'GDP', 'Hello'
+  'Select One', 'Vulnerability', 'GDP'
 ]
 
 
@@ -21,7 +21,7 @@ const ControlMenu = (props) => {
     return (<>
               <Control position={position}>
                   <div className="border-black flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg"
+                      {/* <svg xmlns="http://www.w3.org/2000/svg"
                           className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
                           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
                           onClick={(e) => {
@@ -32,10 +32,10 @@ const ControlMenu = (props) => {
                           }}>
                           <path strokeLinecap="round" strokeLinejoin="round"
                                 d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
-                      </svg>
+                      </svg> */}
 
                       <svg xmlns="http://www.w3.org/2000/svg"
-                          className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-blue-600 border-2 p-2 h-11 w-11 bg-opacity-75 ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
+                          className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-gray-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
                           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
                           onClick={(e) => {
                               
@@ -67,7 +67,7 @@ const ControlMenu = (props) => {
                     minHeight={360}
                     bounds="parent"
                     className="info-box"
-                    style={{display: "none", bottom: '100px', left: '-260px', top: "auto", right: "auto"}}
+                    style={{display: "none", bottom: '100px', left: '-250px', top: "auto", right: "auto"}}
                   >
                     <button className="button-infoBox" onClick={() => {Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none"); 
                                             dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {}})}}>X</button>
