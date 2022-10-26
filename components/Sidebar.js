@@ -85,20 +85,13 @@ const Sidebar = () => {
       if (newItem.id != 0) {
         newLegends.push(newItem);
       }
-      console.log('From addRemoveNewLegend');
-      console.log(`newItem.Name ${newItem.Name}`);
-      console.log(`newItem.id ${newItem.id}`);
-      console.log(`selectedDhsDataColumn ${selectedDhsDataColumn}`);
-      console.log(`newItem.Name ${newItem.Name !== null}`);
-      console.log(`newItem.id === selectedDhsDataColumn ${newItem.id === selectedDhsDataColumn}`);
-      console.log(newLegends);
     }
     dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newLegends });
   }
 
   return (
     <>
-      <div className={`bg-white h-[calc(100vh-130px)] w-[270px] min-w-[270px] overflow-auto`}>
+      <div className={`bg-white h-[calc(100vh-110px)] w-[270px] min-w-[270px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
@@ -106,15 +99,230 @@ const Sidebar = () => {
             <hr className="my-0" />
             <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-xl h-5'>Main Menu</p>
+              <p className='text-l font-bold h-4'>Map Settings</p>
             </div>
-            <hr className="my-2" />
+            {/* <hr className="my-2" /> */}
             <div>
 
               <ul className="relative px-3">
                 <li><p></p></li>
+                
+                <hr className="my-2" />
                 <li className="relative">
-                  <span className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
+                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
+                    hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
+                  </a>
+                </li>
+
+                {/* TOGGLE SHOW DHS INDICATORS */}
+                
+                <li className="relative">
+                  <a className="flex items-center text-sm py-6 px-2 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                    onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
+                  >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
+                  </a>
+                </li>
+                <ul>
+                  <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    onClick={() => dispatch({ type: "TOGGLE_VULNERABILITY", payload: {} })}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                    <span>{vulnerability == true ? 'Hide Vulnerability' : 'Show Vulnerability'}</span>
+                  </a>
+                  {
+                    vulnerability == true ?
+                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
+                        <li className="relative">
+                          <div className="flex i items-center">
+                            <span className="text-gray-700 px-5 text-sm ml-1">
+                              Categories
+                            </span>
+                          </div>
+                          <div className="px-6">
+
+                          {/* SHOW HIDE VULNERABILITY ITEMS STYLES */}
+                            <DragDropContext onDragEnd={handleOnDragEndCategory}>
+                              <Droppable droppableId="categories">
+                                {(provided) => (
+                                  <ul className="categories" {...provided.droppableProps} ref={provided.innerRef}>
+                                    {categories.map((val, index) => {
+                                      return (
+                                        <Draggable key={val.id} draggableId={val.id.toString()} index={index}>
+                                          {(provided) => (
+                                            <>
+                                              <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                <div className="flex i items-center"
+                                                    onClick={() => {
+                                                      const newItems = [...categories];
+                                                      const newItem = {
+                                                      id: val.id,
+                                                      slug: val.slug,
+                                                      title: val.title,
+                                                      status: !val.status,
+                                                      color: val.color
+                                                      };
+                                                      newItems[index] = newItem;
+                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
+                                                      addRemoveNewLegend(newItem);
+                                                    }}
+                                                  >
+
+                                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
+                                                <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite"
+                                                    aria-describedby="flowbite" type="checkbox"
+                                                    checked={val.status}
+                                                    onChange={(event) => {
+                                                      const newItems = [...categories];
+                                                      const newItem = {
+                                                      id: val.id,
+                                                      slug: val.slug,
+                                                      title: val.title,
+                                                      status: !val.status,
+                                                      color: val.color
+                                                      };
+                                                      newItems[index] = newItem;
+                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
+                                                    }}
+                                                  />
+                                                  <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                                                </div>
+                                              </li>
+                                              <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
+                                            </>
+                                          )}
+                                        </Draggable>
+                                      );
+                                    })}
+                                  </ul>
+                                )}
+                              </Droppable>
+                            </DragDropContext>
+                          </div>
+                        </li>
+                      </ul>
+                      : null
+                  }
+                </li>
+
+                {/* <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+
+                    onClick={() => dispatch({ type: "TOGGLE_DSV_INDICATOR", payload: {} })}
+                  >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    <span>{dsvIndicator == true ? 'Hide DSV Indicators' : 'Show DSV Indicators'}</span>
+                  </a>
+
+                  {
+                    dsvIndicator == true ?
+                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
+                        <li className="relative">
+                          <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                            onClick={() => { onOpenDsvModal() }}
+                          >
+
+
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                            <span>Select Data Column</span>
+                          </a>
+                        </li>
+                      </ul>
+                      : null
+                  }
+
+
+                </li> */}
+
+{/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
+
+
+                {/* <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                  //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
+
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+
+                    <span>Draw Area of Interest</span>
+                  </a>
+                </li> */}
+
+
+{/* removed Statistics BEFORE ITS IMPLEMENTED */}
+
+
+                {/* <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                  //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
+
+                  >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span>Statistics</span>
+                  </a>
+                </li> */}
+              </ul>
+                <li className="relative" id="sidenavSecEx3">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
+                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300
+                    ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false"
+                    aria-controls="collapseSidenavSecEx2"
+                    onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11
+                        0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Socioeconomic Layers</span>
+                    {
+                      socioeconomic.status == true ?
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0
+                            111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
+                            01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                        </svg>
+                        
+                    }
+                  </a>
+                  {socioeconomic.status == true &&
+                  <li className="relative">
+                  <span className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden
                     text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
                     hover:bg-blue-50 transition duration-300 ease-in-out"
                     href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
@@ -157,48 +365,7 @@ const Sidebar = () => {
 
                   </ul>
                 </li>
-                <hr className="my-2" />
-                <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
-                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
-                    hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                    onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                    <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
-                  </a>
-                </li>
-
-                <li className="relative" id="sidenavSecEx3">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
-                    whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300
-                    ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                    data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false"
-                    aria-controls="collapseSidenavSecEx2"
-                    onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round"
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11
-                        0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Socioeconomic Layers</span>
-                    {
-                      socioeconomic.status == true ?
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0
-                            111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                        :
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
-                            01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                        </svg>
-                    }
-                  </a>
+}
                   {/* {socioeconomic.status == true &&
                     <ul className="flex">
                       {
@@ -235,7 +402,9 @@ const Sidebar = () => {
 
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">
+                      
                       {
+                        
                           socioeconomic.status == true && socioeconomic.data.map((val, index) => {
                               return (
                                   <li className="relative" key={index}>
@@ -262,7 +431,8 @@ const Sidebar = () => {
                                                                                             slug: val2.slug,
                                                                                             title: val2.title,
                                                                                             status: !val2.status,
-                                                                                            value: val2.value
+                                                                                            value: val2.value,
+                                                                                            reverse_meaning: val2.reverse_meaning
                                                                                         };
                                                                                         newItems[index]['data'][index2] = newItem;
                                                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -279,7 +449,8 @@ const Sidebar = () => {
                                                                                                   slug: val2.slug,
                                                                                                   title: val2.title,
                                                                                                   status: !val2.status,
-                                                                                                  value: val2.value
+                                                                                                  value: val2.value,
+                                                                                                  reverse_meaning: val2.reverse_meaning
                                                                                               };
                                                                                               newItems[index]['data'][index2] = newItem;
                                                                                               dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -308,7 +479,8 @@ const Sidebar = () => {
                                                                                                                 slug: val2.slug,
                                                                                                                 title: val2.title,
                                                                                                                 status: val2.status,
-                                                                                                                value: event.target.value
+                                                                                                                value: event.target.value,
+                                                                                                                reverse_meaning: val2.reverse_meaning
                                                                                                             };
                                                                                                             dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                         }}
@@ -324,7 +496,8 @@ const Sidebar = () => {
                                                                                                                         slug: val2.slug,
                                                                                                                         title: val2.title,
                                                                                                                         status: val2.status,
-                                                                                                                        value: event.target.value
+                                                                                                                        value: event.target.value,
+                                                                                                                        reverse_meaning: val2.reverse_meaning
                                                                                                                     };
                                                                                                                     dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                                 }}
@@ -360,10 +533,11 @@ const Sidebar = () => {
                     aria-expanded="false" aria-controls="collapseSidenavSecEx3"
                     onClick={() => dispatch({ type: "TOGGLE_GEODATA", payload: {} })}
                   >
+
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>Geodata Layers</span>
+                    <span>High Res. Layers</span>
                     {
                       geodata.status == true ?
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-16" viewBox="0 0 20 20" fill="currentColor">
@@ -504,175 +678,10 @@ const Sidebar = () => {
                   </ul>
                 </li>
               </ul>
-              <hr className="my-2" />
+              
+              {/* <hr className="my-2" /> */}
 
-              <ul>
-                <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                    onClick={() => dispatch({ type: "TOGGLE_VULNERABILITY", payload: {} })}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                    </svg>
-                    <span>{vulnerability == true ? 'Hide Vulnerability' : 'Show Vulnerability'}</span>
-                  </a>
-                  {
-                    vulnerability == true ?
-                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
-                        <li className="relative">
-                          <div className="flex i items-center">
-                            <span className="text-gray-700 px-5 text-sm ml-1">
-                              Categories
-                            </span>
-                          </div>
-                          <div className="px-6">
-
-                          {/* SHOW HIDE VULNERABILITY ITEMS STYLES */}
-                            <DragDropContext onDragEnd={handleOnDragEndCategory}>
-                              <Droppable droppableId="categories">
-                                {(provided) => (
-                                  <ul className="categories" {...provided.droppableProps} ref={provided.innerRef}>
-                                    {categories.map((val, index) => {
-                                      return (
-                                        <Draggable key={val.id} draggableId={val.id.toString()} index={index}>
-                                          {(provided) => (
-                                            <>
-                                              <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <div className="flex i items-center"
-                                                    onClick={() => {
-                                                      const newItems = [...categories];
-                                                      const newItem = {
-                                                      id: val.id,
-                                                      slug: val.slug,
-                                                      title: val.title,
-                                                      status: !val.status,
-                                                      color: val.color
-                                                      };
-                                                      newItems[index] = newItem;
-                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
-                                                      addRemoveNewLegend(newItem);
-                                                    }}
-                                                  >
-
-                                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: val.color}}></div>
-                                                <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite"
-                                                    aria-describedby="flowbite" type="checkbox"
-                                                    checked={val.status}
-                                                    onChange={(event) => {
-                                                      const newItems = [...categories];
-                                                      const newItem = {
-                                                      id: val.id,
-                                                      slug: val.slug,
-                                                      title: val.title,
-                                                      status: !val.status,
-                                                      color: val.color
-                                                      };
-                                                      newItems[index] = newItem;
-                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
-                                                    }}
-                                                  />
-                                                  <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-                                                </div>
-                                              </li>
-                                              <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
-                                            </>
-                                          )}
-                                        </Draggable>
-                                      );
-                                    })}
-                                  </ul>
-                                )}
-                              </Droppable>
-                            </DragDropContext>
-                          </div>
-                        </li>
-                      </ul>
-                      : null
-                  }
-                </li>
-
-                {/* <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-
-                    onClick={() => dispatch({ type: "TOGGLE_DSV_INDICATOR", payload: {} })}
-                  >
-
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    <span>{dsvIndicator == true ? 'Hide DSV Indicators' : 'Show DSV Indicators'}</span>
-                  </a>
-
-                  {
-                    dsvIndicator == true ?
-                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
-                        <li className="relative">
-                          <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                            onClick={() => { onOpenDsvModal() }}
-                          >
-
-
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                            </svg>
-                            <span>Select Data Column</span>
-                          </a>
-                        </li>
-                      </ul>
-                      : null
-                  }
-
-
-                </li> */}
-
-                <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                    onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
-                  >
-
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
-                  </a>
-                </li>
-
-{/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
-                {/* <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                  //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
-
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
-
-                    <span>Draw Area of Interest</span>
-                  </a>
-                </li> */}
-
-
-{/* removed Statistics BEFORE ITS IMPLEMENTED */}
-
-
-                {/* <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                  //  onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
-
-                  >
-
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    <span>Statistics</span>
-                  </a>
-                </li> */}
-              </ul>
+              
 
             </div>
           </div>
@@ -782,7 +791,6 @@ const Sidebar = () => {
                 }
                 else {
                   onCloseDhsModal();
-                  console.log(selectedDhsDataColumn);
                   addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
                 }
               }}

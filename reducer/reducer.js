@@ -29,14 +29,16 @@ export const initalState = {
                         slug: 'se_random_forest',
                         title: 'SV: Random Forest',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: false
                     },
                     {
                         id: 1.2,
                         slug: 'se_xgboost',
                         title: 'SV: XGBoost',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: false
                     },
                 ]
             },
@@ -50,21 +52,24 @@ export const initalState = {
                         slug: 'se_education_facility',
                         title: 'DT: Education Facility',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: false
                     },
                     {
                         id: 2.2,
                         slug: 'se_health_institution',
                         title: 'DT: Health Institution',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: false
                     },
                     {
                         id: 2.3,
                         slug: 'se_financial_service',
                         title: 'DT: Financial Service',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: false
                     },
                 ]
             },
@@ -78,35 +83,40 @@ export const initalState = {
                         slug: 'se_population_counts',
                         title: 'Population Counts',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 3.2,
                         slug: 'se_celltowers',
                         title: 'Celltowers',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 3.3,
                         slug: 'se_nightlight_intensity',
                         title: 'Nightlight Intensity',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 3.4,
                         slug: 'se_relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 3.5,
                         slug: 'se_GDP',
                         title: 'GDP',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     }
                 ]
             },
@@ -120,50 +130,35 @@ export const initalState = {
                         slug: 'se_plant_health',
                         title: 'Plant Health',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 4.2,
                         slug: 'se_temperature_max',
                         title: 'Temperature (Max)',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 4.3,
                         slug: 'se_land_use_class',
                         title: 'Land Use Class',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: true
                     },
                     {
                         id: 4.4,
                         slug: 'se_elevation',
                         title: 'Elevation',
                         status: false,
-                        value: 70
+                        value: 70,
+                        reverse_meaning: false
                     }
                 ]
             }
-                // {
-                //     id: 7,
-                //     slug: 'educational_facilities',
-                //     title: 'Educational Facilities',
-                //     status: false,
-                //     value: 70,
-                //     priority:7,
-                //     "legend":[
-                //         {
-                //             status:true,
-                //             position:'topbar',
-                //             title:"Educational Facilities",
-                //             description:"Hover on map tile to see more data"
-                //         },
-                //         {
-                //             status:false
-                //         }
-                //     ]
-                // },
         ],
         "data_column": "_mean"
     },
