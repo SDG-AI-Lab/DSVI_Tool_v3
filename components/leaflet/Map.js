@@ -78,7 +78,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   // This column decides which data column of the geojson we use: in this case: _mean.
   // To be found in reducer.js
-  
+
   const socioeconomic_data_column = state['socioeconomic']['data_column'];
   const activeLegends = state['activeLegends'];
   const dhsIndicator = state["dhs_indicator"];
