@@ -190,6 +190,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   const NormalizeData = (number, maxNumber, minNumber, layerObject) => {
     const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
+    console.log("number:", number)
+    console.log("minNumber:", minNumber)
+    console.log("maxNumber:", maxNumber)
+    console.log("polygonvalue:", val)
     return mapPolygonColorToDensity(val, layerObject);
   };
 
@@ -255,7 +259,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
     ];
 
-    const fillColor = NormalizeData(library.properties[socioeconomic_data_column], _max, _min, layerObject);
+    const fillColor = NormalizeData(library.properties[socioeconomic_data_column], Math.max(library.properties[socioeconomic_data_column]), Math.min(library.properties[socioeconomic_data_column]), layerObject);
+    console.log(library)
     // console.log("FillColor:",fillColor);
     const hovercolor = 'rgb(255, 255, 255, .8)';
     const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - _min) / (_max - _min));
