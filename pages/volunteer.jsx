@@ -6,11 +6,12 @@ import Image from "next/image";
 const data=[
   {
     id:1,
-    name: "Name Name",
-    image:"https://via.placeholder.com/250",
-    motivation: "Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation",
-    Bio: "Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio",
-    Linkedin: "https://www.linkedin.com"
+    name: "Andrei Prokorov",
+    image:"./images/Photo_Andrei_Prokhorov.jpg",
+    motivation: 
+    "I hope that my work in the UNDP is a small contribution to improving the quality of life of people, in difficult life circumstances.",
+    Bio: "Software engineer, with 3+ years of experience. Completed Master's degree in Aircraft Flight Operation in 2012. ",
+    Linkedin: "https://www.linkedin.com/in/andrei-prokhorov-2b5303213"
   },
   {
     id:2,

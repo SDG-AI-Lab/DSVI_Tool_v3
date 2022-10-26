@@ -91,7 +91,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`bg-white h-[calc(100vh-110px)] w-[270px] min-w-[270px] overflow-auto`}>
+      <div className={`resize-x bg-white h-[calc(100vh-110px)] w-[330px] min-w-[100px] max-w-[500px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
