@@ -77,7 +77,7 @@ const GeoLegend = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState(null);
 
-  let url = `http://129.151.248.181:8080/geoserver/sdg-ai-lab/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${props.layer}`;
+  let url = `https://www.sdglab.ml/geoserver/sdg-ai-lab/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${props.layer}`;
   
   // Note: the empty deps array [] means
   // this useEffect will run once
