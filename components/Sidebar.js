@@ -91,7 +91,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className={`bg-white h-[calc(100vh-130px)] w-[270px] min-w-[270px] overflow-auto`}>
+      <div className={`resize-x bg-white h-[calc(100vh-110px)] w-[330px] min-w-[100px] max-w-[500px] overflow-auto`}>
 
         <div id="sidenavSecExample">
           <div>
@@ -99,7 +99,7 @@ const Sidebar = () => {
             <hr className="my-0" />
             <div>
             <div className='flex items-center justify-center h-8'>
-              <p className='text-xl h-5'>Main Menu</p>
+              <p className='text-l font-bold h-4'>Map Settings</p>
             </div>
             {/* <hr className="my-2" /> */}
             <div>
@@ -121,20 +121,9 @@ const Sidebar = () => {
                   </a>
                 </li>
 
-                {/* TOGGLE SHOW DHS INDICATORS */}
+                {/* TOGGLE VULNERABILITY POINTS */}
                 
-                <li className="relative">
-                  <a className="flex items-center text-sm py-6 px-2 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
-                    onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
-                  >
-
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
-                  </a>
-                </li>
                 <ul>
                   <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
@@ -219,7 +208,18 @@ const Sidebar = () => {
                       : null
                   }
                 </li>
+                {/* <li className="relative">
+                  <a className="flex items-center text-sm py-6 px-2 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
+                    onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
+                  >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
+                  </a>
+                </li> */}
                 {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 

@@ -4,7 +4,7 @@ export const initalState = {
     "show_infoBox_data": false,
     "show_sidebar":true,
     "level":1,
-    "show_area_of_interest": false,
+    "show_area_of_interest": true,
     "activeLegends": [{
         id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: true
     }, {
