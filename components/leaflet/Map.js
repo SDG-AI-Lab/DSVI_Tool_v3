@@ -188,14 +188,15 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
    const {status: cats_very_high_status} = cats_very_high;
    /*Categories. END*/
 
-  const NormalizeData = (number, maxNumber, minNumber, layerObject) => {
-    const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
-    console.log("number:", number)
-    console.log("minNumber:", minNumber)
-    console.log("maxNumber:", maxNumber)
-    console.log("polygonvalue:", val)
-    return mapPolygonColorToDensity(val, layerObject);
-  };
+  /* !! Moved on 263 line !!  */
+  // const getNormalizeData = (number, maxNumber, minNumber, layerObject) => {
+  //   const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
+  //   console.log("number:", number)
+  //   console.log("minNumber:", minNumber)
+  //   console.log("maxNumber:", maxNumber)
+  //   console.log("polygonvalue:", val)
+  //   return mapPolygonColorToDensity(val, layerObject);
+  // };
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
   const mapPolygonColorToDensity = ((normalizeData, layerObject) => {
@@ -206,7 +207,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         case normalizeData > 0.6:  return '#ff962c'; // ORANGE
         case normalizeData > 0.4: return '#FFDE2C'; // YELLOW
         case normalizeData > 0.2:  return '#00800A'; // GREEN
-        case normalizeData > 0: return '#0c58ca'; // BLUE
+        case normalizeData >= 0: return '#0c58ca'; // BLUE
         default: return '#FFFFFF'; // WHITE
       }
     } else {
@@ -215,7 +216,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         case normalizeData > 0.6:  return '#00800A'; // GREEN
         case normalizeData > 0.4: return '#FFDE2C'; // YELLOW
         case normalizeData > 0.2:  return '#ff962c'; // ORANGE
-        case normalizeData > 0: return '#FF362C'; // RED
+        case normalizeData >= 0: return '#FF362C'; // RED
         default: return '#FFFFFF'; // WHITE
       }
     }
@@ -235,7 +236,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     )
   };
 
-  const newProjection = (library, index, layerObject) => {
+  const newProjection = (library, index, minMeanNumber, maxMeanNumber, layerObject) => {
+
     const {NAME, NAME_1, NAME_2, _mean, _count, _stdev, _max, _min, _sum, _avg } = library.properties;
     const {} = library.name;
     const data = [
@@ -258,12 +260,15 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         "value": _mean
       }
     ];
+    const normalizeDataValue = Math.abs((_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber));;
+    const fillColor = mapPolygonColorToDensity(normalizeDataValue, layerObject);
+    console.log('_mean', _mean);
+    console.log('minMeanNumber', minMeanNumber);
+    console.log('maxMeanNumber', maxMeanNumber);
+    console.log('normalizeDataValue', normalizeDataValue);
+    console.log('fillColor', fillColor);
 
-    const fillColor = NormalizeData(library.properties[socioeconomic_data_column], Math.max(library.properties[socioeconomic_data_column]), Math.min(library.properties[socioeconomic_data_column]), layerObject);
-    console.log(library)
-    // console.log("FillColor:",fillColor);
     const hovercolor = 'rgb(255, 255, 255, .8)';
-    const normalizeDataValue = Math.abs((library.properties[socioeconomic_data_column] - _min) / (_max - _min));
     return (
         <CustomPolygon
             key={index}
@@ -275,6 +280,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             tooltipOffset={[20, 0]}
             tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
             normalizeDataValue={normalizeDataValue.toFixed(2)}
+            _mean={_mean}
+            minMeanNumber={minMeanNumber}
+            maxMeanNumber={maxMeanNumber}
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
             tooltipName_3={library.properties.NAME_2}
@@ -491,7 +499,13 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {/*Elevation*/}
         {se_elevation_status && level === 1 && se_elevation_1.features.map((library, index) => {
-          return newProjection(library, index, se_elevation)
+
+          const onlyAllMeanNumbers = se_elevation_1.features.map(object => object.properties._mean);
+          console.log('onlyAllMeanNumbers');
+          console.log(onlyAllMeanNumbers);
+          const minMeanNumber = Math.min(...onlyAllMeanNumbers);
+          const maxMeanNumber = Math.max(...onlyAllMeanNumbers);
+          return newProjection(library, index, minMeanNumber, maxMeanNumber, se_elevation);
         })}
         {se_elevation_status && level === 2 && se_elevation_2.features.map((library, index) => {
           return newProjection(library, index, se_elevation)

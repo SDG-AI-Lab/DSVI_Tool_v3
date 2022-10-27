@@ -34,7 +34,10 @@ const CustomPolygon = (props) => {
         data,
         legendTitle,
         legendDescription,
-        normalizeDataValue
+        normalizeDataValue,
+        _mean,
+        minMeanNumber,
+        maxMeanNumber
     } = props;
 
 
@@ -70,7 +73,8 @@ const CustomPolygon = (props) => {
                 <>
                     <CustomTooltip direction={tooltipDirection} offset={tooltipOffset} count={tooltipCount}
                         bgcolor={tooltipBgcolor} textcolor={tooltipTextColor} tooltipName_1={tooltipName_1}
-                        tooltipName_2={tooltipName_2} tooltipName_3={tooltipName_3} normalizeDataValue={normalizeDataValue}
+                        tooltipName_2={tooltipName_2} tooltipName_3={tooltipName_3} normalizeDataValue={normalizeDataValue} 
+                        _mean={_mean} minMeanNumber={minMeanNumber} maxMeanNumber={maxMeanNumber} 
                     />
                     <CustomPopup maxWidth={popupMaxWidth} maxHeight={popupMaxHeight}
                         bgcolor={popupBgColor}
