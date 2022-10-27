@@ -2,7 +2,6 @@ import {useRouter} from 'next/router';
 import linkedin from '/public/images/linkedin.png'
 import Image from "next/image";
 
-
 const data=[
   {
     id:1,
