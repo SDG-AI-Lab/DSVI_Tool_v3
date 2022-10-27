@@ -286,9 +286,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             tooltipOffset={[20, 0]}
             tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
             normalizeDataValue={normalizeDataValue.toFixed(2)}
-            _mean={_mean}
-            minMeanNumber={minMeanNumber}
-            maxMeanNumber={maxMeanNumber}
+            _mean={_mean.toFixed(2)}
+            minMeanNumber={minMeanNumber.toFixed(2)}
+            maxMeanNumber={maxMeanNumber.toFixed(2)}
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
             tooltipName_3={library.properties.NAME_2}

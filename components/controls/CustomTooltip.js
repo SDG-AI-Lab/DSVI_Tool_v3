@@ -18,15 +18,15 @@ const CustomTooltip=(props)=>{
                 <br/>
                 {/* {tooltipName_3 == null ? 'Jamoats: no data' : `${'Jamoats: '} ${tooltipName_3}`} */}
                 {/* <br/> */}
-                {count == null ? 'Count: No data' : `${'Count: '} ${count}`}
+                {/* {count == null ? 'Count: No data' : `${'Count: '} ${count}`} */}
                 <br/>
-                {normalizeDataValue == null ? 'NormalizeDataValue: No data' : `${'NormalizeDataValue: '} ${normalizeDataValue}`}
+                {normalizeDataValue == null ? 'Value: No data' : `${'Value: '} ${normalizeDataValue}`}
                 <br/>
-                {_mean == null ? '_mean: No data' : `${'_mean: '} ${_mean}`}
+                {/* {_mean == null ? '_mean: No data' : `${'_mean: '} ${_mean}`}
                 <br/>
-                {minMeanNumber == null ? 'minMeanNumber: No data' : `${'minMeanNumber: '} ${minMeanNumber}`}
+                {minMeanNumber == null ? 'Min: No data' : `${'minMeanNumber: '} ${minMeanNumber}`}
                 <br/>
-                {maxMeanNumber == null ? 'maxMeanNumber: No data' : `${'maxMeanNumber: '} ${maxMeanNumber}`}
+                {maxMeanNumber == null ? 'Max: No data' : `${'maxMeanNumber: '} ${maxMeanNumber}`} */}
             </p>
         </Tooltip>
     );
