@@ -203,16 +203,16 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     console.log(layerObject);
     if (!layerObject.reverse_meaning) {
       switch (true) {
-        case normalizeData > 0.8 & normalizeData <= 1: return '#FF362C'; // RED 
-        case normalizeData > 0.6:  return '#ff962c'; // ORANGE
-        case normalizeData > 0.4: return '#FFDE2C'; // YELLOW
-        case normalizeData > 0.2:  return '#00800A'; // GREEN
-        case normalizeData >= 0: return '#0c58ca'; // BLUE
+        case normalizeData > 0.8 && normalizeData <= 1: return '#FF362C'; // RED 
+        case normalizeData > 0.6 :  return '#ff962c'; // ORANGE
+        case normalizeData > 0.4 : return '#FFDE2C'; // YELLOW
+        case normalizeData > 0.2 :  return '#00800A'; // GREEN
+        case normalizeData >= 0 : return '#0c58ca'; // BLUE
         default: return '#FFFFFF'; // WHITE
       }
     } else {
       switch (true) {
-        case normalizeData > 0.8 & normalizeData <= 1: return '#0c58ca'; // BLUE
+        case normalizeData > 0.8 && normalizeData <= 1: return '#0c58ca'; // BLUE
         case normalizeData > 0.6:  return '#00800A'; // GREEN
         case normalizeData > 0.4: return '#FFDE2C'; // YELLOW
         case normalizeData > 0.2:  return '#ff962c'; // ORANGE
@@ -268,6 +268,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
     const normalizeDataValue = Math.abs((_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber));;
     const fillColor = mapPolygonColorToDensity(normalizeDataValue, layerObject);
+    console.log('NAME_1', NAME_1);
     console.log('_mean', _mean);
     console.log('minMeanNumber', minMeanNumber);
     console.log('maxMeanNumber', maxMeanNumber);
