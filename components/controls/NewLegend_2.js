@@ -14,27 +14,27 @@ const SE_Legend = (props) => {
         <tbody>
           <tr>
             <td className='bg-[#FF362C] w-5 h-5'></td>
-            <td className='pl-1'>0.9+</td>
+            <td className='pl-1'>0.8+</td>
             <td className='pl-1'>Very High</td>
           </tr>
           <tr>
             <td className='bg-[#ff962c] w-5 h-5'></td>
-            <td className='pl-1'>0.7 - 0.9</td>
+            <td className='pl-1'>0.6 - 0.8</td>
             <td className='pl-1'>High</td>
           </tr>
           <tr>
             <td className='bg-[#FFDE2C] w-5 h-5'></td>
-            <td className='pl-1'>0.55 - 0.7</td>
+            <td className='pl-1'>0.4 - 0.6</td>
             <td className='pl-1'>Middle</td>
           </tr>
           <tr>
             <td className='bg-[#00800A] w-5 h-5'></td>
-            <td className='pl-1'>0.25 - 0.55</td>
+            <td className='pl-1'>0.2 - 0.4</td>
             <td className='pl-1'>Low</td>
           </tr>
           <tr>
             <td className='bg-[#0c58ca] w-5 h-5'></td>
-            <td className='pl-1'>0 - 0.25</td>
+            <td className='pl-1'>0 - 0.2</td>
             <td className='pl-1'>Very Low</td>
           </tr>
         </tbody>
@@ -42,27 +42,27 @@ const SE_Legend = (props) => {
         <tbody>
           <tr>
             <td className='bg-[#0c58ca] w-5 h-5'></td>
-            <td className='pl-1'>0.9+</td>
+            <td className='pl-1'>0.8+</td>
             <td className='pl-1'>Very High</td>
           </tr>
           <tr>
             <td className='bg-[#00800A] w-5 h-5'></td>
-            <td className='pl-1'>0.7 - 0.9</td>
+            <td className='pl-1'>0.6 - 0.8</td>
             <td className='pl-1'>High</td>
           </tr>
           <tr>
             <td className='bg-[#FFDE2C] w-5 h-5'></td>
-            <td className='pl-1'>0.55 - 0.7</td>
+            <td className='pl-1'>0.4 - 0.6</td>
             <td className='pl-1'>Middle</td>
           </tr>
           <tr>
             <td className='bg-[#ff962c] w-5 h-5'></td>
-            <td className='pl-1'>0.25 - 0.55</td>
+            <td className='pl-1'>0.2 - 0.4</td>
             <td className='pl-1'>Low</td>
           </tr>
           <tr>
             <td className='bg-[#FF362C] w-5 h-5'></td>
-            <td className='pl-1'>0 - 0.25</td>
+            <td className='pl-1'>0 - 0.2</td>
             <td className='pl-1'>Very Low</td>
           </tr>
         </tbody>
