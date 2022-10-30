@@ -207,76 +207,66 @@ const Sidebar = () => {
                       </ul>
                       : null
                   }
-                </li>
-                {/* <li className="relative">
-                  <a className="flex items-center text-sm py-6 px-2 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  </li>
+                  {/* <li className="relative">
+                    <a className="flex items-center text-sm py-6 px-2 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
-                    onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
-                  >
+                      onClick={() => dispatch({ type: "TOGGLE_DHS_INDICATOR", payload: {} })}
+                    >
 
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
-                  </a>
-                </li> */}
-                {/* <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-
-                    onClick={() => dispatch({ type: "TOGGLE_DSV_INDICATOR", payload: {} })}
-                  >
-
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    <span>{dsvIndicator == true ? 'Hide DSV Indicators' : 'Show DSV Indicators'}</span>
-                  </a>
-
-                  {
-                    dsvIndicator == true ?
-                      <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
-                        <li className="relative">
-                          <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                            onClick={() => { onOpenDsvModal() }}
-                          >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                      </svg>
+                      {dhsIndicator == true ? <span>Hide DHS Indicators</span> : <span onClick={() => { onOpenDhsModal() }}>Show DHS Indicators</span>}
+                    </a>
+                  </li> */}
+                  {/* <li className="relative">
+                    <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
 
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                            </svg>
-                            <span>Select Data Column</span>
-                          </a>
-                        </li>
-                      </ul>
-                      : null
-                  }
+                      onClick={() => dispatch({ type: "TOGGLE_DSV_INDICATOR", payload: {} })}
+                    >
+
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                      </svg>
+                      <span>{dsvIndicator == true ? 'Hide DSV Indicators' : 'Show DSV Indicators'}</span>
+                    </a>
+
+                    {
+                      dsvIndicator == true ?
+                        <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx2" aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
+                          <li className="relative">
+                            <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+
+                              onClick={() => { onOpenDsvModal() }}
+                            >
 
 
-                </li> */}
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                              </svg>
+                              <span>Select Data Column</span>
+                            </a>
+                          </li>
+                        </ul>
+                        : null
+                    }
+                  </li> */}
+                  {/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
 
-{/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
+                  {/* <li className="relative">       
+                    <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                      <span>Draw Area of Interest</span>
+                    </a>
+                  </li> */}
 
-
-                {/* <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-
-                  //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
-
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
-
-                    <span>Draw Area of Interest</span>
-                  </a>
-                </li> */}
-
-
-{/* removed Statistics BEFORE ITS IMPLEMENTED */}
-
-
+                {/* removed Statistics BEFORE ITS IMPLEMENTED */} 
                 {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
@@ -290,7 +280,7 @@ const Sidebar = () => {
                     <span>Statistics</span>
                   </a>
                 </li> */}
-              </ul>
+                </ul>
                 <li className="relative" id="sidenavSecEx3">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300
@@ -316,55 +306,52 @@ const Sidebar = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
                             01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                        </svg>
-                        
+                        </svg>  
                     }
                   </a>
                   {socioeconomic.status == true &&
-                  <li className="relative">
-                  <span className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden
-                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
-                    hover:bg-blue-50 transition duration-300 ease-in-out"
-                    href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
-                    </svg>
-                    <span>Select administrative level</span>
-                  </span>
-
-                  <ul className="flex">
-                    {
-                      [{
-                        slug: 1,
-                        title: 'One'
-                      },
-                      {
-                        slug: 2,
-                        title: 'Two'
-                      },
-                      {
-                        slug: 3,
-                        title: 'Three'
-                      }].map((val, index) => {
-                        return (
-                          <div key={index}>
-                            <div className="flex" onClick={() => { dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } }) }}>
-                              <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
-                                checked={val.slug == level ? true : false}
-                                onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
-                              />
-                              <a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-                            </div>
-                            <div className="text-gray-700">
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
-
-                  </ul>
-                </li>
+                    <div className="relative">
+                      <span className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden
+                        text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
+                        hover:bg-blue-50 transition duration-300 ease-in-out"
+                        href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                        <span>Select administrative level</span>
+                      </span>
+                      <ul className="flex">
+                        {
+                          [{
+                            slug: 1,
+                            title: 'One'
+                          },
+                          {
+                            slug: 2,
+                            title: 'Two'
+                          },
+                          {
+                            slug: 3,
+                            title: 'Three'
+                          }].map((val, index) => {
+                            return (
+                              <div key={index}>
+                                <div className="flex" onClick={() => { dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } }) }}>
+                                  <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
+                                    checked={val.slug == level ? true : false}
+                                    onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
+                                  />
+                                  <a href="#!" className="flex items-center text-xs  pl-2  h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                                </div>
+                                <div className="text-gray-700">
+                                </div>
+                              </div>
+                            )
+                          })
+                        }
+                      </ul>
+                    </div>
 }
                   {/* {socioeconomic.status == true &&
                     <ul className="flex">
@@ -396,16 +383,12 @@ const Sidebar = () => {
                           )
                         })
                       }
-
                     </ul>
                     } */}
 
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
-                    data-bs-parent="#sidenavSecExample">
-                      
-                      {
-                        
-                          socioeconomic.status == true && socioeconomic.data.map((val, index) => {
+                    data-bs-parent="#sidenavSecExample">              
+                      {socioeconomic.status == true && socioeconomic.data.map((val, index) => {
                               return (
                                   <li className="relative" key={index}>
                                       <a href="#!" className=" mt-3 flex font-bold items-center text-xs py-4 pl-12 pr-6 h-6
