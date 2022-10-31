@@ -30,7 +30,8 @@ export const initalState = {
                         title: 'SV: Random Forest',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: ''
                     },
                     {
                         id: 1.2,
@@ -38,7 +39,8 @@ export const initalState = {
                         title: 'SV: XGBoost',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: ''
                     },
                 ]
             },
@@ -53,7 +55,8 @@ export const initalState = {
                         title: 'DT: Education Facility',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: ''
                     },
                     {
                         id: 2.2,
@@ -61,7 +64,8 @@ export const initalState = {
                         title: 'DT: Health Institution',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: ''
                     },
                     {
                         id: 2.3,
@@ -69,7 +73,8 @@ export const initalState = {
                         title: 'DT: Financial Service',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: ''
                     },
                 ]
             },
@@ -84,7 +89,8 @@ export const initalState = {
                         title: 'Population Counts',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'person/km²'
                     },
                     {
                         id: 3.2,
@@ -92,7 +98,8 @@ export const initalState = {
                         title: 'Celltowers',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: ''
                     },
                     {
                         id: 3.3,
@@ -100,7 +107,8 @@ export const initalState = {
                         title: 'Nightlight Intensity',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'w/m²'
                     },
                     {
                         id: 3.4,
@@ -108,7 +116,8 @@ export const initalState = {
                         title: 'Relative Wealth',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: ''
                     },
                     {
                         id: 3.5,
@@ -116,7 +125,8 @@ export const initalState = {
                         title: 'GDP',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'USD/km²'
                     }
                 ]
             },
@@ -131,7 +141,8 @@ export const initalState = {
                         title: 'Plant Health',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'NDVI score'
                     },
                     {
                         id: 4.2,
@@ -139,7 +150,8 @@ export const initalState = {
                         title: 'Temperature (Max)',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: ''
                     },
                     {
                         id: 4.3,
@@ -147,7 +159,8 @@ export const initalState = {
                         title: 'Land Use Class',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: ''
                     },
                     {
                         id: 4.4,
@@ -155,7 +168,8 @@ export const initalState = {
                         title: 'Elevation',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: ''
                     }
                 ]
             }
