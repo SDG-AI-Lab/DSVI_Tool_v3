@@ -16,7 +16,7 @@ const CustomTooltip=(props)=>{
                 <br/>
                 {tooltipName_2 == null ? 'District: no data' : `District: ${tooltipName_2}`}
                 <br/>
-                {normalizeDataValue == null ? 'Value: no data' : `Value: ${normalizeDataValue} ${units}`}
+                {_mean == null ? 'Value: no data' : `Value: ${_mean} ${units}`}
                 <br/>
             </p>
         </Tooltip>

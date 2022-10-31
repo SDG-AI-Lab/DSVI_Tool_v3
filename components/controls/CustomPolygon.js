@@ -77,7 +77,7 @@ const CustomPolygon = (props) => {
                     />
                     <CustomPopup maxWidth={popupMaxWidth} maxHeight={popupMaxHeight} bgcolor={popupBgColor} 
                         textcolor={popupTextColor} data={data} tooltipName_1={tooltipName_1} tooltipName_2={tooltipName_2}
-                        normalizeDataValue={normalizeDataValue} units={units}
+                        normalizeDataValue={normalizeDataValue} _mean={_mean} units={units}
                     />
                 </>
             }
