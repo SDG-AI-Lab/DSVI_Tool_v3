@@ -80,32 +80,33 @@ const ControlMenu = (props) => {
     </Control>}
     <MapControls position={position} />
     {
-      <div style={{ height: "100%", width: "100%" }}>
-        <Rnd
-          minWidth={442}
-          minHeight={360}
-          bounds="parent"
-          className="info-box"
-          style={{ display: "none", bottom: '100px', left: '-250px', top: "auto", right: "auto" }}
-        >
-          <button className="button-infoBox" onClick={() => {
-            Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
-            dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
-          }}>X</button>
-          <Tabs />
-          <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => setDropdownValue(e.value)} value={dropdownValue} placeholder="Select an option" />
-          <div className='max-w-md px-4 mt-5'>
-            <h2 className='font-bold'>Social Vulnerability Platform</h2>
-            <p className='my-3'>This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan.</p>
-          </div>
-        </Rnd>
-      </div>
-
+      // <div clasName="map-for-infoBox" style={{ height: "100%", width: "100%", position: "fixed", zIndex: "1000"}}>
+        
+      // </div>
+      <Rnd
+      minWidth={442}
+      minHeight={360}
+      bounds="parent"
+      className="info-box"
+      style={{ display: "none", bottom: '100px', left: '-250px', top: "auto", right: "auto", position: "absolute" }}
+      >
+        <button className="button-infoBox" onClick={() => {
+          Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
+          dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
+        }}>X</button>
+        <Tabs />
+        <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => setDropdownValue(e.value)} value={dropdownValue} placeholder="Select an option" />
+        <div className='max-w-md px-4 mt-5'>
+          <h2 className='font-bold'>Social Vulnerability Platform</h2>
+          <p className='my-3'>This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan.</p>
+        </div>
+      </Rnd>
     }
 
   </>
   )
 }
+
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
   return (
