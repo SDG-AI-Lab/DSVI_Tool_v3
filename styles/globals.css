@@ -79,7 +79,6 @@
 
 /* infoBox modal css */
 .info-box {
-    /* display: none; */
     position: absolute;
     z-index: 1000 !important;
     background-color: white;
@@ -103,9 +102,7 @@
     padding-right: 10px;
 }
 
-
 /* twitter bootstrap css style for card */
-
 .container,
 .container-fluid,
 .container-xxl,
