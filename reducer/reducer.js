@@ -30,7 +30,9 @@ export const initalState = {
                         title: 'SV: Random Forest',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: '',
+                        json_library:'rf'
                     },
                     {
                         id: 1.2,
@@ -38,7 +40,9 @@ export const initalState = {
                         title: 'SV: XGBoost',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: '',
+                        json_library:'XGBoost'
                     },
                 ]
             },
@@ -53,7 +57,9 @@ export const initalState = {
                         title: 'DT: Education Facility',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: '',
+                        json_library:'edu'
                     },
                     {
                         id: 2.2,
@@ -61,7 +67,9 @@ export const initalState = {
                         title: 'DT: Health Institution',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: '',
+                        json_library:'health'
                     },
                     {
                         id: 2.3,
@@ -69,7 +77,9 @@ export const initalState = {
                         title: 'DT: Financial Service',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: '',
+                        json_library:'finan'
                     },
                 ]
             },
@@ -84,7 +94,9 @@ export const initalState = {
                         title: 'Population Counts',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'person/km²',
+                        json_library:'ppp_pop'
                     },
                     {
                         id: 3.2,
@@ -92,7 +104,9 @@ export const initalState = {
                         title: 'Celltowers',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: '',
+                        json_library:'cellt'
                     },
                     {
                         id: 3.3,
@@ -100,7 +114,9 @@ export const initalState = {
                         title: 'Nightlight Intensity',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'w/m²',
+                        json_library:'ntl_vnl_npp_2016'
                     },
                     {
                         id: 3.4,
@@ -108,7 +124,9 @@ export const initalState = {
                         title: 'Relative Wealth',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: '',
+                        json_library:'rwi'
                     },
                     {
                         id: 3.5,
@@ -116,7 +134,9 @@ export const initalState = {
                         title: 'GDP',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'USD/km²',
+                        json_library:'gdp_2015'
                     }
                 ]
             },
@@ -131,7 +151,9 @@ export const initalState = {
                         title: 'Plant Health',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: 'NDVI score',
+                        json_library:'ndvi'
                     },
                     {
                         id: 4.2,
@@ -139,7 +161,9 @@ export const initalState = {
                         title: 'Temperature (Max)',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: '',
+                        json_library:'temp'
                     },
                     {
                         id: 4.3,
@@ -147,7 +171,9 @@ export const initalState = {
                         title: 'Land Use Class',
                         status: false,
                         value: 70,
-                        reverse_meaning: true
+                        reverse_meaning: true,
+                        units: '',
+                        json_library:'lu'
                     },
                     {
                         id: 4.4,
@@ -155,7 +181,9 @@ export const initalState = {
                         title: 'Elevation',
                         status: false,
                         value: 70,
-                        reverse_meaning: false
+                        reverse_meaning: false,
+                        units: '',
+                        json_library:'dem'
                     }
                 ]
             }
