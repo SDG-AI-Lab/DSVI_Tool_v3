@@ -79,14 +79,15 @@
 
 /* infoBox modal css */
 .info-box {
-    position: absolute;
-    z-index: 1000 !important;
-    background-color: white;
-    opacity: 0.9;
-    border-radius: 15px;
-    padding: 2rem 0;
-    overflow-y: hidden;
-    overflow-x: hidden;
+  position: absolute;
+  z-index: 1000 !important;
+  background-color: white;
+  opacity: 0.9;
+  border-radius: 15px;
+  padding: 2rem 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+    
 }
 .button-infoBox {
     color: black;
