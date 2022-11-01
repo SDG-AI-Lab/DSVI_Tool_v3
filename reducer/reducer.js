@@ -31,7 +31,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: ''
+                        units: '',
+                        json_library:'rf'
                     },
                     {
                         id: 1.2,
@@ -40,7 +41,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: ''
+                        units: '',
+                        json_library:'XGBoost'
                     },
                 ]
             },
@@ -56,7 +58,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: ''
+                        units: '',
+                        json_library:'edu'
                     },
                     {
                         id: 2.2,
@@ -65,7 +68,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: ''
+                        units: '',
+                        json_library:'health'
                     },
                     {
                         id: 2.3,
@@ -74,7 +78,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: ''
+                        units: '',
+                        json_library:'finan'
                     },
                 ]
             },
@@ -90,7 +95,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'person/km²'
+                        units: 'person/km²',
+                        json_library:'ppp_pop'
                     },
                     {
                         id: 3.2,
@@ -99,7 +105,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: ''
+                        units: '',
+                        json_library:'cellt'
                     },
                     {
                         id: 3.3,
@@ -108,7 +115,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'w/m²'
+                        units: 'w/m²',
+                        json_library:'ntl_vnl_npp_2016'
                     },
                     {
                         id: 3.4,
@@ -117,7 +125,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: ''
+                        units: '',
+                        json_library:'rwi'
                     },
                     {
                         id: 3.5,
@@ -126,7 +135,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'USD/km²'
+                        units: 'USD/km²',
+                        json_library:'gdp_2015'
                     }
                 ]
             },
@@ -142,7 +152,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'NDVI score'
+                        units: 'NDVI score',
+                        json_library:'ndvi'
                     },
                     {
                         id: 4.2,
@@ -151,7 +162,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: ''
+                        units: '',
+                        json_library:'temp'
                     },
                     {
                         id: 4.3,
@@ -160,7 +172,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: ''
+                        units: '',
+                        json_library:'lu'
                     },
                     {
                         id: 4.4,
@@ -169,7 +182,8 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: ''
+                        units: '',
+                        json_library:'dem'
                     }
                 ]
             }

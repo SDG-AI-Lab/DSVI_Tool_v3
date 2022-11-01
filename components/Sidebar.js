@@ -416,7 +416,8 @@ const Sidebar = () => {
                                                                                             status: !val2.status,
                                                                                             value: val2.value,
                                                                                             reverse_meaning: val2.reverse_meaning,
-                                                                                            units: val2.units
+                                                                                            units: val2.units,
+                                                                                            json_library: val2.json_library
                                                                                         };
                                                                                         newItems[index]['data'][index2] = newItem;
                                                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -435,7 +436,8 @@ const Sidebar = () => {
                                                                                                   status: !val2.status,
                                                                                                   value: val2.value,
                                                                                                   reverse_meaning: val2.reverse_meaning,
-                                                                                                  units: val2.units
+                                                                                                  units: val2.units,
+                                                                                                  json_library: val2.json_library
                                                                                               };
                                                                                               newItems[index]['data'][index2] = newItem;
                                                                                               dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -466,7 +468,8 @@ const Sidebar = () => {
                                                                                                                 status: val2.status,
                                                                                                                 value: event.target.value,
                                                                                                                 reverse_meaning: val2.reverse_meaning,
-                                                                                                                units: val2.units
+                                                                                                                units: val2.units,
+                                                                                                                json_library: val2.json_library
                                                                                                             };
                                                                                                             dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                         }}
@@ -484,7 +487,8 @@ const Sidebar = () => {
                                                                                                                         status: val2.status,
                                                                                                                         value: event.target.value,
                                                                                                                         reverse_meaning: val2.reverse_meaning,
-                                                                                                                        units: val2.units
+                                                                                                                        units: val2.units,
+                                                                                                                        json_library: val2.json_library
                                                                                                                     };
                                                                                                                     dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                                 }}
