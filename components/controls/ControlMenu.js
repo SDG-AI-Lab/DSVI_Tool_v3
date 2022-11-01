@@ -1,38 +1,66 @@
 import { useContext, useState } from 'react';
 import Control from 'react-leaflet-custom-control'
 import { FilterContext } from '../../context/FilterContext';
-import { Modal } from 'react-responsive-modal';
 import Dropdown from 'react-dropdown';
 import { Carousel } from 'react-responsive-carousel';
 import MapControls from '../controls/MapControls';
 import { Tooltip } from '@mui/material';
 import { Rnd } from 'react-rnd';
 
-
+// options for the drop down menu in infoBox
 const dropDownOptions = [
-  'Select One', 'Vulnerability', 'GDP'
+  'Select One', 'SV: Random Forest', 'SV: XGBoost', 'DT: Education Facility', 'DT: Health Institution', 'DT: Financial Service',
+  'Population Counts', 'Celltowers', 'Nightlight Intensity', 'Relative Wealth', 'GDP', 'Plant Health', 'Temperature (Max)',
+  'Land Use Class', 'Elevation'
 ]
 
+// each index for the above list has a description in the list below which is shown in infoBox
+const dropDownDescriptions = [
+  {heading: 'Social Vulnerability Platform', desc: 'Hello and welcome to the DSVI Tool! This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan. This is the info box.'},
+  {heading: 'Forests', desc: 'This is about forests'},
+  {heading: 'XGBoosts', desc: 'This is about boosting XG'},
+  {heading: 'education facility', desc: 'This is about forests'},
+  {heading: 'health inst', desc: 'This is about boosting XG'},
+  {heading: 'financial', desc: 'This is about forests'},
+  {heading: 'population', desc: 'This is about boosting XG'},
+  {heading: 'cell', desc: 'This is about forests'},
+  {heading: 'nightlight', desc: 'This is about boosting XG'},
+  {heading: 'wealth', desc: 'This is about forests'},
+  {heading: 'gdp', desc: 'This is about boosting XG'},
+  {heading: 'plant', desc: 'This is about forests'},
+  {heading: 'temp', desc: 'This is about boosting XG'},
+  {heading: 'land use', desc: 'This is about forests'},
+  {heading: 'elevation', desc: 'This is about boosting XG'}
+]
 
 const ControlMenu = (props) => {
   const { position, show_data, show_sidebar_data, show_infoBox_data } = props;
   const { dispatch } = useContext(FilterContext);
   const [dropdownValue, setDropdownValue] = useState(dropDownOptions[0])
+  const [dropdownDescIndex, setDropdownDescIndex] = useState(0)
+
+  // when a drop down option is chosen, to change what the user sees
+  function changingDropdown(value) {
+    let index = dropDownOptions.indexOf(value);
+    setDropdownValue(value);
+    setDropdownDescIndex(index);
+  }
+
   return (<>
     <Control position={position}>
       <div className="border-black flex items-center">
         {/* <svg xmlns="http://www.w3.org/2000/svg"
-                          className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
-                          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-                          onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
+                className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
 
-                              dispatch({type: "TOGGLE_SHOW_DATA", payload: {}})
-                          }}>
-                          <path strokeLinecap="round" strokeLinejoin="round"
-                                d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
-                      </svg> */}
+                    dispatch({type: "TOGGLE_SHOW_DATA", payload: {}})
+                }}>
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg> */}
 
         <Tooltip
           title="Trigger Info Box"
@@ -55,7 +83,7 @@ const ControlMenu = (props) => {
             className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-gray-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
             fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
             onClick={(e) => {
-
+              console.log(show_infoBox_data);
               e.stopPropagation();
               e.preventDefault();
               if (show_infoBox_data === false) {
@@ -80,25 +108,24 @@ const ControlMenu = (props) => {
     </Control>}
     <MapControls position={position} />
     {
-      // <div clasName="map-for-infoBox" style={{ height: "100%", width: "100%", position: "fixed", zIndex: "1000"}}>
-        
-      // </div>
+      // infoBox modal that is resizable and draggable
       <Rnd
       minWidth={442}
       minHeight={360}
       bounds="parent"
       className="info-box"
-      style={{ display: "none", bottom: '100px', left: '-250px', top: "auto", right: "auto", position: "absolute" }}
+      style={{ display: "block", bottom: '100px', left: '-250px', top: "auto", right: "auto", position: "absolute" }}
+      // style={{ display: "block", bottom: '0px', left: '10px', top: "40vh", right: "auto", position: "absolute" }}
       >
         <button className="button-infoBox" onClick={() => {
           Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
           dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
         }}>X</button>
         <Tabs />
-        <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => setDropdownValue(e.value)} value={dropdownValue} placeholder="Select an option" />
+        <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => changingDropdown(e.value)} value={dropdownValue} placeholder="Select an option" />
         <div className='max-w-md px-4 mt-5'>
-          <h2 className='font-bold'>Social Vulnerability Platform</h2>
-          <p className='my-3'>This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan.</p>
+          <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
+          <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
         </div>
       </Rnd>
     }
@@ -107,6 +134,7 @@ const ControlMenu = (props) => {
   )
 }
 
+// the tabs inside the infoBox: Social vulnerability, Data Exploration, and Methods
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
   return (

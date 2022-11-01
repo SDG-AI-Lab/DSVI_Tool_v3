@@ -5,8 +5,8 @@ import { FilterContext } from '../context/FilterContext'
 import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
 
 
-const Sidebar = () => {
-
+const Sidebar = (props) => {
+  const { show_infoBox_data } = props;
   const { state, dispatch } = useContext(FilterContext);
   const level = state["level"];
 
@@ -66,7 +66,6 @@ const Sidebar = () => {
     dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
  
-
   function addRemoveNewLegend(newItem) {
     let newLegends = activeLegends;
     if (newItem.status == true) {
@@ -125,6 +124,7 @@ const Sidebar = () => {
                 
 
                 <ul>
+                  {/* Show vulnerability in sidebar */}
                   <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_VULNERABILITY", payload: {} })}
@@ -281,6 +281,8 @@ const Sidebar = () => {
                   </a>
                 </li> */}
                 </ul>
+
+                {/* socioeconomic layers in sidebar  */}
                 <li className="relative" id="sidenavSecEx3">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300
@@ -420,6 +422,8 @@ const Sidebar = () => {
                                                                                         newItems[index]['data'][index2] = newItem;
                                                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                         addRemoveNewLegend(newItem);
+                                                                                        alert("Hi");
+                                                                                        // show_infoBox_data && <ControlMenu props/>
                                                                                       }}
                                                                                   >
                                                                                       <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
@@ -509,6 +513,7 @@ const Sidebar = () => {
                       }
                   </ul>
                 </li>
+                
                 <li className="relative" id="sidenavSecEx3">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
