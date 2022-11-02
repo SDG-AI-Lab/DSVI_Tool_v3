@@ -1,7 +1,7 @@
 export const initalState = {
     "show_data":false,
     "show_sidebar_data":false,
-    "show_infoBox_data": false,
+    "show_infoBox_data": true,
     "show_sidebar":true,
     "level":1,
     "show_area_of_interest": true,
