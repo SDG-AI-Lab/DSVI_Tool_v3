@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-
+// import { BoxZoomControl } from "react-leaflet-box-zoom";
 import L from 'leaflet'
 import {MapContainer, LayersControl, WMSTileLayer, ZoomControl} from 'react-leaflet'
 import Legend from '../controls/Legend';
@@ -315,6 +315,24 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         className={styles.container}
         attributionControl={false}
       >
+        {/* <BoxZoomControl
+            style={{
+              width: "36px",
+              height: "36px",
+              border: "none",
+              borderRadius: "4px",
+              background: "url('./images/boxZoomIcon.png')",
+              backgroundColor: "rgb(255, 255, 255)",
+              outline: "none",
+              backgroundPosition: "50% 50%",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "32px",
+              title: "hfbhdkgj"
+            }}
+            position="topleft"
+            // sticky={true}
+            title="jdfucegbf"
+          /> */}
         <LayersControl position="topright">
           {TileProviders.map(({ name, checked, args }) => (
             <LayersControl.BaseLayer {...{ name, checked }} key={name}>
