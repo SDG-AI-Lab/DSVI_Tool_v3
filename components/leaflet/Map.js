@@ -7,7 +7,7 @@ import styles from './Map.module.scss'
 import {FilterContext} from '../../context/FilterContext'
 import {LegendContext} from '../../context/LegendContext'
 import {Settings, TileProviders} from '../../config/MapConfiguration';
-import ControlMenu from '../controls/ControlMenu';
+import ControlMenu from '../controls/InfoBox';
 import CustomPolygon from '../controls/CustomPolygon';
 import CustomPolygon_AOI from '../controls/CustomPolygon_AOI';
 import CircleMarkers from '../marker/CircleMarkers';

@@ -4,7 +4,7 @@ import { FilterContext } from '../../context/FilterContext';
 // import { Modal } from 'react-responsive-modal';
 import Dropdown from 'react-dropdown';
 import { Carousel } from 'react-responsive-carousel';
-import MapControls from '../controls/MapControls';
+import MapControls from './MapControls';
 import { Tooltip } from '@mui/material';
 import { Rnd } from 'react-rnd';
 
@@ -47,7 +47,7 @@ const ControlMenu = (props) => {
     setDropdownDescIndex(index);
   }
 
-  return (<>
+  return (<> 
     <Control position={position}>
       <div className="border-black flex items-center">
         {/* <svg xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +117,7 @@ const ControlMenu = (props) => {
              25.90,14.65 24.75,15.87 22.95,15.87 Z" />
           </svg>
         </Tooltip>
-
+       
       </div>
     </Control>
     {props.children && <Control position={position}>
@@ -134,10 +134,11 @@ const ControlMenu = (props) => {
       style={{ display: "block", bottom: '100px', left: '-250px', top: "auto", right: "auto", position: "absolute" }}
       // style={{ display: "block", bottom: '0px', left: '10px', top: "40vh", right: "auto", position: "absolute" }}
       >
+        
         <button className="button-infoBox" onClick={() => {
           Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
           dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
-        }}>X</button>
+        }}>x</button>
         <Tabs />
         <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => changingDropdown(e.value)} value={dropdownValue} placeholder="Select an option" />
         <div className='max-w-md px-4 mt-5'>
@@ -155,7 +156,9 @@ const ControlMenu = (props) => {
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
   return (
+    
     <>
+   
       <div className="flex items-start mb-3">
         <ul
           className="nav nav-tabs mr-4 flex w-1/2 list-none flex-col flex-wrap border-b-0 pl-0"

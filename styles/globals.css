@@ -79,13 +79,13 @@
 
 /* infoBox modal css */
 .info-box {
-  position: absolute;
-  z-index: 1000 !important;
+  position: relative;
+  z-index: 10000 !important;
   background-color: white;
   opacity: 0.9;
   border-radius: 15px;
   padding: 2rem 0;
-  overflow-y: hidden;
+  overflow-y: visible;
   overflow-x: hidden;
     
 }

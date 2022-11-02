@@ -66,8 +66,11 @@ const Sidebar = (props) => {
     dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
  
+  // function addSocioeconmic(newItem) {
+
   function addRemoveNewLegend(newItem) {
     let newLegends = activeLegends;
+    console.log(newItem)
     if (newItem.status == true) {
       newLegends.push(newItem);
     } else if (newItem.status == false) {
@@ -424,7 +427,7 @@ const Sidebar = (props) => {
                                                                                         newItems[index]['data'][index2] = newItem;
                                                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                         addRemoveNewLegend(newItem);
-                                                                                        alert("Hi");
+                                                                                        //alert("Hi");
                                                                                         // show_infoBox_data && <ControlMenu props/>
                                                                                       }}
                                                                                   >
