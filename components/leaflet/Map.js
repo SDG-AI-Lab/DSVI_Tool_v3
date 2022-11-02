@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-// import { BoxZoomControl } from "react-leaflet-box-zoom";
+//import { BoxZoomControl } from "react-leaflet-box-zoom";
 import L from 'leaflet'
-import {MapContainer, LayersControl, WMSTileLayer, ZoomControl} from 'react-leaflet'
+import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl} from 'react-leaflet'
+//import PrintControlDefault from "react-leaflet-easyprint";
 import Legend from '../controls/Legend';
 import styles from './Map.module.scss'
 import {FilterContext} from '../../context/FilterContext'
@@ -64,6 +65,9 @@ import NewLegend from '../controls/NewLegend';
 import NewLegend_2 from '../controls/NewLegend_2';
 import { max } from 'lodash';
 
+
+const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 };
+// const PrintControl = withLeaflet(PrintControlDefault);
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -315,24 +319,24 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         className={styles.container}
         attributionControl={false}
       >
-        {/* <BoxZoomControl
-            style={{
-              width: "36px",
-              height: "36px",
-              border: "none",
-              borderRadius: "4px",
-              background: "url('./images/boxZoomIcon.png')",
-              backgroundColor: "rgb(255, 255, 255)",
-              outline: "none",
-              backgroundPosition: "50% 50%",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "32px",
-              title: "hfbhdkgj"
-            }}
-            position="topleft"
-            // sticky={true}
-            title="jdfucegbf"
-          /> */}
+          {/* <BoxZoomControl
+              style={{
+                width: "36px",
+                height: "36px",
+                border: "none",
+                borderRadius: "4px",
+                background: "url('./images/boxZoomIcon.png')",
+                backgroundColor: "rgb(255, 255, 255)",
+                outline: "none",
+                backgroundPosition: "50% 50%",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "32px",
+                title: "hfbhdkgj"
+              }}
+              position="topleft"
+              // sticky={true}
+              title="jdfucegbf"
+            /> */}
         <LayersControl position="topright">
           {TileProviders.map(({ name, checked, args }) => (
             <LayersControl.BaseLayer {...{ name, checked }} key={name}>
@@ -340,6 +344,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
+        <ScaleControl
+          />
         <ZoomControl
           position="bottomleft"
         />

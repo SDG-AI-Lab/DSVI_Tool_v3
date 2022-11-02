@@ -30,6 +30,7 @@
     "react-leaflet": "^4.0.0",
     "react-leaflet-box-zoom": "^1.0.2",
     "react-leaflet-custom-control": "^1.2.6",
+    "react-leaflet-easyprint": "^2.0.0",
     "react-leaflet-textpath": "^2.1.1",
     "react-map-gl": "^7.0.11",
     "react-responsive-carousel": "^3.2.23",

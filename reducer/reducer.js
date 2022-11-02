@@ -31,7 +31,7 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: '',
+                        units: 'Vulnerability [0-1]',
                         json_library:'rf'
                     },
                     {
@@ -41,7 +41,7 @@ export const initalState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: '',
+                        units: 'Vulnerability [0-1]',
                         json_library:'XGBoost'
                     },
                 ]
