@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import Control from 'react-leaflet-custom-control'
 import { FilterContext } from '../../context/FilterContext';
+// import { Modal } from 'react-responsive-modal';
 import Dropdown from 'react-dropdown';
 import { Carousel } from 'react-responsive-carousel';
 import MapControls from '../controls/MapControls';
@@ -81,7 +82,7 @@ const ControlMenu = (props) => {
         >
           <svg xmlns="http://www.w3.org/2000/svg"
             className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-gray-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+            fill="none" viewBox="0 0 48 48" stroke="currentColor" strokeWidth="2"
             onClick={(e) => {
               console.log(show_infoBox_data);
               e.stopPropagation();
@@ -97,7 +98,23 @@ const ControlMenu = (props) => {
               dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} });
 
             }}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M 39.26,6.74
+           C 30.28,-2.25 15.72,-2.25 6.74,6.74
+             -2.25,15.72 -2.25,30.28 6.74,39.26
+             15.72,48.25 30.28,48.25 39.26,39.26
+             48.25,30.28 48.25,15.72 39.26,6.74 Z
+           M 26.00,33.00
+           C 26.00,34.66 24.66,36.00 23.00,36.00
+             21.34,36.00 20.00,34.66 20.00,33.00
+             20.00,33.00 20.00,21.00 20.00,21.00
+             20.00,19.34 21.34,18.00 23.00,18.00
+             24.66,18.00 26.00,19.34 26.00,21.00
+             26.00,21.00 26.00,33.00 26.00,33.00 Z
+           M 22.95,15.87
+           C 21.22,15.87 20.07,14.65 20.10,13.14
+             20.07,11.55 21.22,10.37 22.98,10.37
+             24.75,10.37 25.86,11.55 25.90,13.14
+             25.90,14.65 24.75,15.87 22.95,15.87 Z" />
           </svg>
         </Tooltip>
 

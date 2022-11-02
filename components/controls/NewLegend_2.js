@@ -4,67 +4,111 @@ import Control from 'react-leaflet-custom-control'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import BarChart from './BarChart';
 
+const NewLegend_2 = (props) => {
+  const [showUIElements, setShowUIElements] = useState(false);
+  const {state, dispatch} = useContext(FilterContext);
+  const vulnerability = state["vulnerability"];
+  const activeLegends = state['activeLegends'];
+
+  useEffect(() => {
+    setShowUIElements(true);
+    return () => {
+    setShowUIElements(false);
+    };
+  }, []);
+
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    const items = activeLegends;
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: items });
+  }
+
+
 const SE_Legend = (props) => {
+  const [minMeanNumber, setMinMeanNumber] = useState(null);
+  const [maxMeanNumber, setMaxMeanNumber] = useState(null);
+  useEffect(() => {
+    import(`/public/static/${props.layer.json_library}_${state['level']}.geojson`)
+      .then(library => {
+          const onlyAllMeanNumbers = library.features.map(object => object.properties._mean);
+          console.log('onlyAllMeanNumbers');
+          console.log(onlyAllMeanNumbers);
+
+          setMinMeanNumber(Math.min(...onlyAllMeanNumbers));
+          setMaxMeanNumber(Math.max(...onlyAllMeanNumbers));
+      });
+    }, []);
+  
+  minMeanNumber != null ? console.log("minMeanNumber:", minMeanNumber) : null;
+  maxMeanNumber != null ? console.log("maxMeanNumber:", maxMeanNumber) : null;
+  
+  const normValue = coef => {
+    const result = (maxMeanNumber-minMeanNumber)*coef + minMeanNumber;
+    return result;
+  } 
+
   return (
     <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
     <h2 className='font-bold'>Socioeconomic Layers</h2>
     <h3>Selected: {props.title}</h3>
     <table>
-      {!props.reverse_meaning ? 
+      {!props.layer.reverse_meaning && minMeanNumber != null && maxMeanNumber != null ? 
         <tbody>
           <tr>
             <td className='bg-[#FF362C] w-5 h-5'></td>
-            <td className='pl-1'>0.8+</td>
+            <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
             <td className='pl-1'>Very High</td>
           </tr>
           <tr>
             <td className='bg-[#ff962c] w-5 h-5'></td>
-            <td className='pl-1'>0.6 - 0.8</td>
+            <td className='pl-1'>{normValue(0.6).toFixed(2)} (0.6) - {normValue(0.8).toFixed(2)} (0.8)</td>
             <td className='pl-1'>High</td>
           </tr>
           <tr>
             <td className='bg-[#FFDE2C] w-5 h-5'></td>
-            <td className='pl-1'>0.4 - 0.6</td>
+            <td className='pl-1'>{normValue(0.4).toFixed(2)} (0.4) - {normValue(0.6).toFixed(2)} (0.6)</td>
             <td className='pl-1'>Middle</td>
           </tr>
           <tr>
             <td className='bg-[#00800A] w-5 h-5'></td>
-            <td className='pl-1'>0.2 - 0.4</td>
+            <td className='pl-1'>{normValue(0.2).toFixed(2)} (0.2) - {normValue(0.4).toFixed(2)} (0.4)</td>
             <td className='pl-1'>Low</td>
           </tr>
           <tr>
             <td className='bg-[#0c58ca] w-5 h-5'></td>
-            <td className='pl-1'>0 - 0.2</td>
+            <td className='pl-1'>{minMeanNumber.toFixed(2)} (0.0) - {normValue(0.2).toFixed(2)} (0.2)</td>
             <td className='pl-1'>Very Low</td>
           </tr>
         </tbody>
-        :
+        : minMeanNumber != null && maxMeanNumber != null &&
         <tbody>
           <tr>
-            <td className='bg-[#0c58ca] w-5 h-5'></td>
-            <td className='pl-1'>0.8+</td>
-            <td className='pl-1'>Very High</td>
-          </tr>
-          <tr>
-            <td className='bg-[#00800A] w-5 h-5'></td>
-            <td className='pl-1'>0.6 - 0.8</td>
-            <td className='pl-1'>High</td>
-          </tr>
-          <tr>
-            <td className='bg-[#FFDE2C] w-5 h-5'></td>
-            <td className='pl-1'>0.4 - 0.6</td>
-            <td className='pl-1'>Middle</td>
-          </tr>
-          <tr>
-            <td className='bg-[#ff962c] w-5 h-5'></td>
-            <td className='pl-1'>0.2 - 0.4</td>
-            <td className='pl-1'>Low</td>
-          </tr>
-          <tr>
-            <td className='bg-[#FF362C] w-5 h-5'></td>
-            <td className='pl-1'>0 - 0.2</td>
-            <td className='pl-1'>Very Low</td>
-          </tr>
+              <td className='bg-[#0c58ca] w-5 h-5'></td>
+              <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
+              <td className='pl-1'>Very High</td>
+            </tr>
+            <tr>
+              <td className='bg-[#00800A] w-5 h-5'></td>
+              <td className='pl-1'>{normValue(0.6).toFixed(2)} (0.6) - {normValue(0.8).toFixed(2)} (0.8)</td>
+              <td className='pl-1'>High</td>
+            </tr>
+            <tr>
+              <td className='bg-[#FFDE2C] w-5 h-5'></td>
+              <td className='pl-1'>{normValue(0.4).toFixed(2)} (0.4) - {normValue(0.6).toFixed(2)} (0.6)</td>
+              <td className='pl-1'>Middle</td>
+            </tr>
+            <tr>
+              <td className='bg-[#ff962c] w-5 h-5'></td>
+              <td className='pl-1'>{normValue(0.2).toFixed(2)} (0.2) - {normValue(0.4).toFixed(2)} (0.4)</td>
+              <td className='pl-1'>Low</td>
+            </tr>
+            <tr>
+              <td className='bg-[#FF362C] w-5 h-5'></td>
+              <td className='pl-1'>{minMeanNumber.toFixed(2)} (0.0) - {normValue(0.2).toFixed(2)} (0.2)</td>
+              <td className='pl-1'>Very Low</td>
+            </tr>
         </tbody>
       }
     </table>
@@ -222,27 +266,6 @@ const getWordExplanation = (index => {
   }
 })
 
-const NewLegend_2 = (props) => {
-  const [showUIElements, setShowUIElements] = useState(false);
-  const {state, dispatch} = useContext(FilterContext);
-  const vulnerability = state["vulnerability"];
-  const activeLegends = state['activeLegends'];
-
-  useEffect(() => {
-    setShowUIElements(true);
-    return () => {
-    setShowUIElements(false);
-    };
-  }, []);
-
-  function handleOnDragEnd(result) {
-    if (!result.destination) return;
-    const items = activeLegends;
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: items });
-  }
-
   return (
     <Control position="bottomright">
       <div className='p-1 bg-[white] opacity-70 max-h-96 overflow-auto hover:overflow-scroll'>
@@ -258,7 +281,7 @@ const NewLegend_2 = (props) => {
                           {(provided) => (
                             <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               { item.hasOwnProperty('slug')
-                                && item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title} reverse_meaning={item.reverse_meaning}/> : null }
+                                && item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title} layer={item}/> : null }
                               { item.hasOwnProperty('slug')
                                 &&item.slug.indexOf("sv_") === 0 ? <GeoLegend title={item.title} layer={item.layer}/> : null }
                               { item.hasOwnProperty('slug')

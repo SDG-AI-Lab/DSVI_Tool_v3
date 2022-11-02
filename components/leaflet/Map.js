@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-
+// import { BoxZoomControl } from "react-leaflet-box-zoom";
 import L from 'leaflet'
 import {MapContainer, LayersControl, WMSTileLayer, ZoomControl} from 'react-leaflet'
 import Legend from '../controls/Legend';
@@ -200,7 +200,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
   const mapPolygonColorToDensity = ((normalizeData, layerObject) => {
-    console.log(layerObject);
+    // console.log(layerObject);
     if (!layerObject.reverse_meaning) {
       switch (true) {
         case normalizeData > 0.8 && normalizeData <= 1: return '#FF362C'; // RED 
@@ -261,19 +261,19 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
       }
     ];
     const onlyAllMeanNumbers = full_JSON_library.features.map(object => object.properties._mean);
-    console.log('onlyAllMeanNumbers');
-    console.log(onlyAllMeanNumbers);
+    // console.log('onlyAllMeanNumbers');
+    // console.log(onlyAllMeanNumbers);
     const minMeanNumber = Math.min(...onlyAllMeanNumbers);
     const maxMeanNumber = Math.max(...onlyAllMeanNumbers);
 
-    const normalizeDataValue = Math.abs((_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber));;
+    const normalizeDataValue = Math.abs((_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber));
     const fillColor = mapPolygonColorToDensity(normalizeDataValue, layerObject);
-    console.log('NAME_1', NAME_1);
-    console.log('_mean', _mean);
-    console.log('minMeanNumber', minMeanNumber);
-    console.log('maxMeanNumber', maxMeanNumber);
-    console.log('normalizeDataValue', normalizeDataValue);
-    console.log('fillColor', fillColor);
+    // console.log('NAME_1', NAME_1);
+    // console.log('_mean', _mean);
+    // console.log('minMeanNumber', minMeanNumber);
+    // console.log('maxMeanNumber', maxMeanNumber);
+    // console.log('normalizeDataValue', normalizeDataValue);
+    // console.log('fillColor', fillColor);
 
     const hovercolor = 'rgb(255, 255, 255, .8)';
     return (
@@ -287,6 +287,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             tooltipOffset={[20, 0]}
             tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
             normalizeDataValue={normalizeDataValue.toFixed(2)}
+            units={layerObject.units}
             _mean={_mean.toFixed(2)}
             minMeanNumber={minMeanNumber.toFixed(2)}
             maxMeanNumber={maxMeanNumber.toFixed(2)}
@@ -314,6 +315,24 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         className={styles.container}
         attributionControl={false}
       >
+        {/* <BoxZoomControl
+            style={{
+              width: "36px",
+              height: "36px",
+              border: "none",
+              borderRadius: "4px",
+              background: "url('./images/boxZoomIcon.png')",
+              backgroundColor: "rgb(255, 255, 255)",
+              outline: "none",
+              backgroundPosition: "50% 50%",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "32px",
+              title: "hfbhdkgj"
+            }}
+            position="topleft"
+            // sticky={true}
+            title="jdfucegbf"
+          /> */}
         <LayersControl position="topright">
           {TileProviders.map(({ name, checked, args }) => (
             <LayersControl.BaseLayer {...{ name, checked }} key={name}>
