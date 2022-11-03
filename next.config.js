@@ -5,7 +5,7 @@ module.exports = {
   // assetPrefix: isDev ? '': '/DSVI_Tool_v3/',
   images: {
     loader: 'akamai',
-    path: '',
+    path: '/',
     domains: ['https://server.arcgisonline.com'],
   },
   env:{
