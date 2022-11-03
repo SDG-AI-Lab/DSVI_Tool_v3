@@ -53,6 +53,7 @@ const SE_Legend = (props) => {
     <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
     <h2 className='font-bold'>Socioeconomic Layers</h2>
     <h3>Selected: {props.title}</h3>
+    <br/> 
     <table>
       {!props.layer.reverse_meaning && minMeanNumber != null && maxMeanNumber != null ? 
         <tbody>
@@ -60,7 +61,9 @@ const SE_Legend = (props) => {
             <td className='bg-[#FF362C] w-5 h-5'></td>
             <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
             <td className='pl-1'>Very High</td>
+            
           </tr>
+          
           <tr>
             <td className='bg-[#ff962c] w-5 h-5'></td>
             <td className='pl-1'>{normValue(0.6).toFixed(2)} (0.6) - {normValue(0.8).toFixed(2)} (0.8)</td>
@@ -84,6 +87,7 @@ const SE_Legend = (props) => {
         </tbody>
         : minMeanNumber != null && maxMeanNumber != null &&
         <tbody>
+   
           <tr>
               <td className='bg-[#0c58ca] w-5 h-5'></td>
               <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
