@@ -80,12 +80,12 @@
 /* infoBox modal css */
 .info-box {
   position: relative;
-  z-index: 10000 !important;
+  z-index: 9001 !important;
   background-color: white;
-  opacity: 0.9;
+  opacity: 1;
   border-radius: 15px;
   padding: 2rem 0;
-  overflow-y: visible;
+  overflow-y: hidden;
   overflow-x: hidden;
     
 }
