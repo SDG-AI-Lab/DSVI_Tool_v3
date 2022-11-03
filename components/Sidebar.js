@@ -5,8 +5,8 @@ import { FilterContext } from '../context/FilterContext'
 import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
 
 
-const Sidebar = () => {
-
+const Sidebar = (props) => {
+  const { show_infoBox_data } = props;
   const { state, dispatch } = useContext(FilterContext);
   const level = state["level"];
 
@@ -66,9 +66,11 @@ const Sidebar = () => {
     dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
  
+  // function addSocioeconmic(newItem) {
 
   function addRemoveNewLegend(newItem) {
     let newLegends = activeLegends;
+    console.log(newItem)
     if (newItem.status == true) {
       newLegends.push(newItem);
     } else if (newItem.status == false) {
@@ -109,9 +111,9 @@ const Sidebar = () => {
                 
                 <hr className="my-2" />
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden
-                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
-                    hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden bg-blue-50
+                    text-blue-600 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
+                    hover:bg-blue-100 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -125,6 +127,7 @@ const Sidebar = () => {
                 
 
                 <ul>
+                  {/* Show vulnerability in sidebar */}
                   <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_VULNERABILITY", payload: {} })}
@@ -281,6 +284,8 @@ const Sidebar = () => {
                   </a>
                 </li> */}
                 </ul>
+
+                {/* socioeconomic layers in sidebar  */}
                 <li className="relative" id="sidenavSecEx3">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300
@@ -415,11 +420,15 @@ const Sidebar = () => {
                                                                                             title: val2.title,
                                                                                             status: !val2.status,
                                                                                             value: val2.value,
-                                                                                            reverse_meaning: val2.reverse_meaning
+                                                                                            reverse_meaning: val2.reverse_meaning,
+                                                                                            units: val2.units,
+                                                                                            json_library: val2.json_library
                                                                                         };
                                                                                         newItems[index]['data'][index2] = newItem;
                                                                                         dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
                                                                                         addRemoveNewLegend(newItem);
+                                                                                        //alert("Hi");
+                                                                                        // show_infoBox_data && <ControlMenu props/>
                                                                                       }}
                                                                                   >
                                                                                       <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
@@ -433,7 +442,9 @@ const Sidebar = () => {
                                                                                                   title: val2.title,
                                                                                                   status: !val2.status,
                                                                                                   value: val2.value,
-                                                                                                  reverse_meaning: val2.reverse_meaning
+                                                                                                  reverse_meaning: val2.reverse_meaning,
+                                                                                                  units: val2.units,
+                                                                                                  json_library: val2.json_library
                                                                                               };
                                                                                               newItems[index]['data'][index2] = newItem;
                                                                                               dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
@@ -463,7 +474,9 @@ const Sidebar = () => {
                                                                                                                 title: val2.title,
                                                                                                                 status: val2.status,
                                                                                                                 value: event.target.value,
-                                                                                                                reverse_meaning: val2.reverse_meaning
+                                                                                                                reverse_meaning: val2.reverse_meaning,
+                                                                                                                units: val2.units,
+                                                                                                                json_library: val2.json_library
                                                                                                             };
                                                                                                             dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                         }}
@@ -480,7 +493,9 @@ const Sidebar = () => {
                                                                                                                         title: val2.title,
                                                                                                                         status: val2.status,
                                                                                                                         value: event.target.value,
-                                                                                                                        reverse_meaning: val2.reverse_meaning
+                                                                                                                        reverse_meaning: val2.reverse_meaning,
+                                                                                                                        units: val2.units,
+                                                                                                                        json_library: val2.json_library
                                                                                                                     };
                                                                                                                     dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
                                                                                                                 }}
@@ -509,6 +524,7 @@ const Sidebar = () => {
                       }
                   </ul>
                 </li>
+                
                 <li className="relative" id="sidenavSecEx3">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"

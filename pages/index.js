@@ -70,7 +70,7 @@ const Application = () => {
                 </div>
             </div>
         :   <div className="flex">
-                <Sidebar/>
+                <Sidebar show={true} />      { /*pass show_infoBox_data parameter from reducer + control menu props */}     
                 <LeafletMap
                     center={location}
                     location={location}

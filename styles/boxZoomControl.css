@@ -1,0 +1,12 @@
+.BoxZoomControl {
+  width: "36px";
+  height: "36px";
+  margin: "1px";
+  border: "none";
+  border-radius: "4px";
+  background: "url('./images/boxZoomIcon.png')";
+  background-color: "rgb(255; 255; 255)";
+  outline: "none";
+  background-position: "50% 50%";
+  background-repeat: "no-repeat";
+}

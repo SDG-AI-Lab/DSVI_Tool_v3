@@ -1468,6 +1468,11 @@ dom-helpers@^5.0.1:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
 
+dom-to-image@^2.5.2:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/dom-to-image/-/dom-to-image-2.6.0.tgz#8a503608088c87b1c22f9034ae032e1898955867"
+  integrity sha512-Dt0QdaHmLpjURjU7Tnu3AgYSF2LuOmksSGsUcE6ItvJoCWTBEmiMXcqBdNSAm9+QbbwD7JMoVsuuKX6ZVQv1qA==
+
 earcut@^2.2.3:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.2.4.tgz#6d02fd4d68160c114825d06890a92ecaae60343a"
@@ -1780,6 +1785,11 @@ file-entry-cache@^6.0.1:
   integrity sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
   dependencies:
     flat-cache "^3.0.4"
+
+file-saver@^1.3.3:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-1.3.8.tgz#e68a30c7cb044e2fb362b428469feb291c2e09d8"
+  integrity sha512-spKHSBQIxxS81N/O21WmuXA2F6wppUCsutpzenOeZzOCCJ5gEfcbqJP983IrpLXzYmXnMUa6J03SubcNPdKrlg==
 
 filename-reserved-regex@^2.0.0:
   version "2.0.0"
@@ -2554,6 +2564,14 @@ leaflet-defaulticon-compatibility@0.1.1:
   version "0.1.1"
   resolved "https://registry.npmjs.org/leaflet-defaulticon-compatibility/-/leaflet-defaulticon-compatibility-0.1.1.tgz"
   integrity sha512-vDBFdlUAwjSEGep9ih8kfJilf6yN8V9zTbF5NC/1ZwLeGko3RUQepspPnGCRMFV51dY3Lb3hziboicrFz+rxQA==
+
+leaflet-easyprint@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/leaflet-easyprint/-/leaflet-easyprint-2.1.9.tgz#ed395c7e1e377a5cdd944f7cc07216feae9db833"
+  integrity sha512-xf2o7yS7M9H66boQ1/PwGT40+LdGgnszOJY29GMHARqolO47BNjX+jGak4DwJyAHTkYn1jDhYi+W+St/Nu+AMQ==
+  dependencies:
+    dom-to-image "^2.5.2"
+    file-saver "^1.3.3"
 
 leaflet-geosearch@3.6.0:
   version "3.6.0"
@@ -3443,10 +3461,24 @@ react-is@^18.2.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-leaflet-box-zoom@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-leaflet-box-zoom/-/react-leaflet-box-zoom-1.0.2.tgz#65da08867c65f1306e8fd3c03c8f16ee934fe4d1"
+  integrity sha512-SGXH2kk8uqs0XzlmcKZld4qcVMJdPxzOCvepACMSMPSwSGEGcBUsGXvnmv/weVdyJctO2CdmndYn/CLz4flHBA==
+  dependencies:
+    react-style-object-to-css "^1.1.2"
+
 react-leaflet-custom-control@^1.2.6:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-leaflet-custom-control/-/react-leaflet-custom-control-1.3.1.tgz#41ebf71928ce1489984f7bce8f17693f93c6606f"
   integrity sha512-7nmSIglW4NHXmAvEC7VUCi1wopc6n7HZaipKYRWPenFh2e8bW0wPqL3BlnEcAsHD5i5BLmbCWjP6Pj6aweT+/g==
+
+react-leaflet-easyprint@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-easyprint/-/react-leaflet-easyprint-2.0.0.tgz#63d3d80fd1470aaa0af7c32808e905a78cb3bf04"
+  integrity sha512-MASgFifsXnq6wJUuUFn6MlNxwJKERGodvnmDuBEfxyfgIv7ZWIhqPywffdELoA2DJB47joeuxYpSBt8XAWHnxA==
+  dependencies:
+    leaflet-easyprint "^2.1.9"
 
 react-leaflet-textpath@^2.1.1:
   version "2.1.1"
@@ -3507,6 +3539,11 @@ react-rnd@^10.3.7:
     re-resizable "6.9.6"
     react-draggable "4.4.4"
     tslib "2.3.1"
+
+react-style-object-to-css@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-style-object-to-css/-/react-style-object-to-css-1.1.2.tgz#3e97da92c9edf8190e30f4b27026e74285940498"
+  integrity sha512-+5MFULqCCj7wwJJ/ISKFP91ZlHVF1Rv8o0neiTKvt21XDTU5e34tc8hy+XPLeYWYOupdHt25HxxwocvYm3HM6A==
 
 react-transition-group@^4.4.5:
   version "4.4.5"
