@@ -1,14 +1,21 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import {FilterContext} from '../../context/FilterContext'
 import Control from 'react-leaflet-custom-control'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import BarChart from './BarChart';
+import L from 'leaflet';
 
 const NewLegend_2 = (props) => {
   const [showUIElements, setShowUIElements] = useState(false);
   const {state, dispatch} = useContext(FilterContext);
   const vulnerability = state["vulnerability"];
   const activeLegends = state['activeLegends'];
+
+  const legendRef = useRef();
+  useEffect(() => {
+    /*Using the wheel will not change the zoom on the map.*/
+    L.DomEvent.disableScrollPropagation(legendRef.current);
+  });
 
   useEffect(() => {
     setShowUIElements(true);
@@ -272,7 +279,7 @@ const getWordExplanation = (index => {
 
   return (
     <Control position="bottomright">
-      <div className='p-1 bg-[white] opacity-70 max-h-96 overflow-auto hover:overflow-scroll'>
+      <div className='p-1 bg-[white] opacity-70 max-h-96 overflow-auto hover:overflow-scroll' ref={legendRef}>
         <h1 className='text-sm font-bold'>Legend</h1> 
         {showUIElements
           ? <DragDropContext onDragEnd={handleOnDragEnd}>
