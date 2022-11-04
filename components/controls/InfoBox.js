@@ -48,11 +48,15 @@ const ControlMenu = (props) => {
     setDropdownDescIndex(index);
   }
 
-  const rndRef = useRef();
+  const infoBoxRef = useRef();
 
   useEffect(() => {
     /*Using the wheel will not change the zoom on the map.*/
-    L.DomEvent.disableScrollPropagation(rndRef.current);
+    L.DomEvent.disableScrollPropagation(infoBoxRef.current);
+
+    /*Dragging is available for infoBax*/
+    const draggable = new L.Draggable(infoBoxRef.current);
+    draggable.enable();
   });
 
   return (<> 
@@ -132,34 +136,26 @@ const ControlMenu = (props) => {
       {props.children}
     </Control>}
     <MapControls position={position} />
-    {
-      // infoBox modal that is resizable and draggable
-      <Rnd
-      minWidth={442}
-      minHeight={360}
-      bounds="parent"
-      className="info-box"
-      style={{ display: "block", bottom: '100px', left: '-250px', top: "auto", right: "auto", position: "absolute" }}
-      // style={{ display: "block", bottom: '0px', left: '10px', top: "40vh", right: "auto", position: "absolute" }}
-      >
-        <div ref={rndRef}>
-          <button className="button-infoBox" onClick={() => {
-            Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
-            dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
-          }}>x</button>
-          <Tabs />
-          <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' 
-            controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-            onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
-            placeholder="Select an option" />
-          <div className='max-w-md px-4 mt-5'>
-            <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
-            <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
-          </div>
-        </div>
-      </Rnd>
-    }
 
+    {
+      <Control minWidth={442} minHeight={360} position="topleft">
+        <div ref={infoBoxRef} className="info-box">
+            <button className="button-infoBox" onClick={() => {
+              Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
+              dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
+            }}>x</button>
+            <Tabs />
+            <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' 
+              controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+              onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
+              placeholder="Select an option" />
+            <div className='max-w-md px-4 mt-5'>
+              <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
+              <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+            </div>
+          </div>
+      </Control>
+    }
   </>
   )
 }
