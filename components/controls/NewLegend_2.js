@@ -40,16 +40,16 @@ const SE_Legend = (props) => {
     import(`/public/static/${props.layer.json_library}_${state['level']}.geojson`)
       .then(library => {
           const onlyAllMeanNumbers = library.features.map(object => object.properties._mean);
-          console.log('onlyAllMeanNumbers');
-          console.log(onlyAllMeanNumbers);
+          // console.log('onlyAllMeanNumbers');
+          // console.log(onlyAllMeanNumbers);
 
           setMinMeanNumber(Math.min(...onlyAllMeanNumbers));
           setMaxMeanNumber(Math.max(...onlyAllMeanNumbers));
       });
     }, []);
   
-  minMeanNumber != null ? console.log("minMeanNumber:", minMeanNumber) : null;
-  maxMeanNumber != null ? console.log("maxMeanNumber:", maxMeanNumber) : null;
+  // minMeanNumber != null ? console.log("minMeanNumber:", minMeanNumber) : null;
+  // maxMeanNumber != null ? console.log("maxMeanNumber:", maxMeanNumber) : null;
   
   const normValue = coef => {
     const result = (maxMeanNumber-minMeanNumber)*coef + minMeanNumber;

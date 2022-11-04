@@ -1268,7 +1268,7 @@ export const reducer = (state, action) => {
             };
 
             case "CHANGE_LEVEL":
-                console.log("payload"+JSON.stringify(action.payload));
+                // console.log("payload"+JSON.stringify(action.payload));
                 return {
                     ...state,
                     level: action.payload.level,

@@ -350,12 +350,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           position="bottomleft"
         />
         <ControlMenu position="topLeft" show_data={show_data} show_infoBox_data={show_infoBox_data}
-          children={
-            distance_to_healthcare_status ?
-              <Legend />
-              :
-              null
-          }
+          // children={
+          //   distance_to_healthcare_status ?
+          //     <Legend />
+          //     :
+          //     null
+          // }
         >
         </ControlMenu>
 

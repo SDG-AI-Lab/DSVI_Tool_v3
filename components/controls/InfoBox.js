@@ -6,7 +6,6 @@ import Dropdown from 'react-dropdown';
 import { Carousel } from 'react-responsive-carousel';
 import MapControls from './MapControls';
 import { Tooltip } from '@mui/material';
-import { Rnd } from 'react-rnd';
 import L from 'leaflet';
 
 // options for the drop down menu in infoBox
@@ -19,27 +18,29 @@ const dropDownOptions = [
 // each index for the above list has a description in the list below which is shown in infoBox
 const dropDownDescriptions = [
   {heading: 'Social Vulnerability Platform', desc: 'Hello and welcome to the DSVI Tool! This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan. This is the info box.'},
-  {heading: 'Forests', desc: 'This is about forests'},
-  {heading: 'XGBoosts', desc: 'This is about boosting XG'},
-  {heading: 'education facility', desc: 'This is about forests'},
-  {heading: 'health inst', desc: 'This is about boosting XG'},
-  {heading: 'financial', desc: 'This is about forests'},
-  {heading: 'population', desc: 'This is about boosting XG'},
-  {heading: 'cell', desc: 'This is about forests'},
-  {heading: 'nightlight', desc: 'This is about boosting XG'},
-  {heading: 'wealth', desc: 'This is about forests'},
-  {heading: 'gdp', desc: 'This is about boosting XG'},
-  {heading: 'plant', desc: 'This is about forests'},
-  {heading: 'temp', desc: 'This is about boosting XG'},
-  {heading: 'land use', desc: 'This is about forests'},
-  {heading: 'elevation', desc: 'This is about boosting XG'}
+  {heading: 'SV: Random Forest', desc: 'This is about forests'},
+  {heading: 'SV: XGBoost', desc: 'This is about boosting XG'},
+  {heading: 'DT: Education Facility', desc: 'This is about forests'},
+  {heading: 'DT: Health Institution', desc: 'This is about boosting XG'},
+  {heading: 'DT: Financial Service', desc: 'This is about forests'},
+  {heading: 'Population Counts', desc: 'This is about boosting XG'},
+  {heading: 'Celltowers', desc: 'This is about forests'},
+  {heading: 'Nightlight Intensity', desc: 'This is about boosting XG'},
+  {heading: 'Relative Wealth', desc: 'This is about forests'},
+  {heading: 'GDP', desc: 'This is about boosting XG'},
+  {heading: 'Plant Health', desc: 'This is about forests'},
+  {heading: 'Temperature (Max)', desc: 'This is about boosting XG'},
+  {heading: 'Land Use Class', desc: 'This is about forests'},
+  {heading: 'Elevation', desc: 'This is about boosting XG'}
 ]
 
 const ControlMenu = (props) => {
-  const { position, show_data, show_sidebar_data, show_infoBox_data } = props;
-  const { dispatch } = useContext(FilterContext);
+  const {position, show_infoBox_data, show_data} = props;
+  const { state, dispatch } = useContext(FilterContext);
+  // const {show_infoBox_data} = state['show_infoBox_data'];
   const [dropdownValue, setDropdownValue] = useState(dropDownOptions[0])
   const [dropdownDescIndex, setDropdownDescIndex] = useState(0)
+  const activeLegends = state['activeLegends'];
 
   // when a drop down option is chosen, to change what the user sees
   function changingDropdown(value) {
@@ -51,13 +52,26 @@ const ControlMenu = (props) => {
   const infoBoxRef = useRef();
 
   useEffect(() => {
-    /*Using the wheel will not change the zoom on the map.*/
-    L.DomEvent.disableScrollPropagation(infoBoxRef.current);
+    if (infoBoxRef.current) {
+      /*Using the wheel will not change the zoom on the map.*/
+      L.DomEvent.disableScrollPropagation(infoBoxRef.current);
 
-    /*Dragging is available for infoBax*/
-    const draggable = new L.Draggable(infoBoxRef.current);
-    draggable.enable();
+      /*Dragging is available for infoBax*/
+      const draggable = new L.Draggable(infoBoxRef.current);
+      draggable.enable();
+    }
   });
+
+  if (activeLegends.length > 0 && dropdownValue != activeLegends[activeLegends.length-1].title) {
+    const idOfLayer = dropDownOptions.indexOf(activeLegends[activeLegends.length-1].title);
+
+    // console.log("indexOf >>", idOfLayer);
+    if (idOfLayer>0) {
+      setDropdownValue(activeLegends[activeLegends.length-1].title);
+      setDropdownDescIndex(idOfLayer);
+      // console.log("dropdownValue >>", dropdownValue);
+    }
+  }
 
   return (<> 
     <Control position={position}>
@@ -96,7 +110,7 @@ const ControlMenu = (props) => {
             className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2 cursor-pointer bg-white border-gray-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
             fill="none" viewBox="-2 0 52 44" stroke="currentColor" strokeWidth="2"
             onClick={(e) => {
-              console.log(show_infoBox_data);
+              // console.log(show_infoBox_data);
               e.stopPropagation();
               e.preventDefault();
               if (show_infoBox_data === false) {
@@ -105,9 +119,9 @@ const ControlMenu = (props) => {
               else {
                 Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
               }
-              console.log('dispatching');
+              // console.log('dispatching');
 
-              dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} });
+              dispatch({ type: "TOGGLE_INFOBOX_DATA", payload:  {}});
 
             }}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M 39.26,6.74
@@ -137,11 +151,13 @@ const ControlMenu = (props) => {
     </Control>}
     <MapControls position={position} />
 
-    {
-      <Control minWidth={442} minHeight={360} position="topleft">
+    { show_infoBox_data && <Control minWidth={442} minHeight={360} position="topleft">
         <div ref={infoBoxRef} className="info-box">
-            <button className="button-infoBox" onClick={() => {
-              Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
+            <button className="button-infoBox" onClick={(e) => {
+              // console.log(show_infoBox_data);
+              e.stopPropagation();
+              e.preventDefault();
+
               dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
             }}>x</button>
             <Tabs />
