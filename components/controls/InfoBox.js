@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import Control from 'react-leaflet-custom-control'
 import { FilterContext } from '../../context/FilterContext';
 // import { Modal } from 'react-responsive-modal';
@@ -7,6 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import MapControls from './MapControls';
 import { Tooltip } from '@mui/material';
 import { Rnd } from 'react-rnd';
+import L from 'leaflet';
 
 // options for the drop down menu in infoBox
 const dropDownOptions = [
@@ -46,6 +47,13 @@ const ControlMenu = (props) => {
     setDropdownValue(value);
     setDropdownDescIndex(index);
   }
+
+  const rndRef = useRef();
+
+  useEffect(() => {
+    /*Using the wheel will not change the zoom on the map.*/
+    L.DomEvent.disableScrollPropagation(rndRef.current);
+  });
 
   return (<> 
     <Control position={position}>
@@ -134,16 +142,20 @@ const ControlMenu = (props) => {
       style={{ display: "block", bottom: '100px', left: '-250px', top: "auto", right: "auto", position: "absolute" }}
       // style={{ display: "block", bottom: '0px', left: '10px', top: "40vh", right: "auto", position: "absolute" }}
       >
-        
-        <button className="button-infoBox" onClick={() => {
-          Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
-          dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
-        }}>x</button>
-        <Tabs />
-        <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} onChange={(e) => changingDropdown(e.value)} value={dropdownValue} placeholder="Select an option" />
-        <div className='max-w-md px-4 mt-5'>
-          <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
-          <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+        <div ref={rndRef}>
+          <button className="button-infoBox" onClick={() => {
+            Array.from(document.getElementsByClassName("info-box")).forEach(e => e.style.display = "none");
+            dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
+          }}>x</button>
+          <Tabs />
+          <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' 
+            controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+            onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
+            placeholder="Select an option" />
+          <div className='max-w-md px-4 mt-5'>
+            <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
+            <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+          </div>
         </div>
       </Rnd>
     }
