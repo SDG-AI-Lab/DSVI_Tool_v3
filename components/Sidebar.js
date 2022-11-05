@@ -70,7 +70,7 @@ const Sidebar = (props) => {
 
   function addRemoveNewLegend(newItem) {
     let newLegends = activeLegends;
-    console.log(newItem)
+    // console.log(newItem)
     if (newItem.status == true) {
       newLegends.push(newItem);
     } else if (newItem.status == false) {

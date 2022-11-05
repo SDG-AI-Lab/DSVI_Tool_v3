@@ -79,7 +79,7 @@
 
 /* infoBox modal css */
 .info-box {
-  position: relative;
+  /* position: relative; */
   z-index: 9001 !important;
   background-color: white;
   opacity: 1;
@@ -87,7 +87,6 @@
   padding: 2rem 0;
   overflow-y: hidden;
   overflow-x: hidden;
-    
 }
 .button-infoBox {
     color: black;

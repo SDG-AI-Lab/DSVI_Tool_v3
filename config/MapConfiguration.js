@@ -1,7 +1,7 @@
 // import token .env"
 
 var mtoken = process.env.mapboxapikey;
-console.log(mtoken)
+// console.log(mtoken)
 
 export const TileProviders = [
      
