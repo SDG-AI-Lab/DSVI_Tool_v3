@@ -74,9 +74,10 @@ const InfoBox = (props) => {
   }
 
   return (<> 
-    { show_infoBox_data && 
+    {show_infoBox_data && 
       <Control minWidth={442} minHeight={360} position={position}>
         <div ref={infoBoxRef} className="info-box">
+        <h2 className='font-bold text-xl'>Information Box</h2>
           <button className="button-infoBox" onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -100,6 +101,7 @@ const InfoBox = (props) => {
 }
 
 // the tabs inside the infoBox: Social vulnerability, Data Exploration, and Methods
+
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
   return (
