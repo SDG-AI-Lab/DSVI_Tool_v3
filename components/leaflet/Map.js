@@ -61,10 +61,11 @@ import se_elevation_2 from '/public/static/dem_2.geojson'
 import se_elevation_3 from '/public/static/dem_3.geojson'
 
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
-import NewLegend from '../controls/NewLegend';
 import NewLegend_2 from '../controls/NewLegend_2';
 import { max } from 'lodash';
 
+import MapControls from '../controls/MapControls';
+import InfoBox from '../controls/InfoBox';
 
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 };
 // const PrintControl = withLeaflet(PrintControlDefault);
@@ -344,20 +345,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
-        <ScaleControl
-          />
-        <ZoomControl
-          position="bottomleft"
-        />
-        <ControlMenu position="topLeft" show_data={show_data} show_infoBox_data={show_infoBox_data}
-          children={
-            distance_to_healthcare_status ?
-              <Legend />
-              :
-              null
-          }
-        >
-        </ControlMenu>
+        <ScaleControl/>
+        <ZoomControl position="bottomleft"/>
+        {/* <ControlMenu position="topLeft" show_data={show_data} show_infoBox_data={show_infoBox_data}>
+        </ControlMenu> */}
+        <MapControls position="topright"/>
+        <InfoBox position="topleft"/>
 
         { 
           se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
