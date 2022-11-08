@@ -49,9 +49,10 @@ const InfoBox = (props) => {
     setDropdownDescIndex(index);
   }
 
-  const infoBoxRef = useRef();
+const infoBoxRef = useRef();
 
   useEffect(() => {
+    console.log("infoBoxRef.current", infoBoxRef.current);
     if (infoBoxRef.current) {
       /*Using the wheel will not change the zoom on the map.*/
       L.DomEvent.disableScrollPropagation(infoBoxRef.current);
@@ -73,30 +74,31 @@ const InfoBox = (props) => {
     }
   }
 
-  return (<> 
-    {show_infoBox_data && 
+  return (
       <Control minWidth={442} minHeight={360} position={position}>
         <div ref={infoBoxRef} className="info-box">
-        <h2 className='font-bold text-xl'>Information Box</h2>
-          <button className="button-infoBox" onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
+        {show_infoBox_data ?
+          <div>
+            <h2 className='font-bold text-xl'>Information Box</h2>
+            <button className="button-infoBox" onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
 
-            dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
-          }}>x</button>
-          <Tabs />
-          <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' 
-            controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-            onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
-            placeholder="Select an option" />
-          <div className='max-w-md px-4 mt-5'>
-            <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
-            <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+              dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
+            }}>x</button>
+            <Tabs />
+            <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' 
+              controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+              onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
+              placeholder="Select an option" />
+            <div className='max-w-md px-4 mt-5'>
+              <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
+              <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+            </div>
           </div>
+        : null }
         </div>
       </Control>
-    }
-  </>
   )
 }
 
