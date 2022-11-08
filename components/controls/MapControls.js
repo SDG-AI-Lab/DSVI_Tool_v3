@@ -71,7 +71,7 @@ const MapControls = (props) => {
         >
             <svg xmlns="http://www.w3.org/2000/svg"
             className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 ml-2
-            cursor-pointer bg-white box-content border-solid border-2 border-[#00000033] rounded-[5px] h-11 w-11
+            cursor-pointer bg-white box-content border-solid border-2 border-[#00000033] bg-clip-padding rounded-[5px] h-11 w-11
             ${show_infoBox_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
             fill="none" viewBox="-2 0 52 44" stroke="currentColor" strokeWidth="2"
             onClick={(e) => {

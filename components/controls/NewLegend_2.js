@@ -13,8 +13,10 @@ const NewLegend_2 = (props) => {
 
   const legendRef = useRef();
   useEffect(() => {
-    /*Using the wheel will not change the zoom on the map.*/
-    L.DomEvent.disableScrollPropagation(legendRef.current);
+    if (legendRef.current) {
+      /*Using the wheel will not change the zoom on the map.*/
+      L.DomEvent.disableScrollPropagation(legendRef.current);
+    }
   });
 
   useEffect(() => {
