@@ -52,7 +52,6 @@ const InfoBox = (props) => {
 const infoBoxRef = useRef();
 
   useEffect(() => {
-    console.log("infoBoxRef.current", infoBoxRef.current);
     if (infoBoxRef.current) {
       /*Using the wheel will not change the zoom on the map.*/
       L.DomEvent.disableScrollPropagation(infoBoxRef.current);
