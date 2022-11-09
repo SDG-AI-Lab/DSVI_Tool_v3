@@ -85,6 +85,8 @@
   opacity: 1;
   border-radius: 15px;
   padding: 10px 0;
+  height: 450px;
+  width: 400px;
   padding-right: 1rem;
   padding-left: 1rem;
   overflow-y: hidden;
