@@ -49,7 +49,7 @@ const InfoBox = (props) => {
     setDropdownDescIndex(index);
   }
 
-  const infoBoxRef = useRef();
+const infoBoxRef = useRef();
 
   useEffect(() => {
     if (infoBoxRef.current) {
@@ -73,33 +73,36 @@ const InfoBox = (props) => {
     }
   }
 
-  return (<> 
-    { show_infoBox_data && 
-      <Control minWidth={442} minHeight={360} position={position}>
+  return (
+      <Control minWidth={360} minHeight={460} position={position}>
         <div ref={infoBoxRef} className="info-box">
-          <button className="button-infoBox" onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
+        {show_infoBox_data ?
+          <div>
+            <h2 className='font-bold text-xl mb-3 ml-3'>Information Panel</h2>
+            <button className="button-infoBox" onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
 
-            dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
-          }}>x</button>
-          <Tabs />
-          <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-28' 
-            controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-            onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
-            placeholder="Select an option" />
-          <div className='max-w-md px-4 mt-5'>
-            <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
-            <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+              dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
+            }}>x</button>
+            <Tabs />
+            <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
+              controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+              onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
+              placeholder="Select an option" />
+            <div className='max-w-md px-4 mt-5'>
+              <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
+              <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
+            </div>
           </div>
+        : null }
         </div>
       </Control>
-    }
-  </>
   )
 }
 
 // the tabs inside the infoBox: Social vulnerability, Data Exploration, and Methods
+
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
   return (
@@ -108,7 +111,7 @@ const Tabs = () => {
    
       <div className="flex items-start mb-3">
         <ul
-          className="nav nav-tabs mr-4 flex w-1/2 list-none flex-col flex-wrap border-b-0 pl-0"
+          className="nav nav-tabs mr-4 flex list-none flex-col flex-wrap border-b-0 pl-0"
           role="tablist"
         >
           <li
@@ -119,7 +122,7 @@ const Tabs = () => {
           >
             <a
               className={
-                'block rounded px-5 py-3 text-xs leading-normal text-black '
+                'block rounded px-5 py-1 text-base leading-normal text-black '
               }
               onClick={(e) => {
                 e.preventDefault()
@@ -129,7 +132,7 @@ const Tabs = () => {
               href="https://sdgailab.org/"
               role="tablist"
             >
-              What is Social Vulnerability
+              Social Vulnerability
             </a>
           </li>
           <li
@@ -140,7 +143,7 @@ const Tabs = () => {
           >
             <a
               className={
-                'block rounded px-5 py-3 text-xs leading-normal text-black '
+                'block rounded px-5 py-1 text-base leading-normal text-black '
               }
               onClick={(e) => {
                 e.preventDefault()
@@ -161,7 +164,7 @@ const Tabs = () => {
           >
             <a
               className={
-                'block rounded px-5 py-3 text-xs leading-normal text-black'
+                'block rounded px-5 py-1 text-base leading-normal text-black'
               }
               onClick={(e) => {
                 e.preventDefault()
@@ -175,8 +178,8 @@ const Tabs = () => {
             </a>
           </li>
         </ul>
-        <div className="tab-content w-1/2">
-          <div className="flex-auto px-2 py-3">
+        <div className="tab-content">
+          <div className="flex-auto px-2 py-0">
             <div
               className={`${openTab === 1 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
@@ -184,7 +187,7 @@ const Tabs = () => {
               id="link1"
             >
               <Carousel
-                className="info_carousel"
+                className="info_carousel ml-3 px-2"
                 showArrows={true}
                 showIndicators={false}
                 showThumbs={false}
@@ -215,12 +218,12 @@ const Tabs = () => {
             <div
               className={`${openTab === 2 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
-              style={{ width: '200px' }}
+              style={{ width: '150px' }}
               id="link2"
             >
               <Carousel
                 className="info_carousel"
-                showArrows={true}
+                showArrows={false}
                 showIndicators={false}
                 showThumbs={false}
                 showStatus={false}
@@ -250,12 +253,12 @@ const Tabs = () => {
             <div
               className={`${openTab === 3 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
-              style={{ width: '200px' }}
+              style={{ width: '150px' }}
               id="link3"
             >
               <Carousel
                 className="info_carousel"
-                showArrows={true}
+                showArrows={false}
                 showIndicators={false}
                 showThumbs={false}
                 showStatus={false}
