@@ -1,10 +1,9 @@
-export const initialState = {
+export const initalState = {
     "show_data":false,
     "show_sidebar_data":false,
     "show_infoBox_data": true,
     "show_sidebar":true,
     "level":1,
-    "reset_settings": false,
     "show_area_of_interest": true,
     "activeLegends": [{
         id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: true
@@ -1267,18 +1266,18 @@ export const reducer = (state, action) => {
             return {
                 ...state, show_sidebar: !state.show_sidebar,
             };
-        case "CHANGE_LEVEL":
-            // console.log("payload"+JSON.stringify(action.payload));
-            return {
-                ...state,
-                level: action.payload.level,
-            };
-        case "TOGGLE_RESET_SETTINGS":
-            return action.payload;
+
+            case "CHANGE_LEVEL":
+                // console.log("payload"+JSON.stringify(action.payload));
+                return {
+                    ...state,
+                    level: action.payload.level,
+                };
         case "TOGGLE_AREA_OF_INTEREST":
             return {
                 ...state, show_area_of_interest: !state.show_area_of_interest,
             };
+
         case "TOGGLE_SOCIOECONOMIC":
             return {
                 ...state, socioeconomic: {
