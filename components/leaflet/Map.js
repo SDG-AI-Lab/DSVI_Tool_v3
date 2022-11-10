@@ -53,9 +53,9 @@ import se_plant_health_3 from '/public/static/ndvi_3.geojson'
 import se_temperature_max_1 from '/public/static/temp_1.geojson'
 import se_temperature_max_2 from '/public/static/temp_2.geojson'
 import se_temperature_max_3 from '/public/static/temp_3.geojson'
-import se_land_use_class_1 from '/public/static/lu_1.geojson'
-import se_land_use_class_2 from '/public/static/lu_2.geojson'
-import se_land_use_class_3 from '/public/static/lu_3.geojson'
+// import se_land_use_class_1 from '/public/static/lu_1.geojson'
+// import se_land_use_class_2 from '/public/static/lu_2.geojson'
+// import se_land_use_class_3 from '/public/static/lu_3.geojson'
 import se_elevation_1 from '/public/static/dem_1.geojson'
 import se_elevation_2 from '/public/static/dem_2.geojson'
 import se_elevation_3 from '/public/static/dem_3.geojson'
@@ -120,10 +120,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const {status: se_plant_health_status, value: se_plant_health_value} = se_plant_health;
   const se_temperature_max = se_bio_physical.data.find((e) => e.slug === 'se_temperature_max');
   const {status: se_temperature_max_status, value: se_temperature_max_value} = se_temperature_max;
-  const se_land_use_class = se_bio_physical.data.find((e) => e.slug === 'se_land_use_class');
-  const {status: se_land_use_class_status, value: se_land_use_class_value} = se_land_use_class;
+  // const se_land_use_class = se_bio_physical.data.find((e) => e.slug === 'se_land_use_class');
+  // const {status: se_land_use_class_status, value: se_land_use_class_value} = se_land_use_class;
   const se_elevation = se_bio_physical.data.find((e) => e.slug === 'se_elevation');
   const {status: se_elevation_status, value: se_elevation_value} = se_elevation;
+  
+  
   /* Socioeconomic. END */
 
   /* Geodata Layers. START */
@@ -145,6 +147,9 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   const {status: distance_to_finance_status, value: distance_to_finance_value} = distance_to_finance;
   const distance_to_edu = distance_maps.data.find((e) => e.slug === 'sv_distance_to_edu');
   const {status: distance_to_edu_status, value: distance_to_edu_value} = distance_to_edu;
+
+  const roads = distance_maps.data.find((e) => e.slug === 'sv_roads');
+  const {status: roads_status, value: roads_value} = roads;
 
   const bio_physical = geodata.find((e) => e.slug === 'sv_bio_physical');
   const elevation = bio_physical.data.find((e) => e.slug === 'sv_elevation');
@@ -356,7 +361,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
           se_financial_service_status || se_population_counts_status || se_celltowers_status || se_nightlight_intensity_status ||
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
-          se_land_use_class_status || se_elevation_status ||
+          // se_land_use_class_status 
+          se_elevation_status ||
           sv_linear_model_status || sv_xgboost_status || sv_random_forest_status ||
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
@@ -509,15 +515,15 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         })}
 
         {/*Land Use*/}
-        {se_land_use_class_status && level === 1 && se_land_use_class_1.features.map((library, index) => {
+        {/* {se_land_use_class_status && level === 1 && se_land_use_class_1.features.map((library, index) => {
           return newProjection(se_land_use_class_1, library, index, se_land_use_class);
-        })}
-        {se_land_use_class_status && level === 2 && se_land_use_class_2.features.map((library, index) => {
+        })} */}
+        {/* {se_land_use_class_status && level === 2 && se_land_use_class_2.features.map((library, index) => {
           return newProjection(se_land_use_class_2, library, index, se_land_use_class);
-        })}
-        {se_land_use_class_status && level === 3 && se_land_use_class_3.features.map((library, index) => {
+        })} */}
+        {/* {se_land_use_class_status && level === 3 && se_land_use_class_3.features.map((library, index) => {
           return newProjection(se_land_use_class_3, library, index, se_land_use_class);
-        })}
+        })} */}
 
         {/*Elevation*/}
         {se_elevation_status && level === 1 && se_elevation_1.features.map((library, index) => {
@@ -558,18 +564,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             />
         : null
         }
-        {/* OLD WMSTileLayer
-          <WMSTileLayer
-            params={{
-              layers: "sdg-ai-lab:XGBoost_tuned_scaled_clipped_final",
-              format: "image/png",
-              transparent: true,
-              version: "1.1.0",
-              style: "sdg-ai-lab:xgboost",
-            }}
-            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            zIndex="9999"
-            opacity={sv_xgboost_value / 100}/> */}
+        
 
         {sv_random_forest_status ?
           <BetterWMSTileLayer
@@ -595,17 +590,33 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         : null
         }
 
-        {distance_to_finance_status ?
-          <BetterWMSTileLayer
-            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326"
-            transparent= "true"
-            zIndex="9999"
-            styles="sdg-ai-lab:255_0_style"
-            opacity={distance_to_finance_value / 100}
-          />
+        {roads_status ?
+          <WMSTileLayer
+          params={{
+            layers: "sdg-ai-lab:lines_merged",
+            format: "image/png",
+            transparent: true,
+            version: "1.1.0",
+            //style: "sdg-ai-lab:xgboost",
+          }}
+          url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
+          zIndex="9999"
+          opacity={roads_value / 100}/>
         : null
         }
+
+        {/* OLD WMSTileLayer
+          <WMSTileLayer
+            params={{
+              layers: "sdg-ai-lab:XGBoost_tuned_scaled_clipped_final",
+              format: "image/png",
+              transparent: true,
+              version: "1.1.0",
+              style: "sdg-ai-lab:xgboost",
+            }}
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
+            zIndex="9999"
+            opacity={sv_xgboost_value / 100}/> */}
 
         {distance_to_edu_status ?
           <BetterWMSTileLayer
