@@ -165,16 +165,16 @@ export const initalState = {
                         units: '',
                         json_library:'temp'
                     },
-                    {
-                        id: 4.3,
-                        slug: 'se_land_use_class',
-                        title: 'Land Use Class',
-                        status: false,
-                        value: 70,
-                        reverse_meaning: true,
-                        units: '',
-                        json_library:'lu'
-                    },
+                    // {
+                    //     id: 4.3,
+                    //     slug: 'se_land_use_class',
+                    //     title: 'Land Use Class',
+                    //     status: false,
+                    //     value: 70,
+                    //     reverse_meaning: true,
+                    //     units: '',
+                    //     json_library:'lu'
+                    // },
                     {
                         id: 4.4,
                         slug: 'se_elevation',
@@ -253,6 +253,14 @@ export const initalState = {
                         status: false,
                         value: 70,
                         layer: 'sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326'
+                    },
+                    {
+                        id: 2.4,
+                        slug: 'sv_roads',
+                        title: 'Road Network',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:lines_merged'
                     }
 
                 ]

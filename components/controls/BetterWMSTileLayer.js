@@ -9,11 +9,11 @@ import L from 'leaflet';
 const lookupforgrayindex =(GRAY_INDEX =>
     {
         switch (true) {
-            case GRAY_INDEX > 0.9: return 'Low'; 
-            case GRAY_INDEX > 0.7:  return 'Mid'; 
-            case GRAY_INDEX > 0.55: return 'High'; 
-            case GRAY_INDEX > 0.25:  return 'Very High'; 
-            case GRAY_INDEX > 0: return 'High'; d
+            case GRAY_INDEX > 0.9: return 'Very High'; 
+            case GRAY_INDEX > 0.7:  return 'High'; 
+            case GRAY_INDEX > 0.55: return 'Medium'; 
+            case GRAY_INDEX > 0.25:  return 'Low'; 
+            case GRAY_INDEX > 0: return 'Very Low'; d
             default: return 'Undefined'; 
           }
     });
