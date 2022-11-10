@@ -1,64 +1,65 @@
-import React, { useContext } from 'react'
+import React, {useContext} from 'react';
+
 // import { BoxZoomControl } from "react-leaflet-box-zoom";
-import L from 'leaflet'
-import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl} from 'react-leaflet'
+import L from 'leaflet';
+import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl} from 'react-leaflet';
 //import PrintControlDefault from "react-leaflet-easyprint";
-import Legend from '../controls/Legend';
-import styles from './Map.module.scss'
-import {FilterContext} from '../../context/FilterContext'
-import {LegendContext} from '../../context/LegendContext'
+
+import styles from './Map.module.scss';
+import {FilterContext} from '../../context/FilterContext';
+
 import {Settings, TileProviders} from '../../config/MapConfiguration';
-import ControlMenu from '../controls/InfoBox';
+
 import CustomPolygon from '../controls/CustomPolygon';
 import CustomPolygon_AOI from '../controls/CustomPolygon_AOI';
 import CircleMarkers from '../marker/CircleMarkers';
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability';
 import MapToolbar from '../controls/MapToolbar';
 
-import AOI from '/public/static/AOI.geojson'
+import AOI from '/public/static/AOI.geojson';
 
-import se_random_forest_1 from '/public/static/rf_1.geojson'
-import se_random_forest_2 from '/public/static/rf_2.geojson'
-import se_random_forest_3 from '/public/static/rf_3.geojson'
-import se_xgboost_1 from '/public/static/XGBoost_1.geojson'
-import se_xgboost_2 from '/public/static/XGBoost_2.geojson'
-import se_xgboost_3 from '/public/static/XGBoost_3.geojson'
-import se_edu_1 from '/public/static/edu_1.geojson'
-import se_edu_2 from '/public/static/edu_2.geojson'
-import se_edu_3 from '/public/static/edu_3.geojson'
-import se_health_1 from '/public/static/health_1.geojson'
-import se_health_2 from '/public/static/health_2.geojson'
-import se_health_3 from '/public/static/health_3.geojson'
-import se_finance_1 from '/public/static/finan_1.geojson'
-import se_finance_2 from '/public/static/finan_2.geojson'
-import se_finance_3 from '/public/static/finan_3.geojson'
-import se_population_1 from '/public/static/ppp_pop_1.geojson'
-import se_population_2 from '/public/static/ppp_pop_2.geojson'
-import se_population_3 from '/public/static/ppp_pop_3.geojson'
-import se_celltowers_1 from '/public/static/cellt_1.geojson'
-import se_celltowers_2 from '/public/static/cellt_2.geojson'
-import se_celltowers_3 from '/public/static/cellt_3.geojson'
-import se_nightlight_intensity_1 from '/public/static/ntl_vnl_npp_2016_1.geojson'
-import se_nightlight_intensity_2 from '/public/static/ntl_vnl_npp_2016_2.geojson'
-import se_nightlight_intensity_3 from '/public/static/ntl_vnl_npp_2016_3.geojson'
-import se_relative_wealth_1 from '/public/static/rwi_1.geojson'
-import se_relative_wealth_2 from '/public/static/rwi_2.geojson'
-import se_relative_wealth_3 from '/public/static/rwi_3.geojson'
-import se_GDP_1 from '/public/static/gdp_2015_1.geojson'
-import se_GDP_2 from '/public/static/gdp_2015_2.geojson'
-import se_GDP_3 from '/public/static/gdp_2015_3.geojson'
-import se_plant_health_1 from '/public/static/ndvi_1.geojson'
-import se_plant_health_2 from '/public/static/ndvi_2.geojson'
-import se_plant_health_3 from '/public/static/ndvi_3.geojson'
-import se_temperature_max_1 from '/public/static/temp_1.geojson'
-import se_temperature_max_2 from '/public/static/temp_2.geojson'
-import se_temperature_max_3 from '/public/static/temp_3.geojson'
-import se_land_use_class_1 from '/public/static/lu_1.geojson'
-import se_land_use_class_2 from '/public/static/lu_2.geojson'
-import se_land_use_class_3 from '/public/static/lu_3.geojson'
-import se_elevation_1 from '/public/static/dem_1.geojson'
-import se_elevation_2 from '/public/static/dem_2.geojson'
-import se_elevation_3 from '/public/static/dem_3.geojson'
+import se_random_forest_1 from '/public/static/rf_1.geojson';
+import se_random_forest_2 from '/public/static/rf_2.geojson';
+import se_random_forest_3 from '/public/static/rf_3.geojson';
+import se_xgboost_1 from '/public/static/XGBoost_1.geojson';
+import se_xgboost_2 from '/public/static/XGBoost_2.geojson';
+import se_xgboost_3 from '/public/static/XGBoost_3.geojson';
+import se_edu_1 from '/public/static/edu_1.geojson';
+import se_edu_2 from '/public/static/edu_2.geojson';
+import se_edu_3 from '/public/static/edu_3.geojson';
+import se_health_1 from '/public/static/health_1.geojson';
+import se_health_2 from '/public/static/health_2.geojson';
+import se_health_3 from '/public/static/health_3.geojson';
+import se_finance_1 from '/public/static/finan_1.geojson';
+import se_finance_2 from '/public/static/finan_2.geojson';
+import se_finance_3 from '/public/static/finan_3.geojson';
+import se_population_1 from '/public/static/ppp_pop_1.geojson';
+import se_population_2 from '/public/static/ppp_pop_2.geojson';
+import se_population_3 from '/public/static/ppp_pop_3.geojson';
+import se_celltowers_1 from '/public/static/cellt_1.geojson';
+import se_celltowers_2 from '/public/static/cellt_2.geojson';
+import se_celltowers_3 from '/public/static/cellt_3.geojson';
+import se_nightlight_intensity_1 from '/public/static/ntl_vnl_npp_2016_1.geojson';
+import se_nightlight_intensity_2 from '/public/static/ntl_vnl_npp_2016_2.geojson';
+import se_nightlight_intensity_3 from '/public/static/ntl_vnl_npp_2016_3.geojson';
+import se_relative_wealth_1 from '/public/static/rwi_1.geojson';
+import se_relative_wealth_2 from '/public/static/rwi_2.geojson';
+import se_relative_wealth_3 from '/public/static/rwi_3.geojson';
+import se_GDP_1 from '/public/static/gdp_2015_1.geojson';
+import se_GDP_2 from '/public/static/gdp_2015_2.geojson';
+import se_GDP_3 from '/public/static/gdp_2015_3.geojson';
+import se_plant_health_1 from '/public/static/ndvi_1.geojson';
+import se_plant_health_2 from '/public/static/ndvi_2.geojson';
+import se_plant_health_3 from '/public/static/ndvi_3.geojson';
+import se_temperature_max_1 from '/public/static/temp_1.geojson';
+import se_temperature_max_2 from '/public/static/temp_2.geojson';
+import se_temperature_max_3 from '/public/static/temp_3.geojson';
+import se_land_use_class_1 from '/public/static/lu_1.geojson';
+import se_land_use_class_2 from '/public/static/lu_2.geojson';
+import se_land_use_class_3 from '/public/static/lu_3.geojson';
+import se_elevation_1 from '/public/static/dem_1.geojson';
+import se_elevation_2 from '/public/static/dem_2.geojson';
+import se_elevation_3 from '/public/static/dem_3.geojson';
 
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
 import NewLegend_2 from '../controls/NewLegend_2';
@@ -71,8 +72,7 @@ const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 };
 // const PrintControl = withLeaflet(PrintControlDefault);
 
 const OsmMap = ({ center, draggable, onDragMarker, location }) => {
-  const { state, dispatch } = useContext(FilterContext)
-  const { state: legenddata, dispatch: setLegendData } = useContext(LegendContext);
+  const { state, dispatch } = useContext(FilterContext);
   const level = state["level"];
   const show_data = state['show_data'];
   const show_sidebar_data = state['show_sidebar_data'];

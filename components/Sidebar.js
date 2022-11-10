@@ -1,17 +1,18 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect} from "react";
 import { Modal } from 'react-responsive-modal';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { FilterContext } from '../context/FilterContext'
-import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
-
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { FilterContext } from '../context/FilterContext';
+import DHS_COLUMN from './../public/static/color_gradient_lookup.json';
 
 const Sidebar = (props) => {
   const { show_infoBox_data } = props;
   const { state, dispatch } = useContext(FilterContext);
+  
   const level = state["level"];
 
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
+  const reset_settings = state["reset_settings"];
 
   const activeLegends = state["activeLegends"];
   const socioeconomic = state["socioeconomic"];
@@ -69,7 +70,7 @@ const Sidebar = (props) => {
   // function addSocioeconmic(newItem) {
 
   function addRemoveNewLegend(newItem) {
-    let newLegends = activeLegends;
+    let newLegends = [...activeLegends];
     // console.log(newItem)
     if (newItem.status == true) {
       newLegends.push(newItem);
@@ -107,14 +108,30 @@ const Sidebar = (props) => {
             <div>
 
               <ul className="relative px-3">
-                <li><p></p></li>
-                
                 <hr className="my-2" />
+
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden bg-blue-50
-                    text-blue-600 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
-                    hover:bg-blue-100 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    // onClick={() => dispatch({ type: "TOGGLE_RESET_SETTINGS", payload: {} })}
+                    onClick={() => {
+                      console.log("initialState", props.originalInitialState);
+                      dispatch({type: "TOGGLE_RESET_SETTINGS", payload: props.originalInitialState})}
+                    }
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                  <span>{reset_settings == false ? 'Reset Tool' : 'Reset Tool'}</span>
+                  </a>
+                </li>
+
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 
+                    text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 
+                    transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
+                    style={{'background': areaofInterestStatus2 ? 'rgb(239 246 255)': null,
+                            'color': areaofInterestStatus2 ? 'rgb(37 99 235)': null }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -122,10 +139,8 @@ const Sidebar = (props) => {
                     <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
                   </a>
                 </li>
-
                 {/* TOGGLE VULNERABILITY POINTS */}
                 
-
                 <ul>
                   {/* Show vulnerability in sidebar */}
                   <li className="relative">

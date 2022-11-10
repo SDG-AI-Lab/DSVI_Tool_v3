@@ -28,7 +28,7 @@ const NewLegend_2 = (props) => {
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = activeLegends;
+    const items = [...activeLegends];
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: items });
@@ -288,7 +288,7 @@ const getWordExplanation = (index => {
               <Droppable droppableId="legends">
                 {(provided) => (
                   <ul className="legends" {...provided.droppableProps} ref={provided.innerRef}>
-                    {activeLegends.map((item, index) => {
+                    {[...activeLegends].map((item, index) => {
                       return (
                         <Draggable key={index} draggableId={(index).toString()} index={index}>
                           {(provided) => (
