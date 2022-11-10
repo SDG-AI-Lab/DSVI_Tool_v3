@@ -183,7 +183,7 @@ const Tabs = () => {
             <div
               className={`${openTab === 1 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
-              style={{ width: '150px' }}
+              style={{ width: '200px' }}
               id="link1"
             >
               <Carousel
