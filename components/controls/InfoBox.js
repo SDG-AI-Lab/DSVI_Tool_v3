@@ -78,7 +78,7 @@ const infoBoxRef = useRef();
         <div ref={infoBoxRef} className="info-box">
         {show_infoBox_data ?
           <div>
-            <h2 className='font-bold text-xl mb-3'>Information Panel</h2>
+            <h2 className='font-bold text-xl mb-3 ml-3'>Information Panel</h2>
             <button className="button-infoBox" onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
