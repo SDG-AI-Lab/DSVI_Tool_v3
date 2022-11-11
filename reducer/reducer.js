@@ -1,3 +1,5 @@
+import produce from "immer";
+
 export const initialState = {
     "show_data":false,
     "show_sidebar_data":false,
@@ -188,8 +190,7 @@ export const initialState = {
                     }
                 ]
             }
-        ],
-        "data_column": "_mean"
+        ]
     },
     "geodata": {
         "status": false,
@@ -1268,11 +1269,9 @@ export const reducer = (state, action) => {
                 ...state, show_sidebar: !state.show_sidebar,
             };
         case "CHANGE_LEVEL":
-            // console.log("payload"+JSON.stringify(action.payload));
-            return {
-                ...state,
-                level: action.payload.level,
-            };
+            return produce(state, (draft) => {
+                draft.level = action.payload.level;
+            });
         case "TOGGLE_RESET_SETTINGS":
             return action.payload;
         case "TOGGLE_AREA_OF_INTEREST":
@@ -1280,17 +1279,13 @@ export const reducer = (state, action) => {
                 ...state, show_area_of_interest: !state.show_area_of_interest,
             };
         case "TOGGLE_SOCIOECONOMIC":
-            return {
-                ...state, socioeconomic: {
-                    status: !state.socioeconomic.status, data: state.socioeconomic.data, data_column: state.socioeconomic.data_column
-                }
-            };
+            return produce(state, (draft) => {
+                draft.socioeconomic.status = !draft.socioeconomic.status;
+            });
         case "CHANGE_SOCIOECONOMIC":
-            return {
-                ...state, socioeconomic: {
-                    status: state.socioeconomic.status, data: action.payload, data_column: state.socioeconomic.data_column
-                }
-            };
+            return produce(state, (draft) => {
+                draft.socioeconomic['data'][action.index_1]['data'][action.index_2] = action.payload;
+            });
         case "CHANGE_SOCIOECONOMIC_DATA_COLUMN":
             return {
                 ...state, socioeconomic: {
@@ -1298,34 +1293,56 @@ export const reducer = (state, action) => {
                 }
             };
         case "TOGGLE_GEODATA":
-            return {
-                ...state, geodata: {
-                    status: !state.geodata.status, data: state.geodata.data
-                }
-            };
+            return produce(state, (draft) => {
+                draft.geodata.status = !draft.geodata.status;
+            });
         case "CHANGE_GEODATA":
-            return {
-                ...state, geodata: {
-                    status: state.geodata.status, data: action.payload
-                }
-            };
+            return produce(state, (draft) => {
+                draft.geodata['data'][action.index_1]['data'][action.index_2] = action.payload;
+            });
         case "CHANGE_ACTIVE_LEGENDS":
-            return {
-                ...state, activeLegends: action.payload
-            };
+            return produce(state, (draft) => {
+                let newLegends = draft.activeLegends;
+
+                if (action.payload.status == true) {
+                newLegends.push(action.payload);
+                } else if (action.payload.status == false) {
+                newLegends = newLegends.filter(item => {
+                    return item.slug != action.payload.slug;
+                })
+                }
+
+                /*For DHS indicators. ONLY*/
+                if (action.payload.hasOwnProperty('Name') && (action.payload.hasOwnProperty('Additional Information'))) {
+                newLegends = newLegends.filter(item => {
+                    return !item.hasOwnProperty('Name');
+                })
+                if (action.payload.id != 0) {
+                    newLegends.push(action.payload);
+                }
+                }
+                draft.activeLegends = newLegends;
+            });
+        case "DRAG_DROP_CHANGE_ACTIVE_LEGENDS":
+            return produce(state, (draft) => {
+                const items = draft.activeLegends;
+                const [reorderedItem] = items.splice(action.payload.source.index, 1);
+                items.splice(action.payload.destination.index, 0, reorderedItem);
+                draft.activeLegends = items;
+            });
         case "TOGGLE_VULNERABILITY":
-            return {
-                ...state, vulnerability: !state.vulnerability,
-            };
+            return produce(state, (draft) => {
+                draft.vulnerability = !draft.vulnerability;
+            });
         case "FETCH_CSV_DATA_VULNERABILITY":
             return {
                 ...state,
                 csv_data_vulnerability: action.payload
             };
         case "CHANGE_CATEGORIES":
-            return {
-                ...state, categories: action.payload
-            };
+            return produce(state, (draft) => {
+                draft.categories[action.index_1] = action.payload;
+            });
         case "TOGGLE_DSV_INDICATOR":
             return {
                 ...state, dsv_indicator: !state.dsv_indicator,
@@ -1334,7 +1351,6 @@ export const reducer = (state, action) => {
             return {
                 ...state, selected_data_column: action.payload,
             };
-
         case "TOGGLE_DHS_INDICATOR":
             return {
                 ...state,
