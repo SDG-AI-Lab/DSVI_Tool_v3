@@ -131,8 +131,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   /* Geodata Layers. START */
   const social_vulnerability = geodata.find((e) => e.slug === 'sv_social_vulnerability');
 
-  const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
-  const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  // const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
+  // const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
 
   const sv_xgboost = social_vulnerability.data.find((e) => e.slug === 'sv_xgboost');
   const {status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
@@ -363,7 +363,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
           // se_land_use_class_status 
           se_elevation_status ||
-          sv_linear_model_status || sv_xgboost_status || sv_random_forest_status ||
+          // sv_linear_model_status || 
+          sv_xgboost_status || sv_random_forest_status ||
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
           pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status ||
@@ -538,7 +539,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* NEW. Socioeconomic. END */}
 
         {/* Geodata layer. START */}
-        {sv_linear_model_status ?
+        {/* {sv_linear_model_status ?
             <WMSTileLayer
               params={{
                 layers: "sdg-ai-lab:Linear_SV",
@@ -551,7 +552,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               zIndex="9999"
               opacity={sv_linear_model_value / 100}/>
           : null
-        }
+        } */}
 
         {sv_xgboost_status ?
             <BetterWMSTileLayer

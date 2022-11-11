@@ -198,14 +198,14 @@ export const initalState = {
                 slug: 'sv_social_vulnerability',
                 title: 'Social Vulnerability',
                 data: [
-                    {
-                        id: 1.1,
-                        slug: 'sv_linear_model',
-                        title: 'SV: Linear Model',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:Linear_SV'
-                    },
+                    // {
+                    //     id: 1.1,
+                    //     slug: 'sv_linear_model',
+                    //     title: 'SV: Linear Model',
+                    //     status: false,
+                    //     value: 70,
+                    //     layer: 'sdg-ai-lab:Linear_SV'
+                    // },
                     {
                         id: 1.2,
                         slug: 'sv_xgboost',
