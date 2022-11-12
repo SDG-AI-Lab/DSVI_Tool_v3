@@ -62,6 +62,11 @@ const infoBoxRef = useRef();
     }
   });
 
+  useEffect(() => {
+    setDropdownValue(dropDownOptions[0]);
+    setDropdownDescIndex(0);
+  }, [activeLegends]);
+
   if (activeLegends.length > 0 && dropdownValue != activeLegends[activeLegends.length-1].title) {
     const idOfLayer = dropDownOptions.indexOf(activeLegends[activeLegends.length-1].title);
 
