@@ -33,7 +33,7 @@ const Sidebar = (props) => {
   const [dsvModal, setDsvModal] = useState(false);
   const [dhsModal, setDhsModal] = useState(false);
   const onOpenDsvModal = () => setDsvModal(true);
-  const onCloseDsvModal = () => setDsvModal(false);  
+  const onCloseDsvModal = () => setDsvModal(false);
   const onOpenDhsModal = () => setDhsModal(true);
   const onCloseDhsModal = () => setDhsModal(false);
 
@@ -57,6 +57,17 @@ const Sidebar = (props) => {
     dispatch({ type: "CHANGE_CATEGORIES", payload: items });
   }
 
+  function handleOnDragEndSocioEconomicData(result) {
+    if (!result.destination) return;
+
+    const items = Array.from(socioEconomicLayers);
+    const index = parseInt(result.source.droppableId) - 1;
+    const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
+
+    items[index]['data'].splice(result.destination.index, 0, reorderedItem);
+    dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: items });
+  }
+
   function handleOnDragEnd2(result) {
     if (!result.destination) return;
     const items = Array.from(geodataLayers);
@@ -65,7 +76,7 @@ const Sidebar = (props) => {
     items[index]['data'].splice(result.destination.index, 0, reorderedItem);
     dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
- 
+
   // function addSocioeconmic(newItem) {
 
   function addRemoveNewLegend(newItem) {
@@ -108,7 +119,7 @@ const Sidebar = (props) => {
 
               <ul className="relative px-3">
                 <li><p></p></li>
-                
+
                 <hr className="my-2" />
                 <li className="relative">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden bg-blue-50
@@ -124,7 +135,7 @@ const Sidebar = (props) => {
                 </li>
 
                 {/* TOGGLE VULNERABILITY POINTS */}
-                
+
 
                 <ul>
                   {/* Show vulnerability in sidebar */}
@@ -258,7 +269,7 @@ const Sidebar = (props) => {
                   </li> */}
                   {/* removed DRAW AREA OF INTEREST BEFORE ITS IMPLEMENTED */}
 
-                  {/* <li className="relative">       
+                  {/* <li className="relative">
                     <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     //onClick={() => setAreaofInterestStatus(!areaofInterestStatus)}
                     >
@@ -269,7 +280,7 @@ const Sidebar = (props) => {
                     </a>
                   </li> */}
 
-                {/* removed Statistics BEFORE ITS IMPLEMENTED */} 
+                {/* removed Statistics BEFORE ITS IMPLEMENTED */}
                 {/* <li className="relative">
                   <a className="flex items-center text-sm py-4 px-5 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
 
@@ -311,7 +322,7 @@ const Sidebar = (props) => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
                             01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                        </svg>  
+                        </svg>
                     }
                   </a>
                   {socioeconomic.status == true &&
@@ -392,7 +403,7 @@ const Sidebar = (props) => {
                     } */}
 
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
-                    data-bs-parent="#sidenavSecExample">              
+                    data-bs-parent="#sidenavSecExample">
                       {socioeconomic.status == true && socioeconomic.data.map((val, index) => {
                               return (
                                   <li className="relative" key={index}>
@@ -400,116 +411,118 @@ const Sidebar = (props) => {
                                         overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
                                         hover:bg-blue-50 transition duration-300 ease-in-out"
                                                           data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-                                      <DragDropContext onDragEnd={handleOnDragEnd2}>
+                                      <DragDropContext onDragEnd={handleOnDragEndSocioEconomicData}>
                                           <Droppable droppableId={val.id.toString()}>
                                               {(provided) => (
                                                   <ul className={val.id} {...provided.droppableProps} ref={provided.innerRef}>
+                                                      {provided.placeholder}
                                                       {
                                                         val.data && val.data.map((val2, index2) => {
                                                               return (
                                                                   <Draggable key={val2.id} draggableId={val2.id.toString()} index={index2}>
-                                                                      {(provided) => (
-                                                                          <>
-                                                                              <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                                                  <div className="flex i items-center"
-                                                                                      onClick={() => {
-                                                                                        const newItems = [...socioeconomic.data];
-                                                                                        const newItem = {
-                                                                                            id: val2.id,
-                                                                                            slug: val2.slug,
-                                                                                            title: val2.title,
-                                                                                            status: !val2.status,
-                                                                                            value: val2.value,
-                                                                                            reverse_meaning: val2.reverse_meaning,
-                                                                                            units: val2.units,
-                                                                                            json_library: val2.json_library
-                                                                                        };
-                                                                                        newItems[index]['data'][index2] = newItem;
-                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
-                                                                                        addRemoveNewLegend(newItem);
-                                                                                        //alert("Hi");
-                                                                                        // show_infoBox_data && <ControlMenu props/>
-                                                                                      }}
-                                                                                  >
-                                                                                      <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
-                                                                                          id="flowbite" aria-describedby="flowbite" type="checkbox"
-                                                                                          checked={val2.status}
-                                                                                          onChange={(event) => {
-                                                                                              const newItems = [...socioeconomic.data];
-                                                                                              const newItem = {
-                                                                                                  id: val2.id,
-                                                                                                  slug: val2.slug,
-                                                                                                  title: val2.title,
-                                                                                                  status: !val2.status,
-                                                                                                  value: val2.value,
-                                                                                                  reverse_meaning: val2.reverse_meaning,
-                                                                                                  units: val2.units,
-                                                                                                  json_library: val2.json_library
-                                                                                              };
-                                                                                              newItems[index]['data'][index2] = newItem;
-                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
-                                                                                          }}
-                                                                                      />
-                                                                                      <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
-                                                                                          text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition
-                                                                                          duration-300 ease-in-out"
-                                                                                          data-mdb-ripple="true" data-mdb-ripple-color="primary">{val2.title}</a>
-                                                                                  </div>
-                                                                                  {
-                                                                                    val2.status == true ?
-                                                                                        <div className="flex flex-col space-y-2 p-2">
-                                                                                            <div className="px-6">
-                                                                                                <span className="text-gray-700 text-sm">opacity:
-                                                                                                    <input
-                                                                                                        type="number"
-                                                                                                        className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid
-                                                                                                            border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white
-                                                                                                            focus:border-blue-600 focus:outline-none"
-                                                                                                        value={parseInt(val2.value)}
-                                                                                                        onChange={(event) => {
-                                                                                                            const newItems = [...socioeconomic.data];
-                                                                                                            newItems[index]['data'][index2] = {
-                                                                                                                id: val2.id,
-                                                                                                                slug: val2.slug,
-                                                                                                                title: val2.title,
-                                                                                                                status: val2.status,
-                                                                                                                value: event.target.value,
-                                                                                                                reverse_meaning: val2.reverse_meaning,
-                                                                                                                units: val2.units,
-                                                                                                                json_library: val2.json_library
-                                                                                                            };
-                                                                                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
-                                                                                                        }}
-                                                                                                    />
-                                                                                                    <div>
-                                                                                                        <div>
-                                                                                                            <input type="range" min="1" max="100" step="1" value={val2.value} className="form-range h-6 p-0
-                                                                                                                focus:outline-none focus:ring-0 focus:shadow-none"
-                                                                                                                onChange={(event) => {
-                                                                                                                    const newItems = [...socioeconomic.data];
-                                                                                                                    newItems[index]['data'][index2] = {
-                                                                                                                        id: val2.id,
-                                                                                                                        slug: val2.slug,
-                                                                                                                        title: val2.title,
-                                                                                                                        status: val2.status,
-                                                                                                                        value: event.target.value,
-                                                                                                                        reverse_meaning: val2.reverse_meaning,
-                                                                                                                        units: val2.units,
-                                                                                                                        json_library: val2.json_library
-                                                                                                                    };
-                                                                                                                    dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
-                                                                                                                }}
-                                                                                                            />
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        : null
-                                                                                  }
-                                                                              </li>
-                                                                          </>
-                                                                      )}
+                                                                    {(provided) => (
+                                                                        <>
+                                                                            {provided.placeholder}
+                                                                            <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                                                <div className="flex i items-center"
+                                                                                    onClick={() => {
+                                                                                      const newItems = [...socioeconomic.data];
+                                                                                      const newItem = {
+                                                                                          id: val2.id,
+                                                                                          slug: val2.slug,
+                                                                                          title: val2.title,
+                                                                                          status: !val2.status,
+                                                                                          value: val2.value,
+                                                                                          reverse_meaning: val2.reverse_meaning,
+                                                                                          units: val2.units,
+                                                                                          json_library: val2.json_library
+                                                                                      };
+                                                                                      newItems[index]['data'][index2] = newItem;
+                                                                                      dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
+                                                                                      addRemoveNewLegend(newItem);
+                                                                                      //alert("Hi");
+                                                                                      // show_infoBox_data && <ControlMenu props/>
+                                                                                    }}
+                                                                                >
+                                                                                    <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+                                                                                        id="flowbite" aria-describedby="flowbite" type="checkbox"
+                                                                                        checked={val2.status}
+                                                                                        onChange={(event) => {
+                                                                                            const newItems = [...socioeconomic.data];
+                                                                                            const newItem = {
+                                                                                                id: val2.id,
+                                                                                                slug: val2.slug,
+                                                                                                title: val2.title,
+                                                                                                status: !val2.status,
+                                                                                                value: val2.value,
+                                                                                                reverse_meaning: val2.reverse_meaning,
+                                                                                                units: val2.units,
+                                                                                                json_library: val2.json_library
+                                                                                            };
+                                                                                            newItems[index]['data'][index2] = newItem;
+                                                                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
+                                                                                        }}
+                                                                                    />
+                                                                                    <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
+                                                                                        text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition
+                                                                                        duration-300 ease-in-out"
+                                                                                        data-mdb-ripple="true" data-mdb-ripple-color="primary">{val2.title}</a>
+                                                                                </div>
+                                                                                {
+                                                                                  val2.status == true ?
+                                                                                      <div className="flex flex-col space-y-2 p-2">
+                                                                                          <div className="px-6">
+                                                                                              <span className="text-gray-700 text-sm">opacity:
+                                                                                                  <input
+                                                                                                      type="number"
+                                                                                                      className="mx-2 w-14 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid
+                                                                                                          border-gray-300 rounded transition ease-in-out input-sm focus:text-gray-700 focus:bg-white
+                                                                                                          focus:border-blue-600 focus:outline-none"
+                                                                                                      value={parseInt(val2.value)}
+                                                                                                      onChange={(event) => {
+                                                                                                          const newItems = [...socioeconomic.data];
+                                                                                                          newItems[index]['data'][index2] = {
+                                                                                                              id: val2.id,
+                                                                                                              slug: val2.slug,
+                                                                                                              title: val2.title,
+                                                                                                              status: val2.status,
+                                                                                                              value: event.target.value,
+                                                                                                              reverse_meaning: val2.reverse_meaning,
+                                                                                                              units: val2.units,
+                                                                                                              json_library: val2.json_library
+                                                                                                          };
+                                                                                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                                      }}
+                                                                                                  />
+                                                                                                  <div>
+                                                                                                      <div>
+                                                                                                          <input type="range" min="1" max="100" step="1" value={val2.value} className="form-range h-6 p-0
+                                                                                                              focus:outline-none focus:ring-0 focus:shadow-none"
+                                                                                                              onChange={(event) => {
+                                                                                                                  const newItems = [...socioeconomic.data];
+                                                                                                                  newItems[index]['data'][index2] = {
+                                                                                                                      id: val2.id,
+                                                                                                                      slug: val2.slug,
+                                                                                                                      title: val2.title,
+                                                                                                                      status: val2.status,
+                                                                                                                      value: event.target.value,
+                                                                                                                      reverse_meaning: val2.reverse_meaning,
+                                                                                                                      units: val2.units,
+                                                                                                                      json_library: val2.json_library
+                                                                                                                  };
+                                                                                                                  dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                                              }}
+                                                                                                          />
+                                                                                                      </div>
+                                                                                                  </div>
+                                                                                              </span>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                      : null
+                                                                                }
+                                                                            </li>
+                                                                        </>
+                                                                    )}
                                                                   </Draggable>
                                                               )
                                                           })
@@ -524,7 +537,7 @@ const Sidebar = (props) => {
                       }
                   </ul>
                 </li>
-                
+
                 <li className="relative" id="sidenavSecEx3">
                   <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 text-ellipsis
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
@@ -677,10 +690,10 @@ const Sidebar = (props) => {
                   </ul>
                 </li>
               </ul>
-              
+
               {/* <hr className="my-2" /> */}
 
-              
+
 
             </div>
           </div>
@@ -706,7 +719,7 @@ const Sidebar = (props) => {
 
         <hr />
           <div>
-            
+
             {
               dataColumn.map((val, index) => {
                 return (
@@ -757,11 +770,11 @@ const Sidebar = (props) => {
         }
 
         styles={{
-          modal: {overflowY: 'visible', margin: 'auto', maxHeight: '75vh', maxWidth: '40vw', float: 'left', position: 'relative', marginLeft: '290px', marginTop: '85px'},    
+          modal: {overflowY: 'visible', margin: 'auto', maxHeight: '75vh', maxWidth: '40vw', float: 'left', position: 'relative', marginLeft: '290px', marginTop: '85px'},
           overlay: {backgroundColor: 'rgb(0, 0, 0, 0)'}
         }}
       >
-      
+
       <h2 className="text-gray-800 text-xl font-semibold mb-2">Select DHS Indicator</h2>
         <div className="ax-w-md mx-auto bg-white rounded-xl">
         <hr />
