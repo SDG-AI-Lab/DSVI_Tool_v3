@@ -28,10 +28,7 @@ const NewLegend_2 = (props) => {
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = activeLegends;
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: items });
+    dispatch({ type: "DRAG_DROP_CHANGE_ACTIVE_LEGENDS", payload: result });
   }
 
 

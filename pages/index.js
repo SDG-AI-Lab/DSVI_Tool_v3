@@ -9,6 +9,7 @@ import sdgFilled from '/public/images/logo-sdg-filled.png'
 import marker1 from '../public/images/marker1.png'
 import undpWhite from '/public/images/logo-undp-white.png'
 import sdgAiLab from '/public/images/logo-sdg-ai-lab-black-alpha.png'
+import {reducer, initialState} from '../reducer/reducer'
 
 
 const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
@@ -20,6 +21,12 @@ const Application = () => {
     const [location, setLocation] = useState({lng: 38.917275, lat: 71.014469}) // 38.917275, 71.014469
     const {state, dispatch} = useContext(FilterContext)
     const on_homepage = state['on_homepage'];
+
+    const [
+        firstState,
+        setFirstState
+      ] = useState(initialState);
+      const originalInitialState = firstState;
 
     return (<>
         {on_homepage
@@ -70,7 +77,7 @@ const Application = () => {
                 </div>
             </div>
         :   <div className="flex">
-                <Sidebar show={true} />      { /*pass show_infoBox_data parameter from reducer + control menu props */}     
+                <Sidebar show={true} originalInitialState={originalInitialState}/>      { /*pass show_infoBox_data parameter from reducer + control menu props */}     
                 <LeafletMap
                     center={location}
                     location={location}

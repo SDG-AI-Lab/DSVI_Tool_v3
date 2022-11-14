@@ -566,7 +566,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         : null
         }
         
-
         {sv_random_forest_status ?
           <BetterWMSTileLayer
               url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
