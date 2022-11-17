@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 // import { BoxZoomControl } from "react-leaflet-box-zoom";
 import L from 'leaflet'
-import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl} from 'react-leaflet'
+import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl, useMap} from 'react-leaflet'
 //import PrintControlDefault from "react-leaflet-easyprint";
 import Legend from '../controls/Legend';
 import styles from './Map.module.scss'
@@ -70,10 +70,13 @@ import InfoBox from '../controls/InfoBox';
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 };
 // const PrintControl = withLeaflet(PrintControlDefault);
 
-const OsmMap = ({ center, draggable, onDragMarker, location }) => {
-  const { state, dispatch } = useContext(FilterContext)
-  const { state: legenddata, dispatch: setLegendData } = useContext(LegendContext);
+const OsmMap = () => {
+  const { state, dispatch } = useContext(FilterContext);
   const level = state["level"];
+  const reset_settings = state["reset_settings"];
+  const map_settings = state["map_settings"];
+  const tile_providers = state["tile_providers"];
+
   const show_data = state['show_data'];
   const show_sidebar_data = state['show_sidebar_data'];
   const show_infoBox_data = state['show_infoBox_data'];
@@ -316,35 +319,60 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     )
   };
 
-  return (
-      <MapContainer
-        center={Settings.latlong}
-        zoom={Settings.zoom}
+  function UpdateMap() {
+    const map = useMap()
+    useEffect(() => {
+      map.setView(map_settings.latlong, map_settings.zoom);
+    }, [reset_settings]);
+
+    return null
+  }
+
+  // function AllLayers() {
+  //   useEffect(() => {
+      
+  //   }, [reset_settings]);
+
+  //   return (
+  //   <LayersControl position="topright">
+  //     {tile_providers.map(({ name, checked, args }) => (
+  //       <LayersControl.BaseLayer {...{ name, checked }} key={name}>
+  //         <WMSTileLayer {...{ ...args }} />
+  //       </LayersControl.BaseLayer>
+  //     ))}
+  //   </LayersControl>)
+  // }
+
+  return (<MapContainer
+        center={map_settings.latlong}
+        zoom={map_settings.zoom}
         zoomControl={false}
         scrollWheelZone={true}
         className={styles.container}
         attributionControl={false}
       >
-          {/* <BoxZoomControl
-              style={{
-                width: "36px",
-                height: "36px",
-                border: "none",
-                borderRadius: "4px",
-                background: "url('./images/boxZoomIcon.png')",
-                backgroundColor: "rgb(255, 255, 255)",
-                outline: "none",
-                backgroundPosition: "50% 50%",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "32px",
-                title: "hfbhdkgj"
-              }}
-              position="topleft"
-              // sticky={true}
-              title="jdfucegbf"
-            /> */}
+      <UpdateMap/>
+
+      {/* <BoxZoomControl
+          style={{
+            width: "36px",
+            height: "36px",
+            border: "none",
+            borderRadius: "4px",
+            background: "url('./images/boxZoomIcon.png')",
+            backgroundColor: "rgb(255, 255, 255)",
+            outline: "none",
+            backgroundPosition: "50% 50%",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "32px",
+            title: "hfbhdkgj"
+          }}
+          position="topleft"
+          // sticky={true}
+          title="jdfucegbf"
+        /> */}
         <LayersControl position="topright">
-          {TileProviders.map(({ name, checked, args }) => (
+          {!reset_settings && tile_providers.map(({ name, checked, args }) => (
             <LayersControl.BaseLayer {...{ name, checked }} key={name}>
               <WMSTileLayer {...{ ...args }} />
             </LayersControl.BaseLayer>
@@ -761,7 +789,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           />
         : null
         }
-{/* Old Tile layer logic */}
+        {/* Old Tile layer logic */}
         {/* {sv_linear_model ?
           <WMSTileLayer
             params={{
