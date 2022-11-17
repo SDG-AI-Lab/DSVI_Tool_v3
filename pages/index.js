@@ -17,8 +17,7 @@ const LeafletMap = dynamic(() => import("../components/leaflet/Map"), {
 })
 
 const Application = () => {
-
-    const [location, setLocation] = useState({lng: 38.917275, lat: 71.014469}) // 38.917275, 71.014469
+    // const [location, setLocation] = useState({lng: 38.917275, lat: 71.014469}) // 38.917275, 71.014469
     const {state, dispatch} = useContext(FilterContext)
     const on_homepage = state['on_homepage'];
 
@@ -79,14 +78,14 @@ const Application = () => {
         :   <div className="flex">
                 <Sidebar show={true} originalInitialState={originalInitialState}/>      { /*pass show_infoBox_data parameter from reducer + control menu props */}     
                 <LeafletMap
-                    center={location}
-                    location={location}
-                    draggable={false}
-                    title="testing"
-                    onDragMarker={(e) => {
-                        let loc = {lat: e.lat, lng: e.lng};
-                        setLocation(loc);
-                    }}
+                    // center={location}
+                    // location={location}
+                    // draggable={false}
+                    // title="testing"
+                    // onDragMarker={(e) => {
+                    //     let loc = {lat: e.lat, lng: e.lng};
+                    //     setLocation(loc);
+                    // }}
                 />
                 <DataSidebar/>
             </div>

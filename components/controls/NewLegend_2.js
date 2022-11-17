@@ -22,7 +22,7 @@ const NewLegend_2 = (props) => {
   useEffect(() => {
     setShowUIElements(true);
     return () => {
-    setShowUIElements(false);
+      setShowUIElements(false);
     };
   }, []);
 

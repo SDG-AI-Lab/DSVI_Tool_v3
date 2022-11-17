@@ -7,9 +7,7 @@ import DHS_COLUMN from './../public/static/color_gradient_lookup.json';
 const Sidebar = (props) => {
   const { show_infoBox_data } = props;
   const { state, dispatch } = useContext(FilterContext);
-  
   const level = state["level"];
-
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
   const reset_settings = state["reset_settings"];
@@ -91,7 +89,9 @@ const Sidebar = (props) => {
                     hover:bg-blue-50 transition duration-300 ease-in-out" 
                   href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => {
-                      dispatch({type: "TOGGLE_RESET_SETTINGS", payload: props.originalInitialState})}
+                      dispatch({type: "TOGGLE_RESET_SETTINGS"});
+                      setTimeout(()=>dispatch({type: "RESET_INITIAL_STATE_SETTINGS", payload: props.originalInitialState}), 0);
+                      }
                     }
                   >
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
