@@ -17,7 +17,9 @@ const dropDownOptions = [
 
 // each index for the above list has a description in the list below which is shown in infoBox
 const dropDownDescriptions = [
-  {heading: 'Social Vulnerability Platform', desc: 'Social Vulnerability (SV) is the capacity of individuals or communities to cope with social and environmental shocks   (Adger 2000, Cutter 2003). This includes climate change, natural disasters, and other societal risks. Vulnerable groups have a disproportionate risk of being affected and experiencing more profound consequences, due to their socio-economic preconditions. SV assessments help to better map the connection between local conditions, social characteristics, or individual vulnerabilities and risks. The calculation of SV scores is a frequent practice to measure a community’s ability to respond to outside stressors and risks. It is an indirect way to quantify resilience. Having such an assessment helps to understand, get prepared and respond in a more effective manner, using a combination of the most appropriate tools once the risk materializes.'},
+  {heading: 'Social Vulnerability Platform', 
+  desc: 'Social Vulnerability (SV) is the capacity of individuals or communities to cope with social and environmental shocks   (Adger 2000, Cutter 2003). This includes climate change, natural disasters, and other societal risks. Vulnerable groups have a disproportionate risk of being affected and experiencing more profound consequences, due to their socio-economic preconditions. SV assessments help to better map the connection between local conditions, social characteristics, or individual vulnerabilities and risks. The calculation of SV scores is a frequent practice to measure a community’s ability to respond to outside stressors and risks. It is an indirect way to quantify resilience. Having such an assessment helps to understand, get prepared and respond in a more effective manner, using a combination of the most appropriate tools once the risk materializes.',
+  img:'./images/logo-sdg-filled.png'},
   {heading: 'SV Prediction: Random Forest', desc: 'This layer is a prediction of Social Vulnerability with sklearns Random Forest Regressor. A random forest is a meta estimator that fits a number of classifying decision trees on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is controlled with the max_samples parameter if bootstrap=True (default), otherwise the whole dataset is used to build each tree.'},
   {heading: 'SV: Prediction: XGBoost', desc: 'This algorithm builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the loss function, e.g. binary or multiclass log loss. Binary classification is a special case where only a single regression tree is induced.'},
   {heading: 'Accessibility: Education Facility', desc: 'This layer shows the time it takes to drive an individual to the next available Education Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
@@ -32,7 +34,7 @@ const dropDownDescriptions = [
   {heading: 'Temperature (Max)', desc: 'This is about boosting XG'},
   {heading: 'Land Use Class', desc: 'This is about forests'},
   {heading: 'Elevation', desc: 'This is about boosting XG'}
-]
+];
 
 const InfoBox = (props) => {
   const {position} = props;
@@ -96,11 +98,20 @@ const infoBoxRef = useRef();
               controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
               onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
               placeholder="Select an option" />
-            <div className='max-w-md px-4 mt-5'>
-              <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
+            <div className='max-w-md px-4 mt-5 square'>
+              {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
+              {/* <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p> */}
+              <div>
+                {dropDownDescriptions[dropdownDescIndex].img && <img
+                  style={{ width: '100px' }}
+                  src={dropDownDescriptions[dropdownDescIndex].img}
+                  alt="poverty"
+                /> }
+              </div>  
               <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
-            </div>
           </div>
+        </div>
+
         : null }
         </div>
       </Control>
