@@ -643,3 +643,11 @@ a.linkedin-link:not([href]):not([class]), a.linkedin-link:not([href]):not([class
     object-fit: cover;
 }
 
+.square img {
+  float: left;
+  margin: 5px;
+}
+
+.square p {
+  text-align: justify;
+}
