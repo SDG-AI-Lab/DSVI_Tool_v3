@@ -328,21 +328,6 @@ const OsmMap = () => {
     return null
   }
 
-  // function AllLayers() {
-  //   useEffect(() => {
-      
-  //   }, [reset_settings]);
-
-  //   return (
-  //   <LayersControl position="topright">
-  //     {tile_providers.map(({ name, checked, args }) => (
-  //       <LayersControl.BaseLayer {...{ name, checked }} key={name}>
-  //         <WMSTileLayer {...{ ...args }} />
-  //       </LayersControl.BaseLayer>
-  //     ))}
-  //   </LayersControl>)
-  // }
-
   return (<MapContainer
         center={map_settings.latlong}
         zoom={map_settings.zoom}

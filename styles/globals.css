@@ -652,6 +652,10 @@ a.linkedin-link:not([href]):not([class]), a.linkedin-link:not([href]):not([class
   text-align: justify;
 }
 
-.legend_table table, th, td {
+table.legend_table th {
+  border: 1px solid;
+}
+
+table.legend_table td {
   border: 1px solid;
 }
