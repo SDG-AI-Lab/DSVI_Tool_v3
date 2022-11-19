@@ -19,7 +19,7 @@ const CustomPolygon_AOI = (props) => {
                 bubblingMouseEvents: true, weight: 2, color: 'blue', opacity: opacity, fillOpacity: opacity
             }}
 
-            fillColor={'rgb(255, 255, 255)'}
+            fillColor={fillColor}
             positions={positions}
 
             // control color of polygon!!!
