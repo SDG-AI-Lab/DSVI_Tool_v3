@@ -16,7 +16,7 @@ const CustomPolygon = (props) => {
         index,
         positions,
         fillColor,
-        hovercolor,
+        hoverColor,
         opacity,
         tooltipDirection,
         tooltipOffset,
@@ -65,7 +65,6 @@ const CustomPolygon = (props) => {
             }}
 
             fillColor={fillColor}
-            hovercolor={hovercolor}
             positions={positions}
 
             children={
@@ -87,13 +86,15 @@ const CustomPolygon = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: hovercolor
+                        fillColor: hoverColor,
+                        fillOpacity: 1
                     });
                 },
                 mouseout: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: fillColor
+                        fillColor: fillColor,
+                        fillOpacity: opacity
                     });
                 },
 
