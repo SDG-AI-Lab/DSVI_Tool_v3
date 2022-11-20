@@ -201,24 +201,16 @@ const Cats_Legend = (props) => {
     <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
     <h2 className='font-bold'>Vulnerability</h2> 
     <h3>Selected: Categories | {props.title}</h3>
-    <div className='flex justify-center'>
-      <table className='legend_table'>
-        <thead>
-          <tr>
-            <th align='center'>Values</th>
-            <th align='center'>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td align='center'>
-              <div className="w-3 h-3 rounded-full" style={{backgroundColor: props.color}}></div>
-            </td>
-            <td className='pl-1'>{props.title}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td align='center'>
+            <div className="w-3 h-3 rounded-full" style={{backgroundColor: props.color}}></div>
+          </td>
+          <td className='pl-1'>{props.title}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   );
 }

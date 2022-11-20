@@ -235,16 +235,18 @@ const OsmMap = () => {
     }
   });
 
-  const AOI_projection = (library, index, layer_opacity) => {
+  const AOI_projection = (library, index) => {
 
-    const fillColorAOI = 'rgb(255, 255, 255, .5)';
+    const fillColorAOI = 'rgb(255, 255, 255)';
+    const hoverColor='blue';
+
     return (
         <CustomPolygon_AOI
         key={index}
         positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
         fillColor={fillColorAOI}
-        hovercolor = {fillColorAOI}
-        opacity={layer_opacity/100}
+        hoverColor = {hoverColor}
+        opacity='0.7'
         />
     )
   };
@@ -288,13 +290,12 @@ const OsmMap = () => {
     // console.log('normalizeDataValue', normalizeDataValue);
     // console.log('fillColor', fillColor);
 
-    const hovercolor = 'rgb(255, 255, 255, .8)';
     return (
         <CustomPolygon
             key={index}
             positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
             fillColor={fillColor}
-            hovercolor = {fillColor}
+            hoverColor = {fillColor}
             opacity={layerObject.value/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
@@ -307,12 +308,12 @@ const OsmMap = () => {
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
             tooltipName_3={library.properties.NAME_2}
-            tooltipBgcolor="rgb(255 255 255, 0.8)"
+            tooltipBgcolor="rgb(255 255 255)"
             tooltipTextColor="text-slate-700"
             show_data={show_data}
             popupMaxWidth="auto"
             popupMaxHeight="auto"
-            popupBgColor="bg-white"
+            popupBgColor="rgb(255 255 255)"
             popupTextColor="text-slate-700"
             data={data}
         />
@@ -322,26 +323,13 @@ const OsmMap = () => {
   function UpdateMap() {
     const map = useMap()
     useEffect(() => {
-      map.setView(map_settings.latlong, map_settings.zoom);
+      if (reset_settings) {
+        map.setView(map_settings.latlong, map_settings.zoom);
+      }
     }, [reset_settings]);
 
     return null
   }
-
-  // function AllLayers() {
-  //   useEffect(() => {
-      
-  //   }, [reset_settings]);
-
-  //   return (
-  //   <LayersControl position="topright">
-  //     {tile_providers.map(({ name, checked, args }) => (
-  //       <LayersControl.BaseLayer {...{ name, checked }} key={name}>
-  //         <WMSTileLayer {...{ ...args }} />
-  //       </LayersControl.BaseLayer>
-  //     ))}
-  //   </LayersControl>)
-  // }
 
   return (<MapContainer
         center={map_settings.latlong}
@@ -405,7 +393,7 @@ const OsmMap = () => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          {/* console.log("AOI Toggeled") */}
+          console.log("library", library);
           return AOI_projection(library, index);
         })}
         {/* Show Area of Interest. END */}

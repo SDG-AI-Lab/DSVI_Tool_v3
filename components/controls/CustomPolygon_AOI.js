@@ -9,26 +9,25 @@ const CustomPolygon_AOI = (props) => {
         index,
         positions,
         fillColor,
-        hovercolor,
+        hoverColor,
+        opacity
     } = props;
 
     return (<Polygon
             key={index}
             pathOptions={{
-                bubblingMouseEvents: true, weight: 2, color: 'blue'
+                bubblingMouseEvents: true, weight: 2, color: 'blue', opacity: opacity, fillOpacity: opacity
             }}
 
-            fillColor={'rgb(255, 255, 255, .5)'}
-            hovercolor={'rgb(255, 255, 255, .5)'}
+            fillColor={fillColor}
             positions={positions}
-
 
             // control color of polygon!!!
             eventHandlers={{
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: hovercolor
+                        fillColor: hoverColor
                     });
                 },
                 mouseout: (e) => {
