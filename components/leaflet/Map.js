@@ -323,7 +323,9 @@ const OsmMap = () => {
   function UpdateMap() {
     const map = useMap()
     useEffect(() => {
-      map.setView(map_settings.latlong, map_settings.zoom);
+      if (reset_settings) {
+        map.setView(map_settings.latlong, map_settings.zoom);
+      }
     }, [reset_settings]);
 
     return null
@@ -391,7 +393,7 @@ const OsmMap = () => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          {/* console.log("AOI Toggeled") */}
+          console.log("library", library);
           return AOI_projection(library, index);
         })}
         {/* Show Area of Interest. END */}
