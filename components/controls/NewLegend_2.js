@@ -156,6 +156,11 @@ const GeoLegend = (props) => {
           setError(error);
         }
       )
+      return () => {
+        setItems(null);
+        setError(null);
+        setIsLoaded(false);
+      }
   }, [])
 
   let arrayLegends = [];
