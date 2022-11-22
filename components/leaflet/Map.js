@@ -393,7 +393,6 @@ const OsmMap = () => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          console.log("library", library);
           return AOI_projection(library, index);
         })}
         {/* Show Area of Interest. END */}
