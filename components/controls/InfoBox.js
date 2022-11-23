@@ -98,7 +98,12 @@ const infoBoxRef = useRef();
 
 // the tabs inside the infoBox: Social vulnerability, Data Exploration, Methods, and How to use
 const Tabs = (props) => {
-  const [openTab, setOpenTab] = useState(1);
+  const [openTab, setOpenTab] = useState(4);
+
+  useEffect(() => {
+      setOpenTab(2);
+  }, [InfoBox])
+
   return (
     <>
       {/* tabs */}
@@ -333,7 +338,25 @@ const Tabs = (props) => {
       </div>
 
       <div className={`${openTab === 2 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
-        <InfoDiv setTab={setOpenTab}dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/>
+        {/* <InfoDiv setTab={setOpenTab} dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/> */}
+        <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
+          controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+          onChange={(e) => props.changingDropdown(e.value)} 
+          value={props.dropdownValue} 
+          placeholder="Select an option" />
+        <div className='max-w-md px-4 mt-5 square'>
+          {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
+          {/* <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p> */}
+          <div>
+            {dropDownDescriptions[props.dropdownDescIndex].img && 
+            <img
+              style={{ width: '100px' }}
+              src={dropDownDescriptions[props.dropdownDescIndex].img}
+              alt="poverty"
+            /> }
+          </div>  
+          <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[props.dropdownDescIndex].desc}</p>
+        </div>  
       </div>
 
       <div className={`${openTab === 3 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
@@ -354,7 +377,9 @@ const InfoDiv = (props) => {
     <>
       <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
           controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-          onChange={(e) => {props.setTab(2); props.changingDropdown(e.value)}} value={props.dropdownValue} 
+          onChange={(e) => props.changingDropdown(e.value)} 
+          onClick={props.setTab(2)}
+          value={props.dropdownValue} 
           placeholder="Select an option" />
         <div className='max-w-md px-4 mt-5 square'>
           {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
