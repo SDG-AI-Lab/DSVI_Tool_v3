@@ -22,10 +22,10 @@ const dropDownDescriptions = [
   {heading: 'Accessibility: Education Facility', desc: 'This layer shows the time it takes to drive an individual to the next available Education Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
   {heading: 'Accessibility: Health Institution', desc: 'This layer shows the time it takes to drive an individual to the next available Health Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
   {heading: 'Accessibility: Financial Service', desc: 'This layer shows the time it takes to drive an individual to the next available Financial Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
-  {heading: 'Population Counts', desc: 'The population data is by: https://sedac.ciesin.columbia.edu/data/collection/gpw-v4'},
-  {heading: 'Celltowers', desc: 'Celltower data is by: '},
-  {heading: 'Nightlight Intensity', desc: 'Nightlight Intensity'},
-  {heading: 'Relative Wealth', desc: 'This is about forests'},
+  {heading: 'Population Counts', desc: 'The population data is downloaded from: https://dataforgood.facebook.com/dfg/tools/high-resolution-population-density-maps#methodology'},
+  {heading: 'Celltowers', desc: 'Celltower data is by: OpenCellID. URL: https://opencellid.org/downloads.php '},
+  {heading: 'Nightlight Intensity', desc: 'Nightlight Intensity is provided by NASA: https://www.earthdata.nasa.gov/learn/backgrounders/nighttime-lights'},
+  {heading: 'Relative Wealth', desc: 'The Relative Wealth Index predicts the relative standard of living within countries using de-identified connectivity data, satellite imagery and other nontraditional data sources. The data is provided for 93 low and middle-income countries at 2.4km resolution. Please cite / attribute any use of this dataset using the following: Microestimates of wealth for all low- and middle-income countries Guanghua Chi, Han Fang, Sourav Chatterjee, Joshua E. Blumenstock Proceedings of the National Academy of Sciences Jan 2022, 119 (3) e2113658119; DOI: 10.1073/pnas.2113658119 More details are available here: https://dataforgood.fb.com/tools/relative-wealth-index/ Research publication for the Relative Wealth Index is available here: https://www.pnas.org/content/119/3/e2113658119 Press coverage of the release of the Relative Wealth Index here: https://www.fastcompany.com/90625436/these-new-poverty-maps-could-reshape-how-we-deliver-humanitarian-aid An interactive map of the Relative Wealth Index is available here: http://beta.povertymaps.net/'},
   {heading: 'GDP', desc: 'This is about boosting XG'},
   {heading: 'Plant Health', desc: 'This is about forests'},
   {heading: 'Temperature (Max)', desc: 'This is about boosting XG'},
@@ -112,27 +112,6 @@ const Tabs = (props) => {
           <li
             className="nav-item flex-grow text-left"
             style={{
-              background: openTab === 4 ? '#e6f9ff' : 'transparent',
-            }}
-          >
-            <a
-              className={
-                'block rounded px-5 py-1 text-base leading-normal text-black'
-              }
-              onClick={(e) => {
-                e.preventDefault()
-                setOpenTab(4)
-              }}
-              data-toggle="tab"
-              href="#link4"
-              role="tablist"
-            >
-              Welcome
-            </a>
-          </li>
-          <li
-            className="nav-item flex-grow text-left"
-            style={{
               background: openTab === 1 ? '#e6f9ff' : 'transparent',
             }}
           >
@@ -193,7 +172,27 @@ const Tabs = (props) => {
               Methods
             </a>
           </li>
-          
+          <li
+            className="nav-item flex-grow text-left"
+            style={{
+              background: openTab === 4 ? '#e6f9ff' : 'transparent',
+            }}
+          >
+            <a
+              className={
+                'block rounded px-5 py-1 text-base leading-normal text-black'
+              }
+              onClick={(e) => {
+                e.preventDefault()
+                setOpenTab(4)
+              }}
+              data-toggle="tab"
+              href="#link4"
+              role="tablist"
+            >
+              How to use
+            </a>
+          </li>
         </ul>
 
         {/* each option/tab's respective image div */}
@@ -215,27 +214,7 @@ const Tabs = (props) => {
                 <img
                   style={{ width: '100px'}}
                   src="./images/logo-sdg-filled.png"
-                  alt="SDG"
-                />
-              </Carousel>
-            </div>
-            <div
-              className={`${openTab === 2 ? 'block' : 'hidden'
-                } tab-pane fade show active`}
-              style={{ width: '200px' }}
-              id="link2"
-            >
-              <Carousel
-                className="info_carousel"
-                showArrows={false}
-                showIndicators={false}
-                showThumbs={false}
-                showStatus={false}
-              >
- <img
-                  style={{ width: '100px'}}
-                  src="./images/logo-sdg-filled.png"
-                  alt="SDG's"
+                  alt="poverty"
                 />
                 {/* <img
                   style={{ width: '100px' }}
@@ -255,6 +234,41 @@ const Tabs = (props) => {
               </Carousel>
             </div>
             <div
+              className={`${openTab === 2 ? 'block' : 'hidden'
+                } tab-pane fade show active`}
+              style={{ width: '200px' }}
+              id="link2"
+            >
+              <Carousel
+                className="info_carousel"
+                showArrows={false}
+                showIndicators={false}
+                showThumbs={false}
+                showStatus={false}
+              >
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
+                  alt="poverty"
+                />
+              </Carousel>
+            </div>
+            <div
               className={`${openTab === 3 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
               style={{ width: '150px' }}
@@ -267,10 +281,25 @@ const Tabs = (props) => {
                 showThumbs={false}
                 showStatus={false}
               >
- <img
-                  style={{ width: '100px'}}
-                  src="./images/logo-sdg-filled.png"
-                  alt="SDG's"
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
+                  alt="poverty"
                 />
               </Carousel>
             </div>
@@ -288,10 +317,10 @@ const Tabs = (props) => {
                 showThumbs={false}
                 showStatus={false}
               >
- <img
-                  style={{ width: '100px'}}
-                  src="./images/logo-sdg-filled.png"
-                  alt="SDG's"
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                  alt="poverty"
                 />
               </Carousel>
             </div>

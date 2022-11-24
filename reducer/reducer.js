@@ -179,7 +179,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'people / km²',
+                        units: 'People / 90m²',
                         json_library:'ppp_pop'
                     },
                     {
@@ -189,7 +189,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'CellTowers per district',
+                        units: 'Celltowers per district',
                         json_library:'cellt'
                     },
                     {
@@ -199,7 +199,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'w/m²',
+                        units: 'watt/m²',
                         json_library:'ntl_vnl_npp_2016'
                     },
                     {
@@ -209,7 +209,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'Relative Wealth Score (-1 to 1)',
+                        units: 'Relative Wealth Score (0 to 1)',
                         json_library:'rwi'
                     },
                     {
