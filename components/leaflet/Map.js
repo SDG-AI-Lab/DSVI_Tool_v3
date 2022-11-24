@@ -96,7 +96,7 @@ const OsmMap = () => {
   const se_random_forest = se_social_vulnerability.data.find((e) => e.slug === 'se_random_forest');
   const {status: se_random_forest_status, value: se_random_forest_value} = se_random_forest;
   const se_xgboost = se_social_vulnerability.data.find((e) => e.slug === 'se_xgboost');
-  const {status: se_xgboost_status, value: se_xgboost_value} = se_xgboost;
+  // const {status: se_xgboost_status, value: se_xgboost_value} = se_xgboost;
 
   const se_drive_time = socioeconomic.find((e) => e.slug === 'se_drive_time');
   const se_education_facility = se_drive_time.data.find((e) => e.slug === 'se_education_facility');
@@ -173,8 +173,8 @@ const OsmMap = () => {
   const {status: pop_density_status, value: pop_density_value} = pop_density;
   const celltower = socio_economic.data.find((e) => e.slug === 'sv_celltower');
   const {status: celltower_status, value: celltower_value} = celltower;
-  const road_density = socio_economic.data.find((e) => e.slug === 'sv_road_density');
-  const {status: road_density_status, value: road_density_value} = road_density;
+  // const road_density = socio_economic.data.find((e) => e.slug === 'sv_road_density');
+  // const {status: road_density_status, value: road_density_value} = road_density;
   const relative_wealth = socio_economic.data.find((e) => e.slug === 'sv_relative_wealth');
   const {status: relative_wealth_status, value: relative_wealth_value} = relative_wealth;
   const gdp = socio_economic.data.find((e) => e.slug === 'sv_gdp');
@@ -374,7 +374,8 @@ const OsmMap = () => {
         <InfoBox position="topleft"/>
 
         { 
-          se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
+          se_random_forest_status || // se_xgboost_status 
+          se_education_facility_status || se_health_institution_status ||
           se_financial_service_status || se_population_counts_status || se_celltowers_status || se_nightlight_intensity_status ||
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
           // se_land_use_class_status 
@@ -383,7 +384,9 @@ const OsmMap = () => {
           sv_xgboost_status || sv_random_forest_status ||
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
-          pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status ||
+          pop_density_status || celltower_status || 
+          // road_density_status
+          relative_wealth_status || gdp_status ||
           (vulnerability &&
           (cats_very_low_status || cats_low_status || cats_medium_status || cats_high_status || cats_very_high_status)) ||
           dhsIndicator
@@ -410,7 +413,7 @@ const OsmMap = () => {
         })}
 
         {/*XG Boost*/}
-        {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
+        {/* {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
         return newProjection(se_xgboost_1, library, index, se_xgboost);
         })}
         {se_xgboost_status && level === 2 && se_xgboost_2.features.map((library, index) => {
@@ -418,7 +421,7 @@ const OsmMap = () => {
         })}
         {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
           return newProjection(se_xgboost_3, library, index, se_xgboost);
-        })}
+        })} */}
 
         {/*Education Facilities*/}
         {se_education_facility_status && level === 1 && se_edu_1.features.map((library, index) => {
@@ -592,14 +595,24 @@ const OsmMap = () => {
           />
         : null
         }
-
+        {distance_to_finance_status ?
+          <BetterWMSTileLayer
+            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
+            layers="sdg-ai-lab:up_finan_res_0_05_penalty"
+            transparent= "true"
+            zIndex="9999"
+            styles="sdg-ai-lab:finan_new"
+            opacity={distance_to_finance_value / 100}
+            />
+        : null
+        }
         {distance_to_healthcare_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_health_dd_spd_10k"
+            layers="sdg-ai-lab:up_health_res_0_05_penalty"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:255_0_style"
+            styles="sdg-ai-lab:health_new"
             opacity={distance_to_healthcare_value / 100}
             />
         : null
@@ -636,10 +649,10 @@ const OsmMap = () => {
         {distance_to_edu_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326"
+            layers="sdg-ai-lab:up_edu_res_0_05_penalty"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:255_0_style"
+            styles="sdg-ai-lab:edu_new"
             opacity={distance_to_edu_value / 100}
           />
         : null
@@ -648,10 +661,10 @@ const OsmMap = () => {
         {elevation_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_DEM_Large"
+            layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:255_0_style"
+            styles="sdg-ai-lab:elevation_new"
             opacity={elevation_value / 100}
           />
         : null
@@ -660,10 +673,10 @@ const OsmMap = () => {
         {slope_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_slope"
+            layers="sdg-ai-lab:up_slope_clipped"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:255_0_style"
+            styles="sdg-ai-lab:slope_new"
             opacity={slope_value / 100}
           />
         : null
@@ -672,10 +685,10 @@ const OsmMap = () => {
         {max_temp_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_maxtemp_feb"
+            layers="sdg-ai-lab:up_scaled_r_norm_maxtemp_feb"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:temp_new"
             opacity={max_temp_value / 100}
           />
         : null
@@ -684,10 +697,10 @@ const OsmMap = () => {
         {plant_health_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_NDVI"
+            layers="sdg-ai-lab:up_new_ndvi"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:ndvi"
             opacity={plant_health_value / 100}
           />
         : null
@@ -696,10 +709,10 @@ const OsmMap = () => {
         {precipitation_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_precip"
+            layers="sdg-ai-lab:precipitation_upsampled_0_0001"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:rain"
             opacity={precipitation_value / 100}
           />
         : null
@@ -711,7 +724,7 @@ const OsmMap = () => {
             layers="sdg-ai-lab:scaled_r_norm_NTL"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:nightlight_new"
             opacity={nightlight_intensity_value / 100}
           />
         : null
@@ -720,10 +733,10 @@ const OsmMap = () => {
         {pop_density_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_pop"
+            layers="sdg-ai-lab:up_r_norm_population_interpolation"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:pop_new"
             opacity={pop_density_value / 100}
           />
         : null
@@ -732,16 +745,16 @@ const OsmMap = () => {
         {celltower_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_cellt"
+            layers="sdg-ai-lab:up_r_celltower"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:cellt_new"
             opacity={celltower_value / 100}
           />
         : null
         }
 
-        {road_density_status ?
+        {/* {road_density_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
             layers="sdg-ai-lab:scaled_r_norm_road_density"
@@ -751,15 +764,15 @@ const OsmMap = () => {
             opacity={road_density_value / 100}
           />
         : null
-        }
+        } */}
 
         {relative_wealth_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final"
+            layers="sdg-ai-lab:up_rwi"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:rwi"
             opacity={relative_wealth_value / 100}
           />
         : null
@@ -768,10 +781,10 @@ const OsmMap = () => {
         {gdp_status ?
           <BetterWMSTileLayer
             url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:scaled_r_norm_GDP_2015_intp"
+            layers="sdg-ai-lab:up_r_norm_GDP_2015_intp"
             transparent= "true"
             zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
+            styles="sdg-ai-lab:gdp"
             opacity={gdp_value / 100}
           />
         : null

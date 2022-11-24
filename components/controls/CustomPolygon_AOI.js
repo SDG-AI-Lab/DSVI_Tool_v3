@@ -1,3 +1,4 @@
+import zIndex from '@mui/material/styles/zIndex';
 import {useContext} from 'react'
 import {Polygon} from "react-leaflet";
 import {LegendContext} from '../../context/LegendContext'
@@ -7,6 +8,7 @@ const CustomPolygon_AOI = (props) => {
     const {} = useContext(LegendContext);
     const {
         index,
+        
         positions,
         fillColor,
         hoverColor,
@@ -27,14 +29,16 @@ const CustomPolygon_AOI = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: 'white'
+                        fillColor: 'white',
+                        zIndex: 0
                     });
                 },
                 mouseout: (e) => {
                     let layer = e.target;
                     layer.setStyle({
                         fillColor: fillColor,
-                        opacity: 0.5
+                        opacity: 0.5,
+                        zIndex: 0
                     });
                 },
 
