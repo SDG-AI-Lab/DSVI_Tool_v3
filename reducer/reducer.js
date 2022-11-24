@@ -3,7 +3,7 @@ import produce from "immer";
 export const initialState = {
     "show_data":false,
     "show_sidebar_data":false,
-    "show_infoBox_data": true,
+    "show_infoBox_data": false,
     "show_sidebar":true,
     "level":1,
     "reset_settings": false,
