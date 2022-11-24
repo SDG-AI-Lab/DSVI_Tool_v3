@@ -10,29 +10,28 @@ import L from 'leaflet';
 
 // options for the drop down menu in infoBox
 const dropDownOptions = [
-  'Select One', 'SV: Random Forest', 'SV: XGBoost', 'DT: Education Facility', 'DT: Health Institution', 'DT: Financial Service',
+  'SV Prediction: Random Forest', 'SV: Prediction: XGBoost', 'Accessibility: Education Facility', 'Accessibility: Health Institution', 'Accessibility: Financial Service',
   'Population Counts', 'Celltowers', 'Nightlight Intensity', 'Relative Wealth', 'GDP', 'Plant Health', 'Temperature (Max)',
   'Land Use Class', 'Elevation'
 ]
 
 // each index for the above list has a description in the list below which is shown in infoBox
 const dropDownDescriptions = [
-  {heading: 'Social Vulnerability Platform', desc: 'Hello and welcome to the DSVI Tool! This tool visualizes Social Vulnerability and Data Relevant for Social Vulnerability in Tajikistan. This is the info box.'},
-  {heading: 'SV: Random Forest', desc: 'This is about forests'},
-  {heading: 'SV: XGBoost', desc: 'This is about boosting XG'},
-  {heading: 'DT: Education Facility', desc: 'This is about forests'},
-  {heading: 'DT: Health Institution', desc: 'This is about boosting XG'},
-  {heading: 'DT: Financial Service', desc: 'This is about forests'},
-  {heading: 'Population Counts', desc: 'This is about boosting XG'},
-  {heading: 'Celltowers', desc: 'This is about forests'},
-  {heading: 'Nightlight Intensity', desc: 'This is about boosting XG'},
+  {heading: 'SV Prediction: Random Forest', desc: 'This layer is a prediction of Social Vulnerability with sklearns Random Forest Regressor. A random forest is a meta estimator that fits a number of classifying decision trees on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is controlled with the max_samples parameter if bootstrap=True (default), otherwise the whole dataset is used to build each tree.'},
+  {heading: 'SV: Prediction: XGBoost', desc: 'This algorithm builds an additive model in a forward stage-wise fashion; it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the loss function, e.g. binary or multiclass log loss. Binary classification is a special case where only a single regression tree is induced.'},
+  {heading: 'Accessibility: Education Facility', desc: 'This layer shows the time it takes to drive an individual to the next available Education Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
+  {heading: 'Accessibility: Health Institution', desc: 'This layer shows the time it takes to drive an individual to the next available Health Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
+  {heading: 'Accessibility: Financial Service', desc: 'This layer shows the time it takes to drive an individual to the next available Financial Facility. The data was provided by OpenStreetMap. The download source is humdata.org'},
+  {heading: 'Population Counts', desc: 'The population data is by: https://sedac.ciesin.columbia.edu/data/collection/gpw-v4'},
+  {heading: 'Celltowers', desc: 'Celltower data is by: '},
+  {heading: 'Nightlight Intensity', desc: 'Nightlight Intensity'},
   {heading: 'Relative Wealth', desc: 'This is about forests'},
   {heading: 'GDP', desc: 'This is about boosting XG'},
   {heading: 'Plant Health', desc: 'This is about forests'},
   {heading: 'Temperature (Max)', desc: 'This is about boosting XG'},
   {heading: 'Land Use Class', desc: 'This is about forests'},
   {heading: 'Elevation', desc: 'This is about boosting XG'}
-]
+];
 
 const InfoBox = (props) => {
   const {position} = props;
@@ -50,7 +49,6 @@ const InfoBox = (props) => {
   }
 
 const infoBoxRef = useRef();
-
   useEffect(() => {
     if (infoBoxRef.current) {
       /*Using the wheel will not change the zoom on the map.*/
@@ -61,6 +59,11 @@ const infoBoxRef = useRef();
       draggable.enable();
     }
   });
+
+  useEffect(() => {
+    setDropdownValue(dropDownOptions[0]);
+    setDropdownDescIndex(0);
+  }, [activeLegends]);
 
   if (activeLegends.length > 0 && dropdownValue != activeLegends[activeLegends.length-1].title) {
     const idOfLayer = dropDownOptions.indexOf(activeLegends[activeLegends.length-1].title);
@@ -79,21 +82,13 @@ const infoBoxRef = useRef();
         {show_infoBox_data ?
           <div>
             <h2 className='font-bold text-xl mb-3 ml-3'>Information Panel</h2>
+            <hr className= 'mb-3'></hr>
             <button className="button-infoBox" onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
-
               dispatch({ type: "TOGGLE_INFOBOX_DATA", payload: {} })
             }}>x</button>
-            <Tabs />
-            <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
-              controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-              onChange={(e) => changingDropdown(e.value)} value={dropdownValue} 
-              placeholder="Select an option" />
-            <div className='max-w-md px-4 mt-5'>
-              <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2>
-              <p className='my-3'>{dropDownDescriptions[dropdownDescIndex].desc}</p>
-            </div>
+            <Tabs dropdownValue={dropdownValue} dropdownDescIndex={dropdownDescIndex} changingDropdown={changingDropdown}/>  
           </div>
         : null }
         </div>
@@ -101,23 +96,23 @@ const infoBoxRef = useRef();
   )
 }
 
-// the tabs inside the infoBox: Social vulnerability, Data Exploration, and Methods
+// the tabs inside the infoBox: Social vulnerability, Data Exploration, Methods, and How to use
+const Tabs = (props) => {
+  const [openTab, setOpenTab] = useState(4);
 
-const Tabs = () => {
-  const [openTab, setOpenTab] = useState(1);
   return (
-    
     <>
-   
+      {/* tabs */}
       <div className="flex items-start mb-3">
+        {/* the different options available inside InfoBox */}
         <ul
-          className="nav nav-tabs mr-4 flex list-none flex-col flex-wrap border-b-0 pl-0"
+          className="nav nav-tabs mr-1 flex list-none flex-col flex-wrap border-b-0 pl-0"
           role="tablist"
         >
           <li
             className="nav-item flex-grow text-left"
             style={{
-              background: openTab === 1 ? '#9d969659' : 'transparent',
+              background: openTab === 1 ? '#e6f9ff' : 'transparent',
             }}
           >
             <a
@@ -138,7 +133,7 @@ const Tabs = () => {
           <li
             className="nav-item flex-grow text-left"
             style={{
-              background: openTab === 2 ? '#9d969659' : 'transparent',
+              background: openTab === 2 ? '#e6f9ff' : 'transparent',
             }}
           >
             <a
@@ -146,8 +141,8 @@ const Tabs = () => {
                 'block rounded px-5 py-1 text-base leading-normal text-black '
               }
               onClick={(e) => {
-                e.preventDefault()
-                setOpenTab(2)
+                e.preventDefault();
+                setOpenTab(2);
               }}
               data-toggle="tab"
               href="#link2"
@@ -159,7 +154,7 @@ const Tabs = () => {
           <li
             className="nav-item flex-grow text-left"
             style={{
-              background: openTab === 3 ? '#9d969659' : 'transparent',
+              background: openTab === 3 ? '#e6f9ff' : 'transparent',
             }}
           >
             <a
@@ -177,28 +172,51 @@ const Tabs = () => {
               Methods
             </a>
           </li>
+          <li
+            className="nav-item flex-grow text-left"
+            style={{
+              background: openTab === 4 ? '#e6f9ff' : 'transparent',
+            }}
+          >
+            <a
+              className={
+                'block rounded px-5 py-1 text-base leading-normal text-black'
+              }
+              onClick={(e) => {
+                e.preventDefault()
+                setOpenTab(4)
+              }}
+              data-toggle="tab"
+              href="#link4"
+              role="tablist"
+            >
+              How to use
+            </a>
+          </li>
         </ul>
+
+        {/* each option/tab's respective image div */}
         <div className="tab-content">
-          <div className="flex-auto px-2 py-0">
+          <div className="flex-auto ml-20">
             <div
               className={`${openTab === 1 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
-              style={{ width: '200px' }}
+              style={{ width: '150px' }}
               id="link1"
             >
               <Carousel
-                className="info_carousel ml-3 px-2"
-                showArrows={true}
+                className="info_carousel"
+                showArrows={false}
                 showIndicators={false}
                 showThumbs={false}
                 showStatus={false}
               >
                 <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                  style={{ width: '100px'}}
+                  src="./images/logo-sdg-filled.png"
                   alt="poverty"
                 />
-                <img
+                {/* <img
                   style={{ width: '100px' }}
                   src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
                   alt="poverty"
@@ -212,13 +230,13 @@ const Tabs = () => {
                   style={{ width: '100px' }}
                   src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
                   alt="poverty"
-                />
+                /> */}
               </Carousel>
             </div>
             <div
               className={`${openTab === 2 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
-              style={{ width: '150px' }}
+              style={{ width: '200px' }}
               id="link2"
             >
               <Carousel
@@ -285,10 +303,95 @@ const Tabs = () => {
                 />
               </Carousel>
             </div>
+
+            <div
+              className={`${openTab === 4 ? 'block' : 'hidden'
+              } tab-pane fade show active`}
+              style={{ width: '150px' }}
+              id="link4"
+            >
+              <Carousel
+                className="info_carousel"
+                showArrows={false}
+                showIndicators={false}
+                showThumbs={false}
+                showStatus={false}
+              >
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                  alt="poverty"
+                />
+              </Carousel>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* each tab's information area */}
+      <div className={`${openTab === 1 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+        Social Vulnerability (SV) is the capacity of individuals or communities to cope with social and environmental shocks   (Adger 2000, Cutter 2003). This includes climate change, natural disasters, and other societal risks. Vulnerable groups have a disproportionate risk of being affected and experiencing more profound consequences, due to their socio-economic preconditions. SV assessments help to better map the connection between local conditions, social characteristics, or individual vulnerabilities and risks. The calculation of SV scores is a frequent practice to measure a community’s ability to respond to outside stressors and risks. It is an indirect way to quantify resilience. Having such an assessment helps to understand, get prepared and respond in a more effective manner, using a combination of the most appropriate tools once the risk materializes.
+      </div>
+
+      <div className={`${openTab === 2 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+        {/* <InfoDiv setTab={setOpenTab} dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/> */}
+        <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
+          controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+          onClick={(e) => props.changingDropdown(e.value)} 
+          value={props.dropdownValue} 
+          placeholder="Select an option" />
+        <div className='max-w-md px-4 mt-5 square'>
+          {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
+          {/* <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p> */}
+          <div>
+            {dropDownDescriptions[props.dropdownDescIndex].img && 
+            <img
+              style={{ width: '100px' }}
+              src={dropDownDescriptions[props.dropdownDescIndex].img}
+              alt="poverty"
+            /> }
+          </div>  
+          <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[props.dropdownDescIndex].desc}</p>
+        </div>  
+      </div>
+
+      <div className={`${openTab === 3 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+        No method details yet.
+      </div>
+      <div className={`${openTab === 4 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+        <h1 className='text-xl font-semibold leading-10'>Welcome to the DSVI Tool</h1>
+        Shift + drawing a box with your mouse will allow you to zoom into the area on the map.
+      </div>
+      {/* <InfoDiv dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/> */}
+      
     </>
+  )
+};
+
+const InfoDiv = (props) => {
+  return (
+    <>
+      <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
+          controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
+          onChange={(e) => props.changingDropdown(e.value)} 
+          onClick={props.setTab(2)}
+          value={props.dropdownValue} 
+          placeholder="Select an option" />
+        <div className='max-w-md px-4 mt-5 square'>
+          {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
+          {/* <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p> */}
+          <div>
+            {dropDownDescriptions[props.dropdownDescIndex].img && 
+            <img
+              style={{ width: '100px' }}
+              src={dropDownDescriptions[props.dropdownDescIndex].img}
+              alt="poverty"
+            /> }
+          </div>  
+          <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[props.dropdownDescIndex].desc}</p>
+        </div>
+    </>
+    
   )
 };
 export default InfoBox;

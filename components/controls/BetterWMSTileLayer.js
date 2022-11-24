@@ -13,7 +13,7 @@ const lookupforgrayindex =(GRAY_INDEX =>
             case GRAY_INDEX > 0.7:  return 'High'; 
             case GRAY_INDEX > 0.55: return 'Medium'; 
             case GRAY_INDEX > 0.25:  return 'Low'; 
-            case GRAY_INDEX > 0: return 'Very Low'; d
+            case GRAY_INDEX > 0: return 'Very Low';
             default: return 'Undefined'; 
           }
     });

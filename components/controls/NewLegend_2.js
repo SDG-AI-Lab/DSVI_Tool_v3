@@ -22,16 +22,13 @@ const NewLegend_2 = (props) => {
   useEffect(() => {
     setShowUIElements(true);
     return () => {
-    setShowUIElements(false);
+      setShowUIElements(false);
     };
   }, []);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = activeLegends;
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: items });
+    dispatch({ type: "DRAG_DROP_CHANGE_ACTIVE_LEGENDS", payload: result });
   }
 
 
@@ -62,8 +59,13 @@ const SE_Legend = (props) => {
     <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
     <h2 className='font-bold'>Socioeconomic Layers</h2>
     <h3>Selected: {props.title}</h3>
-    <br/> 
-    <table>
+    <table className='legend_table'>
+      <thead>
+        <tr>
+          <th align='center' colSpan="2">Values</th>
+          <th align='center'>Category</th>
+        </tr>
+      </thead>
       {!props.layer.reverse_meaning && minMeanNumber != null && maxMeanNumber != null ? 
         <tbody>
           <tr>
@@ -96,7 +98,6 @@ const SE_Legend = (props) => {
         </tbody>
         : minMeanNumber != null && maxMeanNumber != null &&
         <tbody>
-   
           <tr>
               <td className='bg-[#0c58ca] w-5 h-5'></td>
               <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
@@ -155,6 +156,11 @@ const GeoLegend = (props) => {
           setError(error);
         }
       )
+      return () => {
+        setItems(null);
+        setError(null);
+        setIsLoaded(false);
+      }
   }, [])
 
   let arrayLegends = [];
@@ -171,7 +177,13 @@ const GeoLegend = (props) => {
       <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
         <h2 className='font-bold'>Geodata Layers</h2>
         <h3>Selected: {props.title}</h3>
-        <table>
+        <table className='legend_table'>
+          <thead>
+            <tr>
+              <th align='center' colSpan="2">Values</th>
+              <th align='center'>Category</th>
+            </tr>
+          </thead>
           <tbody>
           {arrayLegends.map(({color, label, quantity}, index) => {
             return (
@@ -197,7 +209,7 @@ const Cats_Legend = (props) => {
     <table>
       <tbody>
         <tr>
-          <td>
+          <td align='center'>
             <div className="w-3 h-3 rounded-full" style={{backgroundColor: props.color}}></div>
           </td>
           <td className='pl-1'>{props.title}</td>

@@ -1,9 +1,93 @@
-export const initalState = {
+import produce from "immer";
+
+export const initialState = {
     "show_data":false,
     "show_sidebar_data":false,
     "show_infoBox_data": true,
     "show_sidebar":true,
     "level":1,
+    "reset_settings": false,
+    "map_settings": {
+        latlong: [38.917275, 71.014469],
+        zoom: 7,
+        wheelPxPerZoomLevel: 1
+    },
+    "tile_providers": [
+        {
+          name: 'Esri',
+          checked: true,
+          args: {
+            url:
+              'https://server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
+            attribution:
+                'Tiles &copy; Esri',
+            variant: 'World_Street_Map'
+            }
+          },
+        {
+        name: 'OSM',
+        checked: false,
+        args: {
+          url:
+            'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        },
+      },
+      {
+        name: 'Satellite',
+        checked: false,
+        args: {
+          url:
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+          attribution:
+            '&copy; <a href="https://www.esri.com">ESRI</a>',
+        },
+      },
+      // {
+      //   name: 'Mapbox',
+        
+      //   args: {
+      //     url:
+      //       'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
+      //     attribution:
+      //       '&copy; <a href="https://mapbox.com">Mapbox</a>',
+      //       layers:"GoogleMapsCompatible"
+      //     },
+      // },
+      {
+        name: 'Stamen',
+        checked: false,
+        args: {
+          url:
+            'https://stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.{ext}',
+          attribution:
+                'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' +
+                '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; ' +
+                'Map data {attribution.OpenStreetMap}',
+          variant: 'toner',
+          ext: 'png'
+          },
+        },
+        {
+          name: 'NASA',
+          checked: false,
+          args: {
+            url:
+            'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_CityLights_2012/default//GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
+             // 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/{variant}/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
+            // attribution:
+            // 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System ' +
+                      // '(<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+            // variant: 'VIIRS_CityLights_2012',
+            // minZoom: 1,
+                    // maxZoom: 9,
+                    // format: 'jpg',
+                    // time: '',
+                    // tilematrixset: 'GoogleMapsCompatible_Level'
+            },
+        }       
+    ],
     "show_area_of_interest": true,
     "activeLegends": [{
         id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: true
@@ -187,8 +271,7 @@ export const initalState = {
                     }
                 ]
             }
-        ],
-        "data_column": "_mean"
+        ]
     },
     "geodata": {
         "status": false,
@@ -198,14 +281,14 @@ export const initalState = {
                 slug: 'sv_social_vulnerability',
                 title: 'Social Vulnerability',
                 data: [
-                    {
-                        id: 1.1,
-                        slug: 'sv_linear_model',
-                        title: 'SV: Linear Model',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:Linear_SV'
-                    },
+                    // {
+                    //     id: 1.1,
+                    //     slug: 'sv_linear_model',
+                    //     title: 'SV: Linear Model',
+                    //     status: false,
+                    //     value: 70,
+                    //     layer: 'sdg-ai-lab:Linear_SV'
+                    // },
                     {
                         id: 1.2,
                         slug: 'sv_xgboost',
@@ -262,7 +345,6 @@ export const initalState = {
                         value: 70,
                         layer: 'sdg-ai-lab:lines_merged'
                     }
-
                 ]
             },
             {
@@ -1274,30 +1356,28 @@ export const reducer = (state, action) => {
             return {
                 ...state, show_sidebar: !state.show_sidebar,
             };
-
-            case "CHANGE_LEVEL":
-                // console.log("payload"+JSON.stringify(action.payload));
-                return {
-                    ...state,
-                    level: action.payload.level,
-                };
+        case "CHANGE_LEVEL":
+            return produce(state, (draft) => {
+                draft.level = action.payload.level;
+            });
+        case "TOGGLE_RESET_SETTINGS":
+            return produce(state, (draft) => {
+                draft.reset_settings = !draft.reset_settings;
+            });
+        case "RESET_INITIAL_STATE_SETTINGS":
+            return action.payload;
         case "TOGGLE_AREA_OF_INTEREST":
             return {
                 ...state, show_area_of_interest: !state.show_area_of_interest,
             };
-
         case "TOGGLE_SOCIOECONOMIC":
-            return {
-                ...state, socioeconomic: {
-                    status: !state.socioeconomic.status, data: state.socioeconomic.data, data_column: state.socioeconomic.data_column
-                }
-            };
+            return produce(state, (draft) => {
+                draft.socioeconomic.status = !draft.socioeconomic.status;
+            });
         case "CHANGE_SOCIOECONOMIC":
-            return {
-                ...state, socioeconomic: {
-                    status: state.socioeconomic.status, data: action.payload, data_column: state.socioeconomic.data_column
-                }
-            };
+            return produce(state, (draft) => {
+                draft.socioeconomic['data'][action.index_1]['data'][action.index_2] = action.payload;
+            });
         case "CHANGE_SOCIOECONOMIC_DATA_COLUMN":
             return {
                 ...state, socioeconomic: {
@@ -1305,34 +1385,56 @@ export const reducer = (state, action) => {
                 }
             };
         case "TOGGLE_GEODATA":
-            return {
-                ...state, geodata: {
-                    status: !state.geodata.status, data: state.geodata.data
-                }
-            };
+            return produce(state, (draft) => {
+                draft.geodata.status = !draft.geodata.status;
+            });
         case "CHANGE_GEODATA":
-            return {
-                ...state, geodata: {
-                    status: state.geodata.status, data: action.payload
-                }
-            };
+            return produce(state, (draft) => {
+                draft.geodata['data'][action.index_1]['data'][action.index_2] = action.payload;
+            });
         case "CHANGE_ACTIVE_LEGENDS":
-            return {
-                ...state, activeLegends: action.payload
-            };
+            return produce(state, (draft) => {
+                let newLegends = draft.activeLegends;
+
+                if (action.payload.status == true) {
+                newLegends.push(action.payload);
+                } else if (action.payload.status == false) {
+                newLegends = newLegends.filter(item => {
+                    return item.slug != action.payload.slug;
+                })
+                }
+
+                /*For DHS indicators. ONLY*/
+                if (action.payload.hasOwnProperty('Name') && (action.payload.hasOwnProperty('Additional Information'))) {
+                newLegends = newLegends.filter(item => {
+                    return !item.hasOwnProperty('Name');
+                })
+                if (action.payload.id != 0) {
+                    newLegends.push(action.payload);
+                }
+                }
+                draft.activeLegends = newLegends;
+            });
+        case "DRAG_DROP_CHANGE_ACTIVE_LEGENDS":
+            return produce(state, (draft) => {
+                const items = draft.activeLegends;
+                const [reorderedItem] = items.splice(action.payload.source.index, 1);
+                items.splice(action.payload.destination.index, 0, reorderedItem);
+                draft.activeLegends = items;
+            });
         case "TOGGLE_VULNERABILITY":
-            return {
-                ...state, vulnerability: !state.vulnerability,
-            };
+            return produce(state, (draft) => {
+                draft.vulnerability = !draft.vulnerability;
+            });
         case "FETCH_CSV_DATA_VULNERABILITY":
             return {
                 ...state,
                 csv_data_vulnerability: action.payload
             };
         case "CHANGE_CATEGORIES":
-            return {
-                ...state, categories: action.payload
-            };
+            return produce(state, (draft) => {
+                draft.categories[action.index_1] = action.payload;
+            });
         case "TOGGLE_DSV_INDICATOR":
             return {
                 ...state, dsv_indicator: !state.dsv_indicator,
@@ -1341,7 +1443,6 @@ export const reducer = (state, action) => {
             return {
                 ...state, selected_data_column: action.payload,
             };
-
         case "TOGGLE_DHS_INDICATOR":
             return {
                 ...state,

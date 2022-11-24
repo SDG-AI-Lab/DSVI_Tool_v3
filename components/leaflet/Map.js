@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
-// import { BoxZoomControl } from "react-leaflet-box-zoom";
+import React, { useContext, useEffect } from 'react'
+// import { BoxZoomControl } from 'react-leaflet-box-zoom'
 import L from 'leaflet'
-import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl} from 'react-leaflet'
+import {MapContainer, LayersControl, WMSTileLayer, ZoomControl, ScaleControl, useMap} from 'react-leaflet'
 //import PrintControlDefault from "react-leaflet-easyprint";
 import Legend from '../controls/Legend';
 import styles from './Map.module.scss'
@@ -70,10 +70,13 @@ import InfoBox from '../controls/InfoBox';
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 };
 // const PrintControl = withLeaflet(PrintControlDefault);
 
-const OsmMap = ({ center, draggable, onDragMarker, location }) => {
-  const { state, dispatch } = useContext(FilterContext)
-  const { state: legenddata, dispatch: setLegendData } = useContext(LegendContext);
+const OsmMap = () => {
+  const { state, dispatch } = useContext(FilterContext);
   const level = state["level"];
+  const reset_settings = state["reset_settings"];
+  const map_settings = state["map_settings"];
+  const tile_providers = state["tile_providers"];
+
   const show_data = state['show_data'];
   const show_sidebar_data = state['show_sidebar_data'];
   const show_infoBox_data = state['show_infoBox_data'];
@@ -131,8 +134,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
   /* Geodata Layers. START */
   const social_vulnerability = geodata.find((e) => e.slug === 'sv_social_vulnerability');
 
-  const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
-  const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
+  // const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
+  // const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
 
   const sv_xgboost = social_vulnerability.data.find((e) => e.slug === 'sv_xgboost');
   const {status: sv_xgboost_status, value: sv_xgboost_value} = sv_xgboost;
@@ -232,16 +235,18 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     }
   });
 
-  const AOI_projection = (library, index, layer_opacity) => {
+  const AOI_projection = (library, index) => {
 
-    const fillColorAOI = 'rgb(255, 255, 255, .5)';
+    const fillColorAOI = 'rgb(255, 255, 255)';
+    const hoverColor='blue';
+
     return (
         <CustomPolygon_AOI
         key={index}
         positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
         fillColor={fillColorAOI}
-        hovercolor = {fillColorAOI}
-        opacity={layer_opacity/100}
+        hoverColor = {hoverColor}
+        opacity='0.7'
         />
     )
   };
@@ -285,13 +290,12 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     // console.log('normalizeDataValue', normalizeDataValue);
     // console.log('fillColor', fillColor);
 
-    const hovercolor = 'rgb(255, 255, 255, .8)';
     return (
         <CustomPolygon
             key={index}
             positions={L.GeoJSON.coordsToLatLngs(library.geometry.coordinates[0][0])}
             fillColor={fillColor}
-            hovercolor = {fillColor}
+            hoverColor = {fillColor}
             opacity={layerObject.value/100}
             tooltipDirection="auto"
             tooltipOffset={[20, 0]}
@@ -304,47 +308,59 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
             tooltipName_1={library.properties.NAME_1}
             tooltipName_2={library.properties.NAME_2}
             tooltipName_3={library.properties.NAME_2}
-            tooltipBgcolor="rgb(255 255 255, 0.8)"
+            tooltipBgcolor="rgb(255 255 255)"
             tooltipTextColor="text-slate-700"
             show_data={show_data}
             popupMaxWidth="auto"
             popupMaxHeight="auto"
-            popupBgColor="bg-white"
+            popupBgColor="rgb(255 255 255)"
             popupTextColor="text-slate-700"
             data={data}
         />
     )
   };
 
-  return (
-      <MapContainer
-        center={Settings.latlong}
-        zoom={Settings.zoom}
+  function UpdateMap() {
+    const map = useMap()
+    useEffect(() => {
+      if (reset_settings) {
+        map.setView(map_settings.latlong, map_settings.zoom);
+      }
+    }, [reset_settings]);
+
+    return null
+  }
+
+  return (<MapContainer
+        center={map_settings.latlong}
+        zoom={map_settings.zoom}
         zoomControl={false}
         scrollWheelZone={true}
         className={styles.container}
         attributionControl={false}
       >
-          {/* <BoxZoomControl
-              style={{
-                width: "36px",
-                height: "36px",
-                border: "none",
-                borderRadius: "4px",
-                background: "url('./images/boxZoomIcon.png')",
-                backgroundColor: "rgb(255, 255, 255)",
-                outline: "none",
-                backgroundPosition: "50% 50%",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "32px",
-                title: "hfbhdkgj"
-              }}
-              position="topleft"
-              // sticky={true}
-              title="jdfucegbf"
-            /> */}
+      <UpdateMap/>
+
+      {/* <BoxZoomControl
+          style={{
+            width: "36px",
+            height: "36px",
+            border: "none",
+            borderRadius: "4px",
+            background: "url('./images/boxZoomIcon.png')",
+            backgroundColor: "rgb(255, 255, 255)",
+            outline: "none",
+            backgroundPosition: "50% 50%",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "32px",
+            title: "hfbhdkgj"
+          }}
+          position="topleft"
+          // sticky={true}
+          title="jdfucegbf"
+        /> */}
         <LayersControl position="topright">
-          {TileProviders.map(({ name, checked, args }) => (
+          {!reset_settings && tile_providers.map(({ name, checked, args }) => (
             <LayersControl.BaseLayer {...{ name, checked }} key={name}>
               <WMSTileLayer {...{ ...args }} />
             </LayersControl.BaseLayer>
@@ -363,7 +379,8 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
           // se_land_use_class_status 
           se_elevation_status ||
-          sv_linear_model_status || sv_xgboost_status || sv_random_forest_status ||
+          // sv_linear_model_status || 
+          sv_xgboost_status || sv_random_forest_status ||
           distance_to_healthcare_status || distance_to_finance_status || distance_to_edu_status || elevation_status ||
           slope_status || max_temp_status || plant_health_status || precipitation_status || nightlight_intensity_status ||
           pop_density_status || celltower_status || road_density_status || relative_wealth_status || gdp_status ||
@@ -376,7 +393,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
 
         {/* Show Area of Interest. START */}
         {show_area_of_interest && AOI.features.map((library, index) => {
-          {/* console.log("AOI Toggeled") */}
           return AOI_projection(library, index);
         })}
         {/* Show Area of Interest. END */}
@@ -538,7 +554,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         {/* NEW. Socioeconomic. END */}
 
         {/* Geodata layer. START */}
-        {sv_linear_model_status ?
+        {/* {sv_linear_model_status ?
             <WMSTileLayer
               params={{
                 layers: "sdg-ai-lab:Linear_SV",
@@ -551,7 +567,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
               zIndex="9999"
               opacity={sv_linear_model_value / 100}/>
           : null
-        }
+        } */}
 
         {sv_xgboost_status ?
             <BetterWMSTileLayer
@@ -565,7 +581,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
         : null
         }
         
-
         {sv_random_forest_status ?
           <BetterWMSTileLayer
               url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
@@ -761,7 +776,7 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
           />
         : null
         }
-{/* Old Tile layer logic */}
+        {/* Old Tile layer logic */}
         {/* {sv_linear_model ?
           <WMSTileLayer
             params={{

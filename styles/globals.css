@@ -85,7 +85,7 @@
   opacity: 1;
   border-radius: 15px;
   padding: 10px 0;
-  height: 450px;
+  height: 500px;
   /* width: 450px;  */
   padding-right: 0rem;
   padding-left: 0rem;
@@ -643,3 +643,19 @@ a.linkedin-link:not([href]):not([class]), a.linkedin-link:not([href]):not([class
     object-fit: cover;
 }
 
+.square img {
+  float: left;
+  margin: 5px;
+}
+
+.square p {
+  text-align: justify;
+}
+
+table.legend_table th {
+  border: 1px solid;
+}
+
+table.legend_table td {
+  border: 1px solid;
+}

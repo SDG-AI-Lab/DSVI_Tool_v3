@@ -1,17 +1,16 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect} from "react";
 import { Modal } from 'react-responsive-modal';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { FilterContext } from '../context/FilterContext'
-import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
-
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { FilterContext } from '../context/FilterContext';
+import DHS_COLUMN from './../public/static/color_gradient_lookup.json';
 
 const Sidebar = (props) => {
   const { show_infoBox_data } = props;
   const { state, dispatch } = useContext(FilterContext);
   const level = state["level"];
-
   const show_sidebar = state["show_sidebar"];
   const areaofInterestStatus2 = state["show_area_of_interest"];
+  const reset_settings = state["reset_settings"];
 
   const activeLegends = state["activeLegends"];
   const socioeconomic = state["socioeconomic"];
@@ -66,31 +65,6 @@ const Sidebar = (props) => {
     dispatch({ type: "CHANGE_GEODATA", payload: items });
   }
  
-  // function addSocioeconmic(newItem) {
-
-  function addRemoveNewLegend(newItem) {
-    let newLegends = activeLegends;
-    // console.log(newItem)
-    if (newItem.status == true) {
-      newLegends.push(newItem);
-    } else if (newItem.status == false) {
-      newLegends = newLegends.filter(item => {
-        return item.slug != newItem.slug;
-      })
-    }
-
-    /*For DHS indicators. ONLY*/
-    if (newItem.hasOwnProperty('Name') && (newItem.hasOwnProperty('Additional Information'))) {
-      newLegends = newLegends.filter(item => {
-        return !item.hasOwnProperty('Name');
-      })
-      if (newItem.id != 0) {
-        newLegends.push(newItem);
-      }
-    }
-    dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newLegends });
-  }
-
   return (
     <>
       <div className={`resize-x bg-white h-[calc(100vh-110px)] w-[330px] min-w-[100px] max-w-[500px] overflow-auto`}>
@@ -107,14 +81,33 @@ const Sidebar = (props) => {
             <div>
 
               <ul className="relative px-3">
-                <li><p></p></li>
-                
                 <hr className="my-2" />
+
                 <li className="relative">
-                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden bg-blue-50
-                    text-blue-600 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
-                    hover:bg-blue-100 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden 
+                    text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 
+                    hover:bg-blue-50 transition duration-300 ease-in-out" 
+                  href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
+                    onClick={() => {
+                      dispatch({type: "TOGGLE_RESET_SETTINGS"});
+                      setTimeout(()=>dispatch({type: "RESET_INITIAL_STATE_SETTINGS", payload: props.originalInitialState}), 0);
+                      }
+                    }
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                  <span>{reset_settings == false ? 'Reset Tool' : 'Reset Tool'}</span>
+                  </a>
+                </li>
+
+                <li className="relative">
+                  <a className="flex items-center text-sm py-4 px-2 h-12 overflow-hidden text-gray-700 
+                    text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 
+                    transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     onClick={() => dispatch({ type: "TOGGLE_AREA_OF_INTEREST", payload: {} })}
+                    style={{'background': areaofInterestStatus2 ? 'rgb(239 246 255)': null,
+                            'color': areaofInterestStatus2 ? 'rgb(37 99 235)': null }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -122,10 +115,8 @@ const Sidebar = (props) => {
                     <span>{areaofInterestStatus2 == true ? 'Hide Area of Interest' : 'Show Area of Interest'}</span>
                   </a>
                 </li>
-
                 {/* TOGGLE VULNERABILITY POINTS */}
                 
-
                 <ul>
                   {/* Show vulnerability in sidebar */}
                   <li className="relative">
@@ -161,7 +152,6 @@ const Sidebar = (props) => {
                                               <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <div className="flex i items-center"
                                                     onClick={() => {
-                                                      const newItems = [...categories];
                                                       const newItem = {
                                                       id: val.id,
                                                       slug: val.slug,
@@ -169,9 +159,8 @@ const Sidebar = (props) => {
                                                       status: !val.status,
                                                       color: val.color
                                                       };
-                                                      newItems[index] = newItem;
-                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
-                                                      addRemoveNewLegend(newItem);
+                                                      dispatch({type: "CHANGE_CATEGORIES", payload: newItem, index_1: index});
+                                                      dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newItem });
                                                     }}
                                                   >
 
@@ -180,7 +169,6 @@ const Sidebar = (props) => {
                                                     aria-describedby="flowbite" type="checkbox"
                                                     checked={val.status}
                                                     onChange={(event) => {
-                                                      const newItems = [...categories];
                                                       const newItem = {
                                                       id: val.id,
                                                       slug: val.slug,
@@ -188,11 +176,13 @@ const Sidebar = (props) => {
                                                       status: !val.status,
                                                       color: val.color
                                                       };
-                                                      newItems[index] = newItem;
-                                                      dispatch({ type: "CHANGE_CATEGORIES", payload: newItems });
+                                                      dispatch({type: "CHANGE_CATEGORIES", payload: newItem, index_1: index});
                                                     }}
                                                   />
-                                                  <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
+                                                  <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden
+                                                  text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
+                                                  hover:bg-blue-50 transition duration-300 ease-in-out" 
+                                                  data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
                                                 </div>
                                               </li>
                                               <div style={{ maxHeight: "10px" }}>{provided.placeholder}</div>
@@ -292,7 +282,7 @@ const Sidebar = (props) => {
                     ease-in-out cursor-pointer" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                     data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx2" aria-expanded="false"
                     aria-controls="collapseSidenavSecEx2"
-                    onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC", payload: {} })}
+                    onClick={() => dispatch({ type: "TOGGLE_SOCIOECONOMIC" })}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
                       stroke="currentColor" strokeWidth="2">
@@ -304,14 +294,14 @@ const Sidebar = (props) => {
                     {
                       socioeconomic.status == true ?
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
+                            01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                        </svg> 
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0
                             111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
-                        :
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0
-                            01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                        </svg>  
                     }
                   </a>
                   {socioeconomic.status == true &&
@@ -321,7 +311,8 @@ const Sidebar = (props) => {
                         hover:bg-blue-50 transition duration-300 ease-in-out"
                         href="#!" data-mdb-ripple="true" data-mdb-ripple-color="primary"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" 
+                          viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
                         </svg>
                         <span>Select administrative level</span>
@@ -343,7 +334,8 @@ const Sidebar = (props) => {
                             return (
                               <div key={index}>
                                 <div className="flex" onClick={() => { dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } }) }}>
-                                  <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" id="flowbite" aria-describedby="flowbite" type="radio"
+                                  <input className="ml-5  bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" 
+                                    id="flowbite" aria-describedby="flowbite" type="radio"
                                     checked={val.slug == level ? true : false}
                                     onChange={() => dispatch({ type: "CHANGE_LEVEL", payload: { level: val.slug } })}
                                   />
@@ -357,7 +349,7 @@ const Sidebar = (props) => {
                         }
                       </ul>
                     </div>
-}
+                  }
                   {/* {socioeconomic.status == true &&
                     <ul className="flex">
                       {
@@ -389,7 +381,7 @@ const Sidebar = (props) => {
                         })
                       }
                     </ul>
-                    } */}
+                  } */}
 
                   <ul className="relative accordion-collapse collapse" id="collapseSidenavSecEx3" aria-labelledby="sidenavSecEx3"
                     data-bs-parent="#sidenavSecExample">              
@@ -413,7 +405,6 @@ const Sidebar = (props) => {
                                                                               <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                                                   <div className="flex i items-center"
                                                                                       onClick={() => {
-                                                                                        const newItems = [...socioeconomic.data];
                                                                                         const newItem = {
                                                                                             id: val2.id,
                                                                                             slug: val2.slug,
@@ -424,30 +415,25 @@ const Sidebar = (props) => {
                                                                                             units: val2.units,
                                                                                             json_library: val2.json_library
                                                                                         };
-                                                                                        newItems[index]['data'][index2] = newItem;
-                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
-                                                                                        addRemoveNewLegend(newItem);
-                                                                                        //alert("Hi");
-                                                                                        // show_infoBox_data && <ControlMenu props/>
+                                                                                        dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItem, index_1: index, index_2: index2 });
+                                                                                        dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newItem });
                                                                                       }}
                                                                                   >
                                                                                       <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
                                                                                           id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                                                           checked={val2.status}
                                                                                           onChange={(event) => {
-                                                                                              const newItems = [...socioeconomic.data];
-                                                                                              const newItem = {
-                                                                                                  id: val2.id,
-                                                                                                  slug: val2.slug,
-                                                                                                  title: val2.title,
-                                                                                                  status: !val2.status,
-                                                                                                  value: val2.value,
-                                                                                                  reverse_meaning: val2.reverse_meaning,
-                                                                                                  units: val2.units,
-                                                                                                  json_library: val2.json_library
-                                                                                              };
-                                                                                              newItems[index]['data'][index2] = newItem;
-                                                                                              dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems });
+                                                                                            const newItem = {
+                                                                                              id: val2.id,
+                                                                                              slug: val2.slug,
+                                                                                              title: val2.title,
+                                                                                              status: !val2.status,
+                                                                                              value: val2.value,
+                                                                                              reverse_meaning: val2.reverse_meaning,
+                                                                                              units: val2.units,
+                                                                                              json_library: val2.json_library
+                                                                                            };
+                                                                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItem, index_1: index, index_2: index2 });
                                                                                           }}
                                                                                       />
                                                                                       <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
@@ -467,18 +453,17 @@ const Sidebar = (props) => {
                                                                                                             focus:border-blue-600 focus:outline-none"
                                                                                                         value={parseInt(val2.value)}
                                                                                                         onChange={(event) => {
-                                                                                                            const newItems = [...socioeconomic.data];
-                                                                                                            newItems[index]['data'][index2] = {
-                                                                                                                id: val2.id,
-                                                                                                                slug: val2.slug,
-                                                                                                                title: val2.title,
-                                                                                                                status: val2.status,
-                                                                                                                value: event.target.value,
-                                                                                                                reverse_meaning: val2.reverse_meaning,
-                                                                                                                units: val2.units,
-                                                                                                                json_library: val2.json_library
-                                                                                                            };
-                                                                                                            dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                                          const newItem = {
+                                                                                                            id: val2.id,
+                                                                                                            slug: val2.slug,
+                                                                                                            title: val2.title,
+                                                                                                            status: val2.status,
+                                                                                                            value: event.target.value,
+                                                                                                            reverse_meaning: val2.reverse_meaning,
+                                                                                                            units: val2.units,
+                                                                                                            json_library: val2.json_library
+                                                                                                          };
+                                                                                                          dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItem, index_1: index, index_2: index2 });
                                                                                                         }}
                                                                                                     />
                                                                                                     <div>
@@ -486,18 +471,17 @@ const Sidebar = (props) => {
                                                                                                             <input type="range" min="1" max="100" step="1" value={val2.value} className="form-range h-6 p-0
                                                                                                                 focus:outline-none focus:ring-0 focus:shadow-none"
                                                                                                                 onChange={(event) => {
-                                                                                                                    const newItems = [...socioeconomic.data];
-                                                                                                                    newItems[index]['data'][index2] = {
-                                                                                                                        id: val2.id,
-                                                                                                                        slug: val2.slug,
-                                                                                                                        title: val2.title,
-                                                                                                                        status: val2.status,
-                                                                                                                        value: event.target.value,
-                                                                                                                        reverse_meaning: val2.reverse_meaning,
-                                                                                                                        units: val2.units,
-                                                                                                                        json_library: val2.json_library
-                                                                                                                    };
-                                                                                                                    dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItems })
+                                                                                                                  const newItem = {
+                                                                                                                    id: val2.id,
+                                                                                                                    slug: val2.slug,
+                                                                                                                    title: val2.title,
+                                                                                                                    status: val2.status,
+                                                                                                                    value: event.target.value,
+                                                                                                                    reverse_meaning: val2.reverse_meaning,
+                                                                                                                    units: val2.units,
+                                                                                                                    json_library: val2.json_library
+                                                                                                                  };
+                                                                                                                  dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItem, index_1: index, index_2: index2 });
                                                                                                                 }}
                                                                                                             />
                                                                                                         </div>
@@ -530,7 +514,7 @@ const Sidebar = (props) => {
                     whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
                     data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse" data-bs-target="#collapseSidenavSecEx3"
                     aria-expanded="false" aria-controls="collapseSidenavSecEx3"
-                    onClick={() => dispatch({ type: "TOGGLE_GEODATA", payload: {} })}
+                    onClick={() => dispatch({ type: "TOGGLE_GEODATA" })}
                   >
 
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -540,11 +524,11 @@ const Sidebar = (props) => {
                     {
                       geodata.status == true ?
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-16" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
                         </svg>
                         :
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-16" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                     }
                   </a>
@@ -580,17 +564,15 @@ const Sidebar = (props) => {
                                                           value: val2.value,
                                                           layer: val2.layer
                                                       };
-                                                      const newItems = [...geodata.data];
-                                                      newItems[index]['data'][index2] = newItem;
-                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems });
-                                                      addRemoveNewLegend(newItem);
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItem, index_1: index, index_2: index2 });
+                                                      dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: newItem });
                                                     }}
                                                   >
                                                     <input className="ml-5 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
                                                       id="flowbite" aria-describedby="flowbite" type="checkbox"
                                                       checked={val2.status}
                                                       onChange={(event) => {
-                                                      const newItem = {
+                                                        const newItem = {
                                                           id: val2.id,
                                                           slug: val2.slug,
                                                           title: val2.title,
@@ -598,9 +580,7 @@ const Sidebar = (props) => {
                                                           value: val2.value,
                                                           layer: val2.layer
                                                       };
-                                                      const newItems = [...geodata.data];
-                                                      newItems[index]['data'][index2] = newItem;
-                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItems });
+                                                      dispatch({ type: "CHANGE_GEODATA", payload: newItem, index_1: index, index_2: index2 });
                                                       }}
                                                     />
                                                     <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6
@@ -623,8 +603,7 @@ const Sidebar = (props) => {
                                                                 focus:outline-none"
                                                               value={parseInt(val2.value)}
                                                               onChange={(event) => {
-                                                                const newItems = [...geodata.data];
-                                                                newItems[index]['data'][index2] = {
+                                                                const newItem = {
                                                                   id: val2.id,
                                                                   slug: val2.slug,
                                                                   title: val2.title,
@@ -632,7 +611,7 @@ const Sidebar = (props) => {
                                                                   value: event.target.value,
                                                                   layer: val2.layer
                                                                 };
-                                                                dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                                dispatch({ type: "CHANGE_GEODATA", payload: newItem, index_1: index, index_2: index2 });
                                                               }}
                                                             />
                                                             <div>
@@ -640,8 +619,7 @@ const Sidebar = (props) => {
                                                                 <input type="range" min="1" max="100" step="1" value={val2.value}
                                                                   className="form-range h-6 p-0 focus:outline-none focus:ring-0 focus:shadow-none"
                                                                   onChange={(event) => {
-                                                                    const newItems = [...geodata.data];
-                                                                    newItems[index]['data'][index2] = {
+                                                                    const newItem = {
                                                                       id: val2.id,
                                                                       slug: val2.slug,
                                                                       title: val2.title,
@@ -649,7 +627,7 @@ const Sidebar = (props) => {
                                                                       value: event.target.value,
                                                                       layer: val2.layer
                                                                     };
-                                                                    dispatch({ type: "CHANGE_GEODATA", payload: newItems })
+                                                                    dispatch({ type: "CHANGE_GEODATA", payload: newItem, index_1: index, index_2: index2 });
                                                                   }}
                                                                 />
                                                               </div>
@@ -752,7 +730,7 @@ const Sidebar = (props) => {
         onClose={
           () => {
             onCloseDhsModal();
-            addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
+            dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: DHS_COLUMN[selectedDhsDataColumn] });
           }
         }
 
@@ -790,7 +768,7 @@ const Sidebar = (props) => {
                 }
                 else {
                   onCloseDhsModal();
-                  addRemoveNewLegend(DHS_COLUMN[selectedDhsDataColumn]);
+                  dispatch({ type: "CHANGE_ACTIVE_LEGENDS", payload: DHS_COLUMN[selectedDhsDataColumn] });
                 }
               }}
             >Apply</button>
