@@ -319,7 +319,7 @@ export const initialState = {
                         title: 'Distance to Healthcare',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_health_dd_spd_10k'
+                        layer: 'sdg-ai-lab:up_health_res_0_05_penalty'
                     },
                     {
                         id: 2.2,
@@ -327,7 +327,7 @@ export const initialState = {
                         title: 'Distance to Finance',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_finan_dd_spd_10k_4326'
+                        layer: 'sdg-ai-lab:up_finan_res_0_05_penalty'
                     },
                     {
                         id: 2.3,
@@ -335,7 +335,7 @@ export const initialState = {
                         title: 'Distance to Education',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326'
+                        layer: 'sdg-ai-lab:up_edu_res_0_05_penalty'
                     },
                     {
                         id: 2.4,
@@ -358,7 +358,7 @@ export const initialState = {
                         title: 'Elevation in meters',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_DEM_Large'
+                        layer: 'sdg-ai-lab:r_norm_elev_srtmv2_300m'
                     },
                     {
                         id: 3.2,
@@ -366,7 +366,7 @@ export const initialState = {
                         title: 'Slope in degrees',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_slope'
+                        layer: 'sdg-ai-lab:up_slope_clipped'
                     },
                     {
                         id: 3.3,
@@ -374,7 +374,7 @@ export const initialState = {
                         title: 'Max Temp Winter',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_maxtemp_feb'
+                        layer: 'sdg-ai-lab:up_scaled_r_norm_maxtemp_feb'
                     },
                     {
                         id: 3.4,
@@ -382,7 +382,7 @@ export const initialState = {
                         title: 'Plant Health (NDVI)',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_NDVI'
+                        layer: 'sdg-ai-lab:up_new_ndvi'
                     },
                     {
                         id: 3.5,
@@ -390,7 +390,7 @@ export const initialState = {
                         title: 'Rainfall',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_precip'
+                        layer: 'sdg-ai-lab:precipitation_upsampled_0_0001'
                     }
                 ]
             },
@@ -413,7 +413,7 @@ export const initialState = {
                         title: 'Population Density',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_pop'
+                        layer: 'sdg-ai-lab:up_r_norm_population_interpolation'
                     },
                     {
                         id: 4.3,
@@ -421,23 +421,23 @@ export const initialState = {
                         title: 'Celltower Density',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_cellt'
+                        layer: 'sdg-ai-lab:up_r_celltower'
                     },
-                    {
-                        id: 4.4,
-                        slug: 'sv_road_density',
-                        title: 'Road Density',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_road_density'
-                    },
+                    // {
+                    //     id: 4.4,
+                    //     slug: 'sv_road_density',
+                    //     title: 'Road Density',
+                    //     status: false,
+                    //     value: 70,
+                    //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
+                    // },
                     {
                         id: 4.5,
                         slug: 'sv_relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final'
+                        layer: 'sdg-ai-lab:up_rwi'
                     },
                     {
                         id: 4.6,
@@ -445,7 +445,7 @@ export const initialState = {
                         title: 'Gross Domestic Product',
                         status: false,
                         value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_GDP_2015_intp'
+                        layer: 'sdg-ai-lab:up_r_norm_GDP_2015_intp'
                     }
                 ]
             }
