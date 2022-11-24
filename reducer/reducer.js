@@ -111,23 +111,23 @@ export const initialState = {
                     {
                         id: 1.1,
                         slug: 'se_random_forest',
-                        title: 'SV: Random Forest',
+                        title: 'Prediction: Best Model',
                         status: false,
                         value: 70,
                         reverse_meaning: false,
                         units: 'Vulnerability [0-1]',
                         json_library:'rf'
                     },
-                    {
-                        id: 1.2,
-                        slug: 'se_xgboost',
-                        title: 'SV: XGBoost',
-                        status: false,
-                        value: 70,
-                        reverse_meaning: false,
-                        units: 'Vulnerability [0-1]',
-                        json_library:'XGBoost'
-                    },
+                    // {
+                    //     id: 1.2,
+                    //     slug: 'se_xgboost',
+                    //     title: 'SV: XGBoost',
+                    //     status: false,
+                    //     value: 70,
+                    //     reverse_meaning: false,
+                    //     units: 'Vulnerability [0-1]',
+                    //     json_library:'XGBoost'
+                    // },
                 ]
             },
             {
@@ -138,31 +138,31 @@ export const initialState = {
                     {
                         id: 2.1,
                         slug: 'se_education_facility',
-                        title: 'DT: Education Facility',
+                        title: 'Education Facility',
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: '',
+                        units: 'Average Drive time in Seconds',
                         json_library:'edu'
                     },
                     {
                         id: 2.2,
                         slug: 'se_health_institution',
-                        title: 'DT: Health Institution',
+                        title: 'Health Institution',
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: '',
+                        units: 'Average Drive time in Seconds',
                         json_library:'health'
                     },
                     {
                         id: 2.3,
                         slug: 'se_financial_service',
-                        title: 'DT: Financial Service',
+                        title: 'Financial Service',
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: '',
+                        units: 'Average Drive time in Seconds',
                         json_library:'finan'
                     },
                 ]
@@ -179,7 +179,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'person/km²',
+                        units: 'people / km²',
                         json_library:'ppp_pop'
                     },
                     {
@@ -189,7 +189,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: '',
+                        units: 'CellTowers per district',
                         json_library:'cellt'
                     },
                     {
@@ -209,7 +209,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: '',
+                        units: 'Relative Wealth Score (-1 to 1)',
                         json_library:'rwi'
                     },
                     {
@@ -219,7 +219,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'USD/km²',
+                        units: 'USD / km²',
                         json_library:'gdp_2015'
                     }
                 ]
@@ -246,7 +246,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: '',
+                        units: 'AVG °C in February',
                         json_library:'temp'
                     },
                     // {
@@ -266,7 +266,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: false,
-                        units: '',
+                        units: 'Meter above sea Level:',
                         json_library:'dem'
                     }
                 ]

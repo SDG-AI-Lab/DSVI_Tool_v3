@@ -96,7 +96,7 @@ const OsmMap = () => {
   const se_random_forest = se_social_vulnerability.data.find((e) => e.slug === 'se_random_forest');
   const {status: se_random_forest_status, value: se_random_forest_value} = se_random_forest;
   const se_xgboost = se_social_vulnerability.data.find((e) => e.slug === 'se_xgboost');
-  const {status: se_xgboost_status, value: se_xgboost_value} = se_xgboost;
+  // const {status: se_xgboost_status, value: se_xgboost_value} = se_xgboost;
 
   const se_drive_time = socioeconomic.find((e) => e.slug === 'se_drive_time');
   const se_education_facility = se_drive_time.data.find((e) => e.slug === 'se_education_facility');
@@ -374,7 +374,8 @@ const OsmMap = () => {
         <InfoBox position="topleft"/>
 
         { 
-          se_random_forest_status || se_xgboost_status || se_education_facility_status || se_health_institution_status ||
+          se_random_forest_status || // se_xgboost_status 
+          se_education_facility_status || se_health_institution_status ||
           se_financial_service_status || se_population_counts_status || se_celltowers_status || se_nightlight_intensity_status ||
           se_relative_wealth_status || se_GDP_status || se_plant_health_status || se_temperature_max_status ||
           // se_land_use_class_status 
@@ -410,7 +411,7 @@ const OsmMap = () => {
         })}
 
         {/*XG Boost*/}
-        {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
+        {/* {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
         return newProjection(se_xgboost_1, library, index, se_xgboost);
         })}
         {se_xgboost_status && level === 2 && se_xgboost_2.features.map((library, index) => {
@@ -418,7 +419,7 @@ const OsmMap = () => {
         })}
         {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
           return newProjection(se_xgboost_3, library, index, se_xgboost);
-        })}
+        })} */}
 
         {/*Education Facilities*/}
         {se_education_facility_status && level === 1 && se_edu_1.features.map((library, index) => {
