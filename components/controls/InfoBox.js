@@ -100,10 +100,6 @@ const infoBoxRef = useRef();
 const Tabs = (props) => {
   const [openTab, setOpenTab] = useState(4);
 
-  useEffect(() => {
-      setOpenTab(2);
-  }, [InfoBox])
-
   return (
     <>
       {/* tabs */}
@@ -341,7 +337,7 @@ const Tabs = (props) => {
         {/* <InfoDiv setTab={setOpenTab} dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/> */}
         <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
           controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-          onChange={(e) => props.changingDropdown(e.value)} 
+          onClick={(e) => props.changingDropdown(e.value)} 
           value={props.dropdownValue} 
           placeholder="Select an option" />
         <div className='max-w-md px-4 mt-5 square'>
