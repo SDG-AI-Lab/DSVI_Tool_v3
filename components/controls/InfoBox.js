@@ -98,7 +98,7 @@ const infoBoxRef = useRef();
 
 // the tabs inside the infoBox: Social vulnerability, Data Exploration, Methods, and How to use
 const Tabs = (props) => {
-  const [openTab, setOpenTab] = useState(3);
+  const [openTab, setOpenTab] = useState(4);
 
   return (
     <>
@@ -117,17 +117,17 @@ const Tabs = (props) => {
           >
             <a
               className={
-                'block rounded px-5 py-1 text-base leading-normal text-black'
+                'block rounded px-5 py-1 text-base leading-normal text-black '
               }
               onClick={(e) => {
                 e.preventDefault()
                 setOpenTab(1)
               }}
               data-toggle="tab"
-              href="#link1"
+              href="https://sdgailab.org/"
               role="tablist"
             >
-              How to use
+              Social Vulnerability
             </a>
           </li>
           <li
@@ -141,14 +141,14 @@ const Tabs = (props) => {
                 'block rounded px-5 py-1 text-base leading-normal text-black '
               }
               onClick={(e) => {
-                e.preventDefault()
-                setOpenTab(2)
+                e.preventDefault();
+                setOpenTab(2);
               }}
               data-toggle="tab"
-              href="https://sdgailab.org/"
+              href="#link2"
               role="tablist"
             >
-              Social Vulnerability
+              Data Exploration
             </a>
           </li>
           <li
@@ -159,17 +159,17 @@ const Tabs = (props) => {
           >
             <a
               className={
-                'block rounded px-5 py-1 text-base leading-normal text-black '
+                'block rounded px-5 py-1 text-base leading-normal text-black'
               }
               onClick={(e) => {
-                e.preventDefault();
-                setOpenTab(3);
+                e.preventDefault()
+                setOpenTab(3)
               }}
               data-toggle="tab"
               href="#link3"
               role="tablist"
             >
-              Data Exploration
+              Methods
             </a>
           </li>
           <li
@@ -190,10 +190,9 @@ const Tabs = (props) => {
               href="#link4"
               role="tablist"
             >
-              Methods
+              How to use
             </a>
           </li>
-          
         </ul>
 
         {/* each option/tab's respective image div */}
@@ -201,29 +200,9 @@ const Tabs = (props) => {
           <div className="flex-auto ml-20">
             <div
               className={`${openTab === 1 ? 'block' : 'hidden'
-              } tab-pane fade show active`}
-              style={{ width: '150px' }}
-              id="link1"
-            >
-              <Carousel
-                className="info_carousel"
-                showArrows={false}
-                showIndicators={false}
-                showThumbs={false}
-                showStatus={false}
-              >
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
-                  alt="poverty"
-                />
-              </Carousel>
-            </div>
-            <div
-              className={`${openTab === 2 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
               style={{ width: '150px' }}
-              id="link2"
+              id="link1"
             >
               <Carousel
                 className="info_carousel"
@@ -255,10 +234,10 @@ const Tabs = (props) => {
               </Carousel>
             </div>
             <div
-              className={`${openTab === 3 ? 'block' : 'hidden'
+              className={`${openTab === 2 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
               style={{ width: '200px' }}
-              id="link3"
+              id="link2"
             >
               <Carousel
                 className="info_carousel"
@@ -290,10 +269,10 @@ const Tabs = (props) => {
               </Carousel>
             </div>
             <div
-              className={`${openTab === 4 ? 'block' : 'hidden'
+              className={`${openTab === 3 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
               style={{ width: '150px' }}
-              id="link4"
+              id="link3"
             >
               <Carousel
                 className="info_carousel"
@@ -324,24 +303,41 @@ const Tabs = (props) => {
                 />
               </Carousel>
             </div>
-            
+
+            <div
+              className={`${openTab === 4 ? 'block' : 'hidden'
+              } tab-pane fade show active`}
+              style={{ width: '150px' }}
+              id="link4"
+            >
+              <Carousel
+                className="info_carousel"
+                showArrows={false}
+                showIndicators={false}
+                showThumbs={false}
+                showStatus={false}
+              >
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
+                  alt="poverty"
+                />
+              </Carousel>
+            </div>
           </div>
         </div>
       </div>
 
       {/* each tab's information area */}
       <div className={`${openTab === 1 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
-        <h1 className='text-xl font-semibold leading-10'>Welcome to the DSVI Tool</h1>
-        Shift + drawing a box with your mouse will allow you to zoom into the area on the map.
-      </div>
-      <div className={`${openTab === 2 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
         Social Vulnerability (SV) is the capacity of individuals or communities to cope with social and environmental shocks   (Adger 2000, Cutter 2003). This includes climate change, natural disasters, and other societal risks. Vulnerable groups have a disproportionate risk of being affected and experiencing more profound consequences, due to their socio-economic preconditions. SV assessments help to better map the connection between local conditions, social characteristics, or individual vulnerabilities and risks. The calculation of SV scores is a frequent practice to measure a community’s ability to respond to outside stressors and risks. It is an indirect way to quantify resilience. Having such an assessment helps to understand, get prepared and respond in a more effective manner, using a combination of the most appropriate tools once the risk materializes.
       </div>
-      <div className={`${openTab === 3 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+
+      <div className={`${openTab === 2 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
         {/* <InfoDiv setTab={setOpenTab} dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/> */}
         <Dropdown menuClassName='max-w-11/12 left-4p rounded-xl h-50' 
           controlClassName='rounded-xl w-11/12 m-auto' options={dropDownOptions} 
-          onChange={(e) => {props.changingDropdown(e.value); setOpenTab(2);}} 
+          onClick={(e) => props.changingDropdown(e.value)} 
           value={props.dropdownValue} 
           placeholder="Select an option" />
         <div className='max-w-md px-4 mt-5 square'>
@@ -358,10 +354,14 @@ const Tabs = (props) => {
           <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[props.dropdownDescIndex].desc}</p>
         </div>  
       </div>
-      <div className={`${openTab === 4 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+
+      <div className={`${openTab === 3 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
         No method details yet.
       </div>
-      
+      <div className={`${openTab === 4 ? 'block' : 'hidden'} my-3 leading-relaxed mb-3 text-justify max-w-md px-4 mt-5 square`}>
+        <h1 className='text-xl font-semibold leading-10'>Welcome to the DSVI Tool</h1>
+        Shift + drawing a box with your mouse will allow you to zoom into the area on the map.
+      </div>
       {/* <InfoDiv dropdownValue={props.dropdownValue} dropdownDescIndex={props.dropdownDescIndex} changingDropdown={props.changingDropdown}/> */}
       
     </>
