@@ -112,6 +112,27 @@ const Tabs = (props) => {
           <li
             className="nav-item flex-grow text-left"
             style={{
+              background: openTab === 4 ? '#e6f9ff' : 'transparent',
+            }}
+          >
+            <a
+              className={
+                'block rounded px-5 py-1 text-base leading-normal text-black'
+              }
+              onClick={(e) => {
+                e.preventDefault()
+                setOpenTab(4)
+              }}
+              data-toggle="tab"
+              href="#link4"
+              role="tablist"
+            >
+              Welcome
+            </a>
+          </li>
+          <li
+            className="nav-item flex-grow text-left"
+            style={{
               background: openTab === 1 ? '#e6f9ff' : 'transparent',
             }}
           >
@@ -172,27 +193,7 @@ const Tabs = (props) => {
               Methods
             </a>
           </li>
-          <li
-            className="nav-item flex-grow text-left"
-            style={{
-              background: openTab === 4 ? '#e6f9ff' : 'transparent',
-            }}
-          >
-            <a
-              className={
-                'block rounded px-5 py-1 text-base leading-normal text-black'
-              }
-              onClick={(e) => {
-                e.preventDefault()
-                setOpenTab(4)
-              }}
-              data-toggle="tab"
-              href="#link4"
-              role="tablist"
-            >
-              How to use
-            </a>
-          </li>
+          
         </ul>
 
         {/* each option/tab's respective image div */}
@@ -214,7 +215,27 @@ const Tabs = (props) => {
                 <img
                   style={{ width: '100px'}}
                   src="./images/logo-sdg-filled.png"
-                  alt="poverty"
+                  alt="SDG"
+                />
+              </Carousel>
+            </div>
+            <div
+              className={`${openTab === 2 ? 'block' : 'hidden'
+                } tab-pane fade show active`}
+              style={{ width: '200px' }}
+              id="link2"
+            >
+              <Carousel
+                className="info_carousel"
+                showArrows={false}
+                showIndicators={false}
+                showThumbs={false}
+                showStatus={false}
+              >
+ <img
+                  style={{ width: '100px'}}
+                  src="./images/logo-sdg-filled.png"
+                  alt="SDG's"
                 />
                 {/* <img
                   style={{ width: '100px' }}
@@ -234,41 +255,6 @@ const Tabs = (props) => {
               </Carousel>
             </div>
             <div
-              className={`${openTab === 2 ? 'block' : 'hidden'
-                } tab-pane fade show active`}
-              style={{ width: '200px' }}
-              id="link2"
-            >
-              <Carousel
-                className="info_carousel"
-                showArrows={false}
-                showIndicators={false}
-                showThumbs={false}
-                showStatus={false}
-              >
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
-                  alt="poverty"
-                />
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
-                  alt="poverty"
-                />
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
-                  alt="poverty"
-                />
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
-                  alt="poverty"
-                />
-              </Carousel>
-            </div>
-            <div
               className={`${openTab === 3 ? 'block' : 'hidden'
                 } tab-pane fade show active`}
               style={{ width: '150px' }}
@@ -281,25 +267,10 @@ const Tabs = (props) => {
                 showThumbs={false}
                 showStatus={false}
               >
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
-                  alt="poverty"
-                />
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
-                  alt="poverty"
-                />
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
-                  alt="poverty"
-                />
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png"
-                  alt="poverty"
+ <img
+                  style={{ width: '100px'}}
+                  src="./images/logo-sdg-filled.png"
+                  alt="SDG's"
                 />
               </Carousel>
             </div>
@@ -317,10 +288,10 @@ const Tabs = (props) => {
                 showThumbs={false}
                 showStatus={false}
               >
-                <img
-                  style={{ width: '100px' }}
-                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg1.png"
-                  alt="poverty"
+ <img
+                  style={{ width: '100px'}}
+                  src="./images/logo-sdg-filled.png"
+                  alt="SDG's"
                 />
               </Carousel>
             </div>

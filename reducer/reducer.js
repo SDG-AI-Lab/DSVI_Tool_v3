@@ -219,7 +219,7 @@ export const initialState = {
                         status: false,
                         value: 70,
                         reverse_meaning: true,
-                        units: 'USD / km²',
+                        units: 'Total USD per District',
                         json_library:'gdp_2015'
                     }
                 ]
