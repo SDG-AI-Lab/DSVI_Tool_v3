@@ -20,7 +20,7 @@ const CustomPolygon_AOI = (props) => {
             pathOptions={{
                 bubblingMouseEvents: true, weight: 2, color: '#007EC6', opacity: opacity, fillOpacity: opacity
             }}
-
+            pane="area-of-interest-pane"
             fillColor={fillColor}
             positions={positions}
 
@@ -29,16 +29,13 @@ const CustomPolygon_AOI = (props) => {
                 mouseover: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: 'white',
-                        zIndex: 0
+                        fillColor: 'white'
                     });
                 },
                 mouseout: (e) => {
                     let layer = e.target;
                     layer.setStyle({
-                        fillColor: fillColor,
-                        opacity: 0.5,
-                        zIndex: 0
+                        fillColor: fillColor
                     });
                 },
 
