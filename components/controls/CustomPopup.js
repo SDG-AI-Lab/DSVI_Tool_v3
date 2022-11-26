@@ -3,7 +3,7 @@ const CustomPopup=(props)=>{
     const {maxWidth, maxHeight, bgcolor, textcolor, data, tooltipName_1, tooltipName_2, normalizeDataValue, _mean, units}=props;
 
     return(
-        <Popup className={`p-0 m-0 rounded-lg`}>
+        <Popup className={`p-0 m-0 rounded-lg`} pane='popupPane'>
             {/* <ul className={`${textcolor}`}>
                 {
                     data.map((val,index)=>{

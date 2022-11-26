@@ -10,7 +10,7 @@ const CustomTooltip=(props)=>{
     // document.documentElement.style.setProperty('--custom_bg_color', bgcolor);
   
     return (
-        <Tooltip direction={direction} offset={offset} className={`p-0 m-0 border-none`}>
+        <Tooltip direction={direction} offset={offset} className={`p-0 m-0 border-none`} pane='tooltipPane'>
             <p className={`p-1 ${textcolor}`}>
                 {tooltipName_1 == null ? 'Oblast: no data' : `Oblast: ${tooltipName_1}`}
                 <br/>

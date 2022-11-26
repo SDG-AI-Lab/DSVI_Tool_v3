@@ -139,7 +139,8 @@ const BetterWMSTileLayer = (props) => {
           version: "1.1.0",
           zIndex: zIndex,
           styles: styles,
-          opacity: opacity
+          opacity: opacity,
+          pane: "geodata-pane"
       }))
   }
   const useNewWMSelement = createElementHook(createNewWMS);
