@@ -63,7 +63,7 @@ const CustomPolygon = (props) => {
             pathOptions={{
                 bubblingMouseEvents: true, weight: 1, color: 'white', opacity: opacity, fillOpacity: opacity
             }}
-
+            pane="socioeconomic-pane"
             fillColor={fillColor}
             positions={positions}
 
