@@ -553,7 +553,7 @@ const Sidebar = (props) => {
                                           <Draggable key={val2.id} draggableId={val2.id.toString()} index={index2}>
                                             {(provided) => (
                                               <>
-                                                <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>      
                                                   <div className="flex i items-center"
                                                     onClick={() => {
                                                       const newItem = {
