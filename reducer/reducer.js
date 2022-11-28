@@ -310,97 +310,11 @@ export const initialState = {
             },
             {
                 id: 2,
-                slug: 'sv_distance_maps',
-                title: 'Distance Maps',
-                data: [
-                    {
-                        id: 2.1,
-                        slug: 'sv_distance_to_healthcare',
-                        title: 'Distance to Healthcare',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_health_res_0_05_penalty'
-                    },
-                    {
-                        id: 2.2,
-                        slug: 'sv_distance_to_finance',
-                        title: 'Distance to Finance',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_finan_res_0_05_penalty'
-                    },
-                    {
-                        id: 2.3,
-                        slug: 'sv_distance_to_edu',
-                        title: 'Distance to Education',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_edu_res_0_05_penalty'
-                    },
-                    {
-                        id: 2.4,
-                        slug: 'sv_roads',
-                        title: 'Road Network',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:lines_merged'
-                    }
-                ]
-            },
-            {
-                id: 3,
-                slug: 'sv_bio_physical',
-                title: 'Bio Physical Layers',
-                data: [
-                    {
-                        id: 3.1,
-                        slug: 'sv_elevation',
-                        title: 'Elevation in meters',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:r_norm_elev_srtmv2_300m'
-                    },
-                    {
-                        id: 3.2,
-                        slug: 'sv_slope',
-                        title: 'Slope in degrees',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_slope_clipped'
-                    },
-                    {
-                        id: 3.3,
-                        slug: 'sv_max_temp',
-                        title: 'Max Temp Winter',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_scaled_r_norm_maxtemp_feb'
-                    },
-                    {
-                        id: 3.4,
-                        slug: 'sv_plant_health',
-                        title: 'Plant Health (NDVI)',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_new_ndvi'
-                    },
-                    {
-                        id: 3.5,
-                        slug: 'sv_precipitation',
-                        title: 'Rainfall',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:precipitation_upsampled_0_0001'
-                    }
-                ]
-            },
-            {
-                id: 4,
                 slug: 'sv_socio_economic',
                 title: 'Socio Economic',
                 data: [
                     {
-                        id: 4.1,
+                        id: 2.1,
                         slug: 'sv_nightlight_intensity',
                         title: 'Nightlight Intensity',
                         status: false,
@@ -408,7 +322,7 @@ export const initialState = {
                         layer: 'sdg-ai-lab:scaled_r_norm_NTL'
                     },
                     {
-                        id: 4.2,
+                        id: 2.2,
                         slug: 'sv_pop_density',
                         title: 'Population Density',
                         status: false,
@@ -416,7 +330,7 @@ export const initialState = {
                         layer: 'sdg-ai-lab:up_r_norm_population_interpolation'
                     },
                     {
-                        id: 4.3,
+                        id: 2.3,
                         slug: 'sv_celltower',
                         title: 'Celltower Density',
                         status: false,
@@ -432,7 +346,7 @@ export const initialState = {
                     //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
                     // },
                     {
-                        id: 4.5,
+                        id: 2.5,
                         slug: 'sv_relative_wealth',
                         title: 'Relative Wealth',
                         status: false,
@@ -440,12 +354,98 @@ export const initialState = {
                         layer: 'sdg-ai-lab:up_rwi'
                     },
                     {
-                        id: 4.6,
+                        id: 2.6,
                         slug: 'sv_gdp',
                         title: 'Gross Domestic Product',
                         status: false,
                         value: 70,
                         layer: 'sdg-ai-lab:up_r_norm_GDP_2015_intp'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                slug: 'sv_distance_maps',
+                title: 'Distance Maps',
+                data: [
+                    {
+                        id: 3.1,
+                        slug: 'sv_distance_to_healthcare',
+                        title: 'Distance to Healthcare',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_health_res_0_05_penalty'
+                    },
+                    {
+                        id: 3.2,
+                        slug: 'sv_distance_to_finance',
+                        title: 'Distance to Finance',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_finan_res_0_05_penalty'
+                    },
+                    {
+                        id: 3.3,
+                        slug: 'sv_distance_to_edu',
+                        title: 'Distance to Education',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_edu_res_0_05_penalty'
+                    },
+                    {
+                        id: 3.4,
+                        slug: 'sv_roads',
+                        title: 'Road Network',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:lines_merged'
+                    }
+                ]
+            },
+            {
+                id: 4,
+                slug: 'sv_bio_physical',
+                title: 'Bio Physical Layers',
+                data: [
+                    {
+                        id: 4.1,
+                        slug: 'sv_elevation',
+                        title: 'Elevation in meters',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:r_norm_elev_srtmv2_300m'
+                    },
+                    {
+                        id: 4.2,
+                        slug: 'sv_slope',
+                        title: 'Slope in degrees',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_slope_clipped'
+                    },
+                    {
+                        id: 4.3,
+                        slug: 'sv_max_temp',
+                        title: 'Max Temp Winter',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_scaled_r_norm_maxtemp_feb'
+                    },
+                    {
+                        id: 4.4,
+                        slug: 'sv_plant_health',
+                        title: 'Plant Health (NDVI)',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_new_ndvi'
+                    },
+                    {
+                        id: 4.5,
+                        slug: 'sv_precipitation',
+                        title: 'Rainfall',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:precipitation_upsampled_0_0001'
                     }
                 ]
             }
