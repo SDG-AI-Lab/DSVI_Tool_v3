@@ -56,14 +56,17 @@ const Sidebar = (props) => {
     dispatch({ type: "CHANGE_CATEGORIES", payload: items });
   }
 
-  function handleOnDragEnd2(result) {
-    if (!result.destination) return;
-    const items = Array.from(geodataLayers);
-    const index = parseInt(result.source.droppableId) - 1;
-    const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
-    items[index]['data'].splice(result.destination.index, 0, reorderedItem);
-    dispatch({ type: "CHANGE_GEODATA", payload: items });
-  }
+  /* PLS NOT USE */
+  // function handleOnDragEnd2(result, index) {
+  //   if (!result.destination) return;
+
+  //   const items = Array.from(geodataLayers);
+  //   const index = parseInt(result.source.droppableId) - 1;
+  //   const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
+  //   items[index]['data'].splice(result.destination.index, 0, reorderedItem);
+  //   dispatch({ type: "CHANGE_GEODATA", payload: items });
+  // }
+  /* END */
  
   return (
     <>
@@ -392,17 +395,16 @@ const Sidebar = (props) => {
                                         overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600
                                         hover:bg-blue-50 transition duration-300 ease-in-out"
                                                           data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-                                      <DragDropContext onDragEnd={handleOnDragEnd2}>
+                                        <DragDropContext onDragEnd={result=>dispatch({ type: "DRAG_DROP_SIDEBAR_SOCIOECONOMIC", payload: result, index_1: index})}>
                                           <Droppable droppableId={val.id.toString()}>
                                               {(provided) => (
-                                                  <ul className={val.id} {...provided.droppableProps} ref={provided.innerRef}>
+                                                  <ul className={val.id.toString()} {...provided.droppableProps} ref={provided.innerRef}>
                                                       {
                                                         val.data && val.data.map((val2, index2) => {
                                                               return (
-                                                                  <Draggable key={val2.id} draggableId={val2.id.toString()} index={index2}>
+                                                                    <Draggable key={index2} draggableId={(index2).toString()} index={index2}>
                                                                       {(provided) => (
-                                                                          <>
-                                                                              <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                                        <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                                                   <div className="flex i items-center"
                                                                                       onClick={() => {
                                                                                         const newItem = {
@@ -492,12 +494,12 @@ const Sidebar = (props) => {
                                                                                         : null
                                                                                   }
                                                                               </li>
-                                                                          </>
                                                                       )}
                                                                   </Draggable>
                                                               )
                                                           })
                                                       }
+                                                      {provided.placeholder}
                                                   </ul>
                                               )}
                                           </Droppable>
@@ -542,18 +544,16 @@ const Sidebar = (props) => {
                               overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded
                               hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                               data-mdb-ripple="true" data-mdb-ripple-color="primary">{val.title}</a>
-
-                            <DragDropContext onDragEnd={handleOnDragEnd2}>
+                            <DragDropContext onDragEnd={result=>dispatch({ type: "DRAG_DROP_SIDEBAR_GEODATA", payload: result, index_1: index})}>
                               <Droppable droppableId={val.id.toString()}>
                                 {(provided) => (
-                                  <ul className={val.id} {...provided.droppableProps} ref={provided.innerRef}>
+                                  <ul className={val.id.toString()} {...provided.droppableProps} ref={provided.innerRef}>
                                     {
                                       val.data && val.data.map((val2, index2) => {
                                         return (
-                                          <Draggable key={val2.id} draggableId={val2.id.toString()} index={index2}>
+                                          <Draggable key={index2} draggableId={(index2).toString()} index={index2}>
                                             {(provided) => (
-                                              <>
-                                                <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                              <li className="relative" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>      
                                                   <div className="flex i items-center"
                                                     onClick={() => {
                                                       const newItem = {
@@ -638,12 +638,12 @@ const Sidebar = (props) => {
                                                       : null
                                                   }
                                                 </li>
-                                              </>
                                             )}
                                           </Draggable>
                                         )
                                       })
                                     }
+                                    {provided.placeholder}
                                   </ul>
                                 )}
                               </Droppable>
