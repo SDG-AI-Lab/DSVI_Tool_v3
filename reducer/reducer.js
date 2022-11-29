@@ -1422,6 +1422,31 @@ export const reducer = (state, action) => {
                 items.splice(action.payload.destination.index, 0, reorderedItem);
                 draft.activeLegends = items;
             });
+        case "DRAG_DROP_SIDEBAR_SOCIOECONOMIC":
+            return produce(state, (draft) => {
+                if (action.payload.destination) {
+                    const items = draft.socioeconomic.data;
+                    const [reorderedItem] = items[action.index_1]['data'].splice(action.payload.source.index, 1);
+                    items[action.index_1]['data'].splice(action.payload.destination.index, 0, reorderedItem);
+                    draft.socioeconomic.data = items;
+                }
+            });
+        case "DRAG_DROP_SIDEBAR_GEODATA":
+            return produce(state, (draft) => {
+                if (action.payload.destination) {
+                    const items = draft.geodata.data;
+                    const [reorderedItem] = items[action.index_1]['data'].splice(action.payload.source.index, 1);
+                    items[action.index_1]['data'].splice(action.payload.destination.index, 0, reorderedItem);
+                    draft.geodata.data = items;
+                }
+            });
+        case "DRAG_DROP_CHANGE_ACTIVE_GEODATA":
+            return produce(state, (draft) => {
+                const items = draft.geodata.data;
+                const [reorderedItem] = items[action.index_1]['data'].splice(action.payload.source.index, 1);
+                items[action.index_1]['data'].splice(action.payload.destination.index, 0, reorderedItem);
+                draft.geodata.data = items;
+            });
         case "TOGGLE_VULNERABILITY":
             return produce(state, (draft) => {
                 draft.vulnerability = !draft.vulnerability;
