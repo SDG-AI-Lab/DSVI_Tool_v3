@@ -310,66 +310,11 @@ export const initialState = {
             },
             {
                 id: 2,
-                slug: 'sv_socio_economic',
-                title: 'Socio Economic',
-                data: [
-                    {
-                        id: 2.1,
-                        slug: 'sv_nightlight_intensity',
-                        title: 'Nightlight Intensity',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:scaled_r_norm_NTL'
-                    },
-                    {
-                        id: 2.2,
-                        slug: 'sv_pop_density',
-                        title: 'Population Density',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_r_norm_population_interpolation'
-                    },
-                    {
-                        id: 2.3,
-                        slug: 'sv_celltower',
-                        title: 'Celltower Density',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_r_celltower'
-                    },
-                    // {
-                    //     id: 4.4,
-                    //     slug: 'sv_road_density',
-                    //     title: 'Road Density',
-                    //     status: false,
-                    //     value: 70,
-                    //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
-                    // },
-                    {
-                        id: 2.5,
-                        slug: 'sv_relative_wealth',
-                        title: 'Relative Wealth',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_rwi'
-                    },
-                    {
-                        id: 2.6,
-                        slug: 'sv_gdp',
-                        title: 'Gross Domestic Product',
-                        status: false,
-                        value: 70,
-                        layer: 'sdg-ai-lab:up_r_norm_GDP_2015_intp'
-                    }
-                ]
-            },
-            {
-                id: 3,
                 slug: 'sv_distance_maps',
                 title: 'Distance Maps',
                 data: [
                     {
-                        id: 3.1,
+                        id: 2.1,
                         slug: 'sv_distance_to_healthcare',
                         title: 'Distance to Healthcare',
                         status: false,
@@ -377,7 +322,7 @@ export const initialState = {
                         layer: 'sdg-ai-lab:up_health_res_0_05_penalty'
                     },
                     {
-                        id: 3.2,
+                        id: 2.2,
                         slug: 'sv_distance_to_finance',
                         title: 'Distance to Finance',
                         status: false,
@@ -385,7 +330,7 @@ export const initialState = {
                         layer: 'sdg-ai-lab:up_finan_res_0_05_penalty'
                     },
                     {
-                        id: 3.3,
+                        id: 2.3,
                         slug: 'sv_distance_to_edu',
                         title: 'Distance to Education',
                         status: false,
@@ -393,12 +338,67 @@ export const initialState = {
                         layer: 'sdg-ai-lab:up_edu_res_0_05_penalty'
                     },
                     {
-                        id: 3.4,
+                        id: 2.4,
                         slug: 'sv_roads',
                         title: 'Road Network',
                         status: false,
                         value: 70,
                         layer: 'sdg-ai-lab:lines_merged'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                slug: 'sv_socio_economic',
+                title: 'Socio Economic',
+                data: [
+                    {
+                        id: 3.1,
+                        slug: 'sv_nightlight_intensity',
+                        title: 'Nightlight Intensity',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:scaled_r_norm_NTL'
+                    },
+                    {
+                        id: 3.2,
+                        slug: 'sv_pop_density',
+                        title: 'Population Density',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_r_norm_population_interpolation'
+                    },
+                    {
+                        id: 3.3,
+                        slug: 'sv_celltower',
+                        title: 'Celltower Density',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_r_celltower'
+                    },
+                    // {
+                    //     id: 3.4,
+                    //     slug: 'sv_road_density',
+                    //     title: 'Road Density',
+                    //     status: false,
+                    //     value: 70,
+                    //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
+                    // },
+                    {
+                        id: 3.5,
+                        slug: 'sv_relative_wealth',
+                        title: 'Relative Wealth',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_rwi'
+                    },
+                    {
+                        id: 3.6,
+                        slug: 'sv_gdp',
+                        title: 'Gross Domestic Product',
+                        status: false,
+                        value: 70,
+                        layer: 'sdg-ai-lab:up_r_norm_GDP_2015_intp'
                     }
                 ]
             },
