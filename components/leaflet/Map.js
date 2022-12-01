@@ -331,6 +331,37 @@ const OsmMap = () => {
     return null
   }
 
+    // function togglePointerEventsAllVectorLayers(status) {
+  //   let elements = document.getElementsByClassName("leaflet-interactive");
+  //   for(let element of elements) {
+  //     if(status) {
+  //       element.classList.add('turn-on-vector-layers-pointer');
+  //     } else {
+  //         element.classList.add('turn-off-vector-layers-pointer');
+  //     }
+  //   }
+  // }
+
+  useEffect(() => {
+    if(activeLegends.length > 0) {
+      let elements = document.getElementsByClassName("leaflet-interactive");
+        for(let element of elements) {
+          if(activeLegends[activeLegends.length-1].slug.indexOf("se_") === 0) {
+            if(element.classList.contains('turn-off-vector-layers-pointer')) {
+              element.classList.remove('turn-off-vector-layers-pointer');
+            }
+            element.classList.add('turn-on-vector-layers-pointer');
+          } 
+          if (activeLegends[activeLegends.length-1].slug.indexOf("sv_")  === 0) {
+            if(element.classList.contains('turn-on-vector-layers-pointer')) {
+              element.classList.remove('turn-on-vector-layers-pointer');
+            }
+            element.classList.add('turn-off-vector-layers-pointer');
+          }
+        }
+    }
+  }, [activeLegends]);
+
   return (<MapContainer
         center={map_settings.latlong}
         zoom={map_settings.zoom}
