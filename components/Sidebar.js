@@ -56,6 +56,17 @@ const Sidebar = (props) => {
     dispatch({ type: "CHANGE_CATEGORIES", payload: items });
   }
 
+  function togglePointerEventsAllVectorLayers(status) {
+    let elements = document.getElementsByClassName("leaflet-interactive");
+    for(let element of elements) {
+      if(status) {
+        element.classList.add('turn-on-vector-layers-pointer');
+      } else {
+          element.classList.add('turn-off-vector-layers-pointer');
+      }
+    }
+  }
+
   /* PLS NOT USE */
   // function handleOnDragEnd2(result, index) {
   //   if (!result.destination) return;
@@ -436,6 +447,7 @@ const Sidebar = (props) => {
                                                                                               json_library: val2.json_library
                                                                                             };
                                                                                             dispatch({ type: "CHANGE_SOCIOECONOMIC", payload: newItem, index_1: index, index_2: index2 });
+                                                                                            togglePointerEventsAllVectorLayers(newItem.status);
                                                                                           }}
                                                                                       />
                                                                                       <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6 overflow-hidden text-gray-700
@@ -581,6 +593,7 @@ const Sidebar = (props) => {
                                                           layer: val2.layer
                                                       };
                                                       dispatch({ type: "CHANGE_GEODATA", payload: newItem, index_1: index, index_2: index2 });
+                                                      togglePointerEventsAllVectorLayers(!newItem.status);
                                                       }}
                                                     />
                                                     <a href="#!" className="flex items-center text-xs py-4 pl-2 pr-6 h-6
