@@ -89,6 +89,7 @@ export const initialState = {
         }       
     ],
     "show_area_of_interest": true,
+    "geolayers_description": {},
     "activeLegends": [{
         id: 1, title: "Very Low", slug: 'cats_very_low', color: 'rgb(59 130 246)', status: true
     }, {
@@ -1387,6 +1388,10 @@ export const reducer = (state, action) => {
         case "TOGGLE_GEODATA":
             return produce(state, (draft) => {
                 draft.geodata.status = !draft.geodata.status;
+            });
+        case "CHANGE_GEOLAYERS_DESCRIPTION":
+            return produce(state, (draft) => {
+                draft.geolayers_description[action.layer] = action.payload;
             });
         case "CHANGE_GEODATA":
             return produce(state, (draft) => {

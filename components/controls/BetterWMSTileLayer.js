@@ -1,152 +1,168 @@
 import {
-  createElementHook,
-  createElementObject,
-  createLeafComponent,
-  createPathHook,
+    createElementHook,
+    createElementObject,
+    createLeafComponent,
+    createPathHook,
 } from '@react-leaflet/core';
 import L from 'leaflet';
-
-const lookupforgrayindex =(GRAY_INDEX =>
-    {
-        switch (true) {
-            case GRAY_INDEX > 0.9: return 'Very High'; 
-            case GRAY_INDEX > 0.7:  return 'High'; 
-            case GRAY_INDEX > 0.55: return 'Medium'; 
-            case GRAY_INDEX > 0.25:  return 'Low'; 
-            case GRAY_INDEX > 0: return 'Very Low';
-            default: return 'Undefined'; 
-          }
-    });
-// import BetterWMSTileLayer from '../controls/BetterWMSTileLayer';
-
-{/* <BetterWMSTileLayer url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-    layers="sdg-ai-lab:XGBoost_tuned_scaled_clipped_final"
-    transparent= "true" 
-    zIndex="9999"
-    styles="sdg-ai-lab:xgboost"
-    opacity={sv_xgboost_value / 100}
-/> */}
-
-const BetterWMS = L.TileLayer.WMS.extend({
-
-  onAdd: function (map) {
-      // Triggered when the layer is added to a map.
-      //  Register a click listener, then do all the upstream WMS things
-      L.TileLayer.WMS.prototype.onAdd.call(this, map);
-      map.on('click', this.getFeatureInfo, this);
-  },
-
-  onRemove: function (map) {
-      // Triggered when the layer is removed from a map.
-      //   Unregister a click listener, then do all the upstream WMS things
-      L.TileLayer.WMS.prototype.onRemove.call(this, map);
-      map.off('click', this.getFeatureInfo, this);
-  },
-
-  getFeatureInfo: function (evt) {
-      // Make an AJAX request to the server and hope for the best
-      let url = this.getFeatureInfoUrl(evt.latlng);
-      let showResults = L.Util.bind(this.showGetFeatureInfo, this);
-
-      fetch(url)
-          .then(response => response.json())
-          .then(
-              (data) => {
-                  const err = data.features.length > 0 ? null : data;
-                  showResults(err, evt.latlng, data);
-              },
-              (error) => {
-                  showResults(error);
-              }
-          )
-  },
-
-  getFeatureInfoUrl: function (latlng) {
-      // Construct a GetFeatureInfo request URL given a point
-      var point = this._map.latLngToContainerPoint(latlng, this._map.getZoom()),
-          size = this._map.getSize(),
-
-          params = {
-              request: 'GetFeatureInfo',
-              service: 'WMS',
-              srs: 'EPSG:4326',
-              styles: this.wmsParams.styles,
-              transparent: this.wmsParams.transparent,
-              version: this.wmsParams.version,
-              format: this.wmsParams.format,
-              bbox: this._map.getBounds().toBBoxString(),
-              height: size.y,
-              width: size.x,
-              layers: this.wmsParams.layers,
-              query_layers: this.wmsParams.layers,
-              // info_format: 'text/html'
-              info_format: 'application/json'
-          };
-
-      params[params.version === '1.3.0' ? 'i' : 'x'] = parseInt(point.x);
-      params[params.version === '1.3.0' ? 'j' : 'y'] = parseInt(point.y);
-
-      // return this._url + L.Util.getParamString(params, this._url, true);
-      var url = this._url + L.Util.getParamString(params, this._url, true);
-
-      /**
-       * CORS workaround (using a basic php proxy)
-       * 
-       * Added 2 new options:
-       *  - proxy
-       *  - proxyParamName
-       * 
-       */
-
-      // check if "proxy" option is defined (PS: path and file name)
-      if (typeof this.wmsParams.proxy !== "undefined") {
-
-          // check if proxyParamName is defined (instead, use default value)
-          if (typeof this.wmsParams.proxyParamName !== "undefined")
-              this.wmsParams.proxyParamName = 'url';
-
-          // build proxy (es: "proxy.php?url=" )
-          _proxy = this.wmsParams.proxy + '?' + this.wmsParams.proxyParamName + '=';
-          url = _proxy + encodeURIComponent(url);
-      }
-      return url;
-  },
-
-
-  
-  showGetFeatureInfo: function (err, latlng, content) {
-      if (err) { console.log(err); return; }
-
-      if (latlng && content) {
-          const GRAY_INDEX = content.features[0].properties['GRAY_INDEX'];
-
-          // Otherwise show the content in a popup, or something.
-          L.popup({ maxWidth: 400, className:"customPopup"})
-              .setLatLng(latlng)
-              .setContent(`<p>Value: ${GRAY_INDEX.toFixed(2)}, ${lookupforgrayindex(GRAY_INDEX)}</p>`)
-              .openOn(this._map);
-      }
-  }
-});
+import { useMap, useMapEvents} from 'react-leaflet';
+import { FilterContext } from '../../context/FilterContext';
+import { useState, useContext, useEffect } from "react";
 
 const BetterWMSTileLayer = (props) => {
-  const { url, layers, transparent, zIndex, styles, opacity } = props;
-  function createNewWMS() {
-      return createElementObject(new BetterWMS(url, {
-          layers: layers,
-          transparent: transparent,
-          format: 'image/png',
-          version: "1.1.0",
-          zIndex: zIndex,
-          styles: styles,
-          opacity: opacity,
-          pane: "geodata-pane"
-      }))
-  }
-  const useNewWMSelement = createElementHook(createNewWMS);
-  const useNewWMS = createPathHook(useNewWMSelement);
-  const NewWMS = createLeafComponent(useNewWMS);
-  return (<NewWMS />)
+    const { state, dispatch } = useContext(FilterContext);
+
+    const { url, layers, transparent, zIndex, styles, opacity } = props;
+    const format = 'image/png';
+    const version = '1.1.0';
+    const pane = 'geodata-pane';
+
+    const newWMSobject = new L.TileLayer.WMS(url, {
+        layers: layers,
+        transparent: transparent,
+        format: format,
+        version: version,
+        zIndex: zIndex,
+        styles: styles,
+        opacity: opacity,
+        pane: pane
+    });
+
+    const map = useMap();
+    const eventListeners = useMapEvents({
+        click(evt) {
+            getFeatureInfo(evt, layers);
+        }
+    });
+    
+    const [legends, setLegends] = useState(null);
+    let legend_url = `https://www.sdglab.ml/geoserver/sdg-ai-lab/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${layers}`;
+    useEffect(() => {
+        fetch(legend_url)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    if (result) {
+                            setLegends(result.Legend[0].rules[0].symbolizers[0].Raster.colormap.entries);
+                            dispatch({ type: "CHANGE_GEOLAYERS_DESCRIPTION", layer: layers, payload: result.Legend[0].rules[0].symbolizers[0].Raster.colormap.entries });
+                    }
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    console.log(error);
+                }
+            );
+        return () => {
+            setLegends(null);
+        }
+    },[]);
+
+
+    function getFeatureInfo(evt, layers) {
+        // Make an AJAX request to the server and hope for the best
+        let url = getFeatureInfoUrl(evt.latlng);
+        let legend_url = `https://www.sdglab.ml/geoserver/sdg-ai-lab/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${layers}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(
+                (data) => {
+                    const err = data.features.length > 0 ? null : data;
+                    showGetFeatureInfo(err, evt.latlng, data, legends);
+                },
+                (error) => {
+                    showGetFeatureInfo(error);
+                }
+            );
+    };
+
+    function getFeatureInfoUrl(latlng) {
+        // Construct a GetFeatureInfo request URL given a point
+        const point = map.latLngToContainerPoint(latlng, map.getZoom());
+        const size = map.getSize();
+
+        let params = {
+            request: 'GetFeatureInfo',
+            service: 'WMS',
+            srs: 'EPSG:4326',
+            styles: styles,
+            transparent: transparent,
+            version: version,
+            format: format,
+            bbox: map.getBounds().toBBoxString(),
+            height: size.y,
+            width: size.x,
+            layers: layers,
+            query_layers: layers,
+            info_format: 'application/json'
+        };
+
+        params[params.version === '1.3.0' ? 'i' : 'x'] = parseInt(point.x);
+        params[params.version === '1.3.0' ? 'j' : 'y'] = parseInt(point.y);
+
+        let updated_url = url + L.Util.getParamString(params, url, true);
+
+        /**
+         * CORS workaround (using a basic php proxy)
+         * 
+         * Added 2 new options:
+         *  - proxy
+         *  - proxyParamName
+         * 
+         */
+
+        // check if "proxy" option is defined (PS: path and file name)
+        //   if (typeof this.wmsParams.proxy !== "undefined") {
+
+        //       // check if proxyParamName is defined (instead, use default value)
+        //       if (typeof this.wmsParams.proxyParamName !== "undefined")
+        //           this.wmsParams.proxyParamName = 'url';
+
+        //       // build proxy (es: "proxy.php?url=" )
+        //       _proxy = this.wmsParams.proxy + '?' + this.wmsParams.proxyParamName + '=';
+        //       url = _proxy + encodeURIComponent(url);
+        //   }
+        return updated_url;
+    };
+
+    function showGetFeatureInfo(err, latlng, data, legends) {
+        if (err) { console.log(err); return; }
+
+        if (latlng && data) {
+            const grayIndex = data.features[0].properties['GRAY_INDEX'];
+            const description = defineDescription(grayIndex, legends);
+
+            if (grayIndex != -1 && description != 'No description') {
+                // Otherwise show the content in a popup, or something.
+                L.popup({ maxWidth: 400, className: "customPopup" })
+                    .setLatLng(latlng)
+                    .setContent(`<p>Value: ${grayIndex.toFixed(2)}, ${description}</p>`)
+                    .openOn(map);
+            }
+        }
+    };
+
+    function defineDescription(grayIndex, legends) {
+        switch (true) {
+            case grayIndex >= parseFloat(legends[4].quantity): return 'Very High';
+            case grayIndex >= parseFloat(legends[3].quantity): return 'High';
+            case grayIndex >= parseFloat(legends[2].quantity): return 'Medium';
+            case grayIndex >= parseFloat(legends[1].quantity): return 'Low';
+            case grayIndex >= parseFloat(legends[0].quantity): return 'Very Low';
+            default: return 'No description';
+        }
+    };
+
+    function createNewWMS() {
+        return createElementObject(newWMSobject);
+    }
+
+    const useNewWMSelement = createElementHook(createNewWMS);
+    const useNewWMS = createPathHook(useNewWMSelement);
+    const NewWMS = createLeafComponent(useNewWMS);
+    return (<NewWMS />)
 }
 
 export default BetterWMSTileLayer;
