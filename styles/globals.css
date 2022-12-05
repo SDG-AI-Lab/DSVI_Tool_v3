@@ -659,3 +659,10 @@ table.legend_table th {
 table.legend_table td {
   border: 1px solid;
 }
+
+.turn-off-vector-layers-pointer {
+  pointer-events: none !important;
+}
+.turn-on-vector-layers-pointer {
+  pointer-events: auto !important;
+}

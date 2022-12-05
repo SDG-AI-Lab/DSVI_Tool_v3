@@ -131,48 +131,12 @@ const SE_Legend = (props) => {
 }
 
 const GeoLegend = (props) => {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState(null);
-
-  let url = `https://www.sdglab.ml/geoserver/sdg-ai-lab/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${props.layer}`;
   
-  // Note: the empty deps array [] means
-  // this useEffect will run once
-  // similar to componentDidMount()
-  useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-            setItems(result);
-            setIsLoaded(true);  
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-      return () => {
-        setItems(null);
-        setError(null);
-        setIsLoaded(false);
-      }
-  }, [])
+  const arrayLegends = state['geolayers_description'][props.layer];
 
-  let arrayLegends = [];
-  if (items) {
-    arrayLegends = items.Legend[0].rules[0].symbolizers[0].Raster.colormap.entries;
-  }
- 
-  if (error) {
-    return <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>Loading...</div>;
-  } else {
+  if (!arrayLegends) {
+    return <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>No data for layer: {props.slug}</div>;
+  }  else {
     return (
       <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
         <h2 className='font-bold'>Geodata Layers</h2>
