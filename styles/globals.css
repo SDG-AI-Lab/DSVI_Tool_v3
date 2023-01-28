@@ -666,3 +666,14 @@ table.legend_table td {
 .turn-on-vector-layers-pointer {
   pointer-events: auto !important;
 }
+
+.container-bottom-right {
+  display: flex !important;
+  flex-wrap: nowrap;
+  flex-direction: column-reverse;
+}
+
+.attribution-control-keep-bottom {
+  display: flex !important;
+  align-self: end !important;
+}

@@ -359,6 +359,11 @@ const OsmMap = () => {
             element.classList.add('turn-off-vector-layers-pointer');
           }
         }
+
+        // Fixing the Map attribution
+        let containerBottomRight = document.getElementsByClassName("leaflet-right");
+        containerBottomRight[1].classList.add("container-bottom-right");
+        containerBottomRight[1].children[0].classList.add("attribution-control-keep-bottom");
     }
   }, [activeLegends]);
 
@@ -368,7 +373,7 @@ const OsmMap = () => {
         zoomControl={false}
         scrollWheelZone={true}
         className={styles.container}
-        attributionControl={false}
+        attributionControl={true}
       >
       <UpdateMap/>
 
