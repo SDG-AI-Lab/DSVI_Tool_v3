@@ -1,9 +1,10 @@
-import { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Modal } from 'react-responsive-modal'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { FilterContext } from '../context/FilterContext'
-import DHS_COLUMN from './../public/static/color_gradient_lookup.json'
+import DHS_COLUMN from '../public/static/color_gradient_lookup.json'
 import { BottleIcon, DollarIcon, HeartIcon, ResetIcon } from './SVGs'
+import SidebarToggle from './SidebarToggle'
 
 const Sidebar = (props) => {
   const { show_infoBox_data } = props
@@ -74,25 +75,18 @@ const Sidebar = (props) => {
         className={`h-[calc(100vh-110px)] w-[330px] min-w-[100px] max-w-[500px] resize-x overflow-auto bg-white`}
       >
         <div id="sidenavSecExample">
-          {/* <div></div> */}
           <hr className="my-0" />
           <div>
             <div className="flex h-8 items-center justify-center">
               <p className="text-l h-4 font-bold">Map Settings</p>
             </div>
-            {/* <hr className="my-2" /> */}
+
             <div>
               <ul className="relative px-3">
                 <hr className="my-2" />
 
                 <li className="relative">
-                  <a
-                    className="flex h-12 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded 
-                    py-4 px-2 text-sm text-gray-700 transition 
-                    duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
-                    href="#!"
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="primary"
+                  <SidebarToggle
                     onClick={() => {
                       dispatch({ type: 'TOGGLE_RESET_SETTINGS' })
                       setTimeout(
@@ -105,61 +99,46 @@ const Sidebar = (props) => {
                       )
                     }}
                   >
-                    <ResetIcon />
-                    <span>
-                      {reset_settings == false ? 'Reset Tool' : 'Reset Tool'}
-                    </span>
-                  </a>
+                    <>
+                      <ResetIcon />
+                      <span>Reset tool</span>
+                    </>
+                  </SidebarToggle>
                 </li>
 
                 <li className="relative">
-                  <a
-                    className="flex h-12 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 
-                    px-2 text-sm text-gray-700 transition duration-300 
-                    ease-in-out hover:bg-blue-50 hover:text-blue-600"
-                    href="#!"
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="primary"
+                  <SidebarToggle
                     onClick={() =>
                       dispatch({ type: 'TOGGLE_AREA_OF_INTEREST', payload: {} })
                     }
-                    style={{
-                      background: areaofInterestStatus2
-                        ? 'rgb(239 246 255)'
-                        : null,
-                      color: areaofInterestStatus2 ? 'rgb(37 99 235)' : null,
-                    }}
                   >
-                    <HeartIcon />
-                    <span>
-                      {areaofInterestStatus2 == true
-                        ? 'Hide Area of Interest'
-                        : 'Show Area of Interest'}
-                    </span>
-                  </a>
+                    <>
+                      <HeartIcon />
+                      <span>
+                        {areaofInterestStatus2 ? 'Hide' : 'Show'} Area of
+                        Interest
+                      </span>
+                    </>
+                  </SidebarToggle>
                 </li>
                 {/* TOGGLE VULNERABILITY POINTS */}
 
                 <ul>
                   {/* Show vulnerability in sidebar */}
                   <li className="relative">
-                    <a
-                      className="flex h-12 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 px-2 text-sm text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
-                      href="#!"
-                      data-mdb-ripple="true"
-                      data-mdb-ripple-color="primary"
+                    <SidebarToggle
                       onClick={() =>
                         dispatch({ type: 'TOGGLE_VULNERABILITY', payload: {} })
                       }
                     >
-                      <BottleIcon />
-                      <span>
-                        {vulnerability == true
-                          ? 'Hide Vulnerability'
-                          : 'Show Vulnerability'}
-                      </span>
-                    </a>
-                    {vulnerability == true ? (
+                      <>
+                        <BottleIcon />
+                        <span>
+                          {vulnerability ? 'Hide' : 'Show'} Vulnerability
+                        </span>
+                      </>
+                    </SidebarToggle>
+                    {vulnerability ? (
                       <ul
                         className="accordion-collapse collapse relative"
                         id="collapseSidenavSecEx2"
