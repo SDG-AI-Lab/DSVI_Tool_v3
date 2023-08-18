@@ -1,4 +1,4 @@
-import React, { useContext, ChangeEvent } from 'react'
+import React, { useContext } from 'react'
 import { FilterContext } from '../context/FilterContext'
 
 function AdminLevels() {
