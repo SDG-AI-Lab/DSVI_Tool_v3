@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, ChangeEvent } from 'react'
 import { FilterContext } from '../context/FilterContext'
 import {
   DollarIcon,
@@ -19,8 +19,60 @@ function SocioeconLayers() {
   const inputClassNames =
     'input-sm mx-2 w-14 border rounded border-solid border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
 
+  const onClickChange = (
+    val2,
+    index: number,
+    index2: number,
+    event?: ChangeEvent<HTMLInputElement>
+  ): void => {
+    let value = event ? event.target.value : val2.value
+
+    const newItem = {
+      id: val2.id,
+      slug: val2.slug,
+      title: val2.title,
+      status: !val2.status,
+      value,
+      reverse_meaning: val2.reverse_meaning,
+      units: val2.units,
+      json_library: val2.json_library,
+    }
+    dispatch({
+      type: 'CHANGE_SOCIOECONOMIC',
+      payload: newItem,
+      index_1: index,
+      index_2: index2,
+    })
+    if (event) return
+    dispatch({
+      type: 'CHANGE_ACTIVE_LEGENDS',
+      payload: newItem,
+    })
+  }
+
+  // onChange={(event) => {
+  //   const newItem = {
+  //     id: val2.id,
+  //     slug: val2.slug,
+  //     title: val2.title,
+  //     status: val2.status,
+  //     value: event.target.value,
+  //     reverse_meaning:
+  //       val2.reverse_meaning,
+  //     units: val2.units,
+  //     json_library:
+  //       val2.json_library,
+  //   }
+  //   dispatch({
+  //     type: 'CHANGE_SOCIOECONOMIC',
+  //     payload: newItem,
+  //     index_1: index,
+  //     index_2: index2,
+  //   })
+  // }}
+
   return (
-    <>
+    <div className="relative" id="sidenavSecEx3">
       <a
         className={`h-12 cursor-pointer px-2 text-sm ${classNames}`}
         data-mdb-ripple="true"
@@ -91,7 +143,7 @@ function SocioeconLayers() {
         {socioeconomic.status &&
           socioeconomic.data.map((val, index) => {
             return (
-              <li className="relative" key={val.title}>
+              <li className="relative" key={index}>
                 <a
                   href="#!"
                   className={`mt-3 h-6 pl-12 pr-6 text-xs font-bold ${classNames}`}
@@ -133,54 +185,19 @@ function SocioeconLayers() {
                                   >
                                     <div
                                       className="i flex items-center"
-                                      onClick={() => {
-                                        const newItem = {
-                                          id: val2.id,
-                                          slug: val2.slug,
-                                          title: val2.title,
-                                          status: !val2.status,
-                                          value: val2.value,
-                                          reverse_meaning: val2.reverse_meaning,
-                                          units: val2.units,
-                                          json_library: val2.json_library,
-                                        }
-                                        dispatch({
-                                          type: 'CHANGE_SOCIOECONOMIC',
-                                          payload: newItem,
-                                          index_1: index,
-                                          index_2: index2,
-                                        })
-                                        dispatch({
-                                          type: 'CHANGE_ACTIVE_LEGENDS',
-                                          payload: newItem,
-                                        })
-                                      }}
+                                      onClick={() =>
+                                        onClickChange(val2, index, index2)
+                                      }
                                     >
                                       <input
                                         className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
-                                        id="flowbite"
+                                        id={val2.title}
                                         aria-describedby="flowbite"
                                         type="checkbox"
                                         checked={val2.status}
-                                        onChange={(event) => {
-                                          const newItem = {
-                                            id: val2.id,
-                                            slug: val2.slug,
-                                            title: val2.title,
-                                            status: !val2.status,
-                                            value: val2.value,
-                                            reverse_meaning:
-                                              val2.reverse_meaning,
-                                            units: val2.units,
-                                            json_library: val2.json_library,
-                                          }
-                                          dispatch({
-                                            type: 'CHANGE_SOCIOECONOMIC',
-                                            payload: newItem,
-                                            index_1: index,
-                                            index_2: index2,
-                                          })
-                                        }}
+                                        onChange={() =>
+                                          onClickChange(val2, index, index2)
+                                        }
                                       />
                                       <a
                                         href="#!"
@@ -191,7 +208,7 @@ function SocioeconLayers() {
                                         {val2.title}
                                       </a>
                                     </div>
-                                    {val2.status ? (
+                                    {val2.status && (
                                       <div className="flex flex-col space-y-2 p-2">
                                         <div className="px-6">
                                           <span className="text-sm text-gray-700">
@@ -200,26 +217,14 @@ function SocioeconLayers() {
                                               type="number"
                                               className={inputClassNames}
                                               value={parseInt(val2.value)}
-                                              onChange={(event) => {
-                                                const newItem = {
-                                                  id: val2.id,
-                                                  slug: val2.slug,
-                                                  title: val2.title,
-                                                  status: val2.status,
-                                                  value: event.target.value,
-                                                  reverse_meaning:
-                                                    val2.reverse_meaning,
-                                                  units: val2.units,
-                                                  json_library:
-                                                    val2.json_library,
-                                                }
-                                                dispatch({
-                                                  type: 'CHANGE_SOCIOECONOMIC',
-                                                  payload: newItem,
-                                                  index_1: index,
-                                                  index_2: index2,
-                                                })
-                                              }}
+                                              onChange={(e) =>
+                                                onClickChange(
+                                                  val2,
+                                                  index,
+                                                  index2,
+                                                  e
+                                                )
+                                              }
                                             />
                                             <div>
                                               <div>
@@ -257,7 +262,7 @@ function SocioeconLayers() {
                                           </span>
                                         </div>
                                       </div>
-                                    ) : null}
+                                    )}
                                   </li>
                                 )}
                               </Draggable>
@@ -272,7 +277,7 @@ function SocioeconLayers() {
             )
           })}
       </ul>
-    </>
+    </div>
   )
 }
 

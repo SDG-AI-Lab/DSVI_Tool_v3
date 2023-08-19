@@ -121,7 +121,7 @@ const Sidebar = (props) => {
             <VulnerabilityOptions />
             {/* socioeconomic layers in sidebar  */}
 
-            <li className="relative" id="sidenavSecEx3">
+            <li>
               <SocioeconLayers />
             </li>
 
