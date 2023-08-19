@@ -209,58 +209,51 @@ function SocioeconLayers() {
                                       </a>
                                     </div>
                                     {val2.status && (
-                                      <div className="flex flex-col space-y-2 p-2">
-                                        <div className="px-6">
-                                          <span className="text-sm text-gray-700">
-                                            opacity:
-                                            <input
-                                              type="number"
-                                              className={inputClassNames}
-                                              value={parseInt(val2.value)}
-                                              onChange={(e) =>
-                                                onClickChange(
-                                                  val2,
-                                                  index,
-                                                  index2,
-                                                  e
-                                                )
-                                              }
-                                            />
-                                            <div>
-                                              <div>
-                                                <input
-                                                  type="range"
-                                                  min="1"
-                                                  max="100"
-                                                  step="1"
-                                                  value={val2.value}
-                                                  className="form-range h-6 p-0
+                                      <div className="flex flex-col space-y-2 p-2 px-6">
+                                        <span className="text-sm text-gray-700">
+                                          opacity:
+                                          <input
+                                            type="number"
+                                            className={inputClassNames}
+                                            value={parseInt(val2.value)}
+                                            onChange={(e) =>
+                                              onClickChange(
+                                                val2,
+                                                index,
+                                                index2,
+                                                e
+                                              )
+                                            }
+                                          />
+                                          <input
+                                            type="range"
+                                            min="1"
+                                            max="100"
+                                            step="1"
+                                            value={val2.value}
+                                            className="form-range h-6 p-0
                                                   focus:shadow-none focus:outline-none focus:ring-0"
-                                                  onChange={(event) => {
-                                                    const newItem = {
-                                                      id: val2.id,
-                                                      slug: val2.slug,
-                                                      title: val2.title,
-                                                      status: val2.status,
-                                                      value: event.target.value,
-                                                      reverse_meaning:
-                                                        val2.reverse_meaning,
-                                                      units: val2.units,
-                                                      json_library:
-                                                        val2.json_library,
-                                                    }
-                                                    dispatch({
-                                                      type: 'CHANGE_SOCIOECONOMIC',
-                                                      payload: newItem,
-                                                      index_1: index,
-                                                      index_2: index2,
-                                                    })
-                                                  }}
-                                                />
-                                              </div>
-                                            </div>
-                                          </span>
-                                        </div>
+                                            onChange={(event) => {
+                                              const newItem = {
+                                                id: val2.id,
+                                                slug: val2.slug,
+                                                title: val2.title,
+                                                status: val2.status,
+                                                value: event.target.value,
+                                                reverse_meaning:
+                                                  val2.reverse_meaning,
+                                                units: val2.units,
+                                                json_library: val2.json_library,
+                                              }
+                                              dispatch({
+                                                type: 'CHANGE_SOCIOECONOMIC',
+                                                payload: newItem,
+                                                index_1: index,
+                                                index_2: index2,
+                                              })
+                                            }}
+                                          />
+                                        </span>
                                       </div>
                                     )}
                                   </li>
