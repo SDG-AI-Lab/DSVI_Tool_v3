@@ -32,9 +32,10 @@ function OpacityRange({
   const inputClassNames =
     'input-sm mx-2 w-14 border rounded border-solid border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
 
+  const { id, slug, title, reverse_meaning, units, json_library } = val2
+
   const onClickChange = (event: ChangeEvent<HTMLInputElement>): void => {
     let value = event ? event.target.value : val2.value
-    const { id, slug, title, reverse_meaning, units, json_library } = val2
 
     const newItem = {
       id,
@@ -56,14 +57,14 @@ function OpacityRange({
 
   const onRangeChange = (range: string) => {
     const newItem = {
-      id: val2.id,
-      slug: val2.slug,
-      title: val2.title,
+      id,
+      slug,
+      title,
       status: val2.status,
       value: range,
-      reverse_meaning: val2.reverse_meaning,
-      units: val2.units,
-      json_library: val2.json_library,
+      reverse_meaning,
+      units,
+      json_library,
     }
     dispatch({
       type: 'CHANGE_SOCIOECONOMIC',
