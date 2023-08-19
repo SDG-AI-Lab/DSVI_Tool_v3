@@ -8,6 +8,7 @@ import {
 } from './SVGs'
 import AdminLevels from './AdminLevels'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import OpacityRange from './OpacityRange'
 
 function SocioeconLayers() {
   const { state, dispatch } = useContext(FilterContext)
@@ -49,27 +50,6 @@ function SocioeconLayers() {
       payload: newItem,
     })
   }
-
-  // onChange={(event) => {
-  //   const newItem = {
-  //     id: val2.id,
-  //     slug: val2.slug,
-  //     title: val2.title,
-  //     status: val2.status,
-  //     value: event.target.value,
-  //     reverse_meaning:
-  //       val2.reverse_meaning,
-  //     units: val2.units,
-  //     json_library:
-  //       val2.json_library,
-  //   }
-  //   dispatch({
-  //     type: 'CHANGE_SOCIOECONOMIC',
-  //     payload: newItem,
-  //     index_1: index,
-  //     index_2: index2,
-  //   })
-  // }}
 
   return (
     <div className="relative" id="sidenavSecEx3">
@@ -208,7 +188,14 @@ function SocioeconLayers() {
                                         {val2.title}
                                       </a>
                                     </div>
-                                    {val2.status && (
+                                    <OpacityRange
+                                      val2={val2}
+                                      index={index}
+                                      index2={index2}
+                                      delay={100}
+                                      isVisible={Boolean(val2.status)}
+                                    />
+                                    {/* {val2.status && (  
                                       <div className="flex flex-col space-y-2 p-2 px-6">
                                         <span className="text-sm text-gray-700">
                                           opacity:
@@ -227,13 +214,14 @@ function SocioeconLayers() {
                                           />
                                           <input
                                             type="range"
-                                            min="1"
+                                            min="0"
                                             max="100"
-                                            step="1"
+                                            step="5"
                                             value={val2.value}
                                             className="form-range h-6 p-0
                                                   focus:shadow-none focus:outline-none focus:ring-0"
                                             onChange={(event) => {
+                                              console.log(event.target.value)
                                               const newItem = {
                                                 id: val2.id,
                                                 slug: val2.slug,
@@ -255,7 +243,7 @@ function SocioeconLayers() {
                                           />
                                         </span>
                                       </div>
-                                    )}
+                                    )} */}
                                   </li>
                                 )}
                               </Draggable>
