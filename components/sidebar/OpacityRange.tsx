@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
-import { FilterContext } from '../context/FilterContext'
+import { FilterContext } from '../../context/FilterContext'
 
 type val2 = {
   id: number

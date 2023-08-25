@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { FilterContext } from '../context/FilterContext'
+import { FilterContext } from '../../context/FilterContext'
 
 function AdminLevels() {
   const { state, dispatch } = useContext(FilterContext)

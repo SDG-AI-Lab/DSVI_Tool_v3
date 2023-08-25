@@ -1,11 +1,11 @@
 import React, { useContext, ChangeEvent } from 'react'
-import { FilterContext } from '../context/FilterContext'
+import { FilterContext } from '../../context/FilterContext'
 import {
   DollarIcon,
   ArrowDownIcon,
   ArrowUpIcon,
   AdministrativeIcon,
-} from './SVGs'
+} from '../SVGs'
 import AdminLevels from './AdminLevels'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import OpacityRange from './OpacityRange'
@@ -20,20 +20,13 @@ function SocioeconLayers() {
   const inputClassNames =
     'input-sm mx-2 w-14 border rounded border-solid border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
 
-  const onClickChange = (
-    val2,
-    index: number,
-    index2: number,
-    event?: ChangeEvent<HTMLInputElement>
-  ): void => {
-    let value = event ? event.target.value : val2.value
-
+  const onClick = (val2, index: number, index2: number): void => {
     const newItem = {
       id: val2.id,
       slug: val2.slug,
       title: val2.title,
       status: !val2.status,
-      value,
+      value: val2.value,
       reverse_meaning: val2.reverse_meaning,
       units: val2.units,
       json_library: val2.json_library,
@@ -44,7 +37,7 @@ function SocioeconLayers() {
       index_1: index,
       index_2: index2,
     })
-    if (event) return
+
     dispatch({
       type: 'CHANGE_ACTIVE_LEGENDS',
       payload: newItem,
@@ -121,81 +114,86 @@ function SocioeconLayers() {
         data-bs-parent="#sidenavSecExample"
       >
         {socioeconomic.status &&
-          socioeconomic.data.map((val, index) => {
-            return (
-              <li className="relative" key={index}>
-                <a
-                  href="#!"
-                  className={`mt-3 h-6 pl-12 pr-6 text-xs font-bold ${classNames}`}
-                  data-mdb-ripple="true"
-                  data-mdb-ripple-color="primary"
-                >
-                  {val.title}
-                </a>
-                <DragDropContext
-                  onDragEnd={(result) =>
-                    dispatch({
-                      type: 'DRAG_DROP_SIDEBAR_SOCIOECONOMIC',
-                      payload: result,
-                      index_1: index,
-                    })
-                  }
-                >
-                  <Droppable droppableId={val.id.toString()}>
-                    {(provided) => (
-                      <ul
-                        className={val.id.toString()}
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                      >
-                        {val.data &&
-                          val.data.map((val2, index2) => {
-                            return (
-                              <Draggable
-                                key={index2}
-                                draggableId={index2.toString()}
-                                index={index2}
-                              >
-                                {(provided) => (
-                                  <li
-                                    className="relative"
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
+          socioeconomic.data.map((val, index) => (
+            <li className="relative" key={index}>
+              <a
+                href="#!"
+                className={`mt-3 h-6 pl-12 pr-6 text-xs font-bold ${classNames}`}
+                data-mdb-ripple="true"
+                data-mdb-ripple-color="primary"
+              >
+                {val.title}
+              </a>
+              <DragDropContext
+                onDragEnd={(result) =>
+                  dispatch({
+                    type: 'DRAG_DROP_SIDEBAR_SOCIOECONOMIC',
+                    payload: result,
+                    index_1: index,
+                  })
+                }
+              >
+                <Droppable droppableId={val.id.toString()}>
+                  {(provided) => (
+                    <ul
+                      className={val.id.toString()}
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {val.data &&
+                        val.data.map((val2, index2) => {
+                          return (
+                            <Draggable
+                              key={index2}
+                              draggableId={index2.toString()}
+                              index={index2}
+                            >
+                              {(provided) => (
+                                <li
+                                  className="relative"
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                >
+                                  <div
+                                    className="i flex items-center"
+                                    // onClick={() =>
+                                    //   onClickChange(val2, index, index2)
+                                    // }
                                   >
-                                    <div
-                                      className="i flex items-center"
-                                      onClick={() =>
-                                        onClickChange(val2, index, index2)
+                                    <input
+                                      className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
+                                      id={val2.title}
+                                      aria-describedby="flowbite"
+                                      type="checkbox"
+                                      checked={val2.status}
+                                      onChange={() =>
+                                        onClick(val2, index, index2)
                                       }
-                                    >
-                                      <input
-                                        className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
-                                        id={val2.title}
-                                        aria-describedby="flowbite"
-                                        type="checkbox"
-                                        checked={val2.status}
-                                        onChange={() =>
-                                          onClickChange(val2, index, index2)
-                                        }
-                                      />
-                                      <a
-                                        href="#!"
-                                        className={`h-6 pl-2 pr-6 text-xs ${classNames}`}
-                                        data-mdb-ripple="true"
-                                        data-mdb-ripple-color="primary"
-                                      >
-                                        {val2.title}
-                                      </a>
-                                    </div>
-                                    <OpacityRange
-                                      val2={val2}
-                                      index={index}
-                                      index2={index2}
-                                      delay={100}
-                                      isVisible={Boolean(val2.status)}
                                     />
-                                    {/* {val2.status && (  
+                                    <label
+                                      className={`h-6 pl-2 pr-6 text-xs ${classNames}`}
+                                      htmlFor={val2.title}
+                                    >
+                                      {val2.title}
+                                    </label>
+                                    {/* <a
+                                      href="#!"
+                                      className={`h-6 pl-2 pr-6 text-xs ${classNames}`}
+                                      data-mdb-ripple="true"
+                                      data-mdb-ripple-color="primary"
+                                    >
+                                      {val2.title}
+                                    </a> */}
+                                  </div>
+                                  <OpacityRange
+                                    val2={val2}
+                                    index={index}
+                                    index2={index2}
+                                    delay={100}
+                                    isVisible={Boolean(val2.status)}
+                                  />
+                                  {/* {val2.status && (  
                                       <div className="flex flex-col space-y-2 p-2 px-6">
                                         <span className="text-sm text-gray-700">
                                           opacity:
@@ -244,19 +242,18 @@ function SocioeconLayers() {
                                         </span>
                                       </div>
                                     )} */}
-                                  </li>
-                                )}
-                              </Draggable>
-                            )
-                          })}
-                        {provided.placeholder}
-                      </ul>
-                    )}
-                  </Droppable>
-                </DragDropContext>
-              </li>
-            )
-          })}
+                                </li>
+                              )}
+                            </Draggable>
+                          )
+                        })}
+                      {provided.placeholder}
+                    </ul>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </li>
+          ))}
       </ul>
     </div>
   )
