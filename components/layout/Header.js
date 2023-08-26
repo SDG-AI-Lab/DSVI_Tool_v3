@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import TopBar from '../Topbar'
-import Head from 'next/head'
-import TopBar from '../Topbar'
 
 function Header() {
   return (
