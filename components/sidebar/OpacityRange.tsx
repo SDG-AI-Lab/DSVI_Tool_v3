@@ -34,14 +34,14 @@ function OpacityRange({
 
   const { id, slug, title, reverse_meaning, units, json_library } = val2
 
-  const onClickChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
     let value = event ? event.target.value : val2.value
 
     const newItem = {
       id,
       slug,
       title,
-      status: !val2.status,
+      status: val2.status,
       value,
       reverse_meaning,
       units,
@@ -74,6 +74,7 @@ function OpacityRange({
     })
   }
 
+  // DEBOUNCING THE DRAG OF RANGE ITEM TO AVOID TOO MANY RE-RENDERS
   const [range, setRange] = useState(val2.value)
   const [debouncedRange, setDebouncedRange] = useState(range)
 
@@ -89,7 +90,6 @@ function OpacityRange({
   useEffect(() => {
     onRangeChange(debouncedRange)
   }, [debouncedRange])
-
   return (
     <div
       className={`${isVisible ? 'flex' : 'hidden'} flex-col space-y-2 p-2 px-6`}
@@ -100,7 +100,7 @@ function OpacityRange({
           type="number"
           className={inputClassNames}
           value={parseInt(val2.value)}
-          onChange={(e) => onClickChange(e)}
+          onChange={(e) => onChange(e)}
         />
         <input
           type="range"
