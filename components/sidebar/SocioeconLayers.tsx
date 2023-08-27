@@ -7,8 +7,12 @@ import {
   AdministrativeIcon,
 } from '../SVGs'
 import AdminLevels from './AdminLevels'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { nanoid } from 'nanoid'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from 'react-beautiful-dnd'
 import OpacityRange from './OpacityRange'
 
 function SocioeconLayers() {
@@ -42,6 +46,14 @@ function SocioeconLayers() {
     })
   }
 
+  const onDragEnd = (result: DropResult, index_1: number): void => {
+    dispatch({
+      type: 'DRAG_DROP_SIDEBAR_SOCIOECONOMIC',
+      payload: result,
+      index_1,
+    })
+  }
+
   return (
     <div className="relative" id="sidenavSecEx3">
       <a
@@ -63,12 +75,7 @@ function SocioeconLayers() {
       )}
       {/* COMMENT #1 (AT THE BOTTOM OF THE FILE) WAS HERE */}
 
-      <ul
-        className="accordion-collapse collapse relative"
-        // id="collapseSidenavSecEx3"
-        // aria-labelledby="sidenavSecEx3"
-        // data-bs-parent="#sidenavSecExample"
-      >
+      <ul className="accordion-collapse collapse relative">
         {socioeconomic.status &&
           socioeconomic.data.map((val, index) => (
             <li className="relative" key={index}>
@@ -78,15 +85,7 @@ function SocioeconLayers() {
               >
                 {val.title}
               </a>
-              <DragDropContext
-                onDragEnd={(result) =>
-                  dispatch({
-                    type: 'DRAG_DROP_SIDEBAR_SOCIOECONOMIC',
-                    payload: result,
-                    index_1: index,
-                  })
-                }
-              >
+              <DragDropContext onDragEnd={(result) => onDragEnd(result, index)}>
                 <Droppable droppableId={val.id.toString()}>
                   {(provided) => (
                     <ul
