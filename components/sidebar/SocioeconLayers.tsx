@@ -8,6 +8,7 @@ import {
 } from '../SVGs'
 import AdminLevels from './AdminLevels'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { nanoid } from 'nanoid'
 import OpacityRange from './OpacityRange'
 
 function SocioeconLayers() {
@@ -53,11 +54,7 @@ function SocioeconLayers() {
       </a>
       {socioeconomic.status && (
         <div className="relative">
-          <span
-            className={`h-12 px-5 text-sm ${classNames}`}
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="primary"
-          >
+          <span className={`h-12 px-5 text-sm ${classNames}`}>
             <AdministrativeIcon />
             <span>Select administrative level</span>
           </span>
@@ -68,9 +65,9 @@ function SocioeconLayers() {
 
       <ul
         className="accordion-collapse collapse relative"
-        id="collapseSidenavSecEx3"
-        aria-labelledby="sidenavSecEx3"
-        data-bs-parent="#sidenavSecExample"
+        // id="collapseSidenavSecEx3"
+        // aria-labelledby="sidenavSecEx3"
+        // data-bs-parent="#sidenavSecExample"
       >
         {socioeconomic.status &&
           socioeconomic.data.map((val, index) => (
@@ -78,8 +75,6 @@ function SocioeconLayers() {
               <a
                 href="#!"
                 className={`mt-3 h-6 pl-12 pr-6 text-xs font-bold ${classNames}`}
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="primary"
               >
                 {val.title}
               </a>
@@ -117,7 +112,6 @@ function SocioeconLayers() {
                                   <input
                                     className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
                                     id={val2.title}
-                                    aria-describedby="flowbite"
                                     type="checkbox"
                                     checked={val2.status}
                                     onChange={() =>
