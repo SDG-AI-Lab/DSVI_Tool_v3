@@ -130,7 +130,6 @@ function SocioeconLayers() {
                                   val2={val2}
                                   index={index}
                                   index2={index2}
-                                  delay={100}
                                   isVisible={Boolean(val2.status)}
                                 />
                                 {/* COMMENT #2 (AT THE BOTTOM OF THE FILE) WAS HERE */}

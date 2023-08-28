@@ -6,17 +6,10 @@ interface OpacityRangeProps {
   val2: Val2
   index: number
   index2: number
-  delay: number
   isVisible: boolean
 }
 
-function OpacityRange({
-  val2,
-  index,
-  index2,
-  delay,
-  isVisible,
-}: OpacityRangeProps) {
+function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
   const { dispatch } = useContext(FilterContext)
 
   const inputClassNames =
@@ -39,10 +32,11 @@ function OpacityRange({
   const [range, setRange] = useState<number>(Number(val2.value))
   const [debouncedRange, setDebouncedRange] = useState<number>(range)
 
+  const debounceDelay = 100
   useEffect(() => {
     const id = setTimeout(() => {
       setDebouncedRange(range)
-    }, delay)
+    }, debounceDelay)
 
     return () => {
       clearTimeout(id)
