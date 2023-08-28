@@ -1,19 +1,9 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
 import { FilterContext } from '../../context/FilterContext'
-
-type val2 = {
-  id: number
-  json_library: string
-  reverse_meaning: boolean
-  slug: string
-  status: boolean
-  title: string
-  units: string
-  value: string
-}
+import { Val2 } from './SocioeconLayers'
 
 interface OpacityRangeProps {
-  val2: val2
+  val2: Val2
   index: number
   index2: number
   delay: number
@@ -39,7 +29,7 @@ function OpacityRange({
   const onRangeChange = (range: number) => {
     dispatch({
       type: 'CHANGE_SOCIOECONOMIC',
-      payload: { ...val2, ['value']: range },
+      payload: { ...val2, value: range },
       index_1: index,
       index_2: index2,
     })
@@ -58,6 +48,7 @@ function OpacityRange({
       clearTimeout(id)
     }
   }, [range])
+
   useEffect(() => {
     onRangeChange(Number(debouncedRange))
   }, [debouncedRange])

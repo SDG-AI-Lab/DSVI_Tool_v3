@@ -15,6 +15,17 @@ import {
 } from 'react-beautiful-dnd'
 import OpacityRange from './OpacityRange'
 
+export type Val2 = {
+  id: number
+  json_library: string
+  reverse_meaning: boolean
+  slug: string
+  status: boolean
+  title: string
+  units: string
+  value: string
+}
+
 function SocioeconLayers() {
   const { state, dispatch } = useContext(FilterContext)
   const { socioeconomic } = state
@@ -22,17 +33,8 @@ function SocioeconLayers() {
   const classNames =
     'flex items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600'
 
-  const onChange = (val2, index: number, index2: number): void => {
-    const newItem = {
-      id: val2.id,
-      slug: val2.slug,
-      title: val2.title,
-      status: !val2.status,
-      value: val2.value,
-      reverse_meaning: val2.reverse_meaning,
-      units: val2.units,
-      json_library: val2.json_library,
-    }
+  const onChange = (val2: Val2, index: number, index2: number): void => {
+    const newItem = { ...val2, status: !val2.status }
     dispatch({
       type: 'CHANGE_SOCIOECONOMIC',
       payload: newItem,
