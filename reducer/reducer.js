@@ -1600,7 +1600,7 @@ export const reducer = (state, action) => {
       }
     case 'CHANGE_CATEGORIES':
       return produce(state, (draft) => {
-        draft.categories[action.index_1] = action.payload
+        draft.categories = action.payload
       })
     case 'TOGGLE_DSV_INDICATOR':
       return {
