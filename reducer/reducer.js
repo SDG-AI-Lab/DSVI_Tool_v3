@@ -1602,10 +1602,17 @@ export const reducer = (state, action) => {
       return produce(state, (draft) => {
         draft.categories[action.index_1] = action.payload
       })
+
     case 'DRAG_DROP_CATEGORIES':
       return produce(state, (draft) => {
-        draft.categories = action.payload
+        const { source, destination } = action.payload
+        if (!destination) return
+        const items = Array.from(action.categories)
+        const [reorderedItem] = items.splice(source.index, 1)
+        items.splice(destination.index, 0, reorderedItem)
+        draft.categories = items
       })
+
     case 'TOGGLE_DSV_INDICATOR':
       return {
         ...state,
