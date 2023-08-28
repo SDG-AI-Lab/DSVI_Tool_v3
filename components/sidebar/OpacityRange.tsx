@@ -32,51 +32,22 @@ function OpacityRange({
   const inputClassNames =
     'input-sm mx-2 w-14 border rounded border-solid border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
 
-  const { id, slug, title, reverse_meaning, units, json_library } = val2
+  const { value } = val2
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    let value = event ? event.target.value : val2.value
+  /* COMMENT #1 (AT THE BOTTOM OF THE FILE) WAS HERE */
 
-    const newItem = {
-      id,
-      slug,
-      title,
-      status: val2.status,
-      value,
-      reverse_meaning,
-      units,
-      json_library,
-    }
+  const onRangeChange = (range: number) => {
     dispatch({
       type: 'CHANGE_SOCIOECONOMIC',
-      payload: newItem,
-      index_1: index,
-      index_2: index2,
-    })
-  }
-
-  const onRangeChange = (range: string) => {
-    const newItem = {
-      id,
-      slug,
-      title,
-      status: val2.status,
-      value: range,
-      reverse_meaning,
-      units,
-      json_library,
-    }
-    dispatch({
-      type: 'CHANGE_SOCIOECONOMIC',
-      payload: newItem,
+      payload: { ...val2, ['value']: range },
       index_1: index,
       index_2: index2,
     })
   }
 
   // DEBOUNCING THE DRAG OF RANGE ITEM TO AVOID TOO MANY RE-RENDERS
-  const [range, setRange] = useState(val2.value)
-  const [debouncedRange, setDebouncedRange] = useState(range)
+  const [range, setRange] = useState<number>(Number(val2.value))
+  const [debouncedRange, setDebouncedRange] = useState<number>(range)
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -88,8 +59,15 @@ function OpacityRange({
     }
   }, [range])
   useEffect(() => {
-    onRangeChange(debouncedRange)
+    onRangeChange(Number(debouncedRange))
   }, [debouncedRange])
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const rangeNum = Number(e.target.value)
+    const newRange = rangeNum > 100 ? 100 : rangeNum < 0 ? 0 : rangeNum
+    setRange(newRange)
+  }
+
   return (
     <div
       className={`${isVisible ? 'flex' : 'hidden'} flex-col space-y-2 p-2 px-6`}
@@ -99,17 +77,17 @@ function OpacityRange({
         <input
           type="number"
           className={inputClassNames}
-          value={parseInt(val2.value)}
-          onChange={(e) => onChange(e)}
+          value={value}
+          onChange={onChange}
         />
         <input
           type="range"
-          min="0"
-          max="100"
-          step="1"
-          value={range}
+          min={0}
+          max={100}
+          step={1}
+          value={value}
           className="form-range h-6 p-0 focus:shadow-none focus:outline-none focus:ring-0"
-          onChange={(e) => setRange(e.target.value)}
+          onChange={(e) => setRange(Number(e.target.value))}
         />
       </span>
     </div>
@@ -117,3 +95,23 @@ function OpacityRange({
 }
 
 export default OpacityRange
+
+// COMMENT #1:
+// const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+//   const newItem = {
+//     id: val2.id,
+//     slug: val2.slug,
+//     title: val2.title,
+//     status: !val2.status,
+//     value: val2.value,
+//     reverse_meaning: val2.reverse_meaning,
+//     units: val2.units,
+//     json_library: val2.json_library,
+//   }
+//   dispatch({
+//     type: 'CHANGE_SOCIOECONOMIC',
+//     payload: newItem,
+//     index_1: index,
+//     index_2: index2,
+//   })
+// }
