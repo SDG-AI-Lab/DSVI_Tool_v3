@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Modal } from 'react-responsive-modal'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { FilterContext } from '../context/FilterContext'
-import DHS_COLUMN from '../public/static/color_gradient_lookup.json'
-import { HeartIcon, ResetIcon } from './SVGs'
+import { FilterContext } from '../../context/FilterContext'
+import DHS_COLUMN from '../../public/static/color_gradient_lookup.json'
+import { HeartIcon, ResetIcon } from '../SVGs'
 import SidebarToggle from './SidebarToggle'
 import VulnerabilityOptions from './VulnerabilityOptions'
 import SocioeconLayers from './SocioeconLayers'
@@ -23,52 +23,13 @@ const Sidebar = (props) => {
   const onCloseDsvModal = () => setDsvModal(false)
   const onCloseDhsModal = () => setDhsModal(false)
 
-  // const { show_infoBox_data } = props
-  // const socioeconomic = state['socioeconomic']
-  // const level = state['level']
-  // const show_sidebar = state['show_sidebar']
-  // const reset_settings = state['reset_settings']
-  // const categories = state['categories']
-  // const socioEconomicLayers = state['socioeconomic']['data']
-  // const activeLegends = state['activeLegends']
-  // const vulnerability = state['vulnerability']
-  // const dsvIndicator = state['dsv_indicator']
-  // const dhsIndicator = state['dhs_indicator']
-  // const drawofInterestStatus = state['draw_area_of_interest']
-  // const statisticsStatus = state['statistics']
-  // const geodataLayers = state['geodata']['data']
-  // const onOpenDsvModal = () => setDsvModal(true)
-  // const onOpenDhsModal = () => setDhsModal(true)
-  // function handleOnDragEnd(result) {
-  //   if (!result.destination) return
-  //   const items = Array.from(socioEconomicLayers)
-  //   const [reorderedItem] = items.splice(result.source.index, 1)
-  //   items.splice(result.destination.index, 0, reorderedItem)
-  //   dispatch({ type: 'CHANGE_SOCIOECONOMIC', payload: items })
-  // }
-  // function handleOnDragEndCategory(result) {
-  //   if (!result.destination) return
-  //   const items = Array.from(categories)
-  //   const [reorderedItem] = items.splice(result.source.index, 1)
-  //   items.splice(result.destination.index, 0, reorderedItem)
-  //   dispatch({ type: 'CHANGE_CATEGORIES', payload: items })
-  // }
+  /* COMMENT #1 (AT THE BOTTOM OF THE FILE) WAS HERE */
 
   useEffect(() => {
     dispatch({ type: 'FETCH_DHS_COLUMN', payload: DHS_COLUMN })
   }, [])
 
-  // /* PLS NOT USE */
-  // function handleOnDragEnd2(result, index) {
-  //   if (!result.destination) return;
-
-  //   const items = Array.from(geodataLayers);
-  //   const index = parseInt(result.source.droppableId) - 1;
-  //   const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
-  //   items[index]['data'].splice(result.destination.index, 0, reorderedItem);
-  //   dispatch({ type: "CHANGE_GEODATA", payload: items });
-  // }
-  // /* END */
+  // COMMENT #2 (AT THE BOTTOM OF THE FILE) WAS HERE
 
   return (
     <>
@@ -496,3 +457,49 @@ const Sidebar = (props) => {
   )
 }
 export default Sidebar
+
+// COMMENT #1
+
+// const { show_infoBox_data } = props
+// const socioeconomic = state['socioeconomic']
+// const level = state['level']
+// const show_sidebar = state['show_sidebar']
+// const reset_settings = state['reset_settings']
+// const categories = state['categories']
+// const socioEconomicLayers = state['socioeconomic']['data']
+// const activeLegends = state['activeLegends']
+// const vulnerability = state['vulnerability']
+// const dsvIndicator = state['dsv_indicator']
+// const dhsIndicator = state['dhs_indicator']
+// const drawofInterestStatus = state['draw_area_of_interest']
+// const statisticsStatus = state['statistics']
+// const geodataLayers = state['geodata']['data']
+// const onOpenDsvModal = () => setDsvModal(true)
+// const onOpenDhsModal = () => setDhsModal(true)
+// function handleOnDragEnd(result) {
+//   if (!result.destination) return
+//   const items = Array.from(socioEconomicLayers)
+//   const [reorderedItem] = items.splice(result.source.index, 1)
+//   items.splice(result.destination.index, 0, reorderedItem)
+//   dispatch({ type: 'CHANGE_SOCIOECONOMIC', payload: items })
+// }
+// function handleOnDragEndCategory(result) {
+//   if (!result.destination) return
+//   const items = Array.from(categories)
+//   const [reorderedItem] = items.splice(result.source.index, 1)
+//   items.splice(result.destination.index, 0, reorderedItem)
+//   dispatch({ type: 'CHANGE_CATEGORIES', payload: items })
+// }
+
+// COMMENT #2:
+// /* PLS NOT USE */
+// function handleOnDragEnd2(result, index) {
+//   if (!result.destination) return;
+
+//   const items = Array.from(geodataLayers);
+//   const index = parseInt(result.source.droppableId) - 1;
+//   const [reorderedItem] = items[index]['data'].splice(result.source.index, 1);
+//   items[index]['data'].splice(result.destination.index, 0, reorderedItem);
+//   dispatch({ type: "CHANGE_GEODATA", payload: items });
+// }
+// /* END */
