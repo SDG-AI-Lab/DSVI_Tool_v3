@@ -1,23 +1,30 @@
 import React, { useContext } from 'react'
 import { FilterContext } from '../../context/FilterContext'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from 'react-beautiful-dnd'
 import { ArrowDownIcon, ArrowUpIcon, GlobeIcon } from '../SVGs'
 
 function HighResLayers() {
   const { state, dispatch } = useContext(FilterContext)
   const { geodata } = state
 
+  const onDragEnd = (result: DropResult, index_1: number): void => {
+    dispatch({
+      type: 'DRAG_DROP_SIDEBAR_GEODATA',
+      payload: result,
+      index_1,
+    })
+  }
+
   return (
     <>
       <a
         className="flex h-12 cursor-pointer items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4
                     px-2 text-sm text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
-        data-mdb-ripple="true"
-        data-mdb-ripple-color="primary"
-        data-bs-toggle="collapse"
-        data-bs-target="#collapseSidenavSecEx3"
-        aria-expanded="false"
-        aria-controls="collapseSidenavSecEx3"
         onClick={() => dispatch({ type: 'TOGGLE_GEODATA' })}
       >
         <GlobeIcon />
@@ -28,13 +35,8 @@ function HighResLayers() {
           <ArrowDownIcon className="ml-16 h-5 w-5" />
         )}
       </a>
-      <ul
-        className="accordion-collapse collapse relative"
-        id="collapseSidenavSecEx3"
-        aria-labelledby="sidenavSecEx3"
-        data-bs-parent="#sidenavSecExample"
-      >
-        {geodata.status == true &&
+      <ul className="accordion-collapse collapse relative">
+        {geodata.status &&
           geodata.data.map((val, index) => {
             return (
               <li className="relative" key={index}>
@@ -43,19 +45,11 @@ function HighResLayers() {
                   className=" mt-3 flex h-6 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4
                               pl-12 pr-6 text-xs font-bold text-gray-700
                               transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
-                  data-mdb-ripple="true"
-                  data-mdb-ripple-color="primary"
                 >
                   {val.title}
                 </a>
                 <DragDropContext
-                  onDragEnd={(result) =>
-                    dispatch({
-                      type: 'DRAG_DROP_SIDEBAR_GEODATA',
-                      payload: result,
-                      index_1: index,
-                    })
-                  }
+                  onDragEnd={(result) => onDragEnd(result, index)}
                 >
                   <Droppable droppableId={val.id.toString()}>
                     {(provided) => (
@@ -130,8 +124,6 @@ function HighResLayers() {
                                         className="flex h-6 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded
                                                       py-4 pl-2 pr-6 text-xs text-gray-700
                                                       transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
-                                        data-mdb-ripple="true"
-                                        data-mdb-ripple-color="primary"
                                       >
                                         {val2.title}
                                       </a>
