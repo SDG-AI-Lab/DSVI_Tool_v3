@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { FilterContext } from '../../context/FilterContext'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { ArrowDownIcon, ArrowUpIcon, GlobeIcon } from '../SVGs'
 
 function HighResLayers() {
   const { state, dispatch } = useContext(FilterContext)
@@ -19,47 +20,12 @@ function HighResLayers() {
         aria-controls="collapseSidenavSecEx3"
         onClick={() => dispatch({ type: 'TOGGLE_GEODATA' })}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="mr-2 h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+        <GlobeIcon />
         <span>High Res. Layers</span>
-        {geodata.status == true ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="ml-16 h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
+        {geodata.status ? (
+          <ArrowUpIcon className="ml-16 h-5 w-5" />
         ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="ml-16 h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <ArrowDownIcon className="ml-16 h-5 w-5" />
         )}
       </a>
       <ul
