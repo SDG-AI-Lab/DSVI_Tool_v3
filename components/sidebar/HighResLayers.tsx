@@ -59,23 +59,47 @@ function HighResLayers() {
                         ref={provided.innerRef}
                       >
                         {val.data &&
-                          val.data.map((val2, index2) => {
-                            return (
-                              <Draggable
-                                key={index2}
-                                draggableId={index2.toString()}
-                                index={index2}
-                              >
-                                {(provided) => (
-                                  <li
-                                    className="relative"
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
+                          val.data.map((val2, index2) => (
+                            <Draggable
+                              key={index2}
+                              draggableId={index2.toString()}
+                              index={index2}
+                            >
+                              {(provided) => (
+                                <li
+                                  className="relative"
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                >
+                                  <div
+                                    className="i flex items-center"
+                                    onClick={() => {
+                                      const newItem = {
+                                        id: val2.id,
+                                        slug: val2.slug,
+                                        title: val2.title,
+                                        status: !val2.status,
+                                        value: val2.value,
+                                        layer: val2.layer,
+                                      }
+                                      dispatch({
+                                        type: 'CHANGE_GEODATA',
+                                        payload: newItem,
+                                        index_1: index,
+                                        index_2: index2,
+                                      })
+                                      dispatch({
+                                        type: 'CHANGE_ACTIVE_LEGENDS',
+                                        payload: newItem,
+                                      })
+                                    }}
                                   >
-                                    <div
-                                      className="i flex items-center"
-                                      onClick={() => {
+                                    <input
+                                      className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
+                                      type="checkbox"
+                                      checked={val2.status}
+                                      onChange={(event) => {
                                         const newItem = {
                                           id: val2.id,
                                           slug: val2.slug,
@@ -90,110 +114,82 @@ function HighResLayers() {
                                           index_1: index,
                                           index_2: index2,
                                         })
-                                        dispatch({
-                                          type: 'CHANGE_ACTIVE_LEGENDS',
-                                          payload: newItem,
-                                        })
                                       }}
-                                    >
-                                      <input
-                                        className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
-                                        id="flowbite"
-                                        aria-describedby="flowbite"
-                                        type="checkbox"
-                                        checked={val2.status}
-                                        onChange={(event) => {
-                                          const newItem = {
-                                            id: val2.id,
-                                            slug: val2.slug,
-                                            title: val2.title,
-                                            status: !val2.status,
-                                            value: val2.value,
-                                            layer: val2.layer,
-                                          }
-                                          dispatch({
-                                            type: 'CHANGE_GEODATA',
-                                            payload: newItem,
-                                            index_1: index,
-                                            index_2: index2,
-                                          })
-                                        }}
-                                      />
-                                      <a
-                                        href="#!"
-                                        className="flex h-6 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded
+                                    />
+                                    <a
+                                      href="#!"
+                                      className="flex h-6 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded
                                                       py-4 pl-2 pr-6 text-xs text-gray-700
                                                       transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
-                                      >
-                                        {val2.title}
-                                      </a>
-                                    </div>
-                                    {val2.status == true ? (
-                                      <div className="flex flex-col space-y-2 p-2">
-                                        <div className="px-6">
-                                          <span className="text-sm text-gray-700">
-                                            opacity:
-                                            <input
-                                              type="number"
-                                              className="input-sm mx-2 w-14 rounded border border-solid
+                                    >
+                                      {val2.title}
+                                    </a>
+                                  </div>
+                                  {val2.status && (
+                                    <div className="flex flex-col space-y-2 p-2">
+                                      <div className="px-6">
+                                        <span className="text-sm text-gray-700">
+                                          opacity:
+                                          <input
+                                            type="number"
+                                            className="input-sm mx-2 w-14 rounded border border-solid
                                                                 border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700
                                                                 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700
                                                                 focus:outline-none"
-                                              value={parseInt(val2.value)}
-                                              onChange={(event) => {
-                                                const newItem = {
-                                                  id: val2.id,
-                                                  slug: val2.slug,
-                                                  title: val2.title,
-                                                  status: val2.status,
-                                                  value: event.target.value,
-                                                  layer: val2.layer,
-                                                }
-                                                dispatch({
-                                                  type: 'CHANGE_GEODATA',
-                                                  payload: newItem,
-                                                  index_1: index,
-                                                  index_2: index2,
-                                                })
-                                              }}
-                                            />
+                                            value={parseInt(val2.value)}
+                                            onChange={(event) => {
+                                              const newItem = {
+                                                id: val2.id,
+                                                slug: val2.slug,
+                                                title: val2.title,
+                                                status: val2.status,
+                                                value: event.target.value,
+                                                layer: val2.layer,
+                                              }
+                                              dispatch({
+                                                type: 'CHANGE_GEODATA',
+                                                payload: newItem,
+                                                index_1: index,
+                                                index_2: index2,
+                                              })
+                                            }}
+                                          />
+                                          <div>
                                             <div>
-                                              <div>
-                                                <input
-                                                  type="range"
-                                                  min="1"
-                                                  max="100"
-                                                  step="1"
-                                                  value={val2.value}
-                                                  className="form-range h-6 p-0 focus:shadow-none focus:outline-none focus:ring-0"
-                                                  onChange={(event) => {
-                                                    const newItem = {
-                                                      id: val2.id,
-                                                      slug: val2.slug,
-                                                      title: val2.title,
-                                                      status: val2.status,
-                                                      value: event.target.value,
-                                                      layer: val2.layer,
-                                                    }
-                                                    dispatch({
-                                                      type: 'CHANGE_GEODATA',
-                                                      payload: newItem,
-                                                      index_1: index,
-                                                      index_2: index2,
-                                                    })
-                                                  }}
-                                                />
-                                              </div>
+                                              <input
+                                                type="range"
+                                                min="1"
+                                                max="100"
+                                                step="1"
+                                                value={val2.value}
+                                                className="form-range h-6 p-0 focus:shadow-none focus:outline-none focus:ring-0"
+                                                onChange={(event) => {
+                                                  const newItem = {
+                                                    id: val2.id,
+                                                    slug: val2.slug,
+                                                    title: val2.title,
+                                                    status: val2.status,
+                                                    value: event.target.value,
+                                                    layer: val2.layer,
+                                                  }
+                                                  dispatch({
+                                                    type: 'CHANGE_GEODATA',
+                                                    payload: newItem,
+                                                    index_1: index,
+                                                    index_2: index2,
+                                                  })
+                                                }}
+                                              />
                                             </div>
-                                          </span>
-                                        </div>
+                                          </div>
+                                        </span>
                                       </div>
-                                    ) : null}
-                                  </li>
-                                )}
-                              </Draggable>
-                            )
-                          })}
+                                    </div>
+                                  )}
+                                </li>
+                              )}
+                            </Draggable>
+                          ))}
                         {provided.placeholder}
                       </ul>
                     )}
