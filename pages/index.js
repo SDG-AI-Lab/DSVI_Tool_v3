@@ -69,7 +69,7 @@ const Application = () => {
         </div>
       ) : (
         <div className="flex">
-          <Sidebar show={true} originalInitialState={originalInitialState} />{' '}
+          <Sidebar show={true} originalInitialState={originalInitialState} />
           {/*pass show_infoBox_data parameter from reducer + control menu props */}
           <LeafletMap
           // center={location}
