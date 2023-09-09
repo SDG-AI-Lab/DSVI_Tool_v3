@@ -8,6 +8,7 @@ import {
 } from 'react-beautiful-dnd'
 import { ArrowDownIcon, ArrowUpIcon, GlobeIcon } from '../SVGs'
 import { Val2 } from './SocioeconLayers'
+import OpacityRange from './OpacityRange'
 
 function HighResLayers() {
   const { state, dispatch } = useContext(FilterContext)
@@ -105,66 +106,14 @@ function HighResLayers() {
                                       {val2.title}
                                     </label>
                                   </div>
+                                  {console.log(val2)}
                                   {val2.status && (
-                                    <div className="flex flex-col space-y-2 p-2">
-                                      <div className="px-6">
-                                        <span className="text-sm text-gray-700">
-                                          opacity:
-                                          <input
-                                            type="number"
-                                            className="input-sm mx-2 w-14 rounded border border-solid
-                                                                border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700
-                                                                transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700
-                                                                focus:outline-none"
-                                            value={parseInt(val2.value)}
-                                            onChange={(event) => {
-                                              const newItem = {
-                                                id: val2.id,
-                                                slug: val2.slug,
-                                                title: val2.title,
-                                                status: val2.status,
-                                                value: event.target.value,
-                                                layer: val2.layer,
-                                              }
-                                              dispatch({
-                                                type: 'CHANGE_GEODATA',
-                                                payload: newItem,
-                                                index_1: index,
-                                                index_2: index2,
-                                              })
-                                            }}
-                                          />
-                                          <div>
-                                            <div>
-                                              <input
-                                                type="range"
-                                                min="1"
-                                                max="100"
-                                                step="1"
-                                                value={val2.value}
-                                                className="form-range h-6 p-0 focus:shadow-none focus:outline-none focus:ring-0"
-                                                onChange={(event) => {
-                                                  const newItem = {
-                                                    id: val2.id,
-                                                    slug: val2.slug,
-                                                    title: val2.title,
-                                                    status: val2.status,
-                                                    value: event.target.value,
-                                                    layer: val2.layer,
-                                                  }
-                                                  dispatch({
-                                                    type: 'CHANGE_GEODATA',
-                                                    payload: newItem,
-                                                    index_1: index,
-                                                    index_2: index2,
-                                                  })
-                                                }}
-                                              />
-                                            </div>
-                                          </div>
-                                        </span>
-                                      </div>
-                                    </div>
+                                    <OpacityRange
+                                      val2={val2}
+                                      index={index}
+                                      index2={index2}
+                                      changeType={'GEODATA'}
+                                    />
                                   )}
                                 </li>
                               )}

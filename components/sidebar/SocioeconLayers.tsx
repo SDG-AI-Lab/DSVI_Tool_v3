@@ -127,12 +127,14 @@ function SocioeconLayers() {
                                     {val2.title}
                                   </label>
                                 </div>
-                                <OpacityRange
-                                  val2={val2}
-                                  index={index}
-                                  index2={index2}
-                                  isVisible={Boolean(val2.status)}
-                                />
+                                {val2.status && (
+                                  <OpacityRange
+                                    val2={val2}
+                                    index={index}
+                                    index2={index2}
+                                    changeType={'SOCIOECONOMIC'}
+                                  />
+                                )}
                                 {/* COMMENT #2 (AT THE BOTTOM OF THE FILE) WAS HERE */}
                               </li>
                             )}
