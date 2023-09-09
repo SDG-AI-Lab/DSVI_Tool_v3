@@ -1053,8 +1053,9 @@ const OsmMap = () => {
 
         {elevation_status ? (
           <BetterWMSTileLayer
-            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
+            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            // layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
+            layers="sdg-ai-lab:scaled_r_norm_DEM_Large"
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:elevation_new"
@@ -1160,8 +1161,9 @@ const OsmMap = () => {
 
         {relative_wealth_status ? (
           <BetterWMSTileLayer
-            url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-            layers="sdg-ai-lab:up_rwi"
+            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            // layers="sdg-ai-lab:up_rwi"
+            layers="sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final"
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:rwi"

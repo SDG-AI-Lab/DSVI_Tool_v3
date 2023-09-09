@@ -20,19 +20,21 @@ function HighResLayers() {
     })
   }
 
+  const classNames =
+    'flex items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600'
+
   return (
     <>
       <a
-        className="flex h-12 cursor-pointer items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4
-                    px-2 text-sm text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
+        className={`h-12 cursor-pointer  px-2  text-sm ${classNames}`}
         onClick={() => dispatch({ type: 'TOGGLE_GEODATA' })}
       >
         <GlobeIcon />
         <span>High Res. Layers</span>
         {geodata.status ? (
-          <ArrowUpIcon className="ml-16 h-5 w-5" />
+          <ArrowUpIcon className="ml-14 h-5 w-5" />
         ) : (
-          <ArrowDownIcon className="ml-16 h-5 w-5" />
+          <ArrowDownIcon className="ml-14 h-5 w-5" />
         )}
       </a>
       <ul className="accordion-collapse collapse relative">
@@ -42,9 +44,7 @@ function HighResLayers() {
               <li className="relative" key={index}>
                 <a
                   href="#!"
-                  className=" mt-3 flex h-6 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4
-                              pl-12 pr-6 text-xs font-bold text-gray-700
-                              transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
+                  className={`${classNames} mt-3 h-6 pl-12 pr-6 text-xs font-bold`}
                 >
                   {val.title}
                 </a>
@@ -118,9 +118,7 @@ function HighResLayers() {
                                     />
                                     <a
                                       href="#!"
-                                      className="flex h-6 items-center overflow-hidden text-ellipsis whitespace-nowrap rounded
-                                                      py-4 pl-2 pr-6 text-xs text-gray-700
-                                                      transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
+                                      className={`h-6 pl-2 pr-6 text-xs ${classNames}`}
                                     >
                                       {val2.title}
                                     </a>
