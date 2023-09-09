@@ -23,7 +23,7 @@ const BetterWMSTileLayer = (props) => {
     format: format,
     version: version,
     zIndex: zIndex,
-    styles: styles,
+    // styles: styles,
     opacity: opacity,
     pane: pane,
   })
@@ -94,7 +94,7 @@ const BetterWMSTileLayer = (props) => {
       request: 'GetFeatureInfo',
       service: 'WMS',
       srs: 'EPSG:4326',
-      styles: styles,
+      // styles: styles,
       transparent: transparent,
       version: version,
       format: format,
