@@ -24,6 +24,7 @@ export type Val2 = {
   title: string
   units: string
   value: string
+  layer: string
 }
 
 function SocioeconLayers() {

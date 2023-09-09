@@ -7,6 +7,7 @@ import {
   DropResult,
 } from 'react-beautiful-dnd'
 import { ArrowDownIcon, ArrowUpIcon, GlobeIcon } from '../SVGs'
+import { Val2 } from './SocioeconLayers'
 
 function HighResLayers() {
   const { state, dispatch } = useContext(FilterContext)
@@ -22,6 +23,21 @@ function HighResLayers() {
 
   const classNames =
     'flex items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600'
+
+  const onChange = (val2: Val2, index: number, index2: number): void => {
+    const newItem = { ...val2, status: !val2.status }
+    console.log(val2.layer)
+    dispatch({
+      type: 'CHANGE_GEODATA',
+      payload: newItem,
+      index_1: index,
+      index_2: index2,
+    })
+    dispatch({
+      type: 'CHANGE_ACTIVE_LEGENDS',
+      payload: newItem,
+    })
+  }
 
   return (
     <>
@@ -44,7 +60,7 @@ function HighResLayers() {
               <li className="relative" key={index}>
                 <a
                   href="#!"
-                  className={`${classNames} mt-3 h-6 pl-12 pr-6 text-xs font-bold`}
+                  className={`mt-3 h-6 pl-12 pr-6 text-xs font-bold ${classNames}`}
                 >
                   {val.title}
                 </a>
@@ -72,56 +88,22 @@ function HighResLayers() {
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
                                 >
-                                  <div
-                                    className="i flex items-center"
-                                    onClick={() => {
-                                      const newItem = {
-                                        id: val2.id,
-                                        slug: val2.slug,
-                                        title: val2.title,
-                                        status: !val2.status,
-                                        value: val2.value,
-                                        layer: val2.layer,
-                                      }
-                                      dispatch({
-                                        type: 'CHANGE_GEODATA',
-                                        payload: newItem,
-                                        index_1: index,
-                                        index_2: index2,
-                                      })
-                                      dispatch({
-                                        type: 'CHANGE_ACTIVE_LEGENDS',
-                                        payload: newItem,
-                                      })
-                                    }}
-                                  >
+                                  <div className="i flex items-center">
                                     <input
                                       className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
+                                      id={val2.title}
                                       type="checkbox"
                                       checked={val2.status}
-                                      onChange={(event) => {
-                                        const newItem = {
-                                          id: val2.id,
-                                          slug: val2.slug,
-                                          title: val2.title,
-                                          status: !val2.status,
-                                          value: val2.value,
-                                          layer: val2.layer,
-                                        }
-                                        dispatch({
-                                          type: 'CHANGE_GEODATA',
-                                          payload: newItem,
-                                          index_1: index,
-                                          index_2: index2,
-                                        })
-                                      }}
+                                      onChange={() =>
+                                        onChange(val2, index, index2)
+                                      }
                                     />
-                                    <a
-                                      href="#!"
-                                      className={`h-6 pl-2 pr-6 text-xs ${classNames}`}
+                                    <label
+                                      className={`h-6 cursor-pointer pl-2 pr-6 text-xs ${classNames}`}
+                                      htmlFor={val2.title}
                                     >
                                       {val2.title}
-                                    </a>
+                                    </label>
                                   </div>
                                   {val2.status && (
                                     <div className="flex flex-col space-y-2 p-2">
