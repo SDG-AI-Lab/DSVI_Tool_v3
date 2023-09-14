@@ -492,6 +492,9 @@ const OsmMap = () => {
     }
   }, [activeLegends])
 
+  const geoServerUrl =
+    'http://ec2-18-119-28-31.us-east-2.compute.amazonaws.com:8080/geoserver/sdg-ai-lab/wms'
+
   return (
     <MapContainer
       center={map_settings.latlong}
@@ -990,7 +993,7 @@ const OsmMap = () => {
         ) : null}
         {distance_to_finance_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_finan_res_0_05_penalty"
             layers="scaled_r_norm_finan_dd_spd_10k_4326"
             transparent="true"
@@ -1001,7 +1004,7 @@ const OsmMap = () => {
         ) : null}
         {distance_to_healthcare_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             layers="sdg-ai-lab:scaled_r_norm_health_dd_spd_10k"
             // layers="sdg-ai-lab:up_health_res_0_05_penalty"
             transparent="true"
@@ -1041,7 +1044,7 @@ const OsmMap = () => {
 
         {distance_to_edu_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_edu_res_0_05_penalty"
             layers="sdg-ai-lab:scaled_r_norm_edu_dd_spd_10k_4326"
             transparent="true"
@@ -1053,7 +1056,7 @@ const OsmMap = () => {
 
         {elevation_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
             layers="sdg-ai-lab:scaled_r_norm_DEM_Large"
             transparent="true"
@@ -1065,7 +1068,7 @@ const OsmMap = () => {
 
         {slope_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_slope_clipped"
             layers="sdg-ai-lab:scaled_r_norm_slope"
             transparent="true"
@@ -1077,7 +1080,7 @@ const OsmMap = () => {
 
         {max_temp_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_scaled_r_norm_maxtemp_feb"
             layers="sdg-ai-lab:scaled_r_norm_maxtemp_feb"
             transparent="true"
@@ -1089,7 +1092,7 @@ const OsmMap = () => {
 
         {plant_health_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_new_ndvi"
             layers="sdg-ai-lab:scaled_r_norm_NDVI"
             transparent="true"
@@ -1101,7 +1104,7 @@ const OsmMap = () => {
 
         {precipitation_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:precipitation_upsampled_0_0001"
             layers="sdg-ai-lab:scaled_r_norm_precip"
             transparent="true"
@@ -1113,7 +1116,7 @@ const OsmMap = () => {
 
         {nightlight_intensity_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:scaled_r_norm_NTL"
             layers="sdg-ai-lab:scaled_r_norm_NTL"
             transparent="true"
@@ -1125,7 +1128,7 @@ const OsmMap = () => {
 
         {pop_density_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_r_norm_population_interpolation"
             layers="sdg-ai-lab:scaled_r_norm_pop"
             transparent="true"
@@ -1137,7 +1140,7 @@ const OsmMap = () => {
 
         {celltower_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_r_celltower"
             layers="sdg-ai-lab:scaled_r_norm_cellt"
             transparent="true"
@@ -1149,7 +1152,7 @@ const OsmMap = () => {
 
         {roads_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:scaled_r_norm_road_density"
             layers="sdg-ai-lab:scaled_r_norm_road_density"
             transparent="true"
@@ -1161,7 +1164,7 @@ const OsmMap = () => {
 
         {relative_wealth_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_rwi"
             layers="sdg-ai-lab:scaled_r_norm_rwi_heatmap_filled_final"
             transparent="true"
@@ -1173,7 +1176,7 @@ const OsmMap = () => {
 
         {gdp_status ? (
           <BetterWMSTileLayer
-            url="http://localhost:8080/geoserver/sdg-ai-lab/wms"
+            url={geoServerUrl}
             // layers="sdg-ai-lab:up_r_norm_GDP_2015_intp"
             layers="sdg-ai-lab:scaled_r_norm_GDP_2015_intp"
             transparent="true"

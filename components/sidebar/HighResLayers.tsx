@@ -14,20 +14,12 @@ function HighResLayers() {
   const { state, dispatch } = useContext(FilterContext)
   const { geodata } = state
 
-  const onDragEnd = (result: DropResult, index_1: number): void => {
-    dispatch({
-      type: 'DRAG_DROP_SIDEBAR_GEODATA',
-      payload: result,
-      index_1,
-    })
-  }
-
   const classNames =
     'flex items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600'
 
   const onChange = (val2: Val2, index: number, index2: number): void => {
     const newItem = { ...val2, status: !val2.status }
-    console.log(val2.layer)
+
     dispatch({
       type: 'CHANGE_GEODATA',
       payload: newItem,
@@ -37,6 +29,14 @@ function HighResLayers() {
     dispatch({
       type: 'CHANGE_ACTIVE_LEGENDS',
       payload: newItem,
+    })
+  }
+
+  const onDragEnd = (result: DropResult, index_1: number): void => {
+    dispatch({
+      type: 'DRAG_DROP_SIDEBAR_GEODATA',
+      payload: result,
+      index_1,
     })
   }
 
@@ -106,7 +106,6 @@ function HighResLayers() {
                                       {val2.title}
                                     </label>
                                   </div>
-                                  {console.log(val2)}
                                   {val2.status && (
                                     <OpacityRange
                                       val2={val2}

@@ -16,7 +16,6 @@ function OpacityRange({ val2, index, index2, changeType }: OpacityRangeProps) {
     'input-sm mx-2 w-14 border rounded border-solid border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
 
   const { value } = val2
-  console.log(val2)
 
   /* COMMENT #1 (AT THE BOTTOM OF THE FILE) WAS HERE */
 
