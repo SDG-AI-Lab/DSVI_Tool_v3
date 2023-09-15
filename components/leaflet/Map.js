@@ -493,7 +493,7 @@ const OsmMap = () => {
   }, [activeLegends])
 
   const geoServerUrl =
-    'http://ec2-52-14-149-34.us-east-2.compute.amazonaws.com:8080/geoserver/sdg-ai-lab/wms'
+    'http://ec2-3-137-214-233.us-east-2.compute.amazonaws.com:8080/geoserver/sdg-ai-lab/wms'
 
   return (
     <MapContainer
