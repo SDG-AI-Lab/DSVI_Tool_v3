@@ -6,10 +6,10 @@ interface OpacityRangeProps {
   val2: Val2
   index: number
   index2: number
-  isVisible: boolean
+  changeType: 'SOCIOECONOMIC' | 'GEODATA'
 }
 
-function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
+function OpacityRange({ val2, index, index2, changeType }: OpacityRangeProps) {
   const { dispatch } = useContext(FilterContext)
 
   const inputClassNames =
@@ -21,7 +21,7 @@ function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
 
   const onRangeChange = (range: number) => {
     dispatch({
-      type: 'CHANGE_SOCIOECONOMIC',
+      type: `CHANGE_${changeType}`,
       payload: { ...val2, value: range },
       index_1: index,
       index_2: index2,
@@ -54,9 +54,7 @@ function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
   }
 
   return (
-    <div
-      className={`${isVisible ? 'flex' : 'hidden'} flex-col space-y-2 p-2 px-6`}
-    >
+    <div className={`flex flex-col space-y-2 p-2 px-6`}>
       <span className="text-sm text-gray-700">
         opacity:
         <input
