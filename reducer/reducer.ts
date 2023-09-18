@@ -1,5 +1,7 @@
 import produce from 'immer'
 
+export type DataReducerInitialStateType = typeof initialState
+
 export const initialState = {
   show_data: false,
   show_sidebar_data: false,
