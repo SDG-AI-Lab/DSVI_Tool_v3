@@ -136,7 +136,7 @@ export const useMapFunctions = (show_data: boolean) => {
     )
   }
 
-  const layersData = (state: DataReducerInitialStateType) => {
+  const seLayersData = (state: DataReducerInitialStateType) => {
     const se_xgboost = state.socioeconomic.data
       .find((x) => x.slug === 'se_social_vulnerability')
       ?.data.find((x) => x.slug === 'se_xgboost')
@@ -169,6 +169,59 @@ export const useMapFunctions = (show_data: boolean) => {
     const se_financial_service_status = se_financial_service?.status
     const se_financial_service_value = se_financial_service?.value
 
+    const se_socio_economic = state.socioeconomic.data.find(
+      (x) => x.slug === 'se_socio_economic'
+    )
+    const se_population_counts = se_socio_economic?.data.find(
+      (e) => e.slug === 'se_population_counts'
+    )
+    const se_population_counts_status = se_population_counts?.status
+    const se_population_counts_value = se_population_counts?.value
+
+    const se_celltowers = se_socio_economic?.data.find(
+      (e) => e.slug === 'se_celltowers'
+    )
+    const se_celltowers_status = se_celltowers?.status
+    const se_celltowers_value = se_celltowers?.value
+
+    const se_nightlight_intensity = se_socio_economic?.data.find(
+      (e) => e.slug === 'se_nightlight_intensity'
+    )
+    const se_nightlight_intensity_status = se_nightlight_intensity?.status
+    const se_nightlight_intensity_value = se_nightlight_intensity?.value
+
+    const se_relative_wealth = se_socio_economic?.data.find(
+      (e) => e.slug === 'se_relative_wealth'
+    )
+    const se_relative_wealth_status = se_relative_wealth?.status
+    const se_relative_wealth_value = se_relative_wealth?.value
+
+    const se_GDP = se_socio_economic?.data.find((e) => e.slug === 'se_GDP')
+    const se_GDP_status = se_GDP?.status
+    const se_GDP_value = se_GDP?.value
+
+    const se_bio_physical = state.socioeconomic.data.find(
+      (x) => x.slug === 'se_bio_physical'
+    )
+
+    const se_plant_health = se_bio_physical?.data.find(
+      (x) => x.slug === 'se_plant_health'
+    )
+    const se_plant_health_status = se_plant_health?.status
+    const se_plant_health_value = se_plant_health?.value
+
+    const se_temperature_max = se_bio_physical?.data.find(
+      (x) => x.slug === 'se_temperature_max'
+    )
+    const se_temperature_max_status = se_temperature_max?.status
+    const se_temperature_max_value = se_temperature_max?.value
+
+    const se_elevation = se_bio_physical?.data.find(
+      (e) => e.slug === 'se_elevation'
+    )
+    const se_elevation_status = se_elevation?.status
+    const se_elevation_value = se_elevation?.value
+
     return {
       se_xgboost,
       se_random_forest_status,
@@ -183,8 +236,33 @@ export const useMapFunctions = (show_data: boolean) => {
       se_financial_service,
       se_financial_service_status,
       se_financial_service_value,
+      se_socio_economic,
+      se_population_counts,
+      se_population_counts_status,
+      se_population_counts_value,
+      se_celltowers,
+      se_celltowers_status,
+      se_celltowers_value,
+      se_nightlight_intensity,
+      se_nightlight_intensity_status,
+      se_nightlight_intensity_value,
+      se_relative_wealth,
+      se_relative_wealth_status,
+      se_relative_wealth_value,
+      se_GDP,
+      se_GDP_status,
+      se_GDP_value,
+      se_plant_health,
+      se_plant_health_status,
+      se_plant_health_value,
+      se_temperature_max,
+      se_temperature_max_status,
+      se_temperature_max_value,
+      se_elevation,
+      se_elevation_status,
+      se_elevation_value,
     }
   }
 
-  return { newProjection, layersData }
+  return { newProjection, seLayersData }
 }
