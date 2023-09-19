@@ -211,6 +211,17 @@ const OsmMap = () => {
 
   const geoServerUrl = 'http://3.142.241.245:8080/geoserver/sdg-ai-lab/wms'
 
+  const displaySeLayers = () => {
+    const values = Object.values(se)
+
+    se.se_education_facility.status &&
+      level === 1 &&
+      se_edu_1.features.map((library, index) => {
+        return newProjection(se_edu_1, library, index, se.se_education_facility)
+      })
+  }
+  console.log(Object.values(se))
+
   return (
     <MapContainer
       center={map_settings.latlong}
@@ -257,7 +268,6 @@ const OsmMap = () => {
 
       {
         // COMMENT #2 WAS HERE
-
         showLegend ? <NewLegend_2 /> : null
       }
 
@@ -273,7 +283,8 @@ const OsmMap = () => {
       {/* NEW. Socioeconomic. START */}
       <Pane name="socioeconomic-pane" style={{ zIndex: 201 }}>
         {/*Random Forest*/}
-        {se.se_random_forest_status &&
+
+        {se.se_random_forest.status &&
           level === 1 &&
           se_random_forest_1.features.map((library, index) => {
             return newProjection(
@@ -283,7 +294,7 @@ const OsmMap = () => {
               se.se_random_forest
             )
           })}
-        {se.se_random_forest_status &&
+        {se.se_random_forest.status &&
           level === 2 &&
           se_random_forest_2.features.map((library, index) => {
             return newProjection(
@@ -293,7 +304,7 @@ const OsmMap = () => {
               se.se_random_forest
             )
           })}
-        {se.se_random_forest_status &&
+        {se.se_random_forest.status &&
           level === 3 &&
           se_random_forest_3.features.map((library, index) => {
             return newProjection(
@@ -316,7 +327,8 @@ const OsmMap = () => {
           })} */}
 
         {/*Education Facilities*/}
-        {se.se_education_facility_status &&
+
+        {se.se_education_facility.status &&
           level === 1 &&
           se_edu_1.features.map((library, index) => {
             return newProjection(
@@ -326,7 +338,7 @@ const OsmMap = () => {
               se.se_education_facility
             )
           })}
-        {se.se_education_facility_status &&
+        {se.se_education_facility.status &&
           level === 2 &&
           se_edu_2.features.map((library, index) => {
             return newProjection(
@@ -336,7 +348,7 @@ const OsmMap = () => {
               se.se_education_facility
             )
           })}
-        {se.se_education_facility_status &&
+        {se.se_education_facility.status &&
           level === 3 &&
           se_edu_3.features.map((library, index) => {
             return newProjection(
@@ -348,7 +360,7 @@ const OsmMap = () => {
           })}
 
         {/*Health Institutions*/}
-        {se.se_health_institution_status &&
+        {se.se_health_institution.status &&
           level === 1 &&
           se_health_1.features.map((library, index) => {
             return newProjection(
@@ -358,7 +370,7 @@ const OsmMap = () => {
               se.se_health_institution
             )
           })}
-        {se.se_health_institution_status &&
+        {se.se_health_institution.status &&
           level === 2 &&
           se_health_2.features.map((library, index) => {
             return newProjection(
@@ -368,7 +380,7 @@ const OsmMap = () => {
               se.se_health_institution
             )
           })}
-        {se.se_health_institution_status &&
+        {se.se_health_institution.status &&
           level === 3 &&
           se_health_3.features.map((library, index) => {
             return newProjection(
@@ -380,7 +392,7 @@ const OsmMap = () => {
           })}
 
         {/*Financial Services*/}
-        {se.se_financial_service_status &&
+        {se.se_financial_service.status &&
           level === 1 &&
           se_finance_1.features.map((library, index) => {
             return newProjection(
@@ -390,7 +402,7 @@ const OsmMap = () => {
               se.se_financial_service
             )
           })}
-        {se.se_financial_service_status &&
+        {se.se_financial_service.status &&
           level === 2 &&
           se_finance_2.features.map((library, index) => {
             return newProjection(
@@ -400,7 +412,7 @@ const OsmMap = () => {
               se.se_financial_service
             )
           })}
-        {se.se_financial_service_status &&
+        {se.se_financial_service.status &&
           level === 3 &&
           se_finance_3.features.map((library, index) => {
             return newProjection(
@@ -412,7 +424,7 @@ const OsmMap = () => {
           })}
 
         {/*Population Counts*/}
-        {se.se_population_counts_status &&
+        {se.se_population_counts.status &&
           level === 1 &&
           se_population_1.features.map((library, index) => {
             return newProjection(
@@ -422,7 +434,7 @@ const OsmMap = () => {
               se.se_population_counts
             )
           })}
-        {se.se_population_counts_status &&
+        {se.se_population_counts.status &&
           level === 2 &&
           se_population_2.features.map((library, index) => {
             return newProjection(
@@ -432,7 +444,7 @@ const OsmMap = () => {
               se.se_population_counts
             )
           })}
-        {se.se_population_counts_status &&
+        {se.se_population_counts.status &&
           level === 3 &&
           se_population_3.features.map((library, index) => {
             return newProjection(
@@ -444,7 +456,7 @@ const OsmMap = () => {
           })}
 
         {/*Cell Towers*/}
-        {se.se_celltowers_status &&
+        {se.se_celltowers.status &&
           level === 1 &&
           se_celltowers_1.features.map((library, index) => {
             return newProjection(
@@ -454,7 +466,7 @@ const OsmMap = () => {
               se.se_celltowers
             )
           })}
-        {se.se_celltowers_status &&
+        {se.se_celltowers.status &&
           level === 2 &&
           se_celltowers_2.features.map((library, index) => {
             return newProjection(
@@ -464,7 +476,7 @@ const OsmMap = () => {
               se.se_celltowers
             )
           })}
-        {se.se_celltowers_status &&
+        {se.se_celltowers.status &&
           level === 3 &&
           se_celltowers_3.features.map((library, index) => {
             return newProjection(
@@ -476,7 +488,7 @@ const OsmMap = () => {
           })}
 
         {/*Nightlight Intensity*/}
-        {se.se_nightlight_intensity_status &&
+        {se.se_nightlight_intensity.status &&
           level === 1 &&
           se_nightlight_intensity_1.features.map((library, index) => {
             return newProjection(
@@ -486,7 +498,7 @@ const OsmMap = () => {
               se.se_nightlight_intensity
             )
           })}
-        {se.se_nightlight_intensity_status &&
+        {se.se_nightlight_intensity.status &&
           level === 2 &&
           se_nightlight_intensity_2.features.map((library, index) => {
             return newProjection(
@@ -496,7 +508,7 @@ const OsmMap = () => {
               se.se_nightlight_intensity
             )
           })}
-        {se.se_nightlight_intensity_status &&
+        {se.se_nightlight_intensity.status &&
           level === 3 &&
           se_nightlight_intensity_3.features.map((library, index) => {
             return newProjection(
@@ -508,7 +520,7 @@ const OsmMap = () => {
           })}
 
         {/*Relative Wealth*/}
-        {se.se_relative_wealth_status &&
+        {se.se_relative_wealth.status &&
           level === 1 &&
           se_relative_wealth_1.features.map((library, index) => {
             return newProjection(
@@ -518,7 +530,7 @@ const OsmMap = () => {
               se.se_relative_wealth
             )
           })}
-        {se.se_relative_wealth_status &&
+        {se.se_relative_wealth.status &&
           level === 2 &&
           se_relative_wealth_2.features.map((library, index) => {
             return newProjection(
@@ -528,7 +540,7 @@ const OsmMap = () => {
               se.se_relative_wealth
             )
           })}
-        {se.se_relative_wealth_status &&
+        {se.se_relative_wealth.status &&
           level === 3 &&
           se_relative_wealth_3.features.map((library, index) => {
             return newProjection(
@@ -540,24 +552,24 @@ const OsmMap = () => {
           })}
 
         {/*GDP*/}
-        {se.se_GDP_status &&
+        {se.se_GDP.status &&
           level === 1 &&
           se_GDP_1.features.map((library, index) => {
             return newProjection(se_GDP_1, library, index, se.se_GDP)
           })}
-        {se.se_GDP_status &&
+        {se.se_GDP.status &&
           level === 2 &&
           se_GDP_2.features.map((library, index) => {
             return newProjection(se_GDP_2, library, index, se.se_GDP)
           })}
-        {se.se_GDP_status &&
+        {se.se_GDP.status &&
           level === 3 &&
           se_GDP_3.features.map((library, index) => {
             return newProjection(se_GDP_3, library, index, se.se_GDP)
           })}
 
         {/*Plant Health*/}
-        {se.se_plant_health_status &&
+        {se.se_plant_health.status &&
           level === 1 &&
           se_plant_health_1.features.map((library, index) => {
             return newProjection(
@@ -567,7 +579,7 @@ const OsmMap = () => {
               se.se_plant_health
             )
           })}
-        {se.se_plant_health_status &&
+        {se.se_plant_health.status &&
           level === 2 &&
           se_plant_health_2.features.map((library, index) => {
             return newProjection(
@@ -577,7 +589,7 @@ const OsmMap = () => {
               se.se_plant_health
             )
           })}
-        {se.se_plant_health_status &&
+        {se.se_plant_health.status &&
           level === 3 &&
           se_plant_health_3.features.map((library, index) => {
             return newProjection(
@@ -589,7 +601,7 @@ const OsmMap = () => {
           })}
 
         {/*Temperature Max*/}
-        {se.se_temperature_max_status &&
+        {se.se_temperature_max.status &&
           level === 1 &&
           se_temperature_max_1.features.map((library, index) => {
             return newProjection(
@@ -599,7 +611,7 @@ const OsmMap = () => {
               se.se_temperature_max
             )
           })}
-        {se.se_temperature_max_status &&
+        {se.se_temperature_max.status &&
           level === 2 &&
           se_temperature_max_2.features.map((library, index) => {
             return newProjection(
@@ -609,7 +621,7 @@ const OsmMap = () => {
               se.se_temperature_max
             )
           })}
-        {se.se_temperature_max_status &&
+        {se.se_temperature_max.status &&
           level === 3 &&
           se_temperature_max_3.features.map((library, index) => {
             return newProjection(
@@ -632,7 +644,7 @@ const OsmMap = () => {
           })} */}
 
         {/*Elevation*/}
-        {se.se_elevation_status &&
+        {se.se_elevation.status &&
           level === 1 &&
           se_elevation_1.features.map((library, index) => {
             return newProjection(
@@ -642,7 +654,7 @@ const OsmMap = () => {
               se.se_elevation
             )
           })}
-        {se.se_elevation_status &&
+        {se.se_elevation.status &&
           level === 2 &&
           se_elevation_2.features.map((library, index) => {
             return newProjection(
@@ -652,7 +664,7 @@ const OsmMap = () => {
               se.se_elevation
             )
           })}
-        {se.se_elevation_status &&
+        {se.se_elevation.status &&
           level === 3 &&
           se_elevation_3.features.map((library, index) => {
             return newProjection(
