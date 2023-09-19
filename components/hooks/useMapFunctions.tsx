@@ -420,5 +420,37 @@ export const useMapFunctions = (show_data: boolean) => {
     }
   }
 
-  return { newProjection, seLayersData, svLayersData }
+  const categoriesData = (state: DataReducerInitialStateType) => {
+    const { vulnerability, categories } = state
+
+    const cats_very_low = categories.find((e) => e.slug === 'cats_very_low')
+    const cats_very_low_status = cats_very_low?.status
+
+    const cats_low = categories.find((e) => e.slug === 'cats_low')
+    const cats_low_status = cats_low?.status
+
+    const cats_medium = categories.find((e) => e.slug === 'cats_medium')
+    const cats_medium_status = cats_medium?.status
+
+    const cats_high = categories.find((e) => e.slug === 'cats_high')
+    const cats_high_status = cats_high?.status
+
+    const cats_very_high = categories.find((e) => e.slug === 'cats_very_high')
+    const cats_very_high_status = cats_very_high?.status
+
+    return [
+      // cats_very_low,
+      cats_very_low_status,
+      // cats_low,
+      cats_low_status,
+      // cats_medium,
+      cats_medium_status,
+      // cats_high,
+      cats_high_status,
+      // cats_very_high,
+      cats_very_high_status,
+    ]
+  }
+
+  return { newProjection, seLayersData, svLayersData, categoriesData }
 }

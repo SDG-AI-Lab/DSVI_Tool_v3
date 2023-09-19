@@ -102,7 +102,7 @@ const OsmMap = () => {
   const activeLegends = state['activeLegends']
   const dhsIndicator = state['dhs_indicator']
 
-  const { newProjection, seLayersData, svLayersData } =
+  const { newProjection, seLayersData, svLayersData, categoriesData } =
     useMapFunctions(show_data)
 
   /* Socioeconomic. START */
@@ -114,23 +114,20 @@ const OsmMap = () => {
   /* Geodata Layers. END */
 
   /*Categories. START*/
+
   const vulnerability = state['vulnerability']
-  const categories = state['categories']
+  const cats = categoriesData(state)
+  const seStatuses = Object.values(se).filter((x) => typeof x === 'boolean')
+  const svStatuses = Object.values(sv).filter((x) => typeof x === 'boolean')
 
-  const cats_very_low = categories.find((e) => e.slug === 'cats_very_low')
-  const { status: cats_very_low_status } = cats_very_low
+  const showLegend =
+    seStatuses.some((x) => x === true) ||
+    svStatuses.some((x) => x === true) ||
+    cats.some((x) => x === true) ||
+    dhsIndicator
 
-  const cats_low = categories.find((e) => e.slug === 'cats_low')
-  const { status: cats_low_status } = cats_low
+  // COMMENT #1 WAS HERE
 
-  const cats_medium = categories.find((e) => e.slug === 'cats_medium')
-  const { status: cats_medium_status } = cats_medium
-
-  const cats_high = categories.find((e) => e.slug === 'cats_high')
-  const { status: cats_high_status } = cats_high
-
-  const cats_very_high = categories.find((e) => e.slug === 'cats_very_high')
-  const { status: cats_very_high_status } = cats_very_high
   /*Categories. END*/
 
   /* !! Moved on 263 line !!  */
@@ -212,7 +209,7 @@ const OsmMap = () => {
     }
   }, [activeLegends])
 
-  const geoServerUrl = 'http://18.117.99.37:8080/geoserver/sdg-ai-lab/wms'
+  const geoServerUrl = 'http://3.142.241.245:8080/geoserver/sdg-ai-lab/wms'
 
   return (
     <MapContainer
@@ -258,45 +255,11 @@ const OsmMap = () => {
       <MapControls position="topright" />
       <InfoBox position="topleft" />
 
-      {se.se_random_forest_status || // se_xgboost_status
-      se.se_education_facility_status ||
-      se.se_health_institution_status ||
-      se.se_financial_service_status ||
-      se.se_population_counts_status ||
-      se.se_celltowers_status ||
-      se.se_nightlight_intensity_status ||
-      se.se_relative_wealth_status ||
-      se.se_GDP_status ||
-      se.se_plant_health_status ||
-      se.se_temperature_max_status ||
-      // se_land_use_class_status
-      se.se_elevation_status ||
-      // sv_linear_model_status ||
-      sv.sv_xgboost_status ||
-      sv.sv_random_forest_status ||
-      sv.distance_to_healthcare_status ||
-      sv.distance_to_finance_status ||
-      sv.distance_to_edu_status ||
-      sv.elevation_status ||
-      sv.slope_status ||
-      sv.max_temp_status ||
-      sv.plant_health_status ||
-      sv.precipitation_status ||
-      sv.nightlight_intensity_status ||
-      sv.pop_density_status ||
-      sv.celltower_status ||
-      // road_density_status
-      sv.relative_wealth_status ||
-      sv.gdp_status ||
-      (vulnerability &&
-        (cats_very_low_status ||
-          cats_low_status ||
-          cats_medium_status ||
-          cats_high_status ||
-          cats_very_high_status)) ||
-      dhsIndicator ? (
-        <NewLegend_2 />
-      ) : null}
+      {
+        // COMMENT #2 WAS HERE
+
+        showLegend ? <NewLegend_2 /> : null
+      }
 
       {/* Show Area of Interest. START */}
       <Pane name="area-of-interest-pane" style={{ zIndex: 200 }}>
@@ -975,3 +938,62 @@ const OsmMap = () => {
   )
 }
 export default OsmMap
+
+// COMMENT #1
+
+// const categories = state['categories']
+
+// const cats_very_low = categories.find((e) => e.slug === 'cats_very_low')
+
+// const { status: cats_very_low_status } = cats_very_low
+
+// const cats_low = categories.find((e) => e.slug === 'cats_low')
+// const { status: cats_low_status } = cats_low
+
+// const cats_medium = categories.find((e) => e.slug === 'cats_medium')
+// const { status: cats_medium_status } = cats_medium
+
+// const cats_high = categories.find((e) => e.slug === 'cats_high')
+// const { status: cats_high_status } = cats_high
+
+// const cats_very_high = categories.find((e) => e.slug === 'cats_very_high')
+// const { status: cats_very_high_status } = cats_very_high
+
+// COMMENT #2
+// se.se_random_forest_status || // se_xgboost_status
+// se.se_education_facility_status ||
+// se.se_health_institution_status ||
+// se.se_financial_service_status ||
+// se.se_population_counts_status ||
+// se.se_celltowers_status ||
+// se.se_nightlight_intensity_status ||
+// se.se_relative_wealth_status ||
+// se.se_GDP_status ||
+// se.se_plant_health_status ||
+// se.se_temperature_max_status ||
+// // se_land_use_class_status
+// se.se_elevation_status ||
+// // sv_linear_model_status ||
+// sv.sv_xgboost_status ||
+// sv.sv_random_forest_status ||
+// sv.distance_to_healthcare_status ||
+// sv.distance_to_finance_status ||
+// sv.distance_to_edu_status ||
+// sv.elevation_status ||
+// sv.slope_status ||
+// sv.max_temp_status ||
+// sv.plant_health_status ||
+// sv.precipitation_status ||
+// sv.nightlight_intensity_status ||
+// sv.pop_density_status ||
+// sv.celltower_status ||
+// // road_density_status
+// sv.relative_wealth_status ||
+// sv.gdp_status ||
+// (vulnerability &&
+//   (cats_very_low_status ||
+//     cats_low_status ||
+//     cats_medium_status ||
+//     cats_high_status ||
+//     cats_very_high_status)) ||
+// dhsIndicator
