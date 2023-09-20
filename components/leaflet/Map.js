@@ -25,49 +25,6 @@ import MapToolbar from '../controls/MapToolbar'
 
 import AOI from '/public/static/AOI.geojson'
 
-import se_random_forest_1 from '/public/static/rf_1.geojson'
-import se_random_forest_2 from '/public/static/rf_2.geojson'
-import se_random_forest_3 from '/public/static/rf_3.geojson'
-import se_xgboost_1 from '/public/static/XGBoost_1.geojson'
-import se_xgboost_2 from '/public/static/XGBoost_2.geojson'
-import se_xgboost_3 from '/public/static/XGBoost_3.geojson'
-import se_edu_1 from '/public/static/edu_1.geojson'
-import se_edu_2 from '/public/static/edu_2.geojson'
-import se_edu_3 from '/public/static/edu_3.geojson'
-import se_health_1 from '/public/static/health_1.geojson'
-import se_health_2 from '/public/static/health_2.geojson'
-import se_health_3 from '/public/static/health_3.geojson'
-import se_finance_1 from '/public/static/finan_1.geojson'
-import se_finance_2 from '/public/static/finan_2.geojson'
-import se_finance_3 from '/public/static/finan_3.geojson'
-import se_population_1 from '/public/static/ppp_pop_1.geojson'
-import se_population_2 from '/public/static/ppp_pop_2.geojson'
-import se_population_3 from '/public/static/ppp_pop_3.geojson'
-import se_celltowers_1 from '/public/static/cellt_1.geojson'
-import se_celltowers_2 from '/public/static/cellt_2.geojson'
-import se_celltowers_3 from '/public/static/cellt_3.geojson'
-import se_nightlight_intensity_1 from '/public/static/ntl_vnl_npp_2016_1.geojson'
-import se_nightlight_intensity_2 from '/public/static/ntl_vnl_npp_2016_2.geojson'
-import se_nightlight_intensity_3 from '/public/static/ntl_vnl_npp_2016_3.geojson'
-import se_relative_wealth_1 from '/public/static/rwi_1.geojson'
-import se_relative_wealth_2 from '/public/static/rwi_2.geojson'
-import se_relative_wealth_3 from '/public/static/rwi_3.geojson'
-import se_GDP_1 from '/public/static/gdp_2015_1.geojson'
-import se_GDP_2 from '/public/static/gdp_2015_2.geojson'
-import se_GDP_3 from '/public/static/gdp_2015_3.geojson'
-import se_plant_health_1 from '/public/static/ndvi_1.geojson'
-import se_plant_health_2 from '/public/static/ndvi_2.geojson'
-import se_plant_health_3 from '/public/static/ndvi_3.geojson'
-import se_temperature_max_1 from '/public/static/temp_1.geojson'
-import se_temperature_max_2 from '/public/static/temp_2.geojson'
-import se_temperature_max_3 from '/public/static/temp_3.geojson'
-// import se_land_use_class_1 from '/public/static/lu_1.geojson'
-// import se_land_use_class_2 from '/public/static/lu_2.geojson'
-// import se_land_use_class_3 from '/public/static/lu_3.geojson'
-import se_elevation_1 from '/public/static/dem_1.geojson'
-import se_elevation_2 from '/public/static/dem_2.geojson'
-import se_elevation_3 from '/public/static/dem_3.geojson'
-
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
 import { max } from 'lodash'
@@ -117,7 +74,9 @@ const OsmMap = () => {
 
   const vulnerability = state['vulnerability']
   const cats = categoriesData(state)
-  const seStatuses = Object.values(se).filter((x) => typeof x === 'boolean')
+  const seStatuses = Object.values(se)
+    .map((x) => x.layerInfo)
+    .filter((x) => typeof x === 'boolean')
   const svStatuses = Object.values(sv).filter((x) => typeof x === 'boolean')
 
   const showLegend =
@@ -212,15 +171,41 @@ const OsmMap = () => {
   const geoServerUrl = 'http://3.142.241.245:8080/geoserver/sdg-ai-lab/wms'
 
   const displaySeLayers = () => {
-    const values = Object.values(se)
-
-    se.se_education_facility.status &&
-      level === 1 &&
-      se_edu_1.features.map((library, index) => {
-        return newProjection(se_edu_1, library, index, se.se_education_facility)
-      })
+    return se.map((combinedLayer) => {
+      const { status } = combinedLayer.layerInfo
+      const [geojson1, geojson2, geojson3] = combinedLayer.geojson
+      if (status) {
+        if (level === 1) {
+          return geojson1.features.map((library, index) => {
+            return newProjection(
+              geojson1,
+              library,
+              index,
+              combinedLayer.layerInfo
+            )
+          })
+        } else if (level === 2) {
+          return geojson2.features.map((library, index) => {
+            return newProjection(
+              geojson2,
+              library,
+              index,
+              combinedLayer.layerInfo
+            )
+          })
+        } else {
+          return geojson3.features.map((library, index) => {
+            return newProjection(
+              geojson3,
+              library,
+              index,
+              combinedLayer.layerInfo
+            )
+          })
+        }
+      }
+    })
   }
-  console.log(Object.values(se))
 
   return (
     <MapContainer
@@ -282,398 +267,7 @@ const OsmMap = () => {
 
       {/* NEW. Socioeconomic. START */}
       <Pane name="socioeconomic-pane" style={{ zIndex: 201 }}>
-        {/*Random Forest*/}
-
-        {se.se_random_forest.status &&
-          level === 1 &&
-          se_random_forest_1.features.map((library, index) => {
-            return newProjection(
-              se_random_forest_1,
-              library,
-              index,
-              se.se_random_forest
-            )
-          })}
-        {se.se_random_forest.status &&
-          level === 2 &&
-          se_random_forest_2.features.map((library, index) => {
-            return newProjection(
-              se_random_forest_2,
-              library,
-              index,
-              se.se_random_forest
-            )
-          })}
-        {se.se_random_forest.status &&
-          level === 3 &&
-          se_random_forest_3.features.map((library, index) => {
-            return newProjection(
-              se_random_forest_3,
-              library,
-              index,
-              se.se_random_forest
-            )
-          })}
-
-        {/*XG Boost*/}
-        {/* {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
-          return newProjection(se_xgboost_1, library, index, se_xgboost);
-          })}
-          {se_xgboost_status && level === 2 && se_xgboost_2.features.map((library, index) => {
-            return newProjection(se_xgboost_2, library, index, se_xgboost);
-          })}
-          {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
-            return newProjection(se_xgboost_3, library, index, se_xgboost);
-          })} */}
-
-        {/*Education Facilities*/}
-
-        {se.se_education_facility.status &&
-          level === 1 &&
-          se_edu_1.features.map((library, index) => {
-            return newProjection(
-              se_edu_1,
-              library,
-              index,
-              se.se_education_facility
-            )
-          })}
-        {se.se_education_facility.status &&
-          level === 2 &&
-          se_edu_2.features.map((library, index) => {
-            return newProjection(
-              se_edu_2,
-              library,
-              index,
-              se.se_education_facility
-            )
-          })}
-        {se.se_education_facility.status &&
-          level === 3 &&
-          se_edu_3.features.map((library, index) => {
-            return newProjection(
-              se_edu_3,
-              library,
-              index,
-              se.se_education_facility
-            )
-          })}
-
-        {/*Health Institutions*/}
-        {se.se_health_institution.status &&
-          level === 1 &&
-          se_health_1.features.map((library, index) => {
-            return newProjection(
-              se_health_1,
-              library,
-              index,
-              se.se_health_institution
-            )
-          })}
-        {se.se_health_institution.status &&
-          level === 2 &&
-          se_health_2.features.map((library, index) => {
-            return newProjection(
-              se_health_2,
-              library,
-              index,
-              se.se_health_institution
-            )
-          })}
-        {se.se_health_institution.status &&
-          level === 3 &&
-          se_health_3.features.map((library, index) => {
-            return newProjection(
-              se_health_3,
-              library,
-              index,
-              se.se_health_institution
-            )
-          })}
-
-        {/*Financial Services*/}
-        {se.se_financial_service.status &&
-          level === 1 &&
-          se_finance_1.features.map((library, index) => {
-            return newProjection(
-              se_finance_1,
-              library,
-              index,
-              se.se_financial_service
-            )
-          })}
-        {se.se_financial_service.status &&
-          level === 2 &&
-          se_finance_2.features.map((library, index) => {
-            return newProjection(
-              se_finance_2,
-              library,
-              index,
-              se.se_financial_service
-            )
-          })}
-        {se.se_financial_service.status &&
-          level === 3 &&
-          se_finance_3.features.map((library, index) => {
-            return newProjection(
-              se_finance_3,
-              library,
-              index,
-              se.se_financial_service
-            )
-          })}
-
-        {/*Population Counts*/}
-        {se.se_population_counts.status &&
-          level === 1 &&
-          se_population_1.features.map((library, index) => {
-            return newProjection(
-              se_population_1,
-              library,
-              index,
-              se.se_population_counts
-            )
-          })}
-        {se.se_population_counts.status &&
-          level === 2 &&
-          se_population_2.features.map((library, index) => {
-            return newProjection(
-              se_population_2,
-              library,
-              index,
-              se.se_population_counts
-            )
-          })}
-        {se.se_population_counts.status &&
-          level === 3 &&
-          se_population_3.features.map((library, index) => {
-            return newProjection(
-              se_population_3,
-              library,
-              index,
-              se.se_population_counts
-            )
-          })}
-
-        {/*Cell Towers*/}
-        {se.se_celltowers.status &&
-          level === 1 &&
-          se_celltowers_1.features.map((library, index) => {
-            return newProjection(
-              se_celltowers_1,
-              library,
-              index,
-              se.se_celltowers
-            )
-          })}
-        {se.se_celltowers.status &&
-          level === 2 &&
-          se_celltowers_2.features.map((library, index) => {
-            return newProjection(
-              se_celltowers_2,
-              library,
-              index,
-              se.se_celltowers
-            )
-          })}
-        {se.se_celltowers.status &&
-          level === 3 &&
-          se_celltowers_3.features.map((library, index) => {
-            return newProjection(
-              se_celltowers_3,
-              library,
-              index,
-              se.se_celltowers
-            )
-          })}
-
-        {/*Nightlight Intensity*/}
-        {se.se_nightlight_intensity.status &&
-          level === 1 &&
-          se_nightlight_intensity_1.features.map((library, index) => {
-            return newProjection(
-              se_nightlight_intensity_1,
-              library,
-              index,
-              se.se_nightlight_intensity
-            )
-          })}
-        {se.se_nightlight_intensity.status &&
-          level === 2 &&
-          se_nightlight_intensity_2.features.map((library, index) => {
-            return newProjection(
-              se_nightlight_intensity_2,
-              library,
-              index,
-              se.se_nightlight_intensity
-            )
-          })}
-        {se.se_nightlight_intensity.status &&
-          level === 3 &&
-          se_nightlight_intensity_3.features.map((library, index) => {
-            return newProjection(
-              se_nightlight_intensity_3,
-              library,
-              index,
-              se.se_nightlight_intensity
-            )
-          })}
-
-        {/*Relative Wealth*/}
-        {se.se_relative_wealth.status &&
-          level === 1 &&
-          se_relative_wealth_1.features.map((library, index) => {
-            return newProjection(
-              se_relative_wealth_1,
-              library,
-              index,
-              se.se_relative_wealth
-            )
-          })}
-        {se.se_relative_wealth.status &&
-          level === 2 &&
-          se_relative_wealth_2.features.map((library, index) => {
-            return newProjection(
-              se_relative_wealth_2,
-              library,
-              index,
-              se.se_relative_wealth
-            )
-          })}
-        {se.se_relative_wealth.status &&
-          level === 3 &&
-          se_relative_wealth_3.features.map((library, index) => {
-            return newProjection(
-              se_relative_wealth_3,
-              library,
-              index,
-              se.se_relative_wealth
-            )
-          })}
-
-        {/*GDP*/}
-        {se.se_GDP.status &&
-          level === 1 &&
-          se_GDP_1.features.map((library, index) => {
-            return newProjection(se_GDP_1, library, index, se.se_GDP)
-          })}
-        {se.se_GDP.status &&
-          level === 2 &&
-          se_GDP_2.features.map((library, index) => {
-            return newProjection(se_GDP_2, library, index, se.se_GDP)
-          })}
-        {se.se_GDP.status &&
-          level === 3 &&
-          se_GDP_3.features.map((library, index) => {
-            return newProjection(se_GDP_3, library, index, se.se_GDP)
-          })}
-
-        {/*Plant Health*/}
-        {se.se_plant_health.status &&
-          level === 1 &&
-          se_plant_health_1.features.map((library, index) => {
-            return newProjection(
-              se_plant_health_1,
-              library,
-              index,
-              se.se_plant_health
-            )
-          })}
-        {se.se_plant_health.status &&
-          level === 2 &&
-          se_plant_health_2.features.map((library, index) => {
-            return newProjection(
-              se_plant_health_2,
-              library,
-              index,
-              se.se_plant_health
-            )
-          })}
-        {se.se_plant_health.status &&
-          level === 3 &&
-          se_plant_health_3.features.map((library, index) => {
-            return newProjection(
-              se_plant_health_3,
-              library,
-              index,
-              se.se_plant_health
-            )
-          })}
-
-        {/*Temperature Max*/}
-        {se.se_temperature_max.status &&
-          level === 1 &&
-          se_temperature_max_1.features.map((library, index) => {
-            return newProjection(
-              se_temperature_max_1,
-              library,
-              index,
-              se.se_temperature_max
-            )
-          })}
-        {se.se_temperature_max.status &&
-          level === 2 &&
-          se_temperature_max_2.features.map((library, index) => {
-            return newProjection(
-              se_temperature_max_2,
-              library,
-              index,
-              se.se_temperature_max
-            )
-          })}
-        {se.se_temperature_max.status &&
-          level === 3 &&
-          se_temperature_max_3.features.map((library, index) => {
-            return newProjection(
-              se_temperature_max_3,
-              library,
-              index,
-              se.se_temperature_max
-            )
-          })}
-
-        {/*Land Use*/}
-        {/* {se_land_use_class_status && level === 1 && se_land_use_class_1.features.map((library, index) => {
-            return newProjection(se_land_use_class_1, library, index, se_land_use_class);
-          })} */}
-        {/* {se_land_use_class_status && level === 2 && se_land_use_class_2.features.map((library, index) => {
-            return newProjection(se_land_use_class_2, library, index, se_land_use_class);
-          })} */}
-        {/* {se_land_use_class_status && level === 3 && se_land_use_class_3.features.map((library, index) => {
-            return newProjection(se_land_use_class_3, library, index, se_land_use_class);
-          })} */}
-
-        {/*Elevation*/}
-        {se.se_elevation.status &&
-          level === 1 &&
-          se_elevation_1.features.map((library, index) => {
-            return newProjection(
-              se_elevation_1,
-              library,
-              index,
-              se.se_elevation
-            )
-          })}
-        {se.se_elevation.status &&
-          level === 2 &&
-          se_elevation_2.features.map((library, index) => {
-            return newProjection(
-              se_elevation_2,
-              library,
-              index,
-              se.se_elevation
-            )
-          })}
-        {se.se_elevation.status &&
-          level === 3 &&
-          se_elevation_3.features.map((library, index) => {
-            return newProjection(
-              se_elevation_3,
-              library,
-              index,
-              se.se_elevation
-            )
-          })}
+        {displaySeLayers()}
       </Pane>
       {/* NEW. Socioeconomic. END */}
 
@@ -694,28 +288,28 @@ const OsmMap = () => {
             : null
           } */}
 
-        {sv.sv_xgboost_status ? (
+        {sv.sv_xgboost.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             layers="sdg-ai-lab:SV_XGBOOST"
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:xgboost"
-            opacity={sv.sv_xgboost_value / 100}
+            opacity={sv.sv_xgboost.value / 100}
           />
         ) : null}
 
-        {sv.sv_random_forest_status ? (
+        {sv.sv_random_forest.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             layers="sdg-ai-lab:SV_random_forest"
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:random_forest"
-            opacity={sv.sv_random_forest_value / 100}
+            opacity={sv.sv_random_forest.value / 100}
           />
         ) : null}
-        {sv.distance_to_finance_status ? (
+        {sv.distance_to_finance.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_finan_res_0_05_penalty"
@@ -723,10 +317,10 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:finan"
-            opacity={sv.distance_to_finance_value / 100}
+            opacity={sv.distance_to_finance.value / 100}
           />
         ) : null}
-        {sv.distance_to_healthcare_status ? (
+        {sv.distance_to_healthcare.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             layers="sdg-ai-lab:health_penalty"
@@ -734,11 +328,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:health"
-            opacity={sv.distance_to_healthcare_value / 100}
+            opacity={sv.distance_to_healthcare.value / 100}
           />
         ) : null}
 
-        {sv.roads_status ? (
+        {sv.roads.status ? (
           <WMSTileLayer
             params={{
               layers: 'sdg-ai-lab:lines_merged',
@@ -749,7 +343,7 @@ const OsmMap = () => {
             }}
             url={geoServerUrl}
             zIndex="9999"
-            opacity={sv.roads_value / 100}
+            opacity={sv.roads.value / 100}
           />
         ) : null}
 
@@ -766,7 +360,7 @@ const OsmMap = () => {
               zIndex="9999"
               opacity={sv_xgboost_value / 100}/> */}
 
-        {sv.distance_to_edu_status ? (
+        {sv.distance_to_edu.status ? (
           <>
             <BetterWMSTileLayer
               url={geoServerUrl}
@@ -775,7 +369,7 @@ const OsmMap = () => {
               transparent="true"
               zIndex="9999"
               styles="sdg-ai-lab:edu"
-              opacity={sv.distance_to_edu_value / 100}
+              opacity={sv.distance_to_edu.value / 100}
             />
             <WMSTileLayer
               params={{
@@ -787,12 +381,12 @@ const OsmMap = () => {
               }}
               url={geoServerUrl}
               zIndex="9999"
-              opacity={sv.roads_value / 100}
+              opacity={sv.roads.value / 100}
             />
           </>
         ) : null}
 
-        {sv.elevation_status ? (
+        {sv.elevation.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
@@ -800,11 +394,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:elevation"
-            opacity={sv.elevation_value / 100}
+            opacity={sv.elevation.value / 100}
           />
         ) : null}
 
-        {sv.slope_status ? (
+        {sv.slope.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_slope_clipped"
@@ -812,11 +406,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:slope"
-            opacity={sv.slope_value / 100}
+            opacity={sv.slope.value / 100}
           />
         ) : null}
 
-        {sv.max_temp_status ? (
+        {sv.max_temp.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_scaled_r_norm_maxtemp_feb"
@@ -824,11 +418,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:temp"
-            opacity={sv.max_temp_value / 100}
+            opacity={sv.max_temp.value / 100}
           />
         ) : null}
 
-        {sv.plant_health_status ? (
+        {sv.plant_health.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_new_ndvi"
@@ -836,11 +430,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:ndvi"
-            opacity={sv.plant_health_value / 100}
+            opacity={sv.plant_health.value / 100}
           />
         ) : null}
 
-        {sv.precipitation_status ? (
+        {sv.precipitation.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:precipitation_upsampled_0_0001"
@@ -848,11 +442,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:precip"
-            opacity={sv.precipitation_value / 100}
+            opacity={sv.precipitation.value / 100}
           />
         ) : null}
 
-        {sv.nightlight_intensity_status ? (
+        {sv.nightlight_intensity.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:scaled_r_norm_NTL"
@@ -860,11 +454,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:ntl"
-            opacity={sv.nightlight_intensity_value / 100}
+            opacity={sv.nightlight_intensity.value / 100}
           />
         ) : null}
 
-        {sv.pop_density_status ? (
+        {sv.pop_density.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_r_norm_population_interpolation"
@@ -872,11 +466,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:pop"
-            opacity={sv.pop_density_value / 100}
+            opacity={sv.pop_density.value / 100}
           />
         ) : null}
 
-        {sv.celltower_status ? (
+        {sv.celltower.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_r_celltower"
@@ -884,7 +478,7 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:celltower"
-            opacity={sv.celltower_value / 100}
+            opacity={sv.celltower.value / 100}
           />
         ) : null}
 
@@ -902,7 +496,7 @@ const OsmMap = () => {
         ) : null}
            */}
 
-        {sv.relative_wealth_status ? (
+        {sv.relative_wealth.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_rwi"
@@ -910,11 +504,11 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:rwi"
-            opacity={sv.relative_wealth_value / 100}
+            opacity={sv.relative_wealth.value / 100}
           />
         ) : null}
 
-        {sv.gdp_status ? (
+        {sv.gdp.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
             // layers="sdg-ai-lab:up_r_norm_GDP_2015_intp"
@@ -922,7 +516,7 @@ const OsmMap = () => {
             transparent="true"
             zIndex="9999"
             styles="sdg-ai-lab:gdp"
-            opacity={sv.gdp_value / 100}
+            opacity={sv.gdp.value / 100}
           />
         ) : null}
         {/* Old Tile layer logic */}
@@ -1009,3 +603,400 @@ export default OsmMap
 //     cats_high_status ||
 //     cats_very_high_status)) ||
 // dhsIndicator
+
+// COMMENT #3:
+
+{
+  /*Random Forest*/
+}
+
+//  {se.se_random_forest.status &&
+//   level === 1 &&
+//   se_random_forest_1.features.map((library, index) => {
+//     return newProjection(
+//       se_random_forest_1,
+//       library,
+//       index,
+//       se.se_random_forest
+//     )
+//   })}
+// {se.se_random_forest.status &&
+//   level === 2 &&
+//   se_random_forest_2.features.map((library, index) => {
+//     return newProjection(
+//       se_random_forest_2,
+//       library,
+//       index,
+//       se.se_random_forest
+//     )
+//   })}
+// {se.se_random_forest.status &&
+//   level === 3 &&
+//   se_random_forest_3.features.map((library, index) => {
+//     return newProjection(
+//       se_random_forest_3,
+//       library,
+//       index,
+//       se.se_random_forest
+//     )
+//   })}
+
+// {/*XG Boost*/}
+// {/* {se_xgboost_status && level === 1 && se_xgboost_1.features.map((library, index) => {
+//   return newProjection(se_xgboost_1, library, index, se_xgboost);
+//   })}
+//   {se_xgboost_status && level === 2 && se_xgboost_2.features.map((library, index) => {
+//     return newProjection(se_xgboost_2, library, index, se_xgboost);
+//   })}
+//   {se_xgboost_status && level === 3 && se_xgboost_3.features.map((library, index) => {
+//     return newProjection(se_xgboost_3, library, index, se_xgboost);
+//   })} */}
+
+// {/*Education Facilities*/}
+
+// {se.se_education_facility.status &&
+//   level === 1 &&
+//   se_edu_1.features.map((library, index) => {
+//     return newProjection(
+//       se_edu_1,
+//       library,
+//       index,
+//       se.se_education_facility
+//     )
+//   })}
+// {se.se_education_facility.status &&
+//   level === 2 &&
+//   se_edu_2.features.map((library, index) => {
+//     return newProjection(
+//       se_edu_2,
+//       library,
+//       index,
+//       se.se_education_facility
+//     )
+//   })}
+// {se.se_education_facility.status &&
+//   level === 3 &&
+//   se_edu_3.features.map((library, index) => {
+//     return newProjection(
+//       se_edu_3,
+//       library,
+//       index,
+//       se.se_education_facility
+//     )
+//   })}
+
+// {/*Health Institutions*/}
+// {se.se_health_institution.status &&
+//   level === 1 &&
+//   se_health_1.features.map((library, index) => {
+//     return newProjection(
+//       se_health_1,
+//       library,
+//       index,
+//       se.se_health_institution
+//     )
+//   })}
+// {se.se_health_institution.status &&
+//   level === 2 &&
+//   se_health_2.features.map((library, index) => {
+//     return newProjection(
+//       se_health_2,
+//       library,
+//       index,
+//       se.se_health_institution
+//     )
+//   })}
+// {se.se_health_institution.status &&
+//   level === 3 &&
+//   se_health_3.features.map((library, index) => {
+//     return newProjection(
+//       se_health_3,
+//       library,
+//       index,
+//       se.se_health_institution
+//     )
+//   })}
+
+// {/*Financial Services*/}
+// {se.se_financial_service.status &&
+//   level === 1 &&
+//   se_finance_1.features.map((library, index) => {
+//     return newProjection(
+//       se_finance_1,
+//       library,
+//       index,
+//       se.se_financial_service
+//     )
+//   })}
+// {se.se_financial_service.status &&
+//   level === 2 &&
+//   se_finance_2.features.map((library, index) => {
+//     return newProjection(
+//       se_finance_2,
+//       library,
+//       index,
+//       se.se_financial_service
+//     )
+//   })}
+// {se.se_financial_service.status &&
+//   level === 3 &&
+//   se_finance_3.features.map((library, index) => {
+//     return newProjection(
+//       se_finance_3,
+//       library,
+//       index,
+//       se.se_financial_service
+//     )
+//   })}
+
+// {/*Population Counts*/}
+// {se.se_population_counts.status &&
+//   level === 1 &&
+//   se_population_1.features.map((library, index) => {
+//     return newProjection(
+//       se_population_1,
+//       library,
+//       index,
+//       se.se_population_counts
+//     )
+//   })}
+// {se.se_population_counts.status &&
+//   level === 2 &&
+//   se_population_2.features.map((library, index) => {
+//     return newProjection(
+//       se_population_2,
+//       library,
+//       index,
+//       se.se_population_counts
+//     )
+//   })}
+// {se.se_population_counts.status &&
+//   level === 3 &&
+//   se_population_3.features.map((library, index) => {
+//     return newProjection(
+//       se_population_3,
+//       library,
+//       index,
+//       se.se_population_counts
+//     )
+//   })}
+
+// {/*Cell Towers*/}
+// {se.se_celltowers.status &&
+//   level === 1 &&
+//   se_celltowers_1.features.map((library, index) => {
+//     return newProjection(
+//       se_celltowers_1,
+//       library,
+//       index,
+//       se.se_celltowers
+//     )
+//   })}
+// {se.se_celltowers.status &&
+//   level === 2 &&
+//   se_celltowers_2.features.map((library, index) => {
+//     return newProjection(
+//       se_celltowers_2,
+//       library,
+//       index,
+//       se.se_celltowers
+//     )
+//   })}
+// {se.se_celltowers.status &&
+//   level === 3 &&
+//   se_celltowers_3.features.map((library, index) => {
+//     return newProjection(
+//       se_celltowers_3,
+//       library,
+//       index,
+//       se.se_celltowers
+//     )
+//   })}
+
+// {/*Nightlight Intensity*/}
+// {se.se_nightlight_intensity.status &&
+//   level === 1 &&
+//   se_nightlight_intensity_1.features.map((library, index) => {
+//     return newProjection(
+//       se_nightlight_intensity_1,
+//       library,
+//       index,
+//       se.se_nightlight_intensity
+//     )
+//   })}
+// {se.se_nightlight_intensity.status &&
+//   level === 2 &&
+//   se_nightlight_intensity_2.features.map((library, index) => {
+//     return newProjection(
+//       se_nightlight_intensity_2,
+//       library,
+//       index,
+//       se.se_nightlight_intensity
+//     )
+//   })}
+// {se.se_nightlight_intensity.status &&
+//   level === 3 &&
+//   se_nightlight_intensity_3.features.map((library, index) => {
+//     return newProjection(
+//       se_nightlight_intensity_3,
+//       library,
+//       index,
+//       se.se_nightlight_intensity
+//     )
+//   })}
+
+// {/*Relative Wealth*/}
+// {se.se_relative_wealth.status &&
+//   level === 1 &&
+//   se_relative_wealth_1.features.map((library, index) => {
+//     return newProjection(
+//       se_relative_wealth_1,
+//       library,
+//       index,
+//       se.se_relative_wealth
+//     )
+//   })}
+// {se.se_relative_wealth.status &&
+//   level === 2 &&
+//   se_relative_wealth_2.features.map((library, index) => {
+//     return newProjection(
+//       se_relative_wealth_2,
+//       library,
+//       index,
+//       se.se_relative_wealth
+//     )
+//   })}
+// {se.se_relative_wealth.status &&
+//   level === 3 &&
+//   se_relative_wealth_3.features.map((library, index) => {
+//     return newProjection(
+//       se_relative_wealth_3,
+//       library,
+//       index,
+//       se.se_relative_wealth
+//     )
+//   })}
+
+// {/*GDP*/}
+// {se.se_GDP.status &&
+//   level === 1 &&
+//   se_GDP_1.features.map((library, index) => {
+//     return newProjection(se_GDP_1, library, index, se.se_GDP)
+//   })}
+// {se.se_GDP.status &&
+//   level === 2 &&
+//   se_GDP_2.features.map((library, index) => {
+//     return newProjection(se_GDP_2, library, index, se.se_GDP)
+//   })}
+// {se.se_GDP.status &&
+//   level === 3 &&
+//   se_GDP_3.features.map((library, index) => {
+//     return newProjection(se_GDP_3, library, index, se.se_GDP)
+//   })}
+
+// {/*Plant Health*/}
+// {se.se_plant_health.status &&
+//   level === 1 &&
+//   se_plant_health_1.features.map((library, index) => {
+//     return newProjection(
+//       se_plant_health_1,
+//       library,
+//       index,
+//       se.se_plant_health
+//     )
+//   })}
+// {se.se_plant_health.status &&
+//   level === 2 &&
+//   se_plant_health_2.features.map((library, index) => {
+//     return newProjection(
+//       se_plant_health_2,
+//       library,
+//       index,
+//       se.se_plant_health
+//     )
+//   })}
+// {se.se_plant_health.status &&
+//   level === 3 &&
+//   se_plant_health_3.features.map((library, index) => {
+//     return newProjection(
+//       se_plant_health_3,
+//       library,
+//       index,
+//       se.se_plant_health
+//     )
+//   })}
+
+// {/*Temperature Max*/}
+// {se.se_temperature_max.status &&
+//   level === 1 &&
+//   se_temperature_max_1.features.map((library, index) => {
+//     return newProjection(
+//       se_temperature_max_1,
+//       library,
+//       index,
+//       se.se_temperature_max
+//     )
+//   })}
+// {se.se_temperature_max.status &&
+//   level === 2 &&
+//   se_temperature_max_2.features.map((library, index) => {
+//     return newProjection(
+//       se_temperature_max_2,
+//       library,
+//       index,
+//       se.se_temperature_max
+//     )
+//   })}
+// {se.se_temperature_max.status &&
+//   level === 3 &&
+//   se_temperature_max_3.features.map((library, index) => {
+//     return newProjection(
+//       se_temperature_max_3,
+//       library,
+//       index,
+//       se.se_temperature_max
+//     )
+//   })}
+
+// {/*Land Use*/}
+// {/* {se_land_use_class_status && level === 1 && se_land_use_class_1.features.map((library, index) => {
+//     return newProjection(se_land_use_class_1, library, index, se_land_use_class);
+//   })} */}
+// {/* {se_land_use_class_status && level === 2 && se_land_use_class_2.features.map((library, index) => {
+//     return newProjection(se_land_use_class_2, library, index, se_land_use_class);
+//   })} */}
+// {/* {se_land_use_class_status && level === 3 && se_land_use_class_3.features.map((library, index) => {
+//     return newProjection(se_land_use_class_3, library, index, se_land_use_class);
+//   })} */}
+
+// {/*Elevation*/}
+// {se.se_elevation.status &&
+//   level === 1 &&
+//   se_elevation_1.features.map((library, index) => {
+//     return newProjection(
+//       se_elevation_1,
+//       library,
+//       index,
+//       se.se_elevation
+//     )
+//   })}
+// {se.se_elevation.status &&
+//   level === 2 &&
+//   se_elevation_2.features.map((library, index) => {
+//     return newProjection(
+//       se_elevation_2,
+//       library,
+//       index,
+//       se.se_elevation
+//     )
+//   })}
+// {se.se_elevation.status &&
+//   level === 3 &&
+//   se_elevation_3.features.map((library, index) => {
+//     return newProjection(
+//       se_elevation_3,
+//       library,
+//       index,
+//       se.se_elevation
+//     )
+//   })}
