@@ -83,7 +83,6 @@ const OsmMap = () => {
     dhsIndicator
   // cats.some((x) => x === true) ||
 
-  console.log(dhsIndicator)
   // COMMENT #1 WAS HERE
 
   /*Categories. END*/
@@ -209,23 +208,59 @@ const OsmMap = () => {
   const displaySvLayers = () => {
     return sv.map((layerData) => {
       const { status, layer, style, value } = layerData
+
       if (status) {
-        return (
-          <BetterWMSTileLayer
-            key={layer}
-            url={geoServerUrl}
-            layers={layer}
-            transparent="true"
-            zIndex="9999"
-            styles={style}
-            opacity={value}
-          />
-        )
+        if (layerData.slug === 'sv_roads') {
+          return (
+            <WMSTileLayer
+              key={layer}
+              params={{
+                layers: layer,
+                format: 'image/png',
+                transparent: true,
+                version: '1.1.0',
+                //style: "sdg-ai-lab:xgboost",
+              }}
+              url={geoServerUrl}
+              zIndex="9999"
+              opacity={value / 100}
+            />
+          )
+        } else if (false) {
+        } else {
+          return (
+            <>
+              <BetterWMSTileLayer
+                key={layer}
+                url={geoServerUrl}
+                layers={layer}
+                transparent="true"
+                zIndex="9999"
+                styles={style}
+                opacity={value / 100}
+              />
+              {
+                layerData.slug === 'sv_distance_to_edu' && (
+                  <WMSTileLayer
+                    params={{
+                      layers: 'sdg-ai-lab:edu_single_point',
+                      format: 'image/png',
+                      transparent: true,
+                      version: '1.1.0',
+                      //style: "sdg-ai-lab:xgboost",
+                    }}
+                    url={geoServerUrl}
+                    zIndex="9999"
+                    opacity={value / 100}
+                  />
+                )
+                // console.log('another layer to load')
+              }
+            </>
+          )
+        }
       }
     })
-    // To-do:
-    // include logics for road network layer
-    // and for distance to education layer
   }
 
   return (
