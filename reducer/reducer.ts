@@ -2,6 +2,216 @@ import produce from 'immer'
 
 export type DataReducerInitialStateType = typeof initialState
 
+export type SvLayerObjectType = {
+  id: number
+  slug: string
+  title: string
+  status: false
+  value: number
+  layer: string
+  style: string
+}
+
+interface SvGeoData {
+  id: number
+  slug: string
+  title: string
+  data: SvLayerObjectType[]
+}
+
+const svGeoData: SvGeoData[] = [
+  {
+    id: 1,
+    slug: 'sv_social_vulnerability',
+    title: 'Social Vulnerability',
+    data: [
+      // {
+      //     id: 1.1,
+      //     slug: 'sv_linear_model',
+      //     title: 'SV: Linear Model',
+      //     status: false,
+      //     value: 70,
+      //     layer: 'sdg-ai-lab:Linear_SV'
+      // },
+      {
+        id: 1.2,
+        slug: 'sv_xgboost',
+        title: 'SV: XG Boost',
+        status: false,
+        value: 70,
+        // layer: 'sdg-ai-lab:XGBoost_tuned_scaled_clipped_final',
+        layer: 'sdg-ai-lab:SV_XGBOOST',
+        style: 'sdg-ai-lab:xgboost',
+      },
+      {
+        id: 1.3,
+        slug: 'sv_random_forest',
+        title: 'SV: Random Forest',
+        status: false,
+        value: 70,
+        // layer: 'sdg-ai-lab:Random_Forest_tuned_scaled_clp_final',
+        layer: 'sdg-ai-lab:SV_random_forest',
+        style: 'sdg-ai-lab:random_forest',
+      },
+    ],
+  },
+  {
+    id: 2,
+    slug: 'sv_socio_economic',
+    title: 'Socio Economic',
+    data: [
+      {
+        id: 2.1,
+        slug: 'sv_nightlight_intensity',
+        title: 'Nightlight Intensity',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:Nightlight',
+        style: 'sdg-ai-lab:ntl',
+      },
+      {
+        id: 2.2,
+        slug: 'sv_pop_density',
+        title: 'Population Density',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:population',
+        style: 'sdg-ai-lab:pop',
+      },
+      {
+        id: 2.3,
+        slug: 'sv_celltower',
+        title: 'Celltower Density',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:celltower',
+        style: 'sdg-ai-lab:celltower',
+      },
+      // {
+      //     id: 4.4,
+      //     slug: 'sv_road_density',
+      //     title: 'Road Density',
+      //     status: false,
+      //     value: 70,
+      //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
+      // },
+      {
+        id: 2.5,
+        slug: 'sv_relative_wealth',
+        title: 'Relative Wealth',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:rwi_relativewealth',
+        style: 'sdg-ai-lab:rwi',
+      },
+      {
+        id: 2.6,
+        slug: 'sv_gdp',
+        title: 'Gross Domestic Product',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:GDP',
+        style: 'sdg-ai-lab:gdp',
+      },
+    ],
+  },
+  {
+    id: 3,
+    slug: 'sv_distance_maps',
+    title: 'Distance Maps',
+    data: [
+      {
+        id: 3.1,
+        slug: 'sv_distance_to_healthcare',
+        title: 'Distance to Healthcare',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:health_penalty',
+        style: 'sdg-ai-lab:health',
+      },
+      {
+        id: 3.2,
+        slug: 'sv_distance_to_finance',
+        title: 'Distance to Finance',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:financial_penalty',
+        style: 'sdg-ai-lab:finan',
+      },
+      {
+        id: 3.3,
+        slug: 'sv_distance_to_edu',
+        title: 'Distance to Education',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:Education_penalty',
+        style: 'sdg-ai-lab:edu',
+      },
+      {
+        id: 3.4,
+        slug: 'sv_roads',
+        title: 'Road Network',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:lines_merged',
+        style: 'sdg-ai-lab:xgboost',
+      },
+    ],
+  },
+  {
+    id: 4,
+    slug: 'sv_bio_physical',
+    title: 'Bio Physical Layers',
+    data: [
+      {
+        id: 4.1,
+        slug: 'sv_elevation',
+        title: 'Elevation in meters',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:elevation',
+        style: 'sdg-ai-lab:elevation',
+      },
+      {
+        id: 4.2,
+        slug: 'sv_slope',
+        title: 'Slope in degrees',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:slope',
+        style: 'sdg-ai-lab:slope',
+      },
+      {
+        id: 4.3,
+        slug: 'sv_max_temp',
+        title: 'Max Temp Winter',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:temperature_max_winter',
+        style: 'sdg-ai-lab:temp',
+      },
+      {
+        id: 4.4,
+        slug: 'sv_plant_health',
+        title: 'Plant Health (NDVI)',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:NDVI',
+        style: 'sdg-ai-lab:ndvi',
+      },
+      {
+        id: 4.5,
+        slug: 'sv_precipitation',
+        title: 'Rainfall',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:precipitation',
+        style: 'sdg-ai-lab:precip',
+      },
+    ],
+  },
+]
+
 export const initialState = {
   show_data: false,
   show_sidebar_data: false,
@@ -297,180 +507,7 @@ export const initialState = {
   },
   geodata: {
     status: false,
-    data: [
-      {
-        id: 1,
-        slug: 'sv_social_vulnerability',
-        title: 'Social Vulnerability',
-        data: [
-          // {
-          //     id: 1.1,
-          //     slug: 'sv_linear_model',
-          //     title: 'SV: Linear Model',
-          //     status: false,
-          //     value: 70,
-          //     layer: 'sdg-ai-lab:Linear_SV'
-          // },
-          {
-            id: 1.2,
-            slug: 'sv_xgboost',
-            title: 'SV: XG Boost',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:XGBoost_tuned_scaled_clipped_final',
-          },
-          {
-            id: 1.3,
-            slug: 'sv_random_forest',
-            title: 'SV: Random Forest',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:Random_Forest_tuned_scaled_clp_final',
-          },
-        ],
-      },
-      {
-        id: 2,
-        slug: 'sv_socio_economic',
-        title: 'Socio Economic',
-        data: [
-          {
-            id: 2.1,
-            slug: 'sv_nightlight_intensity',
-            title: 'Nightlight Intensity',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:scaled_r_norm_NTL',
-          },
-          {
-            id: 2.2,
-            slug: 'sv_pop_density',
-            title: 'Population Density',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_r_norm_population_interpolation',
-          },
-          {
-            id: 2.3,
-            slug: 'sv_celltower',
-            title: 'Celltower Density',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_r_celltower',
-          },
-          // {
-          //     id: 4.4,
-          //     slug: 'sv_road_density',
-          //     title: 'Road Density',
-          //     status: false,
-          //     value: 70,
-          //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
-          // },
-          {
-            id: 2.5,
-            slug: 'sv_relative_wealth',
-            title: 'Relative Wealth',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_rwi',
-          },
-          {
-            id: 2.6,
-            slug: 'sv_gdp',
-            title: 'Gross Domestic Product',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_r_norm_GDP_2015_intp',
-          },
-        ],
-      },
-      {
-        id: 3,
-        slug: 'sv_distance_maps',
-        title: 'Distance Maps',
-        data: [
-          {
-            id: 3.1,
-            slug: 'sv_distance_to_healthcare',
-            title: 'Distance to Healthcare',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_health_res_0_05_penalty',
-          },
-          {
-            id: 3.2,
-            slug: 'sv_distance_to_finance',
-            title: 'Distance to Finance',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_finan_res_0_05_penalty',
-          },
-          {
-            id: 3.3,
-            slug: 'sv_distance_to_edu',
-            title: 'Distance to Education',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_edu_res_0_05_penalty',
-          },
-          {
-            id: 3.4,
-            slug: 'sv_roads',
-            title: 'Road Network',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:lines_merged',
-          },
-        ],
-      },
-      {
-        id: 4,
-        slug: 'sv_bio_physical',
-        title: 'Bio Physical Layers',
-        data: [
-          {
-            id: 4.1,
-            slug: 'sv_elevation',
-            title: 'Elevation in meters',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:r_norm_elev_srtmv2_300m',
-          },
-          {
-            id: 4.2,
-            slug: 'sv_slope',
-            title: 'Slope in degrees',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_slope_clipped',
-          },
-          {
-            id: 4.3,
-            slug: 'sv_max_temp',
-            title: 'Max Temp Winter',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_scaled_r_norm_maxtemp_feb',
-          },
-          {
-            id: 4.4,
-            slug: 'sv_plant_health',
-            title: 'Plant Health (NDVI)',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_new_ndvi',
-          },
-          {
-            id: 4.5,
-            slug: 'sv_precipitation',
-            title: 'Rainfall',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:precipitation_upsampled_0_0001',
-          },
-        ],
-      },
-    ],
+    data: svGeoData,
   },
   vulnerability: false,
   csv_data_vulnerability: [],

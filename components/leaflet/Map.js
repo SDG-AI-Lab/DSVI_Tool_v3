@@ -168,7 +168,7 @@ const OsmMap = () => {
     }
   }, [activeLegends])
 
-  const geoServerUrl = 'http://3.142.241.245:8080/geoserver/sdg-ai-lab/wms'
+  const geoServerUrl = 'http://3.14.128.111:8080/geoserver/sdg-ai-lab/wms'
 
   const displaySeLayers = () => {
     return se.map((combinedLayer) => {
@@ -291,10 +291,10 @@ const OsmMap = () => {
         {sv.sv_xgboost.status ? (
           <BetterWMSTileLayer
             url={geoServerUrl}
-            layers="sdg-ai-lab:SV_XGBOOST"
+            layers={sv.sv_xgboost.layer}
             transparent="true"
             zIndex="9999"
-            styles="sdg-ai-lab:xgboost"
+            styles={sv.sv_xgboost.style}
             opacity={sv.sv_xgboost.value / 100}
           />
         ) : null}

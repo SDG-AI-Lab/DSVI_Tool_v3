@@ -2,11 +2,14 @@ import React from 'react'
 import CustomPolygon from '../controls/CustomPolygon'
 import { Polygon } from 'react-leaflet'
 import L from 'leaflet'
-import { DataReducerInitialStateType } from '../../reducer/reducer'
+import {
+  DataReducerInitialStateType,
+  SvLayerObjectType,
+} from '../../reducer/reducer'
 
 import { geojson } from '/public/static'
 
-export type LayerObjectType = {
+export type SeLayerObjectType = {
   id: number
   json_library: string
   reverse_meaning: boolean
@@ -18,14 +21,14 @@ export type LayerObjectType = {
 }
 
 interface CombinedLayerData {
-  layerInfo: LayerObjectType | undefined
+  layerInfo: SeLayerObjectType | undefined
   geojson: { crs: any; features: any; name: string; type: string }[]
 }
 
 export const useMapFunctions = (show_data: boolean) => {
   const mapPolygonColorToDensity = (
     normalizeData: number,
-    layerObject: LayerObjectType
+    layerObject: SeLayerObjectType
   ): string => {
     if (!layerObject.reverse_meaning) {
       switch (true) {
@@ -64,7 +67,7 @@ export const useMapFunctions = (show_data: boolean) => {
     full_JSON_library,
     library,
     index: number,
-    layerObject: LayerObjectType
+    layerObject: SeLayerObjectType
   ): JSX.Element => {
     const {
       NAME,
@@ -364,6 +367,7 @@ export const useMapFunctions = (show_data: boolean) => {
     )
 
     const gdp = socio_economic?.data.find((e) => e.slug === 'sv_gdp')
+    console.log(sv_xgboost)
 
     return {
       sv_xgboost,
