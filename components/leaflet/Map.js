@@ -74,17 +74,16 @@ const OsmMap = () => {
 
   const vulnerability = state['vulnerability']
   const cats = categoriesData(state)
-  const seStatuses = Object.values(se)
-    .map((x) => x.layerInfo)
-    .filter((x) => typeof x === 'boolean')
-  const svStatuses = Object.values(sv).filter((x) => typeof x === 'boolean')
+  const seStatuses = se.map((x) => x.layerInfo.status)
+  const svStatuses = sv.map((x) => x.status)
 
   const showLegend =
     seStatuses.some((x) => x === true) ||
     svStatuses.some((x) => x === true) ||
-    cats.some((x) => x === true) ||
     dhsIndicator
+  // cats.some((x) => x === true) ||
 
+  console.log(dhsIndicator)
   // COMMENT #1 WAS HERE
 
   /*Categories. END*/
@@ -207,6 +206,28 @@ const OsmMap = () => {
     })
   }
 
+  const displaySvLayers = () => {
+    return sv.map((layerData) => {
+      const { status, layer, style, value } = layerData
+      if (status) {
+        return (
+          <BetterWMSTileLayer
+            key={layer}
+            url={geoServerUrl}
+            layers={layer}
+            transparent="true"
+            zIndex="9999"
+            styles={style}
+            opacity={value}
+          />
+        )
+      }
+    })
+    // To-do:
+    // include logics for road network layer
+    // and for distance to education layer
+  }
+
   return (
     <MapContainer
       center={map_settings.latlong}
@@ -273,267 +294,8 @@ const OsmMap = () => {
 
       {/* Geodata layer. START */}
       <Pane name="geodata-pane" style={{ zIndex: 201 }}>
-        {/* {sv_linear_model_status ?
-              <WMSTileLayer
-                params={{
-                  layers: "sdg-ai-lab:Linear_SV",
-                  format: "image/png",
-                  transparent: true,
-                  version: "1.1.0",
-                  style: "sdg-ai-lab:xgboost",
-                }}
-                url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-                zIndex="9999"
-                opacity={sv_linear_model_value / 100}/>
-            : null
-          } */}
-
-        {sv.sv_xgboost.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            layers={sv.sv_xgboost.layer}
-            transparent="true"
-            zIndex="9999"
-            styles={sv.sv_xgboost.style}
-            opacity={sv.sv_xgboost.value / 100}
-          />
-        ) : null}
-
-        {sv.sv_random_forest.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            layers="sdg-ai-lab:SV_random_forest"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:random_forest"
-            opacity={sv.sv_random_forest.value / 100}
-          />
-        ) : null}
-        {sv.distance_to_finance.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_finan_res_0_05_penalty"
-            layers="sdg-ai-lab:financial_penalty"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:finan"
-            opacity={sv.distance_to_finance.value / 100}
-          />
-        ) : null}
-        {sv.distance_to_healthcare.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            layers="sdg-ai-lab:health_penalty"
-            // layers="sdg-ai-lab:up_health_res_0_05_penalty"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:health"
-            opacity={sv.distance_to_healthcare.value / 100}
-          />
-        ) : null}
-
-        {sv.roads.status ? (
-          <WMSTileLayer
-            params={{
-              layers: 'sdg-ai-lab:lines_merged',
-              format: 'image/png',
-              transparent: true,
-              version: '1.1.0',
-              //style: "sdg-ai-lab:xgboost",
-            }}
-            url={geoServerUrl}
-            zIndex="9999"
-            opacity={sv.roads.value / 100}
-          />
-        ) : null}
-
-        {/* OLD WMSTileLayer
-            <WMSTileLayer
-              params={{
-                layers: "sdg-ai-lab:XGBoost_tuned_scaled_clipped_final",
-                format: "image/png",
-                transparent: true,
-                version: "1.1.0",
-                style: "sdg-ai-lab:xgboost",
-              }}
-              url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-              zIndex="9999"
-              opacity={sv_xgboost_value / 100}/> */}
-
-        {sv.distance_to_edu.status ? (
-          <>
-            <BetterWMSTileLayer
-              url={geoServerUrl}
-              // layers="sdg-ai-lab:up_edu_res_0_05_penalty"
-              layers="sdg-ai-lab:Education_penalty"
-              transparent="true"
-              zIndex="9999"
-              styles="sdg-ai-lab:edu"
-              opacity={sv.distance_to_edu.value / 100}
-            />
-            <WMSTileLayer
-              params={{
-                layers: 'sdg-ai-lab:edu_single_point',
-                format: 'image/png',
-                transparent: true,
-                version: '1.1.0',
-                //style: "sdg-ai-lab:xgboost",
-              }}
-              url={geoServerUrl}
-              zIndex="9999"
-              opacity={sv.roads.value / 100}
-            />
-          </>
-        ) : null}
-
-        {sv.elevation.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
-            layers="sdg-ai-lab:elevation"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:elevation"
-            opacity={sv.elevation.value / 100}
-          />
-        ) : null}
-
-        {sv.slope.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_slope_clipped"
-            layers="sdg-ai-lab:slope"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:slope"
-            opacity={sv.slope.value / 100}
-          />
-        ) : null}
-
-        {sv.max_temp.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_scaled_r_norm_maxtemp_feb"
-            layers="sdg-ai-lab:temperature_max_winter"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:temp"
-            opacity={sv.max_temp.value / 100}
-          />
-        ) : null}
-
-        {sv.plant_health.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_new_ndvi"
-            layers="sdg-ai-lab:NDVI"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:ndvi"
-            opacity={sv.plant_health.value / 100}
-          />
-        ) : null}
-
-        {sv.precipitation.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:precipitation_upsampled_0_0001"
-            layers="sdg-ai-lab:precipitation"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:precip"
-            opacity={sv.precipitation.value / 100}
-          />
-        ) : null}
-
-        {sv.nightlight_intensity.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:scaled_r_norm_NTL"
-            layers="sdg-ai-lab:Nightlight"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:ntl"
-            opacity={sv.nightlight_intensity.value / 100}
-          />
-        ) : null}
-
-        {sv.pop_density.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_r_norm_population_interpolation"
-            layers="sdg-ai-lab:population"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:pop"
-            opacity={sv.pop_density.value / 100}
-          />
-        ) : null}
-
-        {sv.celltower.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_r_celltower"
-            layers="sdg-ai-lab:celltower"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:celltower"
-            opacity={sv.celltower.value / 100}
-          />
-        ) : null}
-
-        {/* 
-        {roads_status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:scaled_r_norm_road_density"
-            layers="sdg-ai-lab:scaled_r_norm_road_density"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:ntl_0_255_style"
-            opacity={roads_value / 100}
-          />
-        ) : null}
-           */}
-
-        {sv.relative_wealth.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_rwi"
-            layers="sdg-ai-lab:rwi_relativewealth"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:rwi"
-            opacity={sv.relative_wealth.value / 100}
-          />
-        ) : null}
-
-        {sv.gdp.status ? (
-          <BetterWMSTileLayer
-            url={geoServerUrl}
-            // layers="sdg-ai-lab:up_r_norm_GDP_2015_intp"
-            layers="sdg-ai-lab:GDP"
-            transparent="true"
-            zIndex="9999"
-            styles="sdg-ai-lab:gdp"
-            opacity={sv.gdp.value / 100}
-          />
-        ) : null}
-        {/* Old Tile layer logic */}
-        {/* {sv_linear_model ?
-            <WMSTileLayer
-              params={{
-                layers: "sdg-ai-lab:Linear_SV",
-                format: "image/png",
-                transparent: true,
-                version: "1.1.0",
-                style: "sdg-ai-lab:xgboost",
-              }}
-              url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
-              zIndex="9999"
-              opacity={sv_linear_model / 100}/>
-          : null
-          } */}
+        {displaySvLayers()}
+        {/* COMMENT #4 WAS HERE */}
       </Pane>
       {/* Geodata layer. END */}
 
@@ -1000,3 +762,265 @@ export default OsmMap
 //       se.se_elevation
 //     )
 //   })}
+
+//  COMMENT #4
+// {sv_linear_model_status ?
+//   <WMSTileLayer
+//     params={{
+//       layers: "sdg-ai-lab:Linear_SV",
+//       format: "image/png",
+//       transparent: true,
+//       version: "1.1.0",
+//       style: "sdg-ai-lab:xgboost",
+//     }}
+//     url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
+//     zIndex="9999"
+//     opacity={sv_linear_model_value / 100}/>
+// : null
+// }
+// {sv.sv_xgboost.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     layers={sv.sv_xgboost.layer}
+//     transparent="true"
+//     zIndex="9999"
+//     styles={sv.sv_xgboost.style}
+//     opacity={sv.sv_xgboost.value / 100}
+//   />
+// ) : null}
+
+// {sv.sv_random_forest.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     layers="sdg-ai-lab:SV_random_forest"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:random_forest"
+//     opacity={sv.sv_random_forest.value / 100}
+//   />
+// ) : null}
+// {sv.distance_to_finance.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_finan_res_0_05_penalty"
+//     layers="sdg-ai-lab:financial_penalty"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:finan"
+//     opacity={sv.distance_to_finance.value / 100}
+//   />
+// ) : null}
+// {sv.distance_to_healthcare.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     layers="sdg-ai-lab:health_penalty"
+//     // layers="sdg-ai-lab:up_health_res_0_05_penalty"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:health"
+//     opacity={sv.distance_to_healthcare.value / 100}
+//   />
+// ) : null}
+
+// {sv.roads.status ? (
+//   <WMSTileLayer
+//     params={{
+//       layers: 'sdg-ai-lab:lines_merged',
+//       format: 'image/png',
+//       transparent: true,
+//       version: '1.1.0',
+//       //style: "sdg-ai-lab:xgboost",
+//     }}
+//     url={geoServerUrl}
+//     zIndex="9999"
+//     opacity={sv.roads.value / 100}
+//   />
+// ) : null}
+
+// {/* OLD WMSTileLayer
+//     <WMSTileLayer
+//       params={{
+//         layers: "sdg-ai-lab:XGBoost_tuned_scaled_clipped_final",
+//         format: "image/png",
+//         transparent: true,
+//         version: "1.1.0",
+//         style: "sdg-ai-lab:xgboost",
+//       }}
+//       url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
+//       zIndex="9999"
+//       opacity={sv_xgboost_value / 100}/> */}
+
+// {sv.distance_to_edu.status ? (
+//   <>
+//     <BetterWMSTileLayer
+//       url={geoServerUrl}
+//       // layers="sdg-ai-lab:up_edu_res_0_05_penalty"
+//       layers="sdg-ai-lab:Education_penalty"
+//       transparent="true"
+//       zIndex="9999"
+//       styles="sdg-ai-lab:edu"
+//       opacity={sv.distance_to_edu.value / 100}
+//     />
+//     <WMSTileLayer
+//       params={{
+//         layers: 'sdg-ai-lab:edu_single_point',
+//         format: 'image/png',
+//         transparent: true,
+//         version: '1.1.0',
+//         //style: "sdg-ai-lab:xgboost",
+//       }}
+//       url={geoServerUrl}
+//       zIndex="9999"
+//       opacity={sv.roads.value / 100}
+//     />
+//   </>
+// ) : null}
+
+// {sv.elevation.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:r_norm_elev_srtmv2_300m"
+//     layers="sdg-ai-lab:elevation"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:elevation"
+//     opacity={sv.elevation.value / 100}
+//   />
+// ) : null}
+
+// {sv.slope.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_slope_clipped"
+//     layers="sdg-ai-lab:slope"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:slope"
+//     opacity={sv.slope.value / 100}
+//   />
+// ) : null}
+
+// {sv.max_temp.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_scaled_r_norm_maxtemp_feb"
+//     layers="sdg-ai-lab:temperature_max_winter"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:temp"
+//     opacity={sv.max_temp.value / 100}
+//   />
+// ) : null}
+
+// {sv.plant_health.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_new_ndvi"
+//     layers="sdg-ai-lab:NDVI"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:ndvi"
+//     opacity={sv.plant_health.value / 100}
+//   />
+// ) : null}
+
+// {sv.precipitation.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:precipitation_upsampled_0_0001"
+//     layers="sdg-ai-lab:precipitation"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:precip"
+//     opacity={sv.precipitation.value / 100}
+//   />
+// ) : null}
+
+// {sv.nightlight_intensity.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:scaled_r_norm_NTL"
+//     layers="sdg-ai-lab:Nightlight"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:ntl"
+//     opacity={sv.nightlight_intensity.value / 100}
+//   />
+// ) : null}
+
+// {sv.pop_density.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_r_norm_population_interpolation"
+//     layers="sdg-ai-lab:population"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:pop"
+//     opacity={sv.pop_density.value / 100}
+//   />
+// ) : null}
+
+// {sv.celltower.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_r_celltower"
+//     layers="sdg-ai-lab:celltower"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:celltower"
+//     opacity={sv.celltower.value / 100}
+//   />
+// ) : null}
+
+// {/*
+// {roads_status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:scaled_r_norm_road_density"
+//     layers="sdg-ai-lab:scaled_r_norm_road_density"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:ntl_0_255_style"
+//     opacity={roads_value / 100}
+//   />
+// ) : null}
+//    */}
+
+// {sv.relative_wealth.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_rwi"
+//     layers="sdg-ai-lab:rwi_relativewealth"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:rwi"
+//     opacity={sv.relative_wealth.value / 100}
+//   />
+// ) : null}
+
+// {sv.gdp.status ? (
+//   <BetterWMSTileLayer
+//     url={geoServerUrl}
+//     // layers="sdg-ai-lab:up_r_norm_GDP_2015_intp"
+//     layers="sdg-ai-lab:GDP"
+//     transparent="true"
+//     zIndex="9999"
+//     styles="sdg-ai-lab:gdp"
+//     opacity={sv.gdp.value / 100}
+//   />
+// ) : null}
+// {/* Old Tile layer logic */}
+// {/* {sv_linear_model ?
+//     <WMSTileLayer
+//       params={{
+//         layers: "sdg-ai-lab:Linear_SV",
+//         format: "image/png",
+//         transparent: true,
+//         version: "1.1.0",
+//         style: "sdg-ai-lab:xgboost",
+//       }}
+//       url="https://www.sdglab.ml/geoserver/sdg-ai-lab/wms"
+//       zIndex="9999"
+//       opacity={sv_linear_model / 100}/>
+//   : null
+//   } */}

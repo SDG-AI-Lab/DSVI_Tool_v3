@@ -367,9 +367,8 @@ export const useMapFunctions = (show_data: boolean) => {
     )
 
     const gdp = socio_economic?.data.find((e) => e.slug === 'sv_gdp')
-    console.log(sv_xgboost)
 
-    return {
+    return [
       sv_xgboost,
       sv_random_forest,
       distance_maps,
@@ -389,7 +388,7 @@ export const useMapFunctions = (show_data: boolean) => {
       celltower,
       relative_wealth,
       gdp,
-    }
+    ]
   }
 
   const categoriesData = (state: DataReducerInitialStateType) => {
