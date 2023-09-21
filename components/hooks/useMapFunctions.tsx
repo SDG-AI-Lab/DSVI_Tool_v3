@@ -6,6 +6,7 @@ import {
   DataReducerInitialStateType,
   SvLayerObjectType,
 } from '../../reducer/reducer'
+import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 
 import { geojson } from '/public/static'
 
@@ -25,7 +26,16 @@ interface CombinedLayerData {
   geojson: { crs: any; features: any; name: string; type: string }[]
 }
 
-export const useMapFunctions = (show_data: boolean) => {
+interface Library {
+  geometry: {
+    coordinates: any[]
+    type: string
+  }
+  properties: any
+  type: string
+}
+
+export const useMapFunctions = () => {
   const mapPolygonColorToDensity = (
     normalizeData: number,
     layerObject: SeLayerObjectType
@@ -67,7 +77,8 @@ export const useMapFunctions = (show_data: boolean) => {
     full_JSON_library,
     library,
     index: number,
-    layerObject: SeLayerObjectType
+    layerObject: SeLayerObjectType,
+    show_data: boolean
   ): JSX.Element => {
     const {
       NAME,
@@ -142,6 +153,23 @@ export const useMapFunctions = (show_data: boolean) => {
         popupBgColor="rgb(255 255 255)"
         popupTextColor="text-slate-700"
         data={data}
+      />
+    )
+  }
+
+  const AOI_projection = (library: Library, index: number) => {
+    const fillColorAOI = 'rgb(255, 255, 255)'
+    const hoverColor = 'blue'
+
+    return (
+      <CustomPolygon_AOI
+        key={index}
+        positions={L.GeoJSON.coordsToLatLngs(
+          library.geometry.coordinates[0][0]
+        )}
+        fillColor={fillColorAOI}
+        hoverColor={hoverColor}
+        opacity="0.7"
       />
     )
   }
@@ -423,5 +451,11 @@ export const useMapFunctions = (show_data: boolean) => {
     ]
   }
 
-  return { newProjection, seLayersData, svLayersData, categoriesData }
+  return {
+    newProjection,
+    seLayersData,
+    svLayersData,
+    categoriesData,
+    AOI_projection,
+  }
 }

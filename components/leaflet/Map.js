@@ -59,8 +59,13 @@ const OsmMap = () => {
   const activeLegends = state['activeLegends']
   const dhsIndicator = state['dhs_indicator']
 
-  const { newProjection, seLayersData, svLayersData, categoriesData } =
-    useMapFunctions(show_data)
+  const {
+    newProjection,
+    seLayersData,
+    svLayersData,
+    categoriesData,
+    AOI_projection,
+  } = useMapFunctions()
 
   /* Socioeconomic. START */
   const se = seLayersData(state)
@@ -98,23 +103,6 @@ const OsmMap = () => {
   // };
 
   // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
-
-  const AOI_projection = (library, index) => {
-    const fillColorAOI = 'rgb(255, 255, 255)'
-    const hoverColor = 'blue'
-
-    return (
-      <CustomPolygon_AOI
-        key={index}
-        positions={L.GeoJSON.coordsToLatLngs(
-          library.geometry.coordinates[0][0]
-        )}
-        fillColor={fillColorAOI}
-        hoverColor={hoverColor}
-        opacity="0.7"
-      />
-    )
-  }
 
   function UpdateMap() {
     const map = useMap()
@@ -179,7 +167,8 @@ const OsmMap = () => {
               geojson1,
               library,
               index,
-              combinedLayer.layerInfo
+              combinedLayer.layerInfo,
+              show_data
             )
           })
         } else if (level === 2) {
@@ -188,7 +177,8 @@ const OsmMap = () => {
               geojson2,
               library,
               index,
-              combinedLayer.layerInfo
+              combinedLayer.layerInfo,
+              show_data
             )
           })
         } else {
@@ -197,7 +187,8 @@ const OsmMap = () => {
               geojson3,
               library,
               index,
-              combinedLayer.layerInfo
+              combinedLayer.layerInfo,
+              show_data
             )
           })
         }
@@ -226,7 +217,6 @@ const OsmMap = () => {
               opacity={value / 100}
             />
           )
-        } else if (false) {
         } else {
           return (
             <>
@@ -239,23 +229,20 @@ const OsmMap = () => {
                 styles={style}
                 opacity={value / 100}
               />
-              {
-                layerData.slug === 'sv_distance_to_edu' && (
-                  <WMSTileLayer
-                    params={{
-                      layers: 'sdg-ai-lab:edu_single_point',
-                      format: 'image/png',
-                      transparent: true,
-                      version: '1.1.0',
-                      //style: "sdg-ai-lab:xgboost",
-                    }}
-                    url={geoServerUrl}
-                    zIndex="9999"
-                    opacity={value / 100}
-                  />
-                )
-                // console.log('another layer to load')
-              }
+              {layerData.slug === 'sv_distance_to_edu' && (
+                <WMSTileLayer
+                  params={{
+                    layers: 'sdg-ai-lab:edu_single_point',
+                    format: 'image/png',
+                    transparent: true,
+                    version: '1.1.0',
+                    //style: "sdg-ai-lab:xgboost",
+                  }}
+                  url={geoServerUrl}
+                  zIndex="9999"
+                  opacity={value / 100}
+                />
+              )}
             </>
           )
         }
