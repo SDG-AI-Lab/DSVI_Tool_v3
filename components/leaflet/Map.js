@@ -1,6 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-// import { BoxZoomControl } from 'react-leaflet-box-zoom'
-import L from 'leaflet'
 import {
   MapContainer,
   LayersControl,
@@ -10,28 +8,24 @@ import {
   useMap,
   Pane,
 } from 'react-leaflet'
-//import PrintControlDefault from "react-leaflet-easyprint";
 import Legend from '../controls/Legend'
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
-import { LegendContext } from '../../context/LegendContext'
-import { Settings, TileProviders } from '../../config/MapConfiguration'
-import ControlMenu from '../controls/InfoBox'
-import CustomPolygon from '../controls/CustomPolygon'
-import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 import CircleMarkers from '../marker/CircleMarkers'
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability'
 import MapToolbar from '../controls/MapToolbar'
-
 import AOI from '/public/static/AOI.geojson'
-
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
-import { max } from 'lodash'
-
 import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from '../hooks/useMapFunctions'
+
+import ControlMenu from '../controls/InfoBox'
+import { LegendContext } from '../../context/LegendContext'
+import { Settings, TileProviders } from '../../config/MapConfiguration'
+// import PrintControlDefault from "react-leaflet-easyprint";
+// import { BoxZoomControl } from 'react-leaflet-box-zoom'
 
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
 // const PrintControl = withLeaflet(PrintControlDefault);
@@ -49,8 +43,6 @@ const OsmMap = () => {
   const show_sidebar_data = state['show_sidebar_data']
   const show_infoBox_data = state['show_infoBox_data']
   const show_area_of_interest = state['show_area_of_interest']
-  const socioeconomic = state['socioeconomic']['data']
-  const geodata = state['geodata']['data']
 
   // This column decides which data column of the geojson we use: in this case: _mean.
   // To be found in reducer.js
@@ -92,17 +84,7 @@ const OsmMap = () => {
 
   /*Categories. END*/
 
-  /* !! Moved on 263 line !!  */
-  // const getNormalizeData = (number, maxNumber, minNumber, layerObject) => {
-  //   const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
-  //   console.log("number:", number)
-  //   console.log("minNumber:", minNumber)
-  //   console.log("maxNumber:", maxNumber)
-  //   console.log("polygonvalue:", val)
-  //   return mapPolygonColorToDensity(val, layerObject);
-  // };
-
-  // Mouse HOVER color is WHITE - but it should be fillcolor*transparency
+  // COMMENT #5 WAS HERE
 
   function UpdateMap() {
     const map = useMap()
@@ -115,16 +97,7 @@ const OsmMap = () => {
     return null
   }
 
-  // function togglePointerEventsAllVectorLayers(status) {
-  //   let elements = document.getElementsByClassName("leaflet-interactive");
-  //   for(let element of elements) {
-  //     if(status) {
-  //       element.classList.add('turn-on-vector-layers-pointer');
-  //     } else {
-  //         element.classList.add('turn-off-vector-layers-pointer');
-  //     }
-  //   }
-  // }
+  //  COMMENT #6 WAS HERE
 
   useEffect(() => {
     if (activeLegends.length > 0) {
@@ -160,6 +133,7 @@ const OsmMap = () => {
     return se.map((combinedLayer) => {
       const { status } = combinedLayer.layerInfo
       const [geojson1, geojson2, geojson3] = combinedLayer.geojson
+
       if (status) {
         if (level === 1) {
           return geojson1.features.map((library, index) => {
@@ -231,6 +205,7 @@ const OsmMap = () => {
               />
               {layerData.slug === 'sv_distance_to_edu' && (
                 <WMSTileLayer
+                  key={layer}
                   params={{
                     layers: 'sdg-ai-lab:edu_single_point',
                     format: 'image/png',
@@ -261,24 +236,8 @@ const OsmMap = () => {
     >
       <UpdateMap />
 
-      {/* <BoxZoomControl
-          style={{
-            width: "36px",
-            height: "36px",
-            border: "none",
-            borderRadius: "4px",
-            background: "url('./images/boxZoomIcon.png')",
-            backgroundColor: "rgb(255, 255, 255)",
-            outline: "none",
-            backgroundPosition: "50% 50%",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "32px",
-            title: "hfbhdkgj"
-          }}
-          position="topleft"
-          // sticky={true}
-          title="jdfucegbf"
-        /> */}
+      {/* COMMENT #7 WAS HERE */}
+
       <LayersControl position="topright">
         {!reset_settings &&
           tile_providers.map(({ name, checked, args }) => (
@@ -1046,3 +1005,49 @@ export default OsmMap
 //       opacity={sv_linear_model / 100}/>
 //   : null
 //   } */}
+
+// COMMENT #5
+/* !! Moved on 263 line !!  */
+// const getNormalizeData = (number, maxNumber, minNumber, layerObject) => {
+//   const val = Math.abs((number - minNumber) / (maxNumber - minNumber));
+//   console.log("number:", number)
+//   console.log("minNumber:", minNumber)
+//   console.log("maxNumber:", maxNumber)
+//   console.log("polygonvalue:", val)
+//   return mapPolygonColorToDensity(val, layerObject);
+// };
+
+// Mouse HOVER color is WHITE - but it should be fillcolor*transparency
+
+// COMMENT #6
+// function togglePointerEventsAllVectorLayers(status) {
+//   let elements = document.getElementsByClassName("leaflet-interactive");
+//   for(let element of elements) {
+//     if(status) {
+//       element.classList.add('turn-on-vector-layers-pointer');
+//     } else {
+//         element.classList.add('turn-off-vector-layers-pointer');
+//     }
+//   }
+// }
+
+//  COMMENT #7
+
+/* <BoxZoomControl
+          style={{
+            width: "36px",
+            height: "36px",
+            border: "none",
+            borderRadius: "4px",
+            background: "url('./images/boxZoomIcon.png')",
+            backgroundColor: "rgb(255, 255, 255)",
+            outline: "none",
+            backgroundPosition: "50% 50%",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "32px",
+            title: "hfbhdkgj"
+          }}
+          position="topleft"
+          // sticky={true}
+          title="jdfucegbf"
+        /> */

@@ -1,12 +1,12 @@
 import React from 'react'
 import CustomPolygon from '../controls/CustomPolygon'
+import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 import { Polygon } from 'react-leaflet'
 import L from 'leaflet'
 import {
   DataReducerInitialStateType,
   SvLayerObjectType,
 } from '../../reducer/reducer'
-import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 
 import { geojson } from '/public/static'
 
