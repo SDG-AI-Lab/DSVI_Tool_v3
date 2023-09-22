@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import {
   MapContainer,
   LayersControl,
@@ -29,6 +29,8 @@ import { Settings, TileProviders } from '../../config/MapConfiguration'
 
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
 // const PrintControl = withLeaflet(PrintControlDefault);
+
+export const geoServerUrl = 'http://3.133.156.153:8080/geoserver/sdg-ai-lab/wms'
 
 const OsmMap = () => {
   const { state, dispatch } = useContext(FilterContext)
@@ -127,8 +129,6 @@ const OsmMap = () => {
     }
   }, [activeLegends])
 
-  const geoServerUrl = 'http://18.191.56.1:8080/geoserver/sdg-ai-lab/wms'
-
   const displaySeLayers = () => {
     return se.map((combinedLayer) => {
       const { status } = combinedLayer.layerInfo
@@ -193,9 +193,8 @@ const OsmMap = () => {
           )
         } else {
           return (
-            <>
+            <Fragment key={layer}>
               <BetterWMSTileLayer
-                // key={layer}
                 url={geoServerUrl}
                 layers={layer}
                 transparent="true"
@@ -205,7 +204,6 @@ const OsmMap = () => {
               />
               {layerData.slug === 'sv_distance_to_edu' && (
                 <WMSTileLayer
-                  key={layer}
                   params={{
                     layers: 'sdg-ai-lab:edu_single_point',
                     format: 'image/png',
@@ -218,7 +216,7 @@ const OsmMap = () => {
                   opacity={value / 100}
                 />
               )}
-            </>
+            </Fragment>
           )
         }
       }

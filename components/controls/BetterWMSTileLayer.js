@@ -8,6 +8,7 @@ import L from 'leaflet'
 import { useMap, useMapEvents } from 'react-leaflet'
 import { FilterContext } from '../../context/FilterContext'
 import { useState, useContext, useEffect } from 'react'
+import { geoServerUrl } from '../leaflet/Map'
 
 const BetterWMSTileLayer = (props) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -36,7 +37,7 @@ const BetterWMSTileLayer = (props) => {
   })
 
   const [legends, setLegends] = useState(null)
-  let legend_url = `https://www.sdglab.ml/geoserver/sdg-ai-lab/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${layers}`
+  let legend_url = `${geoServerUrl}?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${layers}`
   useEffect(() => {
     fetch(legend_url)
       .then((res) => res.json())
@@ -155,6 +156,7 @@ const BetterWMSTileLayer = (props) => {
   }
 
   function defineDescription(grayIndex, legends) {
+    console.log(grayIndex)
     switch (true) {
       case grayIndex >= parseFloat(legends[4].quantity):
         return 'Very High'
