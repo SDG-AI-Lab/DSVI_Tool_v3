@@ -19,7 +19,7 @@ import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
-import { useMapFunctions } from '../hooks/useMapFunctions'
+import { useMapFunctions } from './useMapFunctions'
 
 import ControlMenu from '../controls/InfoBox'
 import { LegendContext } from '../../context/LegendContext'
@@ -127,7 +127,7 @@ const OsmMap = () => {
     }
   }, [activeLegends])
 
-  const geoServerUrl = 'http://3.14.128.111:8080/geoserver/sdg-ai-lab/wms'
+  const geoServerUrl = 'http://18.191.56.1:8080/geoserver/sdg-ai-lab/wms'
 
   const displaySeLayers = () => {
     return se.map((combinedLayer) => {
@@ -195,7 +195,7 @@ const OsmMap = () => {
           return (
             <>
               <BetterWMSTileLayer
-                key={layer}
+                // key={layer}
                 url={geoServerUrl}
                 layers={layer}
                 transparent="true"
