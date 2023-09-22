@@ -3,7 +3,7 @@ import CustomPolygon from '../controls/CustomPolygon'
 import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 
 import L from 'leaflet'
-import { DataReducerInitialStateType } from '../../reducer/reducer'
+import { DataReducerInitialStateType } from '../../reducer/reducerInitialState'
 
 import { geojson } from '/public/static'
 
