@@ -208,6 +208,195 @@ const svGeoData: SvGeoData[] = [
   },
 ]
 
+export type SeLayerObjectType = {
+  id: number
+  slug: string
+  title: string
+  status: boolean
+  value: number
+  reverse_meaning: boolean
+  units: string
+  json_library: string
+}
+
+interface SeGeoData {
+  id: number
+  slug: string
+  title: string
+  data: SeLayerObjectType[]
+}
+
+const seGeoData: SeGeoData[] = [
+  {
+    id: 1,
+    slug: 'se_social_vulnerability',
+    title: 'Social Vulnerability',
+    data: [
+      {
+        id: 1.1,
+        slug: 'se_random_forest',
+        title: 'Prediction: Best Model',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Vulnerability [0-1]',
+        json_library: 'rf',
+      },
+      // {
+      //     id: 1.2,
+      //     slug: 'se_xgboost',
+      //     title: 'SV: XGBoost',
+      //     status: false,
+      //     value: 70,
+      //     reverse_meaning: false,
+      //     units: 'Vulnerability [0-1]',
+      //     json_library:'XGBoost'
+      // },
+    ],
+  },
+  {
+    id: 2,
+    slug: 'se_drive_time',
+    title: 'Drive Time',
+    data: [
+      {
+        id: 2.1,
+        slug: 'se_education_facility',
+        title: 'Education Facility',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Average Drive time in Seconds',
+        json_library: 'edu',
+      },
+      {
+        id: 2.2,
+        slug: 'se_health_institution',
+        title: 'Health Institution',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Average Drive time in Seconds',
+        json_library: 'health',
+      },
+      {
+        id: 2.3,
+        slug: 'se_financial_service',
+        title: 'Financial Service',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Average Drive time in Seconds',
+        json_library: 'finan',
+      },
+    ],
+  },
+  {
+    id: 3,
+    slug: 'se_socio_economic',
+    title: 'Socio Economic',
+    data: [
+      {
+        id: 3.1,
+        slug: 'se_population_counts',
+        title: 'Population Counts',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'People / 90m²',
+        json_library: 'ppp_pop',
+      },
+      {
+        id: 3.2,
+        slug: 'se_celltowers',
+        title: 'Celltowers',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'Celltowers per district',
+        json_library: 'cellt',
+      },
+      {
+        id: 3.3,
+        slug: 'se_nightlight_intensity',
+        title: 'Nightlight Intensity',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'watt/m²',
+        json_library: 'ntl_vnl_npp_2016',
+      },
+      {
+        id: 3.4,
+        slug: 'se_relative_wealth',
+        title: 'Relative Wealth',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'Relative Wealth Score (0 to 1)',
+        json_library: 'rwi',
+      },
+      {
+        id: 3.5,
+        slug: 'se_GDP',
+        title: 'GDP',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'Total USD per District',
+        json_library: 'gdp_2015',
+      },
+    ],
+  },
+  {
+    id: 4,
+    slug: 'se_bio_physical',
+    title: 'Bio-Physical',
+    data: [
+      {
+        id: 4.1,
+        slug: 'se_plant_health',
+        title: 'Plant Health',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'NDVI score',
+        json_library: 'ndvi',
+      },
+      {
+        id: 4.2,
+        slug: 'se_temperature_max',
+        title: 'Temperature (Max)',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'AVG °C in February',
+        json_library: 'temp',
+      },
+      // {
+      //     id: 4.3,
+      //     slug: 'se_land_use_class',
+      //     title: 'Land Use Class',
+      //     status: false,
+      //     value: 70,
+      //     reverse_meaning: true,
+      //     units: '',
+      //     json_library:'lu'
+      // },
+      {
+        id: 4.4,
+        slug: 'se_elevation',
+        title: 'Elevation',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Meter above sea Level:',
+        json_library: 'dem',
+      },
+    ],
+  },
+]
+
 export const reducerInitialState = {
   show_data: false,
   show_sidebar_data: false,
@@ -330,176 +519,7 @@ export const reducerInitialState = {
   ],
   socioeconomic: {
     status: false,
-    data: [
-      {
-        id: 1,
-        slug: 'se_social_vulnerability',
-        title: 'Social Vulnerability',
-        data: [
-          {
-            id: 1.1,
-            slug: 'se_random_forest',
-            title: 'Prediction: Best Model',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Vulnerability [0-1]',
-            json_library: 'rf',
-          },
-          // {
-          //     id: 1.2,
-          //     slug: 'se_xgboost',
-          //     title: 'SV: XGBoost',
-          //     status: false,
-          //     value: 70,
-          //     reverse_meaning: false,
-          //     units: 'Vulnerability [0-1]',
-          //     json_library:'XGBoost'
-          // },
-        ],
-      },
-      {
-        id: 2,
-        slug: 'se_drive_time',
-        title: 'Drive Time',
-        data: [
-          {
-            id: 2.1,
-            slug: 'se_education_facility',
-            title: 'Education Facility',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Average Drive time in Seconds',
-            json_library: 'edu',
-          },
-          {
-            id: 2.2,
-            slug: 'se_health_institution',
-            title: 'Health Institution',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Average Drive time in Seconds',
-            json_library: 'health',
-          },
-          {
-            id: 2.3,
-            slug: 'se_financial_service',
-            title: 'Financial Service',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Average Drive time in Seconds',
-            json_library: 'finan',
-          },
-        ],
-      },
-      {
-        id: 3,
-        slug: 'se_socio_economic',
-        title: 'Socio Economic',
-        data: [
-          {
-            id: 3.1,
-            slug: 'se_population_counts',
-            title: 'Population Counts',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'People / 90m²',
-            json_library: 'ppp_pop',
-          },
-          {
-            id: 3.2,
-            slug: 'se_celltowers',
-            title: 'Celltowers',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'Celltowers per district',
-            json_library: 'cellt',
-          },
-          {
-            id: 3.3,
-            slug: 'se_nightlight_intensity',
-            title: 'Nightlight Intensity',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'watt/m²',
-            json_library: 'ntl_vnl_npp_2016',
-          },
-          {
-            id: 3.4,
-            slug: 'se_relative_wealth',
-            title: 'Relative Wealth',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'Relative Wealth Score (0 to 1)',
-            json_library: 'rwi',
-          },
-          {
-            id: 3.5,
-            slug: 'se_GDP',
-            title: 'GDP',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'Total USD per District',
-            json_library: 'gdp_2015',
-          },
-        ],
-      },
-      {
-        id: 4,
-        slug: 'se_bio_physical',
-        title: 'Bio-Physical',
-        data: [
-          {
-            id: 4.1,
-            slug: 'se_plant_health',
-            title: 'Plant Health',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'NDVI score',
-            json_library: 'ndvi',
-          },
-          {
-            id: 4.2,
-            slug: 'se_temperature_max',
-            title: 'Temperature (Max)',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'AVG °C in February',
-            json_library: 'temp',
-          },
-          // {
-          //     id: 4.3,
-          //     slug: 'se_land_use_class',
-          //     title: 'Land Use Class',
-          //     status: false,
-          //     value: 70,
-          //     reverse_meaning: true,
-          //     units: '',
-          //     json_library:'lu'
-          // },
-          {
-            id: 4.4,
-            slug: 'se_elevation',
-            title: 'Elevation',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Meter above sea Level:',
-            json_library: 'dem',
-          },
-        ],
-      },
-    ],
+    data: seGeoData,
   },
   geodata: {
     status: false,
