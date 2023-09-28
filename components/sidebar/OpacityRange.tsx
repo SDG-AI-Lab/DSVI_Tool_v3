@@ -1,9 +1,12 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
 import { FilterContext } from '../../context/FilterContext'
-import { Val2 } from './SocioeconLayers'
+import {
+  SvLayerObjectType,
+  SeLayerObjectType,
+} from '../../reducer/reducerInitialState'
 
 interface OpacityRangeProps {
-  val2: Val2
+  val2: SvLayerObjectType | SeLayerObjectType
   index: number
   index2: number
   changeType: 'SOCIOECONOMIC' | 'GEODATA'

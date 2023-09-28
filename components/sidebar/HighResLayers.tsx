@@ -7,7 +7,7 @@ import {
   DropResult,
 } from 'react-beautiful-dnd'
 import { ArrowDownIcon, ArrowUpIcon, GlobeIcon } from '../SVGs'
-import { Val2 } from './SocioeconLayers'
+import { SvLayerObjectType } from '../../reducer/reducerInitialState'
 import OpacityRange from './OpacityRange'
 
 function HighResLayers() {
@@ -17,7 +17,11 @@ function HighResLayers() {
   const classNames =
     'flex items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600'
 
-  const onChange = (val2: Val2, index: number, index2: number): void => {
+  const onChange = (
+    val2: SvLayerObjectType,
+    index: number,
+    index2: number
+  ): void => {
     const newItem = { ...val2, status: !val2.status }
 
     dispatch({
