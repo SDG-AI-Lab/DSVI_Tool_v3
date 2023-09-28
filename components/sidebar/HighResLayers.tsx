@@ -92,7 +92,7 @@ function HighResLayers() {
                                   <div className="i flex items-center">
                                     <input
                                       className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
-                                      id={val2.title}
+                                      id={`sv${val2.title}`}
                                       type="checkbox"
                                       checked={val2.status}
                                       onChange={() =>
@@ -101,7 +101,7 @@ function HighResLayers() {
                                     />
                                     <label
                                       className={`h-6 cursor-pointer pl-2 pr-6 text-xs ${classNames}`}
-                                      htmlFor={val2.title}
+                                      htmlFor={`sv${val2.title}`}
                                     >
                                       {val2.title}
                                     </label>

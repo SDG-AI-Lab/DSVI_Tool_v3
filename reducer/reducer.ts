@@ -42,6 +42,7 @@ export const reducer = (state, action) => {
         draft.socioeconomic.status = !draft.socioeconomic.status
       })
     case 'CHANGE_SOCIOECONOMIC':
+      console.log('changing socioeconomic')
       return produce(state, (draft) => {
         draft.socioeconomic['data'][action.index_1]['data'][action.index_2] =
           action.payload
@@ -64,6 +65,7 @@ export const reducer = (state, action) => {
         draft.geolayers_description[action.layer] = action.payload
       })
     case 'CHANGE_GEODATA':
+      console.log('changing geodata')
       return produce(state, (draft) => {
         draft.geodata['data'][action.index_1]['data'][action.index_2] =
           action.payload
