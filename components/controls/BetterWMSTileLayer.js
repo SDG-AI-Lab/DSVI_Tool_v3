@@ -33,6 +33,8 @@ const BetterWMSTileLayer = (props) => {
       // opacity: opacity,
       pane,
     })
+    console.log(newWMSobject)
+
     setWMSobject(newWMSobject)
 
     return () => {
@@ -59,15 +61,21 @@ const BetterWMSTileLayer = (props) => {
       .then(
         (result) => {
           if (result) {
-            setLegends(
+            let newLegends =
               result.Legend[0].rules[0].symbolizers[0].Raster.colormap.entries
-            )
+            const lastIdx = newLegends.length - 1
+
+            const fiveFractions = [0, 0.25, 0.5, 0.75, 1]
+            const fiveLegends = fiveFractions.map((frac) => {
+              const idx = Math.floor(frac * lastIdx)
+              return newLegends[idx]
+            })
+
+            setLegends(fiveLegends)
             dispatch({
               type: 'CHANGE_GEOLAYERS_DESCRIPTION',
               layer: layers,
-              payload:
-                result.Legend[0].rules[0].symbolizers[0].Raster.colormap
-                  .entries,
+              payload: fiveLegends,
             })
           }
         },
@@ -153,7 +161,6 @@ const BetterWMSTileLayer = (props) => {
   }
 
   function defineDescription(grayIndex, legends) {
-    console.log(grayIndex)
     switch (true) {
       case grayIndex >= parseFloat(legends[4].quantity):
         return 'Very High'
