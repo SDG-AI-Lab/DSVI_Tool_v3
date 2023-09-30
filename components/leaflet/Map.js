@@ -21,9 +21,9 @@ import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
 
-import ControlMenu from '../controls/InfoBox'
-import { LegendContext } from '../../context/LegendContext'
-import { Settings, TileProviders } from '../../config/MapConfiguration'
+// import ControlMenu from '../controls/InfoBox'
+// import { LegendContext } from '../../context/LegendContext'
+// import { Settings, TileProviders } from '../../config/MapConfiguration'
 // import PrintControlDefault from "react-leaflet-easyprint";
 // import { BoxZoomControl } from 'react-leaflet-box-zoom'
 
@@ -197,8 +197,6 @@ const OsmMap = () => {
               <BetterWMSTileLayer
                 url={geoServerUrl}
                 layers={layer}
-                transparent="true"
-                zIndex="9999"
                 styles={style}
                 opacity={value / 100}
               />

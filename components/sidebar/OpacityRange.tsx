@@ -72,7 +72,7 @@ function OpacityRange({ val2, index, index2, changeType }: OpacityRangeProps) {
           max={100}
           step={1}
           value={value}
-          className="form-range h-6 p-0 focus:shadow-none focus:outline-none focus:ring-0"
+          className="form-range h-6 p-0 hover:cursor-pointer focus:shadow-none focus:outline-none focus:ring-0"
           onChange={(e) => setRange(Number(e.target.value))}
         />
       </span>

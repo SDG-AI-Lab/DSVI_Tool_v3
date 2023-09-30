@@ -45,7 +45,7 @@ const BetterWMSTileLayer = (props) => {
     WMSobject.setOpacity(opacity)
   }
 
-  const eventListeners = useMapEvents({
+  useMapEvents({
     click(evt) {
       getFeatureInfo(evt, layers)
     },
