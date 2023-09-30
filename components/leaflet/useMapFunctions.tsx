@@ -4,19 +4,9 @@ import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 
 import L from 'leaflet'
 import { DataReducerInitialStateType } from '../../reducer/reducerInitialState'
+import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
 import { geojson } from '/public/static'
-
-export type SeLayerObjectType = {
-  id: number
-  json_library: string
-  reverse_meaning: boolean
-  slug: string
-  status: boolean
-  title: string
-  units: string
-  value: number
-}
 
 interface CombinedLayerData {
   layerInfo: SeLayerObjectType | undefined

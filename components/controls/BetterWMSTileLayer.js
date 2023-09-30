@@ -18,18 +18,33 @@ const BetterWMSTileLayer = (props) => {
   const version = '1.1.0'
   const pane = 'geodata-pane'
 
-  const newWMSobject = new L.TileLayer.WMS(url, {
-    layers: layers,
-    transparent: transparent,
-    format: format,
-    version: version,
-    zIndex: zIndex,
-    styles: styles,
-    opacity: opacity,
-    pane: pane,
-  })
-
   const map = useMap()
+
+  const [WMSobject, setWMSobject] = useState(null)
+
+  useEffect(() => {
+    const newWMSobject = new L.TileLayer.WMS(url, {
+      layers,
+      transparent,
+      format,
+      version,
+      zIndex,
+      styles,
+      // opacity: opacity,
+      pane,
+    })
+    setWMSobject(newWMSobject)
+
+    return () => {
+      map.removeLayer(newWMSobject)
+    }
+  }, [])
+
+  if (WMSobject) {
+    WMSobject.addTo(map)
+    WMSobject.setOpacity(opacity)
+  }
+
   const eventListeners = useMapEvents({
     click(evt) {
       getFeatureInfo(evt, layers)
@@ -180,7 +195,8 @@ const BetterWMSTileLayer = (props) => {
   const useNewWMSelement = createElementHook(createNewWMS)
   const useNewWMS = createPathHook(useNewWMSelement)
   const NewWMS = createLeafComponent(useNewWMS)
-  return <NewWMS />
+
+  return <></>
 }
 
 export default BetterWMSTileLayer
