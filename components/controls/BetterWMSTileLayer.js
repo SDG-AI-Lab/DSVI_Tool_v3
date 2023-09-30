@@ -13,7 +13,7 @@ import { geoServerUrl } from '../leaflet/Map'
 const BetterWMSTileLayer = (props) => {
   const { state, dispatch } = useContext(FilterContext)
 
-  const { url, layers, transparent, zIndex, styles, opacity } = props
+  const { url, layers, styles, opacity } = props
   const format = 'image/png'
   const version = '1.1.0'
   const pane = 'geodata-pane'
@@ -25,10 +25,10 @@ const BetterWMSTileLayer = (props) => {
   useEffect(() => {
     const newWMSobject = new L.TileLayer.WMS(url, {
       layers,
-      transparent,
+      transparent: true,
       format,
       version,
-      zIndex,
+      zIndex: 9999,
       styles,
       // opacity: opacity,
       pane,
@@ -110,14 +110,14 @@ const BetterWMSTileLayer = (props) => {
       request: 'GetFeatureInfo',
       service: 'WMS',
       srs: 'EPSG:4326',
-      styles: styles,
-      transparent: transparent,
-      version: version,
-      format: format,
+      styles,
+      transparent: true,
+      version,
+      format,
       bbox: map.getBounds().toBBoxString(),
       height: size.y,
       width: size.x,
-      layers: layers,
+      layers,
       query_layers: layers,
       info_format: 'application/json',
     }
@@ -127,26 +127,8 @@ const BetterWMSTileLayer = (props) => {
 
     let updated_url = url + L.Util.getParamString(params, url, true)
 
-    /**
-     * CORS workaround (using a basic php proxy)
-     *
-     * Added 2 new options:
-     *  - proxy
-     *  - proxyParamName
-     *
-     */
+    // COMMENT #1 WAS HERE
 
-    // check if "proxy" option is defined (PS: path and file name)
-    //   if (typeof this.wmsParams.proxy !== "undefined") {
-
-    //       // check if proxyParamName is defined (instead, use default value)
-    //       if (typeof this.wmsParams.proxyParamName !== "undefined")
-    //           this.wmsParams.proxyParamName = 'url';
-
-    //       // build proxy (es: "proxy.php?url=" )
-    //       _proxy = this.wmsParams.proxy + '?' + this.wmsParams.proxyParamName + '=';
-    //       url = _proxy + encodeURIComponent(url);
-    //   }
     return updated_url
   }
 
@@ -188,15 +170,40 @@ const BetterWMSTileLayer = (props) => {
     }
   }
 
-  function createNewWMS() {
-    return createElementObject(newWMSobject)
-  }
-
-  const useNewWMSelement = createElementHook(createNewWMS)
-  const useNewWMS = createPathHook(useNewWMSelement)
-  const NewWMS = createLeafComponent(useNewWMS)
+  // COMMENT #2 WAS HERE
 
   return <></>
 }
 
 export default BetterWMSTileLayer
+
+// COMMENT #1:
+/**
+ * CORS workaround (using a basic php proxy)
+ *
+ * Added 2 new options:
+ *  - proxy
+ *  - proxyParamName
+ *
+ */
+
+// check if "proxy" option is defined (PS: path and file name)
+//   if (typeof this.wmsParams.proxy !== "undefined") {
+
+//       // check if proxyParamName is defined (instead, use default value)
+//       if (typeof this.wmsParams.proxyParamName !== "undefined")
+//           this.wmsParams.proxyParamName = 'url';
+
+//       // build proxy (es: "proxy.php?url=" )
+//       _proxy = this.wmsParams.proxy + '?' + this.wmsParams.proxyParamName + '=';
+//       url = _proxy + encodeURIComponent(url);
+//   }
+
+// COMMENT #2:
+// function createNewWMS() {
+//   return createElementObject(WMSobject)
+// }
+
+// const useNewWMSelement = createElementHook(createNewWMS)
+// const useNewWMS = createPathHook(useNewWMSelement)
+// const NewWMS = createLeafComponent(useNewWMS)
