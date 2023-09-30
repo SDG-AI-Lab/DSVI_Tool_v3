@@ -338,7 +338,7 @@ const NewLegend_2 = (props) => {
   return (
     <Control position="bottomright">
       <div
-        className="max-h-96 overflow-auto bg-[white] p-1 opacity-70 hover:overflow-scroll"
+        className="max-h-96 overflow-auto bg-[white] p-1 opacity-70"
         ref={legendRef}
       >
         <h1 className="text-sm font-bold">Legend</h1>

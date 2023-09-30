@@ -1,9 +1,3 @@
-import {
-  createElementHook,
-  createElementObject,
-  createLeafComponent,
-  createPathHook,
-} from '@react-leaflet/core'
 import L from 'leaflet'
 import { useMap, useMapEvents } from 'react-leaflet'
 import { FilterContext } from '../../context/FilterContext'
@@ -33,8 +27,6 @@ const BetterWMSTileLayer = (props) => {
       // opacity: opacity,
       pane,
     })
-    console.log(newWMSobject)
-
     setWMSobject(newWMSobject)
 
     return () => {
