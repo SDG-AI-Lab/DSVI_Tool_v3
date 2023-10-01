@@ -1,15 +1,18 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from 'react'
 import { FilterContext } from '../../context/FilterContext'
-import { Val2 } from './SocioeconLayers'
+import {
+  SvLayerObjectType,
+  SeLayerObjectType,
+} from '../../reducer/reducerInitialState'
 
 interface OpacityRangeProps {
-  val2: Val2
+  val2: SvLayerObjectType | SeLayerObjectType
   index: number
   index2: number
-  isVisible: boolean
+  changeType: 'SOCIOECONOMIC' | 'GEODATA'
 }
 
-function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
+function OpacityRange({ val2, index, index2, changeType }: OpacityRangeProps) {
   const { dispatch } = useContext(FilterContext)
 
   const inputClassNames =
@@ -21,7 +24,7 @@ function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
 
   const onRangeChange = (range: number) => {
     dispatch({
-      type: 'CHANGE_SOCIOECONOMIC',
+      type: `CHANGE_${changeType}`,
       payload: { ...val2, value: range },
       index_1: index,
       index_2: index2,
@@ -54,9 +57,7 @@ function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
   }
 
   return (
-    <div
-      className={`${isVisible ? 'flex' : 'hidden'} flex-col space-y-2 p-2 px-6`}
-    >
+    <div className={`flex flex-col space-y-2 p-2 px-6`}>
       <span className="text-sm text-gray-700">
         opacity:
         <input
@@ -71,7 +72,7 @@ function OpacityRange({ val2, index, index2, isVisible }: OpacityRangeProps) {
           max={100}
           step={1}
           value={value}
-          className="form-range h-6 p-0 focus:shadow-none focus:outline-none focus:ring-0"
+          className="form-range h-6 p-0 hover:cursor-pointer focus:shadow-none focus:outline-none focus:ring-0"
           onChange={(e) => setRange(Number(e.target.value))}
         />
       </span>

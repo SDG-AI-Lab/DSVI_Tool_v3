@@ -1,6 +1,403 @@
-import produce from 'immer'
+export type DataReducerInitialStateType = typeof reducerInitialState
 
-export const initialState = {
+export type SvLayerObjectType = {
+  id: number
+  slug: string
+  title: string
+  status: false
+  value: number
+  layer: string
+  style: string
+}
+
+interface SvGeoData {
+  id: number
+  slug: string
+  title: string
+  data: SvLayerObjectType[]
+}
+
+const svGeoData: SvGeoData[] = [
+  {
+    id: 1,
+    slug: 'sv_social_vulnerability',
+    title: 'Social Vulnerability',
+    data: [
+      // {
+      //     id: 1.1,
+      //     slug: 'sv_linear_model',
+      //     title: 'SV: Linear Model',
+      //     status: false,
+      //     value: 70,
+      //     layer: 'sdg-ai-lab:Linear_SV'
+      // },
+      {
+        id: 1.2,
+        slug: 'sv_xgboost',
+        title: 'SV: XG Boost',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:SV_XGBOOST',
+        style: 'sdg-ai-lab:xgboost',
+      },
+      {
+        id: 1.3,
+        slug: 'sv_random_forest',
+        title: 'SV: Random Forest',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:SV_random_forest',
+        style: 'sdg-ai-lab:random_forest',
+      },
+    ],
+  },
+  {
+    id: 2,
+    slug: 'sv_socio_economic',
+    title: 'Socio Economic',
+    data: [
+      {
+        id: 2.1,
+        slug: 'sv_nightlight_intensity',
+        title: 'Nightlight Intensity',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:Nightlight',
+        style: 'sdg-ai-lab:ntl',
+      },
+      {
+        id: 2.2,
+        slug: 'sv_pop_density',
+        title: 'Population Density',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:population',
+        style: 'sdg-ai-lab:pop',
+      },
+      {
+        id: 2.3,
+        slug: 'sv_celltower',
+        title: 'Celltower Density',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:celltower',
+        style: 'sdg-ai-lab:celltower',
+      },
+      // {
+      //     id: 4.4,
+      //     slug: 'sv_road_density',
+      //     title: 'Road Density',
+      //     status: false,
+      //     value: 70,
+      //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
+      // },
+      {
+        id: 2.5,
+        slug: 'sv_relative_wealth',
+        title: 'Relative Wealth',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:rwi_relativewealth',
+        style: 'sdg-ai-lab:rwi',
+      },
+      {
+        id: 2.6,
+        slug: 'sv_gdp',
+        title: 'Gross Domestic Product',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:GDP',
+        style: 'sdg-ai-lab:gdp',
+      },
+    ],
+  },
+  {
+    id: 3,
+    slug: 'sv_distance_maps',
+    title: 'Distance Maps',
+    data: [
+      {
+        id: 3.1,
+        slug: 'sv_distance_to_healthcare',
+        title: 'Distance to Healthcare',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:health_penalty',
+        style: 'sdg-ai-lab:health',
+      },
+      {
+        id: 3.2,
+        slug: 'sv_distance_to_finance',
+        title: 'Distance to Finance',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:financial_penalty',
+        style: 'sdg-ai-lab:finan',
+      },
+      {
+        id: 3.3,
+        slug: 'sv_distance_to_edu',
+        title: 'Distance to Education',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:Education_penalty',
+        style: 'sdg-ai-lab:edu',
+      },
+      {
+        id: 3.4,
+        slug: 'sv_roads',
+        title: 'Road Network',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:lines_merged',
+        style: 'sdg-ai-lab:xgboost',
+      },
+    ],
+  },
+  {
+    id: 4,
+    slug: 'sv_bio_physical',
+    title: 'Bio Physical Layers',
+    data: [
+      {
+        id: 4.1,
+        slug: 'sv_elevation',
+        title: 'Elevation in meters',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:elevation',
+        style: 'sdg-ai-lab:elevation',
+      },
+      {
+        id: 4.2,
+        slug: 'sv_slope',
+        title: 'Slope in degrees',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:slope',
+        style: 'sdg-ai-lab:slope',
+      },
+      {
+        id: 4.3,
+        slug: 'sv_max_temp',
+        title: 'Max Temp Winter',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:temperature_max_winter',
+        style: 'sdg-ai-lab:temp',
+      },
+      {
+        id: 4.4,
+        slug: 'sv_plant_health',
+        title: 'Plant Health (NDVI)',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:NDVI',
+        style: 'sdg-ai-lab:ndvi',
+      },
+      {
+        id: 4.5,
+        slug: 'sv_precipitation',
+        title: 'Rainfall',
+        status: false,
+        value: 70,
+        layer: 'sdg-ai-lab:precipitation',
+        style: 'sdg-ai-lab:precip',
+      },
+    ],
+  },
+]
+
+export type SeLayerObjectType = {
+  id: number
+  slug: string
+  title: string
+  status: boolean
+  value: number
+  reverse_meaning: boolean
+  units: string
+  json_library: string
+}
+
+interface SeGeoData {
+  id: number
+  slug: string
+  title: string
+  data: SeLayerObjectType[]
+}
+
+const seGeoData: SeGeoData[] = [
+  {
+    id: 1,
+    slug: 'se_social_vulnerability',
+    title: 'Social Vulnerability',
+    data: [
+      {
+        id: 1.1,
+        slug: 'se_random_forest',
+        title: 'Prediction: Best Model',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Vulnerability [0-1]',
+        json_library: 'rf',
+      },
+      // {
+      //     id: 1.2,
+      //     slug: 'se_xgboost',
+      //     title: 'SV: XGBoost',
+      //     status: false,
+      //     value: 70,
+      //     reverse_meaning: false,
+      //     units: 'Vulnerability [0-1]',
+      //     json_library:'XGBoost'
+      // },
+    ],
+  },
+  {
+    id: 2,
+    slug: 'se_drive_time',
+    title: 'Drive Time',
+    data: [
+      {
+        id: 2.1,
+        slug: 'se_education_facility',
+        title: 'Education Facility',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Average Drive time in Seconds',
+        json_library: 'edu',
+      },
+      {
+        id: 2.2,
+        slug: 'se_health_institution',
+        title: 'Health Institution',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Average Drive time in Seconds',
+        json_library: 'health',
+      },
+      {
+        id: 2.3,
+        slug: 'se_financial_service',
+        title: 'Financial Service',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Average Drive time in Seconds',
+        json_library: 'finan',
+      },
+    ],
+  },
+  {
+    id: 3,
+    slug: 'se_socio_economic',
+    title: 'Socio Economic',
+    data: [
+      {
+        id: 3.1,
+        slug: 'se_population_counts',
+        title: 'Population Counts',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'People / 90m²',
+        json_library: 'ppp_pop',
+      },
+      {
+        id: 3.2,
+        slug: 'se_celltowers',
+        title: 'Celltowers',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'Celltowers per district',
+        json_library: 'cellt',
+      },
+      {
+        id: 3.3,
+        slug: 'se_nightlight_intensity',
+        title: 'Nightlight Intensity',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'watt/m²',
+        json_library: 'ntl_vnl_npp_2016',
+      },
+      {
+        id: 3.4,
+        slug: 'se_relative_wealth',
+        title: 'Relative Wealth',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'Relative Wealth Score (0 to 1)',
+        json_library: 'rwi',
+      },
+      {
+        id: 3.5,
+        slug: 'se_GDP',
+        title: 'GDP',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'Total USD per District',
+        json_library: 'gdp_2015',
+      },
+    ],
+  },
+  {
+    id: 4,
+    slug: 'se_bio_physical',
+    title: 'Bio-Physical',
+    data: [
+      {
+        id: 4.1,
+        slug: 'se_plant_health',
+        title: 'Plant Health',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'NDVI score',
+        json_library: 'ndvi',
+      },
+      {
+        id: 4.2,
+        slug: 'se_temperature_max',
+        title: 'Temperature (Max)',
+        status: false,
+        value: 70,
+        reverse_meaning: true,
+        units: 'AVG °C in February',
+        json_library: 'temp',
+      },
+      // {
+      //     id: 4.3,
+      //     slug: 'se_land_use_class',
+      //     title: 'Land Use Class',
+      //     status: false,
+      //     value: 70,
+      //     reverse_meaning: true,
+      //     units: '',
+      //     json_library:'lu'
+      // },
+      {
+        id: 4.4,
+        slug: 'se_elevation',
+        title: 'Elevation',
+        status: false,
+        value: 70,
+        reverse_meaning: false,
+        units: 'Meter above sea Level:',
+        json_library: 'dem',
+      },
+    ],
+  },
+]
+
+export const reducerInitialState = {
   show_data: false,
   show_sidebar_data: false,
   show_infoBox_data: false,
@@ -122,353 +519,11 @@ export const initialState = {
   ],
   socioeconomic: {
     status: false,
-    data: [
-      {
-        id: 1,
-        slug: 'se_social_vulnerability',
-        title: 'Social Vulnerability',
-        data: [
-          {
-            id: 1.1,
-            slug: 'se_random_forest',
-            title: 'Prediction: Best Model',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Vulnerability [0-1]',
-            json_library: 'rf',
-          },
-          // {
-          //     id: 1.2,
-          //     slug: 'se_xgboost',
-          //     title: 'SV: XGBoost',
-          //     status: false,
-          //     value: 70,
-          //     reverse_meaning: false,
-          //     units: 'Vulnerability [0-1]',
-          //     json_library:'XGBoost'
-          // },
-        ],
-      },
-      {
-        id: 2,
-        slug: 'se_drive_time',
-        title: 'Drive Time',
-        data: [
-          {
-            id: 2.1,
-            slug: 'se_education_facility',
-            title: 'Education Facility',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Average Drive time in Seconds',
-            json_library: 'edu',
-          },
-          {
-            id: 2.2,
-            slug: 'se_health_institution',
-            title: 'Health Institution',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Average Drive time in Seconds',
-            json_library: 'health',
-          },
-          {
-            id: 2.3,
-            slug: 'se_financial_service',
-            title: 'Financial Service',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Average Drive time in Seconds',
-            json_library: 'finan',
-          },
-        ],
-      },
-      {
-        id: 3,
-        slug: 'se_socio_economic',
-        title: 'Socio Economic',
-        data: [
-          {
-            id: 3.1,
-            slug: 'se_population_counts',
-            title: 'Population Counts',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'People / 90m²',
-            json_library: 'ppp_pop',
-          },
-          {
-            id: 3.2,
-            slug: 'se_celltowers',
-            title: 'Celltowers',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'Celltowers per district',
-            json_library: 'cellt',
-          },
-          {
-            id: 3.3,
-            slug: 'se_nightlight_intensity',
-            title: 'Nightlight Intensity',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'watt/m²',
-            json_library: 'ntl_vnl_npp_2016',
-          },
-          {
-            id: 3.4,
-            slug: 'se_relative_wealth',
-            title: 'Relative Wealth',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'Relative Wealth Score (0 to 1)',
-            json_library: 'rwi',
-          },
-          {
-            id: 3.5,
-            slug: 'se_GDP',
-            title: 'GDP',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'Total USD per District',
-            json_library: 'gdp_2015',
-          },
-        ],
-      },
-      {
-        id: 4,
-        slug: 'se_bio_physical',
-        title: 'Bio-Physical',
-        data: [
-          {
-            id: 4.1,
-            slug: 'se_plant_health',
-            title: 'Plant Health',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'NDVI score',
-            json_library: 'ndvi',
-          },
-          {
-            id: 4.2,
-            slug: 'se_temperature_max',
-            title: 'Temperature (Max)',
-            status: false,
-            value: 70,
-            reverse_meaning: true,
-            units: 'AVG °C in February',
-            json_library: 'temp',
-          },
-          // {
-          //     id: 4.3,
-          //     slug: 'se_land_use_class',
-          //     title: 'Land Use Class',
-          //     status: false,
-          //     value: 70,
-          //     reverse_meaning: true,
-          //     units: '',
-          //     json_library:'lu'
-          // },
-          {
-            id: 4.4,
-            slug: 'se_elevation',
-            title: 'Elevation',
-            status: false,
-            value: 70,
-            reverse_meaning: false,
-            units: 'Meter above sea Level:',
-            json_library: 'dem',
-          },
-        ],
-      },
-    ],
+    data: seGeoData,
   },
   geodata: {
     status: false,
-    data: [
-      {
-        id: 1,
-        slug: 'sv_social_vulnerability',
-        title: 'Social Vulnerability',
-        data: [
-          // {
-          //     id: 1.1,
-          //     slug: 'sv_linear_model',
-          //     title: 'SV: Linear Model',
-          //     status: false,
-          //     value: 70,
-          //     layer: 'sdg-ai-lab:Linear_SV'
-          // },
-          {
-            id: 1.2,
-            slug: 'sv_xgboost',
-            title: 'SV: XG Boost',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:XGBoost_tuned_scaled_clipped_final',
-          },
-          {
-            id: 1.3,
-            slug: 'sv_random_forest',
-            title: 'SV: Random Forest',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:Random_Forest_tuned_scaled_clp_final',
-          },
-        ],
-      },
-      {
-        id: 2,
-        slug: 'sv_socio_economic',
-        title: 'Socio Economic',
-        data: [
-          {
-            id: 2.1,
-            slug: 'sv_nightlight_intensity',
-            title: 'Nightlight Intensity',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:scaled_r_norm_NTL',
-          },
-          {
-            id: 2.2,
-            slug: 'sv_pop_density',
-            title: 'Population Density',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_r_norm_population_interpolation',
-          },
-          {
-            id: 2.3,
-            slug: 'sv_celltower',
-            title: 'Celltower Density',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_r_celltower',
-          },
-          // {
-          //     id: 4.4,
-          //     slug: 'sv_road_density',
-          //     title: 'Road Density',
-          //     status: false,
-          //     value: 70,
-          //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
-          // },
-          {
-            id: 2.5,
-            slug: 'sv_relative_wealth',
-            title: 'Relative Wealth',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_rwi',
-          },
-          {
-            id: 2.6,
-            slug: 'sv_gdp',
-            title: 'Gross Domestic Product',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_r_norm_GDP_2015_intp',
-          },
-        ],
-      },
-      {
-        id: 3,
-        slug: 'sv_distance_maps',
-        title: 'Distance Maps',
-        data: [
-          {
-            id: 3.1,
-            slug: 'sv_distance_to_healthcare',
-            title: 'Distance to Healthcare',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_health_res_0_05_penalty',
-          },
-          {
-            id: 3.2,
-            slug: 'sv_distance_to_finance',
-            title: 'Distance to Finance',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_finan_res_0_05_penalty',
-          },
-          {
-            id: 3.3,
-            slug: 'sv_distance_to_edu',
-            title: 'Distance to Education',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_edu_res_0_05_penalty',
-          },
-          {
-            id: 3.4,
-            slug: 'sv_roads',
-            title: 'Road Network',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:lines_merged',
-          },
-        ],
-      },
-      {
-        id: 4,
-        slug: 'sv_bio_physical',
-        title: 'Bio Physical Layers',
-        data: [
-          {
-            id: 4.1,
-            slug: 'sv_elevation',
-            title: 'Elevation in meters',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:r_norm_elev_srtmv2_300m',
-          },
-          {
-            id: 4.2,
-            slug: 'sv_slope',
-            title: 'Slope in degrees',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_slope_clipped',
-          },
-          {
-            id: 4.3,
-            slug: 'sv_max_temp',
-            title: 'Max Temp Winter',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_scaled_r_norm_maxtemp_feb',
-          },
-          {
-            id: 4.4,
-            slug: 'sv_plant_health',
-            title: 'Plant Health (NDVI)',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:up_new_ndvi',
-          },
-          {
-            id: 4.5,
-            slug: 'sv_precipitation',
-            title: 'Rainfall',
-            status: false,
-            value: 70,
-            layer: 'sdg-ai-lab:precipitation_upsampled_0_0001',
-          },
-        ],
-      },
-    ],
+    data: svGeoData,
   },
   vulnerability: false,
   csv_data_vulnerability: [],
@@ -1440,225 +1495,4 @@ export const initialState = {
   statistics: false,
   csv_data: [],
   on_homepage: false,
-}
-
-export const reducer = (state, action) => {
-  switch (action.type) {
-    case 'TOGGLE_SHOW_DATA':
-      return {
-        ...state,
-        show_data: !state.show_data,
-      }
-    case 'TOGGLE_SIDEBAR_DATA':
-      return {
-        ...state,
-        show_sidebar_data: !state.show_sidebar_data,
-      }
-    case 'TOGGLE_INFOBOX_DATA':
-      return {
-        ...state,
-        show_infoBox_data: !state.show_infoBox_data,
-      }
-    case 'TOGGLE_SIDEBAR':
-      return {
-        ...state,
-        show_sidebar: !state.show_sidebar,
-      }
-    case 'CHANGE_LEVEL':
-      return produce(state, (draft) => {
-        draft.level = action.payload.level
-      })
-    case 'TOGGLE_RESET_SETTINGS':
-      return produce(state, (draft) => {
-        draft.reset_settings = !draft.reset_settings
-      })
-    case 'RESET_INITIAL_STATE_SETTINGS':
-      return action.payload
-    case 'TOGGLE_AREA_OF_INTEREST':
-      return {
-        ...state,
-        show_area_of_interest: !state.show_area_of_interest,
-      }
-    case 'TOGGLE_SOCIOECONOMIC':
-      return produce(state, (draft) => {
-        draft.socioeconomic.status = !draft.socioeconomic.status
-      })
-    case 'CHANGE_SOCIOECONOMIC':
-      return produce(state, (draft) => {
-        draft.socioeconomic['data'][action.index_1]['data'][action.index_2] =
-          action.payload
-      })
-    case 'CHANGE_SOCIOECONOMIC_DATA_COLUMN':
-      return {
-        ...state,
-        socioeconomic: {
-          status: state.socioeconomic.status,
-          data: state.socioeconomic.data,
-          data_column: action.payload,
-        },
-      }
-    case 'TOGGLE_GEODATA':
-      return produce(state, (draft) => {
-        draft.geodata.status = !draft.geodata.status
-      })
-    case 'CHANGE_GEOLAYERS_DESCRIPTION':
-      return produce(state, (draft) => {
-        draft.geolayers_description[action.layer] = action.payload
-      })
-    case 'CHANGE_GEODATA':
-      return produce(state, (draft) => {
-        draft.geodata['data'][action.index_1]['data'][action.index_2] =
-          action.payload
-      })
-    case 'CHANGE_ACTIVE_LEGENDS':
-      return produce(state, (draft) => {
-        let newLegends = draft.activeLegends
-
-        if (action.payload.status == true) {
-          newLegends.push(action.payload)
-        } else if (action.payload.status == false) {
-          newLegends = newLegends.filter((item) => {
-            return item.slug != action.payload.slug
-          })
-        }
-
-        /*For DHS indicators. ONLY*/
-        if (
-          action.payload.hasOwnProperty('Name') &&
-          action.payload.hasOwnProperty('Additional Information')
-        ) {
-          newLegends = newLegends.filter((item) => {
-            return !item.hasOwnProperty('Name')
-          })
-          if (action.payload.id != 0) {
-            newLegends.push(action.payload)
-          }
-        }
-        draft.activeLegends = newLegends
-      })
-    case 'DRAG_DROP_CHANGE_ACTIVE_LEGENDS':
-      return produce(state, (draft) => {
-        const items = draft.activeLegends
-        const [reorderedItem] = items.splice(action.payload.source.index, 1)
-        items.splice(action.payload.destination.index, 0, reorderedItem)
-        draft.activeLegends = items
-      })
-    case 'DRAG_DROP_SIDEBAR_SOCIOECONOMIC':
-      return produce(state, (draft) => {
-        if (action.payload.destination) {
-          const items = draft.socioeconomic.data
-          const [reorderedItem] = items[action.index_1]['data'].splice(
-            action.payload.source.index,
-            1
-          )
-          items[action.index_1]['data'].splice(
-            action.payload.destination.index,
-            0,
-            reorderedItem
-          )
-          draft.socioeconomic.data = items
-        }
-      })
-    case 'DRAG_DROP_SIDEBAR_GEODATA':
-      return produce(state, (draft) => {
-        if (action.payload.destination) {
-          const items = draft.geodata.data
-          const [reorderedItem] = items[action.index_1]['data'].splice(
-            action.payload.source.index,
-            1
-          )
-          items[action.index_1]['data'].splice(
-            action.payload.destination.index,
-            0,
-            reorderedItem
-          )
-          draft.geodata.data = items
-        }
-      })
-    case 'DRAG_DROP_CHANGE_ACTIVE_GEODATA':
-      return produce(state, (draft) => {
-        const items = draft.geodata.data
-        const [reorderedItem] = items[action.index_1]['data'].splice(
-          action.payload.source.index,
-          1
-        )
-        items[action.index_1]['data'].splice(
-          action.payload.destination.index,
-          0,
-          reorderedItem
-        )
-        draft.geodata.data = items
-      })
-    case 'TOGGLE_VULNERABILITY':
-      return produce(state, (draft) => {
-        draft.vulnerability = !draft.vulnerability
-      })
-    case 'FETCH_CSV_DATA_VULNERABILITY':
-      return {
-        ...state,
-        csv_data_vulnerability: action.payload,
-      }
-    case 'CHANGE_CATEGORIES':
-      return produce(state, (draft) => {
-        draft.categories[action.index_1] = action.payload
-      })
-
-    case 'DRAG_DROP_CATEGORIES':
-      return produce(state, (draft) => {
-        const { source, destination } = action.payload
-        if (!destination) return
-        const items = Array.from(action.categories)
-        const [reorderedItem] = items.splice(source.index, 1)
-        items.splice(destination.index, 0, reorderedItem)
-        draft.categories = items
-      })
-
-    case 'TOGGLE_DSV_INDICATOR':
-      return {
-        ...state,
-        dsv_indicator: !state.dsv_indicator,
-      }
-    case 'SELECT_DATA_COLUMN':
-      return {
-        ...state,
-        selected_data_column: action.payload,
-      }
-    case 'TOGGLE_DHS_INDICATOR':
-      return {
-        ...state,
-        dhs_indicator: !state.dhs_indicator,
-      }
-    case 'SELECT_DHS_DATA_COLUMN':
-      return {
-        ...state,
-        selected_dhs_data_column: action.payload,
-      }
-    case 'TOGGLE_DRAW_OF_INTEREST':
-      return {
-        ...state,
-        draw_area_of_interest: !state.draw_area_of_interest,
-      }
-    case 'TOGGLE_STATISTICS':
-      return {
-        ...state,
-        show_statistics: !state.show_statistics,
-      }
-    case 'FETCH_CSV_DATA':
-      return {
-        ...state,
-        csv_data: action.payload,
-      }
-    case 'FETCH_DHS_COLUMN':
-      return {
-        ...state,
-        dhs_data_column: action.payload,
-      }
-    case 'QUIT_HOMEPAGE':
-      return {
-        ...state,
-        on_homepage: action.payload,
-      }
-    default:
-      return state
-  }
 }

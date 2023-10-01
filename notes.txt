@@ -1,0 +1,14 @@
+- bug: after pressed Nightlight intensity on SE layers, 
+then pressing the same thing on SV layers activates the SE layer item
+
+- is it better to make all layers as radio buttons and not be able to overlap 
+each other?
+
+- is it possible to memoize the heavy SV layers?
+
+- fix the AWS instance reachability problem
+
+- fix the peer dependency problems. (not possible to resolve the dependency tree)
+
+- for GeoServer to be able to run through https (safe) network, it needs SSL certificate.
+These certificate need to be purchased

@@ -14,17 +14,7 @@ import {
   DropResult,
 } from 'react-beautiful-dnd'
 import OpacityRange from './OpacityRange'
-
-export type Val2 = {
-  id: number
-  json_library: string
-  reverse_meaning: boolean
-  slug: string
-  status: boolean
-  title: string
-  units: string
-  value: string
-}
+import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
 function SocioeconLayers() {
   const { state, dispatch } = useContext(FilterContext)
@@ -33,8 +23,13 @@ function SocioeconLayers() {
   const classNames =
     'flex items-center overflow-hidden text-ellipsis whitespace-nowrap rounded py-4 text-gray-700 transition duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600'
 
-  const onChange = (val2: Val2, index: number, index2: number): void => {
+  const onChange = (
+    val2: SeLayerObjectType,
+    index: number,
+    index2: number
+  ): void => {
     const newItem = { ...val2, status: !val2.status }
+
     dispatch({
       type: 'CHANGE_SOCIOECONOMIC',
       payload: newItem,
@@ -112,7 +107,7 @@ function SocioeconLayers() {
                                 <div className="i flex items-center">
                                   <input
                                     className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
-                                    id={val2.title}
+                                    id={`se${val2.title}`}
                                     type="checkbox"
                                     checked={val2.status}
                                     onChange={() =>
@@ -121,17 +116,19 @@ function SocioeconLayers() {
                                   />
                                   <label
                                     className={`h-6 cursor-pointer pl-2 pr-6 text-xs ${classNames}`}
-                                    htmlFor={val2.title}
+                                    htmlFor={`se${val2.title}`}
                                   >
                                     {val2.title}
                                   </label>
                                 </div>
-                                <OpacityRange
-                                  val2={val2}
-                                  index={index}
-                                  index2={index2}
-                                  isVisible={Boolean(val2.status)}
-                                />
+                                {val2.status && (
+                                  <OpacityRange
+                                    val2={val2}
+                                    index={index}
+                                    index2={index2}
+                                    changeType={'SOCIOECONOMIC'}
+                                  />
+                                )}
                                 {/* COMMENT #2 (AT THE BOTTOM OF THE FILE) WAS HERE */}
                               </li>
                             )}

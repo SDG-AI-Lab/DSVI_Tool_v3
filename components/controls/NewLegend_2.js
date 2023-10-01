@@ -1,299 +1,407 @@
-import React, {useState, useEffect, useContext, useRef} from 'react';
-import {FilterContext} from '../../context/FilterContext'
+import React, { useState, useEffect, useContext, useRef } from 'react'
+import { FilterContext } from '../../context/FilterContext'
 import Control from 'react-leaflet-custom-control'
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-import BarChart from './BarChart';
-import L from 'leaflet';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import BarChart from './BarChart'
+import L from 'leaflet'
 
 const NewLegend_2 = (props) => {
-  const [showUIElements, setShowUIElements] = useState(false);
-  const {state, dispatch} = useContext(FilterContext);
-  const vulnerability = state["vulnerability"];
-  const activeLegends = state['activeLegends'];
+  const [showUIElements, setShowUIElements] = useState(false)
+  const { state, dispatch } = useContext(FilterContext)
+  const vulnerability = state['vulnerability']
+  const activeLegends = state['activeLegends']
 
-  const legendRef = useRef();
+  const legendRef = useRef()
   useEffect(() => {
     if (legendRef.current) {
       /*Using the wheel will not change the zoom on the map.*/
-      L.DomEvent.disableScrollPropagation(legendRef.current);
+      L.DomEvent.disableScrollPropagation(legendRef.current)
     }
-  });
+  })
 
   useEffect(() => {
-    setShowUIElements(true);
+    setShowUIElements(true)
     return () => {
-      setShowUIElements(false);
-    };
-  }, []);
+      setShowUIElements(false)
+    }
+  }, [])
 
   function handleOnDragEnd(result) {
-    if (!result.destination) return;
-    dispatch({ type: "DRAG_DROP_CHANGE_ACTIVE_LEGENDS", payload: result });
+    if (!result.destination) return
+    dispatch({ type: 'DRAG_DROP_CHANGE_ACTIVE_LEGENDS', payload: result })
   }
 
+  const SE_Legend = (props) => {
+    const [minMeanNumber, setMinMeanNumber] = useState(null)
+    const [maxMeanNumber, setMaxMeanNumber] = useState(null)
+    useEffect(() => {
+      import(
+        `/public/static/${props.layer.json_library}_${state['level']}.geojson`
+      ).then((library) => {
+        const onlyAllMeanNumbers = library.features.map(
+          (object) => object.properties._mean
+        )
+        // console.log('onlyAllMeanNumbers');
+        // console.log(onlyAllMeanNumbers);
 
-const SE_Legend = (props) => {
-  const [minMeanNumber, setMinMeanNumber] = useState(null);
-  const [maxMeanNumber, setMaxMeanNumber] = useState(null);
-  useEffect(() => {
-    import(`/public/static/${props.layer.json_library}_${state['level']}.geojson`)
-      .then(library => {
-          const onlyAllMeanNumbers = library.features.map(object => object.properties._mean);
-          // console.log('onlyAllMeanNumbers');
-          // console.log(onlyAllMeanNumbers);
+        setMinMeanNumber(Math.min(...onlyAllMeanNumbers))
+        setMaxMeanNumber(Math.max(...onlyAllMeanNumbers))
+      })
+    }, [])
 
-          setMinMeanNumber(Math.min(...onlyAllMeanNumbers));
-          setMaxMeanNumber(Math.max(...onlyAllMeanNumbers));
-      });
-    }, []);
-  
-  // minMeanNumber != null ? console.log("minMeanNumber:", minMeanNumber) : null;
-  // maxMeanNumber != null ? console.log("maxMeanNumber:", maxMeanNumber) : null;
-  
-  const normValue = coef => {
-    const result = (maxMeanNumber-minMeanNumber)*coef + minMeanNumber;
-    return result;
-  } 
+    // minMeanNumber != null ? console.log("minMeanNumber:", minMeanNumber) : null;
+    // maxMeanNumber != null ? console.log("maxMeanNumber:", maxMeanNumber) : null;
 
-  return (
-    <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
-    <h2 className='font-bold'>Socioeconomic Layers</h2>
-    <h3>Selected: {props.title}</h3>
-    <table className='legend_table'>
-      <thead>
-        <tr>
-          <th align='center' colSpan="2">Values</th>
-          <th align='center'>Category</th>
-        </tr>
-      </thead>
-      {!props.layer.reverse_meaning && minMeanNumber != null && maxMeanNumber != null ? 
-        <tbody>
-          <tr>
-            <td className='bg-[#FF362C] w-5 h-5'></td>
-            <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
-            <td className='pl-1'>Very High</td>
-            
-          </tr>
-          
-          <tr>
-            <td className='bg-[#ff962c] w-5 h-5'></td>
-            <td className='pl-1'>{normValue(0.6).toFixed(2)} (0.6) - {normValue(0.8).toFixed(2)} (0.8)</td>
-            <td className='pl-1'>High</td>
-          </tr>
-          <tr>
-            <td className='bg-[#FFDE2C] w-5 h-5'></td>
-            <td className='pl-1'>{normValue(0.4).toFixed(2)} (0.4) - {normValue(0.6).toFixed(2)} (0.6)</td>
-            <td className='pl-1'>Middle</td>
-          </tr>
-          <tr>
-            <td className='bg-[#00800A] w-5 h-5'></td>
-            <td className='pl-1'>{normValue(0.2).toFixed(2)} (0.2) - {normValue(0.4).toFixed(2)} (0.4)</td>
-            <td className='pl-1'>Low</td>
-          </tr>
-          <tr>
-            <td className='bg-[#0c58ca] w-5 h-5'></td>
-            <td className='pl-1'>{minMeanNumber.toFixed(2)} (0.0) - {normValue(0.2).toFixed(2)} (0.2)</td>
-            <td className='pl-1'>Very Low</td>
-          </tr>
-        </tbody>
-        : minMeanNumber != null && maxMeanNumber != null &&
-        <tbody>
-          <tr>
-              <td className='bg-[#0c58ca] w-5 h-5'></td>
-              <td className='pl-1'>{normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)} (1.0)</td>
-              <td className='pl-1'>Very High</td>
-            </tr>
-            <tr>
-              <td className='bg-[#00800A] w-5 h-5'></td>
-              <td className='pl-1'>{normValue(0.6).toFixed(2)} (0.6) - {normValue(0.8).toFixed(2)} (0.8)</td>
-              <td className='pl-1'>High</td>
-            </tr>
-            <tr>
-              <td className='bg-[#FFDE2C] w-5 h-5'></td>
-              <td className='pl-1'>{normValue(0.4).toFixed(2)} (0.4) - {normValue(0.6).toFixed(2)} (0.6)</td>
-              <td className='pl-1'>Middle</td>
-            </tr>
-            <tr>
-              <td className='bg-[#ff962c] w-5 h-5'></td>
-              <td className='pl-1'>{normValue(0.2).toFixed(2)} (0.2) - {normValue(0.4).toFixed(2)} (0.4)</td>
-              <td className='pl-1'>Low</td>
-            </tr>
-            <tr>
-              <td className='bg-[#FF362C] w-5 h-5'></td>
-              <td className='pl-1'>{minMeanNumber.toFixed(2)} (0.0) - {normValue(0.2).toFixed(2)} (0.2)</td>
-              <td className='pl-1'>Very Low</td>
-            </tr>
-        </tbody>
-      }
-    </table>
-  </div>
-  );
-}
+    const normValue = (coef) => {
+      const result = (maxMeanNumber - minMeanNumber) * coef + minMeanNumber
+      return result
+    }
 
-const GeoLegend = (props) => {
-  
-  const arrayLegends = state['geolayers_description'][props.layer];
-
-  if (!arrayLegends) {
-    return <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>No data for layer: {props.slug}</div>;
-  }  else {
     return (
-      <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
-        <h2 className='font-bold'>Geodata Layers</h2>
+      <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
+        <h2 className="font-bold">Socioeconomic Layers</h2>
         <h3>Selected: {props.title}</h3>
-        <table className='legend_table'>
+        <table className="legend_table">
           <thead>
             <tr>
-              <th align='center' colSpan="2">Values</th>
-              <th align='center'>Category</th>
+              <th align="center" colSpan="2">
+                Values
+              </th>
+              <th align="center">Category</th>
             </tr>
           </thead>
-          <tbody>
-          {arrayLegends.map(({color, label, quantity}, index) => {
-            return (
-              <tr key={label}>
-                <td className='w-5 h-5' style={{backgroundColor: color}}></td>
-                <td className='pl-1'>{index !== arrayLegends.length-1 ?`${Number.parseFloat(quantity).toFixed(2)} - ${Number.parseFloat(arrayLegends[index+1].quantity).toFixed(2)}` : `${Number.parseFloat(quantity).toFixed(2)}+`}</td>
-                <td className='pl-1'>{getWordExplanation(index)}</td>
+          {!props.layer.reverse_meaning &&
+          minMeanNumber != null &&
+          maxMeanNumber != null ? (
+            <tbody>
+              <tr>
+                <td className="h-5 w-5 bg-[#FF362C]"></td>
+                <td className="pl-1">
+                  {normValue(0.8).toFixed(2)} (0.8) - {maxMeanNumber.toFixed(2)}{' '}
+                  (1.0)
+                </td>
+                <td className="pl-1">Very High</td>
               </tr>
-            )})
-            }
+
+              <tr>
+                <td className="h-5 w-5 bg-[#ff962c]"></td>
+                <td className="pl-1">
+                  {normValue(0.6).toFixed(2)} (0.6) -{' '}
+                  {normValue(0.8).toFixed(2)} (0.8)
+                </td>
+                <td className="pl-1">High</td>
+              </tr>
+              <tr>
+                <td className="h-5 w-5 bg-[#FFDE2C]"></td>
+                <td className="pl-1">
+                  {normValue(0.4).toFixed(2)} (0.4) -{' '}
+                  {normValue(0.6).toFixed(2)} (0.6)
+                </td>
+                <td className="pl-1">Middle</td>
+              </tr>
+              <tr>
+                <td className="h-5 w-5 bg-[#00800A]"></td>
+                <td className="pl-1">
+                  {normValue(0.2).toFixed(2)} (0.2) -{' '}
+                  {normValue(0.4).toFixed(2)} (0.4)
+                </td>
+                <td className="pl-1">Low</td>
+              </tr>
+              <tr>
+                <td className="h-5 w-5 bg-[#0c58ca]"></td>
+                <td className="pl-1">
+                  {minMeanNumber.toFixed(2)} (0.0) - {normValue(0.2).toFixed(2)}{' '}
+                  (0.2)
+                </td>
+                <td className="pl-1">Very Low</td>
+              </tr>
+            </tbody>
+          ) : (
+            minMeanNumber != null &&
+            maxMeanNumber != null && (
+              <tbody>
+                <tr>
+                  <td className="h-5 w-5 bg-[#0c58ca]"></td>
+                  <td className="pl-1">
+                    {normValue(0.8).toFixed(2)} (0.8) -{' '}
+                    {maxMeanNumber.toFixed(2)} (1.0)
+                  </td>
+                  <td className="pl-1">Very High</td>
+                </tr>
+                <tr>
+                  <td className="h-5 w-5 bg-[#00800A]"></td>
+                  <td className="pl-1">
+                    {normValue(0.6).toFixed(2)} (0.6) -{' '}
+                    {normValue(0.8).toFixed(2)} (0.8)
+                  </td>
+                  <td className="pl-1">High</td>
+                </tr>
+                <tr>
+                  <td className="h-5 w-5 bg-[#FFDE2C]"></td>
+                  <td className="pl-1">
+                    {normValue(0.4).toFixed(2)} (0.4) -{' '}
+                    {normValue(0.6).toFixed(2)} (0.6)
+                  </td>
+                  <td className="pl-1">Middle</td>
+                </tr>
+                <tr>
+                  <td className="h-5 w-5 bg-[#ff962c]"></td>
+                  <td className="pl-1">
+                    {normValue(0.2).toFixed(2)} (0.2) -{' '}
+                    {normValue(0.4).toFixed(2)} (0.4)
+                  </td>
+                  <td className="pl-1">Low</td>
+                </tr>
+                <tr>
+                  <td className="h-5 w-5 bg-[#FF362C]"></td>
+                  <td className="pl-1">
+                    {minMeanNumber.toFixed(2)} (0.0) -{' '}
+                    {normValue(0.2).toFixed(2)} (0.2)
+                  </td>
+                  <td className="pl-1">Very Low</td>
+                </tr>
+              </tbody>
+            )
+          )}
+        </table>
+      </div>
+    )
+  }
+
+  const GeoLegend = (props) => {
+    const arrayLegends = state['geolayers_description'][props.layer]
+
+    if (!arrayLegends) {
+      return (
+        <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
+          No data for layer: {props.slug}
+        </div>
+      )
+    } else {
+      return (
+        <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
+          <h2 className="font-bold">Geodata Layers</h2>
+          <h3>Selected: {props.title}</h3>
+          <table className="legend_table">
+            <thead>
+              <tr>
+                <th align="center" colSpan="2">
+                  Values
+                </th>
+                <th align="center">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {arrayLegends.map(({ color, label, quantity }, index) => {
+                return (
+                  <tr key={label}>
+                    <td
+                      className="h-5 w-5"
+                      style={{ backgroundColor: color }}
+                    ></td>
+                    <td className="pl-1">
+                      {index !== arrayLegends.length - 1
+                        ? `${Number.parseFloat(quantity).toFixed(
+                            2
+                          )} - ${Number.parseFloat(
+                            arrayLegends[index + 1].quantity
+                          ).toFixed(2)}`
+                        : `${Number.parseFloat(quantity).toFixed(2)}+`}
+                    </td>
+                    <td className="pl-1">{getWordExplanation(index)}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
+  }
+
+  const Cats_Legend = (props) => {
+    return (
+      <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
+        <h2 className="font-bold">Vulnerability</h2>
+        <h3>Selected: Categories | {props.title}</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td align="center">
+                <div
+                  className="h-3 w-3 rounded-full"
+                  style={{ backgroundColor: props.color }}
+                ></div>
+              </td>
+              <td className="pl-1">{props.title}</td>
+            </tr>
           </tbody>
         </table>
       </div>
-    );
-  }
-}
-
-const Cats_Legend = (props) => {
-  return (
-    <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
-    <h2 className='font-bold'>Vulnerability</h2> 
-    <h3>Selected: Categories | {props.title}</h3>
-    <table>
-      <tbody>
-        <tr>
-          <td align='center'>
-            <div className="w-3 h-3 rounded-full" style={{backgroundColor: props.color}}></div>
-          </td>
-          <td className='pl-1'>{props.title}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  );
-}
-
-const DHS_indicators = (props) => {
-  const {state, dispatch} = useContext(FilterContext)
-  const selected_dhs_data_column = state['selected_dhs_data_column']
-  const dhs_data_column = state['dhs_data_column']
-  const dhsIndicator = state["dhs_indicator"];
-  const csv_data = state['csv_data']
-  let normalized_csv_data = csv_data
-  const selected_dhs_column = dhs_data_column.filter( c => c.id == selected_dhs_data_column )[0]
-  const isBlueGreenYellowRed = selected_dhs_column ? selected_dhs_column['BlueGreenYellowRed? (0=No;1=Yes)'] : 0
-
-  const getColor = (value) => {
-    return !isBlueGreenYellowRed ? `hsl(${240 * (1 - value)}, 100%, 50%)` : `hsl(${value * 240}, 100%, 50%)`
-  }
-  const getMaxValue = (column_name) => {
-    return Math.max(...csv_data.map(p => p[column_name]));
-  }
-  const getMinValue = (column_name) => {
-    return Math.min(...csv_data.map(p => p[column_name]));
+    )
   }
 
-  const normalizeValue = (column_name) => {
-    const maxValue = Math.max(...csv_data.map(p => p[column_name]))
-    if(maxValue > 1){
-      //should normalize values
-      const minValue = Math.min(...csv_data.map(p => p[column_name]))
-      normalized_csv_data = csv_data.map( p => {
-        p[column_name] = (p[column_name] - minValue) / (maxValue - minValue)
-        return p
-      })
+  const DHS_indicators = (props) => {
+    const { state, dispatch } = useContext(FilterContext)
+    const selected_dhs_data_column = state['selected_dhs_data_column']
+    const dhs_data_column = state['dhs_data_column']
+    const dhsIndicator = state['dhs_indicator']
+    const csv_data = state['csv_data']
+    let normalized_csv_data = csv_data
+    const selected_dhs_column = dhs_data_column.filter(
+      (c) => c.id == selected_dhs_data_column
+    )[0]
+    const isBlueGreenYellowRed = selected_dhs_column
+      ? selected_dhs_column['BlueGreenYellowRed? (0=No;1=Yes)']
+      : 0
+
+    const getColor = (value) => {
+      return !isBlueGreenYellowRed
+        ? `hsl(${240 * (1 - value)}, 100%, 50%)`
+        : `hsl(${value * 240}, 100%, 50%)`
+    }
+    const getMaxValue = (column_name) => {
+      return Math.max(...csv_data.map((p) => p[column_name]))
+    }
+    const getMinValue = (column_name) => {
+      return Math.min(...csv_data.map((p) => p[column_name]))
+    }
+
+    const normalizeValue = (column_name) => {
+      const maxValue = Math.max(...csv_data.map((p) => p[column_name]))
+      if (maxValue > 1) {
+        //should normalize values
+        const minValue = Math.min(...csv_data.map((p) => p[column_name]))
+        normalized_csv_data = csv_data.map((p) => {
+          p[column_name] = (p[column_name] - minValue) / (maxValue - minValue)
+          return p
+        })
+      }
+    }
+
+    if (selected_dhs_data_column > 0) {
+      normalizeValue(selected_dhs_column.Name)
+    }
+
+    let dataForLegend = []
+    const veryLowValue = getMaxValue(selected_dhs_column.Name) / 6
+    const lowValue = (getMaxValue(selected_dhs_column.Name) * 2) / 6
+    const mediumValue = (getMaxValue(selected_dhs_column.Name) * 3) / 6
+    const highValue = (getMaxValue(selected_dhs_column.Name) * 4) / 6
+    const veryHighValue = (getMaxValue(selected_dhs_column.Name) * 5) / 6
+    dataForLegend = [
+      {
+        color: getColor(getMinValue(selected_dhs_column.Name)),
+        value: getMinValue(selected_dhs_column.Name),
+      },
+      { color: getColor(veryLowValue), value: veryLowValue },
+      { color: getColor(lowValue), value: lowValue },
+      { color: getColor(mediumValue), value: mediumValue },
+      { color: getColor(highValue), value: highValue },
+      { color: getColor(veryHighValue), value: veryHighValue },
+      {
+        color: getColor(getMaxValue(selected_dhs_column.Name)),
+        value: getMaxValue(selected_dhs_column.Name),
+      },
+    ]
+
+    return (
+      dhsIndicator &&
+      csv_data &&
+      selected_dhs_data_column > 0 && (
+        <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
+          <h2 className="font-bold">DHS Indicators</h2>
+          <h3>Selected: {props.name}</h3>
+          <BarChart data={dataForLegend} />
+        </div>
+      )
+    )
+  }
+
+  const getWordExplanation = (index) => {
+    switch (index) {
+      case 0:
+        return 'Very Low'
+      case 1:
+        return 'Low'
+      case 2:
+        return 'Middle'
+      case 3:
+        return 'High'
+      case 4:
+        return 'Very High'
+      default:
+        return 'Not defined'
     }
   }
 
-  if(selected_dhs_data_column > 0){
-    normalizeValue(selected_dhs_column.Name)
-  }
-
-  let dataForLegend = [];
-  const veryLowValue = getMaxValue(selected_dhs_column.Name)/6;
-  const lowValue = (getMaxValue(selected_dhs_column.Name) * 2)/6;
-  const mediumValue = (getMaxValue(selected_dhs_column.Name) * 3)/6;
-  const highValue = (getMaxValue(selected_dhs_column.Name) * 4)/6;
-  const veryHighValue = (getMaxValue(selected_dhs_column.Name) * 5)/6;
-  dataForLegend = [
-    {"color": getColor(getMinValue(selected_dhs_column.Name)), "value": getMinValue(selected_dhs_column.Name)},
-    {"color": getColor(veryLowValue), "value": veryLowValue},
-    {"color": getColor(lowValue), "value": lowValue},
-    {"color": getColor(mediumValue), "value": mediumValue},
-    {"color": getColor(highValue), "value": highValue},
-    {"color": getColor(veryHighValue), "value": veryHighValue},
-    {"color": getColor(getMaxValue(selected_dhs_column.Name)),"value":getMaxValue(selected_dhs_column.Name)}];
-
-  return (((dhsIndicator && csv_data && selected_dhs_data_column > 0)) &&
-    <div className='p-0.5 border-t-2 border-b-2 border-gray-200'>
-    <h2 className='font-bold'>DHS Indicators</h2> 
-    <h3>Selected: {props.name}</h3>
-    <BarChart data={dataForLegend} />
-  </div>
-  );
-}
-
-const getWordExplanation = (index => {
-  switch (index) {
-    case 0: return 'Very Low';
-    case 1:  return 'Low';
-    case 2: return 'Middle';
-    case 3:  return 'High';
-    case 4: return 'Very High';
-    default: return 'Not defined';
-  }
-})
-
   return (
     <Control position="bottomright">
-      <div className='p-1 bg-[white] opacity-70 max-h-96 overflow-auto hover:overflow-scroll' ref={legendRef}>
-        <h1 className='text-sm font-bold'>Legend</h1> 
-        {showUIElements
-          ? <DragDropContext onDragEnd={handleOnDragEnd}>
-              <Droppable droppableId="legends">
-                {(provided) => (
-                  <ul className="legends" {...provided.droppableProps} ref={provided.innerRef}>
-                    {activeLegends.map((item, index) => {
-                      return (
-                        <Draggable key={index} draggableId={(index).toString()} index={index}>
-                          {(provided) => (
-                            <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                              { item.hasOwnProperty('slug')
-                                && item.slug.indexOf("se_") === 0 ? <SE_Legend title={item.title} layer={item}/> : null }
-                              { item.hasOwnProperty('slug')
-                                &&item.slug.indexOf("sv_") === 0 ? <GeoLegend title={item.title} layer={item.layer}/> : null }
-                              { item.hasOwnProperty('slug')
-                                && item.slug.indexOf("cats_") === 0 && vulnerability
-                                ? <Cats_Legend title={item.title} color={item.color}/> : null }
+      <div
+        className="max-h-96 overflow-auto bg-[white] p-1 opacity-70"
+        ref={legendRef}
+      >
+        <h1 className="text-sm font-bold">Legend</h1>
+        {showUIElements ? (
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="legends">
+              {(provided) => (
+                <ul
+                  className="legends"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {activeLegends.map((item, index) => {
+                    return (
+                      <Draggable
+                        key={index}
+                        draggableId={index.toString()}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <li
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            {item.hasOwnProperty('slug') &&
+                            item.slug.indexOf('se_') === 0 ? (
+                              <SE_Legend title={item.title} layer={item} />
+                            ) : null}
+                            {item.hasOwnProperty('slug') &&
+                            item.slug.indexOf('sv_') === 0 ? (
+                              <GeoLegend
+                                title={item.title}
+                                layer={item.layer}
+                              />
+                            ) : null}
+                            {item.hasOwnProperty('slug') &&
+                            item.slug.indexOf('cats_') === 0 &&
+                            vulnerability ? (
+                              <Cats_Legend
+                                title={item.title}
+                                color={item.color}
+                              />
+                            ) : null}
 
-                                { item.hasOwnProperty('Name') 
-                                  && (item.hasOwnProperty('Additional Information')) 
-                                  ? <DHS_indicators name={item.Name}/> : null }
-                            </li>
-                          )}
-                        </Draggable>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </ul>
-                )}
-              </Droppable>
-            </DragDropContext>
-          : null}
+                            {item.hasOwnProperty('Name') &&
+                            item.hasOwnProperty('Additional Information') ? (
+                              <DHS_indicators name={item.Name} />
+                            ) : null}
+                          </li>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+        ) : null}
       </div>
-    </Control> 
+    </Control>
   )
 }
 
-export default NewLegend_2;
+export default NewLegend_2
