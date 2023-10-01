@@ -29,7 +29,7 @@ function SocioeconLayers() {
     index2: number
   ): void => {
     const newItem = { ...val2, status: !val2.status }
-    console.log(val2)
+
     dispatch({
       type: 'CHANGE_SOCIOECONOMIC',
       payload: newItem,

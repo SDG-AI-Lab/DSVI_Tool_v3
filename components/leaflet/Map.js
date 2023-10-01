@@ -21,16 +21,16 @@ import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
 
-import ControlMenu from '../controls/InfoBox'
-import { LegendContext } from '../../context/LegendContext'
-import { Settings, TileProviders } from '../../config/MapConfiguration'
+// import ControlMenu from '../controls/InfoBox'
+// import { LegendContext } from '../../context/LegendContext'
+// import { Settings, TileProviders } from '../../config/MapConfiguration'
 // import PrintControlDefault from "react-leaflet-easyprint";
 // import { BoxZoomControl } from 'react-leaflet-box-zoom'
 
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
 // const PrintControl = withLeaflet(PrintControlDefault);
 
-export const geoServerUrl = 'http://3.133.156.153:8080/geoserver/sdg-ai-lab/wms'
+export const geoServerUrl = 'http://3.146.176.227:8080/geoserver/sdg-ai-lab/wms'
 
 const OsmMap = () => {
   const { state, dispatch } = useContext(FilterContext)
@@ -197,8 +197,6 @@ const OsmMap = () => {
               <BetterWMSTileLayer
                 url={geoServerUrl}
                 layers={layer}
-                transparent="true"
-                zIndex="9999"
                 styles={style}
                 opacity={value / 100}
               />
