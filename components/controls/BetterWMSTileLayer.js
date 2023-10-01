@@ -2,7 +2,7 @@ import L from 'leaflet'
 import { useMap, useMapEvents } from 'react-leaflet'
 import { useState, useEffect, useContext } from 'react'
 import { geoServerUrl } from '../leaflet/Map'
-import { useSetLegends } from '../hooks/useSetLegends'
+import { useWMSTile } from '../hooks/useWMSTile'
 import { FilterContext } from '../../context/FilterContext'
 
 const BetterWMSTileLayer = (props) => {
@@ -11,20 +11,25 @@ const BetterWMSTileLayer = (props) => {
   const version = '1.1.0'
   const pane = 'geodata-pane'
 
+  const someParams = {
+    format: 'image/png',
+    version: '1.1.0',
+    transparent: true,
+  }
+
   const { state, dispatch } = useContext(FilterContext)
+  const { addLegends } = useWMSTile()
   const [WMSobject, setWMSobject] = useState(null)
 
   const map = useMap()
   useEffect(() => {
     const newWMSobject = new L.TileLayer.WMS(url, {
+      ...someParams,
       layers,
-      transparent: true,
-      format,
-      version,
-      zIndex: 9999,
       styles,
+      zIndex: 9999,
+      pane: 'geodata-pane',
       // opacity: opacity,
-      pane,
     })
     setWMSobject(newWMSobject)
 
@@ -38,7 +43,7 @@ const BetterWMSTileLayer = (props) => {
     WMSobject.setOpacity(opacity)
   }
 
-  useSetLegends(geoServerUrl, layers)
+  addLegends(geoServerUrl, layers)
 
   useMapEvents({
     click(evt) {
@@ -102,21 +107,23 @@ const BetterWMSTileLayer = (props) => {
   }
 
   function showGetFeatureInfo(latlng, data, legends) {
+    console.log(data)
     if (latlng && data) {
       const grayIndex =
         data.features.length && data.features[0].properties['GRAY_INDEX']
       const description = defineDescription(grayIndex, legends)
-      let content = grayIndex
-        ? `<p>Value: ${grayIndex.toFixed(2)}, ${description}</p>`
-        : 'no data'
-
-      if (grayIndex != -1 && description != 'No description') {
-        // Otherwise show the content in a popup, or something.
-        L.popup({ maxWidth: 400, className: 'customPopup' })
-          .setLatLng(latlng)
-          .setContent(content)
-          .openOn(map)
-      }
+      let content =
+        grayIndex && grayIndex != -1
+          ? `<p>Value: ${grayIndex.toFixed(2)}, ${description}</p>`
+          : 'no data'
+      console.log(content)
+      // if (grayIndex != -1 && description != 'No description') {
+      // Otherwise show the content in a popup, or something.
+      L.popup({ maxWidth: 400, className: 'customPopup' })
+        .setLatLng(latlng)
+        .setContent(content)
+        .openOn(map)
+      // }
     }
   }
 
