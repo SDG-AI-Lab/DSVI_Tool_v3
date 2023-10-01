@@ -8,10 +8,11 @@ type LegendType = {
   quantity: string
 }
 
-export const useSetLegends = (geoServerUrl: string, layers: string) => {
+export const useSetLegends = (geoServerUrl: string, layers: string): void => {
   const { state, dispatch } = useContext(FilterContext)
 
   const [legends, setLegends] = useState<LegendType[]>([])
+
   let legend_url = `${geoServerUrl}?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetLegendGraphic&FORMAT=application/json&LAYER=${layers}`
   useEffect(() => {
     fetch(legend_url)
@@ -28,7 +29,7 @@ export const useSetLegends = (geoServerUrl: string, layers: string) => {
               const idx = Math.floor(frac * lastIdx)
               return newLegends[idx]
             })
-            console.log('setting legends')
+
             setLegends(fiveLegends)
             dispatch({
               type: 'CHANGE_GEOLAYERS_DESCRIPTION',

@@ -1,8 +1,9 @@
 import L from 'leaflet'
 import { useMap, useMapEvents } from 'react-leaflet'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { geoServerUrl } from '../leaflet/Map'
-import { useSetLegends } from '../hooks/useSetLegend'
+import { useSetLegends } from '../hooks/useSetLegends'
+import { FilterContext } from '../../context/FilterContext'
 
 const BetterWMSTileLayer = (props) => {
   const { url, layers, styles, opacity } = props
@@ -10,10 +11,10 @@ const BetterWMSTileLayer = (props) => {
   const version = '1.1.0'
   const pane = 'geodata-pane'
 
-  const map = useMap()
-
+  const { state, dispatch } = useContext(FilterContext)
   const [WMSobject, setWMSobject] = useState(null)
 
+  const map = useMap()
   useEffect(() => {
     const newWMSobject = new L.TileLayer.WMS(url, {
       layers,
@@ -37,13 +38,18 @@ const BetterWMSTileLayer = (props) => {
     WMSobject.setOpacity(opacity)
   }
 
+  useSetLegends(geoServerUrl, layers)
+
   useMapEvents({
     click(evt) {
       getFeatureInfo(evt, layers)
     },
   })
-  console.log('render')
-  useSetLegends(geoServerUrl, layers)
+
+  const { geolayers_description } = state
+  const geolayersArr = Object.values(geolayers_description)
+  const last = geolayersArr.length - 1
+  const legends = geolayersArr[last]
 
   function getFeatureInfo(evt, layers) {
     // Make an AJAX request to the server and hope for the best
@@ -54,8 +60,9 @@ const BetterWMSTileLayer = (props) => {
       .then((response) => response.json())
       .then(
         (data) => {
-          const err = data.features.length > 0 ? null : data
-          showGetFeatureInfo(err, evt.latlng, data, legends)
+          // const err = data.features.length > 0 ? null : data
+          console.log('in then')
+          showGetFeatureInfo(evt.latlng, data, legends)
         },
         (error) => {
           showGetFeatureInfo(error)
@@ -94,21 +101,20 @@ const BetterWMSTileLayer = (props) => {
     return updated_url
   }
 
-  function showGetFeatureInfo(err, latlng, data, legends) {
-    if (err) {
-      console.log(err)
-      return
-    }
-
+  function showGetFeatureInfo(latlng, data, legends) {
     if (latlng && data) {
-      const grayIndex = data.features[0].properties['GRAY_INDEX']
+      const grayIndex =
+        data.features.length && data.features[0].properties['GRAY_INDEX']
       const description = defineDescription(grayIndex, legends)
+      let content = grayIndex
+        ? `<p>Value: ${grayIndex.toFixed(2)}, ${description}</p>`
+        : 'no data'
 
       if (grayIndex != -1 && description != 'No description') {
         // Otherwise show the content in a popup, or something.
         L.popup({ maxWidth: 400, className: 'customPopup' })
           .setLatLng(latlng)
-          .setContent(`<p>Value: ${grayIndex.toFixed(2)}, ${description}</p>`)
+          .setContent(content)
           .openOn(map)
       }
     }
