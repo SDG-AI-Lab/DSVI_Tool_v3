@@ -6,7 +6,7 @@ import L from 'leaflet'
 import { DataReducerInitialStateType } from '../../reducer/reducerInitialState'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
-import { geojson } from '/public/static'
+import { geojson } from 'public/static'
 
 interface CombinedLayerData {
   layerInfo: SeLayerObjectType | undefined
