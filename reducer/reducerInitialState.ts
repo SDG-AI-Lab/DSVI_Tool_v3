@@ -4,7 +4,7 @@ export type SvLayerObjectType = {
   id: number
   slug: string
   title: string
-  status: false
+  status: boolean
   value: number
   layer: string
   style: string

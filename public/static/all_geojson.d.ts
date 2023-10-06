@@ -173,3 +173,7 @@ declare module 'public/static/dem_3.geojson' {
   const singleGeojson: SingleGeoJson
   export default singleGeojson
 }
+declare module 'public/static/AOI.geojson' {
+  const singleGeojson: SingleGeoJson
+  export default singleGeojson
+}

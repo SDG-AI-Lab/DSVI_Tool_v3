@@ -14,7 +14,7 @@ import { FilterContext } from '../../context/FilterContext'
 import CircleMarkers from '../marker/CircleMarkers'
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability'
 import MapToolbar from '../controls/MapToolbar'
-import AOI from '/public/static/AOI.geojson'
+import AOI from 'public/static/AOI.geojson'
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
@@ -75,6 +75,7 @@ const OsmMap = () => {
   const cats = categoriesData(state)
   const seStatuses = se.map((x) => x.layerInfo.status)
   const svStatuses = sv.map((x) => x.status)
+  console.log(svStatuses)
 
   const showLegend =
     seStatuses.some((x) => x === true) ||

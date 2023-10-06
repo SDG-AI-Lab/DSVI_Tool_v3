@@ -3,7 +3,10 @@ import CustomPolygon from '../controls/CustomPolygon'
 import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
 
 import L from 'leaflet'
-import { DataReducerInitialStateType } from '../../reducer/reducerInitialState'
+import {
+  DataReducerInitialStateType,
+  SvLayerObjectType,
+} from '../../reducer/reducerInitialState'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
 import { geojson } from 'public/static'
@@ -314,7 +317,9 @@ export const useMapFunctions = () => {
     return combinedLayerData
   }
 
-  const svLayersData = (state: DataReducerInitialStateType) => {
+  const svLayersData = (
+    state: DataReducerInitialStateType
+  ): SvLayerObjectType[] => {
     const geodata = state['geodata']['data']
     const social_vulnerability = geodata.find(
       (e) => e.slug === 'sv_social_vulnerability'
@@ -386,18 +391,18 @@ export const useMapFunctions = () => {
     return [
       sv_xgboost,
       sv_random_forest,
-      distance_maps,
+      // distance_maps,
       distance_to_healthcare,
       distance_to_finance,
       distance_to_edu,
       roads,
-      bio_physical,
+      // bio_physical,
       elevation,
       slope,
       max_temp,
       plant_health,
       precipitation,
-      socio_economic,
+      // socio_economic,
       nightlight_intensity,
       pop_density,
       celltower,
