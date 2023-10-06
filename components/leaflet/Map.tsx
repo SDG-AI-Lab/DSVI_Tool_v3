@@ -20,6 +20,7 @@ import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
+import zIndex from '@mui/material/styles/zIndex'
 
 // import ControlMenu from '../controls/InfoBox'
 // import { LegendContext } from '../../context/LegendContext'
@@ -188,7 +189,7 @@ const OsmMap = () => {
                 //style: "sdg-ai-lab:xgboost",
               }}
               url={geoServerUrl}
-              zIndex="9999"
+              zIndex={9999}
               opacity={value / 100}
             />
           )
