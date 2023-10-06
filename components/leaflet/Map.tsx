@@ -76,7 +76,6 @@ const OsmMap = () => {
   const cats = categoriesData(state)
   const seStatuses = se.map((x) => x.layerInfo.status)
   const svStatuses = sv.map((x) => x.status)
-  console.log(svStatuses)
 
   const showLegend =
     seStatuses.some((x) => x === true) ||
@@ -105,7 +104,9 @@ const OsmMap = () => {
 
   useEffect(() => {
     if (activeLegends.length > 0) {
-      let elements = document.getElementsByClassName('leaflet-interactive')
+      let elements = Array.from(
+        document.getElementsByClassName('leaflet-interactive')
+      )
       for (let element of elements) {
         if (activeLegends[activeLegends.length - 1].slug.indexOf('se_') === 0) {
           if (element.classList.contains('turn-off-vector-layers-pointer')) {
@@ -212,7 +213,7 @@ const OsmMap = () => {
                     //style: "sdg-ai-lab:xgboost",
                   }}
                   url={geoServerUrl}
-                  zIndex="9999"
+                  zIndex={9999}
                   opacity={value / 100}
                 />
               )}
@@ -228,7 +229,7 @@ const OsmMap = () => {
       center={map_settings.latlong}
       zoom={map_settings.zoom}
       zoomControl={false}
-      scrollWheelZone={true}
+      // scrollWheelZone={true}
       className={styles.container}
       attributionControl={true}
     >

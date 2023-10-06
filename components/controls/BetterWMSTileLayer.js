@@ -66,7 +66,6 @@ const BetterWMSTileLayer = (props) => {
       .then(
         (data) => {
           // const err = data.features.length > 0 ? null : data
-          console.log('in then')
           showGetFeatureInfo(evt.latlng, data, legends)
         },
         (error) => {
@@ -107,7 +106,6 @@ const BetterWMSTileLayer = (props) => {
   }
 
   function showGetFeatureInfo(latlng, data, legends) {
-    console.log(data)
     if (latlng && data) {
       const grayIndex =
         data.features.length && data.features[0].properties['GRAY_INDEX']
@@ -116,7 +114,6 @@ const BetterWMSTileLayer = (props) => {
         grayIndex && grayIndex != -1
           ? `<p>Value: ${grayIndex.toFixed(2)}, ${description}</p>`
           : 'no data'
-      console.log(content)
       // if (grayIndex != -1 && description != 'No description') {
       // Otherwise show the content in a popup, or something.
       L.popup({ maxWidth: 400, className: 'customPopup' })
