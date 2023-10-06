@@ -5,8 +5,19 @@ import { geoServerUrl } from '../leaflet/Map'
 import { useWMSTile } from '../hooks/useWMSTile'
 import { FilterContext } from '../../context/FilterContext'
 
-const BetterWMSTileLayer = (props) => {
-  const { url, layers, styles, opacity } = props
+interface BetterWMSTileLayerProps {
+  url: string
+  layers: string
+  styles: string
+  opacity: number
+}
+
+const BetterWMSTileLayer = ({
+  url,
+  layers,
+  styles,
+  opacity,
+}: BetterWMSTileLayerProps) => {
   const format = 'image/png'
   const version = '1.1.0'
   const pane = 'geodata-pane'
@@ -69,14 +80,14 @@ const BetterWMSTileLayer = (props) => {
           showGetFeatureInfo(evt.latlng, data, legends)
         },
         (error) => {
-          showGetFeatureInfo(error)
+          console.error(error)
         }
       )
   }
 
   function getFeatureInfoUrl(latlng) {
     // Construct a GetFeatureInfo request URL given a point
-    const point = map.latLngToContainerPoint(latlng, map.getZoom())
+    const point = map.latLngToContainerPoint(latlng)
     const size = map.getSize()
 
     let params = {
@@ -95,8 +106,8 @@ const BetterWMSTileLayer = (props) => {
       info_format: 'application/json',
     }
 
-    params[params.version === '1.3.0' ? 'i' : 'x'] = parseInt(point.x)
-    params[params.version === '1.3.0' ? 'j' : 'y'] = parseInt(point.y)
+    params[params.version === '1.3.0' ? 'i' : 'x'] = point.x
+    params[params.version === '1.3.0' ? 'j' : 'y'] = point.y
 
     let updated_url = url + L.Util.getParamString(params, url, true)
 
