@@ -17,6 +17,14 @@ interface SvGeoData {
   data: SvLayerObjectType[]
 }
 
+export const catColors = {
+  veryLow: 'rgb(59 130 246)',
+  low: 'rgb(34 197 94)',
+  medium: 'rgb(234 179 8)',
+  high: 'rgb(249 115 22)',
+  veryHigh: 'rgb(239 68 68)',
+}
+
 const svGeoData: SvGeoData[] = [
   {
     id: 1,
@@ -485,34 +493,34 @@ export const reducerInitialState = {
       id: 1,
       title: 'Very Low',
       slug: 'cats_very_low',
-      color: 'rgb(59 130 246)',
+      color: catColors.veryLow,
       status: true,
     },
     {
       id: 2,
       title: 'Low',
       slug: 'cats_low',
-      color: 'rgb(34 197 94)',
+      color: catColors.low,
       status: true,
     },
     {
       id: 3,
       title: 'Medium',
       slug: 'cats_medium',
-      color: 'rgb(234 179 8)',
+      color: catColors.medium,
       status: true,
     },
     {
       id: 4,
       title: 'High',
       slug: 'cats_high',
-      color: 'rgb(249 115 22)',
+      color: catColors.high,
       status: true,
     },
     {
       id: 5,
       title: 'Very High',
-      slug: 'cats_very_high',
+      slug: catColors.veryHigh,
       color: 'rgb(239 68 68)',
       status: true,
     },
@@ -532,34 +540,34 @@ export const reducerInitialState = {
       id: 1,
       title: 'Very Low',
       slug: 'cats_very_low',
-      color: 'rgb(59 130 246)',
+      color: catColors.veryLow,
       status: true,
     },
     {
       id: 2,
       title: 'Low',
       slug: 'cats_low',
-      color: 'rgb(34 197 94)',
+      color: catColors.low,
       status: true,
     },
     {
       id: 3,
       title: 'Medium',
       slug: 'cats_medium',
-      color: 'rgb(234 179 8)',
+      color: catColors.medium,
       status: true,
     },
     {
       id: 4,
       title: 'High',
       slug: 'cats_high',
-      color: 'rgb(249 115 22)',
+      color: catColors.high,
       status: true,
     },
     {
       id: 5,
       title: 'Very High',
-      slug: 'cats_very_high',
+      slug: catColors.veryHigh,
       color: 'rgb(239 68 68)',
       status: true,
     },
