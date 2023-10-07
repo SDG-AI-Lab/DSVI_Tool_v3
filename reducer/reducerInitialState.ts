@@ -1,3 +1,6 @@
+import { ValueOf } from 'next/dist/shared/lib/constants'
+import { CSVDataVulnerabilityType } from '../components/marker/CircleMarkersVulnerability'
+
 export type DataReducerInitialStateType = typeof reducerInitialState
 
 export type SvLayerObjectType = {
@@ -17,7 +20,15 @@ interface SvGeoData {
   data: SvLayerObjectType[]
 }
 
-export const catColors = {
+export type CatColorsType = {
+  veryLow: string
+  low: string
+  medium: string
+  high: string
+  veryHigh: string
+}
+
+export const catColors: CatColorsType = {
   veryLow: 'rgb(59 130 246)',
   low: 'rgb(34 197 94)',
   medium: 'rgb(234 179 8)',
@@ -405,6 +416,52 @@ const seGeoData: SeGeoData[] = [
   },
 ]
 
+export type CategoriesCollectionType = {
+  id: number
+  title: string
+  slug: string
+  color: ValueOf<CatColorsType>
+  status: boolean
+}
+
+const categories: CategoriesCollectionType[] = [
+  {
+    id: 1,
+    title: 'Very Low',
+    slug: 'cats_very_low',
+    color: catColors.veryLow,
+    status: true,
+  },
+  {
+    id: 2,
+    title: 'Low',
+    slug: 'cats_low',
+    color: catColors.low,
+    status: true,
+  },
+  {
+    id: 3,
+    title: 'Medium',
+    slug: 'cats_medium',
+    color: catColors.medium,
+    status: true,
+  },
+  {
+    id: 4,
+    title: 'High',
+    slug: 'cats_high',
+    color: catColors.high,
+    status: true,
+  },
+  {
+    id: 5,
+    title: 'Very High',
+    slug: 'cats_very_high',
+    color: catColors.veryHigh,
+    status: true,
+  },
+]
+
 export const reducerInitialState = {
   show_data: false,
   show_sidebar_data: false,
@@ -488,43 +545,7 @@ export const reducerInitialState = {
   ],
   show_area_of_interest: true,
   geolayers_description: {},
-  activeLegends: [
-    {
-      id: 1,
-      title: 'Very Low',
-      slug: 'cats_very_low',
-      color: catColors.veryLow,
-      status: true,
-    },
-    {
-      id: 2,
-      title: 'Low',
-      slug: 'cats_low',
-      color: catColors.low,
-      status: true,
-    },
-    {
-      id: 3,
-      title: 'Medium',
-      slug: 'cats_medium',
-      color: catColors.medium,
-      status: true,
-    },
-    {
-      id: 4,
-      title: 'High',
-      slug: 'cats_high',
-      color: catColors.high,
-      status: true,
-    },
-    {
-      id: 5,
-      title: 'Very High',
-      slug: catColors.veryHigh,
-      color: 'rgb(239 68 68)',
-      status: true,
-    },
-  ],
+  activeLegends: categories,
   socioeconomic: {
     status: false,
     data: seGeoData,
@@ -534,44 +555,8 @@ export const reducerInitialState = {
     data: svGeoData,
   },
   vulnerability: false,
-  csv_data_vulnerability: [],
-  categories: [
-    {
-      id: 1,
-      title: 'Very Low',
-      slug: 'cats_very_low',
-      color: catColors.veryLow,
-      status: true,
-    },
-    {
-      id: 2,
-      title: 'Low',
-      slug: 'cats_low',
-      color: catColors.low,
-      status: true,
-    },
-    {
-      id: 3,
-      title: 'Medium',
-      slug: 'cats_medium',
-      color: catColors.medium,
-      status: true,
-    },
-    {
-      id: 4,
-      title: 'High',
-      slug: 'cats_high',
-      color: catColors.high,
-      status: true,
-    },
-    {
-      id: 5,
-      title: 'Very High',
-      slug: catColors.veryHigh,
-      color: 'rgb(239 68 68)',
-      status: true,
-    },
-  ],
+  csv_data_vulnerability: [] as [] | CSVDataVulnerabilityType[],
+  categories,
   dsv_indicator: false,
   data_column: [
     {
