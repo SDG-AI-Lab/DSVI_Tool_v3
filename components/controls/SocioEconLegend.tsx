@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { FilterContext } from '../../context/FilterContext'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
+import { GeoJsonType } from '../../public/static/all_geojson'
 
 type SocioEconLegendProps = {
   layer: SeLayerObjectType
-  title: string
 }
 
-function SocioEconLegend({ layer, title }: SocioEconLegendProps) {
+function SocioEconLegend({ layer }: SocioEconLegendProps) {
   const { state, dispatch } = useContext(FilterContext)
   const [minMeanNumber, setMinMeanNumber] = useState(null)
   const [maxMeanNumber, setMaxMeanNumber] = useState(null)
@@ -15,7 +15,7 @@ function SocioEconLegend({ layer, title }: SocioEconLegendProps) {
   useEffect(() => {
     import(
       `/public/static/${layer.json_library}_${state['level']}.geojson`
-    ).then((library) => {
+    ).then((library: GeoJsonType) => {
       const onlyAllMeanNumbers = library.features.map(
         (object) => object.properties._mean
       )
@@ -33,7 +33,7 @@ function SocioEconLegend({ layer, title }: SocioEconLegendProps) {
   return (
     <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
       <h2 className="font-bold">Socioeconomic Layers</h2>
-      <h3>Selected: {title}</h3>
+      <h3>Selected: {layer.title}</h3>
       <table className="legend_table">
         <thead>
           <tr>

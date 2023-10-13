@@ -163,10 +163,7 @@ const NewLegend_2 = (props) => {
                           >
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('se_') === 0 ? (
-                              <SocioEconLegend
-                                title={item.title}
-                                layer={item}
-                              />
+                              <SocioEconLegend layer={item} />
                             ) : null}
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('sv_') === 0 ? (
