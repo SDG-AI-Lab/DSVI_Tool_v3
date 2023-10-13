@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import BarChart from './BarChart'
 import L from 'leaflet'
 import SocioEconLegend from './SocioEconLegend'
+import GeoLegend from './GeoLegend'
 
 const NewLegend_2 = (props) => {
   const [showUIElements, setShowUIElements] = useState(false)
@@ -30,57 +31,6 @@ const NewLegend_2 = (props) => {
   function handleOnDragEnd(result) {
     if (!result.destination) return
     dispatch({ type: 'DRAG_DROP_CHANGE_ACTIVE_LEGENDS', payload: result })
-  }
-
-  const GeoLegend = (props) => {
-    const arrayLegends = state['geolayers_description'][props.layer]
-
-    if (!arrayLegends) {
-      return (
-        <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
-          No data for layer: {props.slug}
-        </div>
-      )
-    } else {
-      return (
-        <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
-          <h2 className="font-bold">Geodata Layers</h2>
-          <h3>Selected: {props.title}</h3>
-          <table className="legend_table">
-            <thead>
-              <tr>
-                <th align="center" colSpan="2">
-                  Values
-                </th>
-                <th align="center">Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              {arrayLegends.map(({ color, label, quantity }, index) => {
-                return (
-                  <tr key={label}>
-                    <td
-                      className="h-5 w-5"
-                      style={{ backgroundColor: color }}
-                    ></td>
-                    <td className="pl-1">
-                      {index !== arrayLegends.length - 1
-                        ? `${Number.parseFloat(quantity).toFixed(
-                            2
-                          )} - ${Number.parseFloat(
-                            arrayLegends[index + 1].quantity
-                          ).toFixed(2)}`
-                        : `${Number.parseFloat(quantity).toFixed(2)}+`}
-                    </td>
-                    <td className="pl-1">{getWordExplanation(index)}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      )
-    }
   }
 
   const Cats_Legend = (props) => {
@@ -182,23 +132,6 @@ const NewLegend_2 = (props) => {
     )
   }
 
-  const getWordExplanation = (index) => {
-    switch (index) {
-      case 0:
-        return 'Very Low'
-      case 1:
-        return 'Low'
-      case 2:
-        return 'Middle'
-      case 3:
-        return 'High'
-      case 4:
-        return 'Very High'
-      default:
-        return 'Not defined'
-    }
-  }
-
   return (
     <Control position="bottomright">
       <div
@@ -237,10 +170,7 @@ const NewLegend_2 = (props) => {
                             ) : null}
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('sv_') === 0 ? (
-                              <GeoLegend
-                                title={item.title}
-                                layer={item.layer}
-                              />
+                              <GeoLegend title={item.title} layer={item} />
                             ) : null}
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('cats_') === 0 &&
