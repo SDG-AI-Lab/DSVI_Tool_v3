@@ -31,7 +31,8 @@ import zIndex from '@mui/material/styles/zIndex'
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
 // const PrintControl = withLeaflet(PrintControlDefault);
 
-export const geoServerUrl = 'http://3.146.176.227:8080/geoserver/sdg-ai-lab/wms'
+// export const geoServerUrl = 'http://3.136.245.50:8080/geoserver/sdg-ai-lab/wms'
+export const geoServerUrl = 'http://localhost:8080/geoserver/sdg-ai-lab/wms'
 
 const OsmMap = () => {
   const { state, dispatch } = useContext(FilterContext)
