@@ -3,15 +3,13 @@ import { FilterContext } from '../../context/FilterContext'
 import { SvLayerObjectType } from '../../reducer/reducerInitialState'
 
 type GeoLegendProps = {
-  title: string
   layer: SvLayerObjectType
 }
 
-function GeoLegend({ title, layer }: GeoLegendProps) {
+function GeoLegend({ layer }: GeoLegendProps) {
   const { state, dispatch } = useContext(FilterContext)
 
   const arrayLegends = state['geolayers_description'][layer.layer]
-  console.log(layer)
 
   const getWordExplanation = (index: number): string => {
     switch (index) {
@@ -40,7 +38,7 @@ function GeoLegend({ title, layer }: GeoLegendProps) {
     return (
       <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
         <h2 className="font-bold">Geodata Layers</h2>
-        <h3>Selected: {title}</h3>
+        <h3>Selected: {layer.title}</h3>
         <table className="legend_table">
           <thead>
             <tr>

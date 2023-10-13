@@ -167,7 +167,7 @@ const NewLegend_2 = (props) => {
                             ) : null}
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('sv_') === 0 ? (
-                              <GeoLegend title={item.title} layer={item} />
+                              <GeoLegend layer={item} />
                             ) : null}
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('cats_') === 0 &&
