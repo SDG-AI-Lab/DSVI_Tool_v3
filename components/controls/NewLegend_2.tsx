@@ -6,6 +6,7 @@ import BarChart from './BarChart'
 import L from 'leaflet'
 import SocioEconLegend from './SocioEconLegend'
 import GeoLegend from './GeoLegend'
+import CategoriesLegend from './CategoriesLegend'
 
 const NewLegend_2 = (props) => {
   const [showUIElements, setShowUIElements] = useState(false)
@@ -31,28 +32,6 @@ const NewLegend_2 = (props) => {
   function handleOnDragEnd(result) {
     if (!result.destination) return
     dispatch({ type: 'DRAG_DROP_CHANGE_ACTIVE_LEGENDS', payload: result })
-  }
-
-  const Cats_Legend = (props) => {
-    return (
-      <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
-        <h2 className="font-bold">Vulnerability</h2>
-        <h3>Selected: Categories | {props.title}</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td align="center">
-                <div
-                  className="h-3 w-3 rounded-full"
-                  style={{ backgroundColor: props.color }}
-                ></div>
-              </td>
-              <td className="pl-1">{props.title}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    )
   }
 
   const DHS_indicators = (props) => {
@@ -172,10 +151,7 @@ const NewLegend_2 = (props) => {
                             {item.hasOwnProperty('slug') &&
                             item.slug.indexOf('cats_') === 0 &&
                             vulnerability ? (
-                              <Cats_Legend
-                                title={item.title}
-                                color={item.color}
-                              />
+                              <CategoriesLegend category={item} />
                             ) : null}
 
                             {item.hasOwnProperty('Name') &&
