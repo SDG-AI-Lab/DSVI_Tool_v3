@@ -6,6 +6,7 @@ type CategoriesLegendProps = {
 }
 
 function CategoriesLegend({ category }: CategoriesLegendProps) {
+  if (!category.status) return <></>
   const { title, color } = category
 
   return (

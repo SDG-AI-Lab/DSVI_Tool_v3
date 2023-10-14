@@ -110,6 +110,7 @@ const NewLegend_2 = (props) => {
       )
     )
   }
+  console.log(activeLegends)
 
   return (
     <Control position="bottomright">

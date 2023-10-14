@@ -24,7 +24,7 @@ interface SingleGeoJson {
   type: string
   name: string
   crs: any
-  features: GeoJsonFeaturesType
+  features: GeoJsonFeaturesType[]
 }
 declare module 'public/static/rf_1.geojson' {
   const singleGeojson: SingleGeoJson
