@@ -430,15 +430,10 @@ export const useMapFunctions = () => {
     const cats_very_high_status = cats_very_high?.status
 
     return [
-      // cats_very_low,
       cats_very_low_status,
-      // cats_low,
       cats_low_status,
-      // cats_medium,
       cats_medium_status,
-      // cats_high,
       cats_high_status,
-      // cats_very_high,
       cats_very_high_status,
     ]
   }

@@ -7,6 +7,7 @@ type CategoriesLegendProps = {
 
 function CategoriesLegend({ category }: CategoriesLegendProps) {
   const { title, color } = category
+
   return (
     <div className="border-t-2 border-b-2 border-gray-200 p-0.5">
       <h2 className="font-bold">Vulnerability</h2>

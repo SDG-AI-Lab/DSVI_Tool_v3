@@ -81,8 +81,8 @@ const OsmMap = () => {
   const showLegend =
     seStatuses.some((x) => x === true) ||
     svStatuses.some((x) => x === true) ||
-    dhsIndicator
-  // cats.some((x) => x === true) ||
+    dhsIndicator ||
+    cats.some((x) => x === true)
 
   // COMMENT #1 WAS HERE
 
