@@ -1,7 +1,7 @@
 import { ValueOf } from 'next/dist/shared/lib/constants'
 import { CSVDataVulnerabilityType } from '../components/marker/CircleMarkersVulnerability'
 
-export type MapSettingsType = {
+type MapSettingsType = {
   latlong: [number, number]
   zoom: number
   wheelPxPerZoomLevel: number
@@ -13,7 +13,7 @@ const map_settings: MapSettingsType = {
   wheelPxPerZoomLevel: 1,
 }
 
-export type TileProvidersType = {
+type TileProvidersType = {
   name: string
   checked: boolean
   args: {
@@ -111,7 +111,7 @@ interface SvGeoData {
   data: SvLayerObjectType[]
 }
 
-export type CatColorsType = {
+type CatColorsType = {
   veryLow: string
   low: string
   medium: string
@@ -119,7 +119,7 @@ export type CatColorsType = {
   veryHigh: string
 }
 
-export const catColors: CatColorsType = {
+const catColors: CatColorsType = {
   veryLow: 'rgb(59 130 246)',
   low: 'rgb(34 197 94)',
   medium: 'rgb(234 179 8)',
@@ -329,7 +329,7 @@ export type SeLayerObjectType = {
   json_library: string
 }
 
-interface SeGeoData {
+type SeGeoData = {
   id: number
   slug: string
   title: string
@@ -507,13 +507,13 @@ const seGeoData: SeGeoData[] = [
   },
 ]
 
-export type AllActiveLegends = (
+type AllActiveLegends = (
   | SeLayerObjectType
   | SvLayerObjectType
   | CategoriesCollectionType
 )[]
 
-export type CategoriesCollectionType = {
+type CategoriesCollectionType = {
   id: number
   title: string
   slug: string
@@ -559,7 +559,7 @@ const categories: CategoriesCollectionType[] = [
   },
 ]
 
-export type GeoLayersDescriptionType = {
+type GeoLayersDescriptionType = {
   [key: string]: {
     label: string
     quantity: string
@@ -568,7 +568,7 @@ export type GeoLayersDescriptionType = {
   }[]
 }
 
-export type DataColumnType = {
+type DataColumnType = {
   id: number
   slug: string
   title: string

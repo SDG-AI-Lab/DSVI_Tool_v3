@@ -184,7 +184,9 @@ const Sidebar = (props) => {
                       })
                     }}
                   />
-                  <span className="px-2 text-xs text-gray-700">{val.Name}</span>
+                  <span className="px-2 text-xs text-gray-700">
+                    {val.title}
+                  </span>
                 </div>
               )
             })}
