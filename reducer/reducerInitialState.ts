@@ -513,7 +513,7 @@ type AllActiveLegends = (
   | CategoriesCollectionType
 )[]
 
-type CategoriesCollectionType = {
+export type CategoriesCollectionType = {
   id: number
   title: string
   slug: string
