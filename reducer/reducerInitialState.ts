@@ -1,7 +1,98 @@
 import { ValueOf } from 'next/dist/shared/lib/constants'
 import { CSVDataVulnerabilityType } from '../components/marker/CircleMarkersVulnerability'
 
-export type DataReducerInitialStateType = typeof reducerInitialState
+export type MapSettingsType = {
+  latlong: [number, number]
+  zoom: number
+  wheelPxPerZoomLevel: number
+}
+
+const map_settings: MapSettingsType = {
+  latlong: [38.917275, 71.014469],
+  zoom: 7,
+  wheelPxPerZoomLevel: 1,
+}
+
+export type TileProvidersType = {
+  name: string
+  checked: boolean
+  args: {
+    url: string
+    attribution?: string
+    variant?: string
+    ext?: string
+  }
+}
+
+const tile_providers: TileProvidersType[] = [
+  {
+    name: 'Esri',
+    checked: true,
+    args: {
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
+      attribution: 'Tiles &copy; Esri',
+      variant: 'World_Street_Map',
+    },
+  },
+  {
+    name: 'OSM',
+    checked: false,
+    args: {
+      url: 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  },
+  {
+    name: 'Satellite',
+    checked: false,
+    args: {
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      attribution: '&copy; <a href="https://www.esri.com">ESRI</a>',
+    },
+  },
+  // {
+  //   name: 'Mapbox',
+
+  //   args: {
+  //     url:
+  //       'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
+  //     attribution:
+  //       '&copy; <a href="https://mapbox.com">Mapbox</a>',
+  //       layers:"GoogleMapsCompatible"
+  //     },
+  // },
+  {
+    name: 'Stamen',
+    checked: false,
+    args: {
+      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.{ext}',
+      attribution:
+        'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' +
+        '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; ' +
+        'Map data {attribution.OpenStreetMap}',
+      variant: 'toner',
+      ext: 'png',
+    },
+  },
+  {
+    name: 'NASA',
+    checked: false,
+    args: {
+      url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_CityLights_2012/default//GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
+      // 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/{variant}/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
+      // attribution:
+      // 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System ' +
+      // '(<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+      // variant: 'VIIRS_CityLights_2012',
+      // minZoom: 1,
+      // maxZoom: 9,
+      // format: 'jpg',
+      // time: '',
+      // tilematrixset: 'GoogleMapsCompatible_Level'
+    },
+  },
+]
 
 export type SvLayerObjectType = {
   id: number
@@ -416,6 +507,12 @@ const seGeoData: SeGeoData[] = [
   },
 ]
 
+export type AllActiveLegends = (
+  | SeLayerObjectType
+  | SvLayerObjectType
+  | CategoriesCollectionType
+)[]
+
 export type CategoriesCollectionType = {
   id: number
   title: string
@@ -462,87 +559,176 @@ const categories: CategoriesCollectionType[] = [
   },
 ]
 
-export const reducerInitialState = {
+export type GeoLayersDescriptionType = {
+  [key: string]: {
+    label: string
+    quantity: string
+    color: string
+    opacity: string
+  }[]
+}
+
+export type DataColumnType = {
+  id: number
+  slug: string
+  title: string
+  status: boolean
+}
+
+const data_column: DataColumnType[] = [
+  {
+    id: 0,
+    slug: 'select_none',
+    title: 'SELECT_NONE',
+    status: false,
+  },
+  {
+    id: 1,
+    slug: 'Main floor material',
+    title: 'Main floor material',
+    status: false,
+  },
+  {
+    id: 2,
+    slug: 'Number of household members (listed)',
+    title: 'Number of household members (listed)',
+    status: false,
+  },
+  {
+    id: 3,
+    slug: 'Frequency of listening to radio',
+    title: 'Frequency of listening to radio',
+    status: false,
+  },
+  {
+    id: 4,
+    slug: 'Age of household head',
+    title: 'Age of household head',
+    status: false,
+  },
+  {
+    id: 5,
+    slug: 'Time to get to water source',
+    title: 'Time to get to water source',
+    status: false,
+  },
+  {
+    id: 6,
+    slug: 'Beating justified if wife goes out without telling husband',
+    title: 'Beating justified if wife goes out without telling husband',
+    status: false,
+  },
+  {
+    id: 7,
+    slug: 'Getting medical help for self: distance to health facility',
+    title: 'Getting medical help for self: distance to health facility',
+    status: false,
+  },
+  {
+    id: 8,
+    slug: 'Wealth index combined',
+    title: 'Wealth index combined',
+    status: false,
+  },
+  {
+    id: 9,
+    slug: 'How often uses internet',
+    title: 'How often uses internet',
+    status: false,
+  },
+  {
+    id: 10,
+    slug: 'Annual_Precipitation_2000',
+    title: 'Annual_Precipitation_2000',
+    status: false,
+  },
+  {
+    id: 11,
+    slug: 'Aridity_2000',
+    title: 'Aridity_2000',
+    status: false,
+  },
+  {
+    id: 12,
+    slug: 'BUILT_Population_1990',
+    title: 'BUILT_Population_1990',
+    status: false,
+  },
+  {
+    id: 13,
+    slug: 'Annual_Precipitation_2010',
+    title: 'Annual_Precipitation_2010',
+    status: false,
+  },
+  {
+    id: 14,
+    slug: 'BUILT_Population_2014',
+    title: 'BUILT_Population_2014',
+    status: false,
+  },
+  {
+    id: 15,
+    slug: 'Day_Land_Surface_Temp_2015',
+    title: 'Day_Land_Surface_Temp_2015',
+    status: false,
+  },
+  {
+    id: 16,
+    slug: 'Day_Land_Surface_Temp_2005',
+    title: 'Day_Land_Surface_Temp_2005',
+    status: false,
+  },
+]
+
+export type ReducerInitialStateType = {
+  show_data: boolean
+  show_sidebar_data: boolean
+  show_infoBox_data: boolean
+  show_sidebar: boolean
+  level: number
+  reset_settings: boolean
+  map_settings: MapSettingsType
+  tile_providers: TileProvidersType[]
+  show_area_of_interest: boolean
+  geolayers_description: GeoLayersDescriptionType
+  activeLegends: AllActiveLegends
+  socioeconomic: {
+    status: boolean
+    data: SeGeoData[]
+  }
+  geodata: {
+    status: boolean
+    data: SvGeoData[]
+  }
+  vulnerability: boolean
+  csv_data_vulnerability: CSVDataVulnerabilityType[]
+  categories: CategoriesCollectionType[]
+  dsv_indicator: boolean
+  data_column: DataColumnType[]
+  selected_data_column: number
+  dhs_indicator: boolean
+  dhs_data_column: {
+    id: number
+    slug: string
+    title: string
+    status: boolean
+  }[]
+  selected_dhs_data_column: number
+  draw_area_of_interest: boolean
+  statistics: boolean
+  csv_data: any[]
+  on_homepage: boolean
+}
+
+export const reducerInitialState: ReducerInitialStateType = {
   show_data: false,
   show_sidebar_data: false,
   show_infoBox_data: false,
   show_sidebar: true,
   level: 1,
   reset_settings: false,
-  map_settings: {
-    latlong: [38.917275, 71.014469],
-    zoom: 7,
-    wheelPxPerZoomLevel: 1,
-  },
-  tile_providers: [
-    {
-      name: 'Esri',
-      checked: true,
-      args: {
-        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
-        attribution: 'Tiles &copy; Esri',
-        variant: 'World_Street_Map',
-      },
-    },
-    {
-      name: 'OSM',
-      checked: false,
-      args: {
-        url: 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      },
-    },
-    {
-      name: 'Satellite',
-      checked: false,
-      args: {
-        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        attribution: '&copy; <a href="https://www.esri.com">ESRI</a>',
-      },
-    },
-    // {
-    //   name: 'Mapbox',
-
-    //   args: {
-    //     url:
-    //       'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/512/{z}/{x}/{y}?access_token={mtoken}',
-    //     attribution:
-    //       '&copy; <a href="https://mapbox.com">Mapbox</a>',
-    //       layers:"GoogleMapsCompatible"
-    //     },
-    // },
-    {
-      name: 'Stamen',
-      checked: false,
-      args: {
-        url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.{ext}',
-        attribution:
-          'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' +
-          '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; ' +
-          'Map data {attribution.OpenStreetMap}',
-        variant: 'toner',
-        ext: 'png',
-      },
-    },
-    {
-      name: 'NASA',
-      checked: false,
-      args: {
-        url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_CityLights_2012/default//GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg',
-        // 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/{variant}/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
-        // attribution:
-        // 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System ' +
-        // '(<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
-        // variant: 'VIIRS_CityLights_2012',
-        // minZoom: 1,
-        // maxZoom: 9,
-        // format: 'jpg',
-        // time: '',
-        // tilematrixset: 'GoogleMapsCompatible_Level'
-      },
-    },
-  ],
+  map_settings,
+  tile_providers,
   show_area_of_interest: true,
   geolayers_description: {},
   activeLegends: categories,
@@ -555,116 +741,18 @@ export const reducerInitialState = {
     data: svGeoData,
   },
   vulnerability: false,
-  csv_data_vulnerability: [] as [] | CSVDataVulnerabilityType[],
+  csv_data_vulnerability: [],
   categories,
   dsv_indicator: false,
-  data_column: [
-    {
-      id: 0,
-      slug: 'select_none',
-      title: 'SELECT_NONE',
-      status: false,
-    },
-    {
-      id: 1,
-      slug: 'Main floor material',
-      title: 'Main floor material',
-      status: false,
-    },
-    {
-      id: 2,
-      slug: 'Number of household members (listed)',
-      title: 'Number of household members (listed)',
-      status: false,
-    },
-    {
-      id: 3,
-      slug: 'Frequency of listening to radio',
-      title: 'Frequency of listening to radio',
-      status: false,
-    },
-    {
-      id: 4,
-      slug: 'Age of household head',
-      title: 'Age of household head',
-      status: false,
-    },
-    {
-      id: 5,
-      slug: 'Time to get to water source',
-      title: 'Time to get to water source',
-      status: false,
-    },
-    {
-      id: 6,
-      slug: 'Beating justified if wife goes out without telling husband',
-      title: 'Beating justified if wife goes out without telling husband',
-      status: false,
-    },
-    {
-      id: 7,
-      slug: 'Getting medical help for self: distance to health facility',
-      title: 'Getting medical help for self: distance to health facility',
-      status: false,
-    },
-    {
-      id: 8,
-      slug: 'Wealth index combined',
-      title: 'Wealth index combined',
-      status: false,
-    },
-    {
-      id: 9,
-      slug: 'How often uses internet',
-      title: 'How often uses internet',
-      status: false,
-    },
-    {
-      id: 10,
-      slug: 'Annual_Precipitation_2000',
-      title: 'Annual_Precipitation_2000',
-      status: false,
-    },
-    {
-      id: 11,
-      slug: 'Aridity_2000',
-      title: 'Aridity_2000',
-      status: false,
-    },
-    {
-      id: 12,
-      slug: 'BUILT_Population_1990',
-      title: 'BUILT_Population_1990',
-      status: false,
-    },
-    {
-      id: 13,
-      slug: 'Annual_Precipitation_2010',
-      title: 'Annual_Precipitation_2010',
-      status: false,
-    },
-    {
-      id: 14,
-      slug: 'BUILT_Population_2014',
-      title: 'BUILT_Population_2014',
-      status: false,
-    },
-    {
-      id: 15,
-      slug: 'Day_Land_Surface_Temp_2015',
-      title: 'Day_Land_Surface_Temp_2015',
-      status: false,
-    },
-    {
-      id: 16,
-      slug: 'Day_Land_Surface_Temp_2005',
-      title: 'Day_Land_Surface_Temp_2005',
-      status: false,
-    },
-  ],
+  data_column,
   selected_data_column: 0,
   dhs_indicator: false,
   dhs_data_column: [],
+  selected_dhs_data_column: 0,
+  draw_area_of_interest: false,
+  statistics: false,
+  csv_data: [],
+  on_homepage: false,
   /*"dhs_data_column": [
         {
             id: 0,
@@ -1483,9 +1571,4 @@ export const reducerInitialState = {
             "status": false
         }
     ],*/
-  selected_dhs_data_column: 0,
-  draw_area_of_interest: false,
-  statistics: false,
-  csv_data: [],
-  on_homepage: false,
 }
