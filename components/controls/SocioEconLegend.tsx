@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { FilterContext } from '../../context/FilterContext'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
-import { GeoJsonType } from '../../public/static/all_geojson'
 
 type SocioEconLegendProps = {
   layer: SeLayerObjectType
@@ -13,16 +12,24 @@ function SocioEconLegend({ layer }: SocioEconLegendProps) {
   const [maxMeanNumber, setMaxMeanNumber] = useState(null)
 
   useEffect(() => {
-    import(
-      `/public/static/${layer.json_library}_${state['level']}.geojson`
-    ).then((library: GeoJsonType) => {
-      const onlyAllMeanNumbers = library.features.map(
-        (object) => object.properties._mean
-      )
+    let isMounted = true
 
-      setMinMeanNumber(Math.min(...onlyAllMeanNumbers))
-      setMaxMeanNumber(Math.max(...onlyAllMeanNumbers))
-    })
+    import(`/public/static/${layer.json_library}_${state['level']}.geojson`)
+      .then((library) => {
+        if (isMounted) {
+          const onlyAllMeanNumbers = library.features.map(
+            (object) => object.properties._mean
+          )
+
+          setMinMeanNumber(Math.min(...onlyAllMeanNumbers))
+          setMaxMeanNumber(Math.max(...onlyAllMeanNumbers))
+        }
+      })
+      .catch((error) => console.error('Error loading data: ', error))
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   const normValue = (coef: number): number => {
