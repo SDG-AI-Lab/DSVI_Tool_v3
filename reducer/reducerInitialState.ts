@@ -119,7 +119,7 @@ type CatColorsType = {
   veryHigh: string
 }
 
-const catColors: CatColorsType = {
+export const catColors: CatColorsType = {
   veryLow: 'rgb(59 130 246)',
   low: 'rgb(34 197 94)',
   medium: 'rgb(234 179 8)',

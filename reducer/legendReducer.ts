@@ -1,4 +1,4 @@
-type LegendReducerStateType = {
+export type LegendReducerStateType = {
   title: string
   description: string
   data: any[]

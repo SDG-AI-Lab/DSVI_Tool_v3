@@ -1,29 +1,34 @@
-import React, { useContext } from 'react';
-import {FilterContext} from '../../context/FilterContext'
-import Control from 'react-leaflet-custom-control';
+import React, { useContext } from 'react'
+import { FilterContext } from '../../context/FilterContext'
+import Control from 'react-leaflet-custom-control'
 // import { Tooltip } from 'react-leaflet';
-import { Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material'
 
 const ControlButton = (props) => {
-    return <div className="group">
-        <img
-            src={props.src}
-            alt={props.alt}
-            className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${props.className}`}
-            tooltip_name="Dummy hover text"
-            tooltip_description="Some dummy text here."
-        />
-        <div className="invisible absolute top-0 right-32 bg-white rounded-md px-2 py-2 absolute text-black text-white w-64 group-hover:visible">
-            <strong>{props.tooltipname}</strong> - <span>{props.tooltip_description}</span></div>
+  return (
+    <div className="group">
+      <img
+        src={props.src}
+        alt={props.alt}
+        className={`hover:bg-white-500 h-11 w-11 cursor-pointer border-2 border-blue-600 bg-white bg-opacity-75 p-1 transition delay-150 duration-300 ease-in-out hover:scale-110 ${props.className}`}
+        // tooltip_name="Dummy hover text"
+        // tooltip_description="Some dummy text here."
+      />
+      <div className="invisible absolute absolute top-0 right-32 w-64 rounded-md bg-white px-2 py-2 text-black text-white group-hover:visible">
+        <strong>{props.tooltipname}</strong> -{' '}
+        <span>{props.tooltip_description}</span>
+      </div>
     </div>
+  )
 }
 
 const MapControls = (props) => {
-    const { state, dispatch } = useContext(FilterContext);
-    const show_infoBox_data = state['show_infoBox_data'];
+  const { state, dispatch } = useContext(FilterContext)
+  const show_infoBox_data = state['show_infoBox_data']
 
-    // <Control position={props.position} style={{ display: "flex" }}>
-        {/* <ControlButton
+  // <Control position={props.position} style={{ display: "flex" }}>
+  {
+    /* <ControlButton
             src="./images/country-icon.7a31d42f.png"
             alt="contry selector"
             tooltipname="Dummy hover text"
@@ -35,9 +40,13 @@ const MapControls = (props) => {
             className="ml-2"
             tooltipname="Dummy hover text"
             tooltip_description="Some dummy text here."
-        /> */}
-    {/* </Control> */}
-    return  <Control position={props.position}>
+        /> */
+  }
+  {
+    /* </Control> */
+  }
+  return (
+    <Control position={props.position}>
       <div>
         {/* <svg xmlns="http://www.w3.org/2000/svg"
                 className={`transition ease-in-out delay-150 hover:scale-110 hover:bg-white-500 duration-300 bg-white cursor-pointer border-blue-600 border-2 p-1 h-11 w-11 bg-opacity-75 ${show_data === true ? 'stroke-blue-500' : 'stroke-black-50'}`}
@@ -98,10 +107,9 @@ const MapControls = (props) => {
             25.90,14.65 24.75,15.87 22.95,15.87 Z" />
             </svg>
         </Tooltip> */}
-
       </div>
     </Control>
+  )
 }
-
 
 export default MapControls
