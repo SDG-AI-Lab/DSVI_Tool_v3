@@ -54,8 +54,6 @@ const OsmMap = () => {
   const seStatuses = se.map((x) => x.layerInfo.status)
   const svStatuses = sv.map((x) => x.status)
 
-  console.log(activeLegends.length)
-
   function UpdateMap() {
     const map = useMap()
     useEffect(() => {
