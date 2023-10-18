@@ -20,6 +20,7 @@ import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
 import AOIprojection from '../controls/AOIprojection'
+import NewProjection from '../controls/NewProjection'
 
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
 
@@ -40,8 +41,7 @@ const OsmMap = () => {
   const activeLegends = state['activeLegends']
   const dhsIndicator = state['dhs_indicator']
 
-  const { newProjection, seLayersData, svLayersData, categoriesData } =
-    useMapFunctions()
+  const { seLayersData, svLayersData, categoriesData } = useMapFunctions()
 
   const se = seLayersData(state)
   const sv = svLayersData(state)
@@ -97,37 +97,24 @@ const OsmMap = () => {
       const [geojson1, geojson2, geojson3] = combinedLayer.geojson
 
       if (status) {
-        if (level === 1) {
-          return geojson1.features.map((library, index) => {
-            return newProjection(
-              geojson1,
-              library,
-              index,
-              combinedLayer.layerInfo,
-              show_data
-            )
-          })
-        } else if (level === 2) {
-          return geojson2.features.map((library, index) => {
-            return newProjection(
-              geojson2,
-              library,
-              index,
-              combinedLayer.layerInfo,
-              show_data
-            )
-          })
-        } else {
-          return geojson3.features.map((library, index) => {
-            return newProjection(
-              geojson3,
-              library,
-              index,
-              combinedLayer.layerInfo,
-              show_data
-            )
-          })
+        let geojson: SingleGeoJson = geojson1
+        if (level === 2) {
+          geojson = geojson2
+        } else if (level === 3) {
+          geojson = geojson3
         }
+        return geojson.features.map((feature, index) => {
+          return (
+            <NewProjection
+              key={index}
+              full_JSON_library={geojson1}
+              geojsonFeature={feature}
+              index={index}
+              layerObject={combinedLayer.layerInfo}
+              show_data={show_data}
+            />
+          )
+        })
       }
     })
   }

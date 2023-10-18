@@ -15,126 +15,126 @@ interface CombinedLayerData {
 }
 
 export const useMapFunctions = () => {
-  const mapPolygonColorToDensity = (
-    normalizeData: number,
-    layerObject: SeLayerObjectType
-  ): string => {
-    if (!layerObject.reverse_meaning) {
-      switch (true) {
-        case normalizeData > 0.8 && normalizeData <= 1:
-          return '#FF362C' // RED
-        case normalizeData > 0.6:
-          return '#ff962c' // ORANGE
-        case normalizeData > 0.4:
-          return '#FFDE2C' // YELLOW
-        case normalizeData > 0.2:
-          return '#00800A' // GREEN
-        case normalizeData >= 0:
-          return '#0c58ca' // BLUE
-        default:
-          return '#FFFFFF' // WHITE
-      }
-    } else {
-      switch (true) {
-        case normalizeData > 0.8 && normalizeData <= 1:
-          return '#0c58ca' // BLUE
-        case normalizeData > 0.6:
-          return '#00800A' // GREEN
-        case normalizeData > 0.4:
-          return '#FFDE2C' // YELLOW
-        case normalizeData > 0.2:
-          return '#ff962c' // ORANGE
-        case normalizeData >= 0:
-          return '#FF362C' // RED
-        default:
-          return '#FFFFFF' // WHITE
-      }
-    }
-  }
+  // const mapPolygonColorToDensity = (
+  //   normalizeData: number,
+  //   layerObject: SeLayerObjectType
+  // ): string => {
+  //   if (!layerObject.reverse_meaning) {
+  //     switch (true) {
+  //       case normalizeData > 0.8 && normalizeData <= 1:
+  //         return '#FF362C' // RED
+  //       case normalizeData > 0.6:
+  //         return '#ff962c' // ORANGE
+  //       case normalizeData > 0.4:
+  //         return '#FFDE2C' // YELLOW
+  //       case normalizeData > 0.2:
+  //         return '#00800A' // GREEN
+  //       case normalizeData >= 0:
+  //         return '#0c58ca' // BLUE
+  //       default:
+  //         return '#FFFFFF' // WHITE
+  //     }
+  //   } else {
+  //     switch (true) {
+  //       case normalizeData > 0.8 && normalizeData <= 1:
+  //         return '#0c58ca' // BLUE
+  //       case normalizeData > 0.6:
+  //         return '#00800A' // GREEN
+  //       case normalizeData > 0.4:
+  //         return '#FFDE2C' // YELLOW
+  //       case normalizeData > 0.2:
+  //         return '#ff962c' // ORANGE
+  //       case normalizeData >= 0:
+  //         return '#FF362C' // RED
+  //       default:
+  //         return '#FFFFFF' // WHITE
+  //     }
+  //   }
+  // }
 
-  const newProjection = (
-    full_JSON_library,
-    library,
-    index: number,
-    layerObject: SeLayerObjectType,
-    show_data: boolean
-  ): JSX.Element => {
-    const {
-      NAME,
-      NAME_1,
-      NAME_2,
-      _mean,
-      _count,
-      _stdev,
-      _max,
-      _min,
-      _sum,
-      _avg,
-    } = library.properties
-    const {} = library.name
-    const data = [
-      // These are shown when the user clicks on the polygon
-      {
-        key: 'Oblast',
-        value: NAME_1,
-      },
-      {
-        key: 'District',
-        value: NAME_2,
-      },
-      {
-        key: 'Count',
-        value: _count,
-      },
-      {
-        key: 'Mean value',
-        value: _mean,
-      },
-    ]
-    const onlyAllMeanNumbers = full_JSON_library.features.map(
-      (object) => object.properties._mean
-    )
-    // console.log('onlyAllMeanNumbers');
-    // console.log(onlyAllMeanNumbers);
-    const minMeanNumber = Math.min(...onlyAllMeanNumbers)
-    const maxMeanNumber = Math.max(...onlyAllMeanNumbers)
+  // const NewProjection = (
+  //   full_JSON_library,
+  //   library,
+  //   index: number,
+  //   layerObject: SeLayerObjectType,
+  //   show_data: boolean
+  // ): JSX.Element => {
+  //   const {
+  //     NAME,
+  //     NAME_1,
+  //     NAME_2,
+  //     _mean,
+  //     _count,
+  //     _stdev,
+  //     _max,
+  //     _min,
+  //     _sum,
+  //     _avg,
+  //   } = library.properties
+  //   const {} = library.name
+  //   const data = [
+  //     // These are shown when the user clicks on the polygon
+  //     {
+  //       key: 'Oblast',
+  //       value: NAME_1,
+  //     },
+  //     {
+  //       key: 'District',
+  //       value: NAME_2,
+  //     },
+  //     {
+  //       key: 'Count',
+  //       value: _count,
+  //     },
+  //     {
+  //       key: 'Mean value',
+  //       value: _mean,
+  //     },
+  //   ]
+  //   const onlyAllMeanNumbers = full_JSON_library.features.map(
+  //     (object) => object.properties._mean
+  //   )
+  //   // console.log('onlyAllMeanNumbers');
+  //   // console.log(onlyAllMeanNumbers);
+  //   const minMeanNumber = Math.min(...onlyAllMeanNumbers)
+  //   const maxMeanNumber = Math.max(...onlyAllMeanNumbers)
 
-    const normalizeDataValue = Math.abs(
-      (_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber)
-    )
-    const fillColor = mapPolygonColorToDensity(normalizeDataValue, layerObject)
+  //   const normalizeDataValue = Math.abs(
+  //     (_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber)
+  //   )
+  //   const fillColor = mapPolygonColorToDensity(normalizeDataValue, layerObject)
 
-    return (
-      <CustomPolygon
-        key={index}
-        positions={L.GeoJSON.coordsToLatLngs(
-          library.geometry.coordinates[0][0]
-        )}
-        fillColor={fillColor}
-        hoverColor={fillColor}
-        opacity={layerObject.value / 100}
-        tooltipDirection="auto"
-        tooltipOffset={[20, 0]}
-        tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
-        normalizeDataValue={normalizeDataValue.toFixed(2)}
-        units={layerObject.units}
-        _mean={_mean.toFixed(2)}
-        minMeanNumber={minMeanNumber.toFixed(2)}
-        maxMeanNumber={maxMeanNumber.toFixed(2)}
-        tooltipName_1={library.properties.NAME_1}
-        tooltipName_2={library.properties.NAME_2}
-        tooltipName_3={library.properties.NAME_2}
-        tooltipBgcolor="rgb(255 255 255)"
-        tooltipTextColor="text-slate-700"
-        show_data={show_data}
-        popupMaxWidth="auto"
-        popupMaxHeight="auto"
-        popupBgColor="rgb(255 255 255)"
-        popupTextColor="text-slate-700"
-        data={data}
-      />
-    )
-  }
+  //   return (
+  //     <CustomPolygon
+  //       key={index}
+  //       positions={L.GeoJSON.coordsToLatLngs(
+  //         library.geometry.coordinates[0][0]
+  //       )}
+  //       fillColor={fillColor}
+  //       hoverColor={fillColor}
+  //       opacity={layerObject.value / 100}
+  //       tooltipDirection="auto"
+  //       tooltipOffset={[20, 0]}
+  //       tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
+  //       normalizeDataValue={normalizeDataValue.toFixed(2)}
+  //       units={layerObject.units}
+  //       _mean={_mean.toFixed(2)}
+  //       minMeanNumber={minMeanNumber.toFixed(2)}
+  //       maxMeanNumber={maxMeanNumber.toFixed(2)}
+  //       tooltipName_1={library.properties.NAME_1}
+  //       tooltipName_2={library.properties.NAME_2}
+  //       tooltipName_3={library.properties.NAME_2}
+  //       tooltipBgcolor="rgb(255 255 255)"
+  //       tooltipTextColor="text-slate-700"
+  //       show_data={show_data}
+  //       popupMaxWidth="auto"
+  //       popupMaxHeight="auto"
+  //       popupBgColor="rgb(255 255 255)"
+  //       popupTextColor="text-slate-700"
+  //       data={data}
+  //     />
+  //   )
+  // }
 
   const seLayersData = (state: ReducerInitialStateType) => {
     const se_xgboost = state.socioeconomic.data
@@ -411,7 +411,7 @@ export const useMapFunctions = () => {
   }
 
   return {
-    newProjection,
+    // NewProjection,
     seLayersData,
     svLayersData,
     categoriesData,

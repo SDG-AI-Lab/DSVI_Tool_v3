@@ -4,15 +4,16 @@ type GeoJsonFeaturesType = {
     NAME_1: string
     NAME: string
     _count: number
-    _sum: numberstring
-    _mean: numberstring
-    _median: numberstring
-    _stdev: numberstring
-    _min: numberstring
-    _max: numberstring
-    _range: numberstring
-    _minority: numberstring
+    _sum: number
+    _mean: number
+    _median: number
+    _stdev: number
+    _min: number
+    _max: number
+    _range: number
+    _minority: number
     _majority: number
+    NAME_2?: string
   }
   geometry: {
     type: string
