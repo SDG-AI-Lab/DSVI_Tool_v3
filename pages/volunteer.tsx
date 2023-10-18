@@ -111,11 +111,11 @@ const Volunteer = () => {
         <div className="row row-cols-1 row-cols-md-4 g-4">
           {data.map((val, index) => {
             return (
-              <div className="col">
+              <div key={val.id} className="col">
                 <div className="card h-100">
                   <img src={val.image} className="card-img-top" alt="..." />
                   <div className="card-body">
-                    <p className="card-text menu">
+                    <div className="card-text menu">
                       <div className="py-2">
                         <a
                           href={val.Linkedin}
@@ -134,7 +134,7 @@ const Volunteer = () => {
                           </span>
                         </a>
                       </div>
-                    </p>
+                    </div>
                     <p className="card-title">{val.motivation}</p>
                     <p className="card-text">{val.Bio}</p>
                   </div>

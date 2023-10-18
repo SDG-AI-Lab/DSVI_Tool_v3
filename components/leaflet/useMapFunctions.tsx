@@ -1,10 +1,8 @@
 import React from 'react'
 import CustomPolygon from '../controls/CustomPolygon'
-import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
-
 import L from 'leaflet'
 import {
-  DataReducerInitialStateType,
+  ReducerInitialStateType,
   SvLayerObjectType,
 } from '../../reducer/reducerInitialState'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
@@ -13,16 +11,7 @@ import { geojson } from 'public/static'
 
 interface CombinedLayerData {
   layerInfo: SeLayerObjectType | undefined
-  geojson: { crs: any; features: any; name: string; type: string }[]
-}
-
-interface Library {
-  geometry: {
-    coordinates: any[]
-    type: string
-  }
-  properties: any
-  type: string
+  geojson: SingleGeoJson[]
 }
 
 export const useMapFunctions = () => {
@@ -147,24 +136,7 @@ export const useMapFunctions = () => {
     )
   }
 
-  const AOI_projection = (library: Library, index: number) => {
-    const fillColorAOI = 'rgb(255, 255, 255)'
-    const hoverColor = 'blue'
-
-    return (
-      <CustomPolygon_AOI
-        key={index}
-        positions={L.GeoJSON.coordsToLatLngs(
-          library.geometry.coordinates[0][0]
-        )}
-        fillColor={fillColorAOI}
-        hoverColor={hoverColor}
-        opacity="0.7"
-      />
-    )
-  }
-
-  const seLayersData = (state: DataReducerInitialStateType) => {
+  const seLayersData = (state: ReducerInitialStateType) => {
     const se_xgboost = state.socioeconomic.data
       .find((x) => x.slug === 'se_social_vulnerability')
       ?.data.find((x) => x.slug === 'se_xgboost')
@@ -318,7 +290,7 @@ export const useMapFunctions = () => {
   }
 
   const svLayersData = (
-    state: DataReducerInitialStateType
+    state: ReducerInitialStateType
   ): SvLayerObjectType[] => {
     const geodata = state['geodata']['data']
     const social_vulnerability = geodata.find(
@@ -411,7 +383,7 @@ export const useMapFunctions = () => {
     ]
   }
 
-  const categoriesData = (state: DataReducerInitialStateType) => {
+  const categoriesData = (state: ReducerInitialStateType) => {
     const { vulnerability, categories } = state
 
     const cats_very_low = categories.find((e) => e.slug === 'cats_very_low')
@@ -443,6 +415,5 @@ export const useMapFunctions = () => {
     seLayersData,
     svLayersData,
     categoriesData,
-    AOI_projection,
   }
 }

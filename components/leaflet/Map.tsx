@@ -8,6 +8,7 @@ import {
   useMap,
   Pane,
 } from 'react-leaflet'
+
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
 import CircleMarkers from '../marker/CircleMarkers'
@@ -18,6 +19,7 @@ import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
 import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
+import AOIprojection from '../controls/AOIprojection'
 
 const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
 
@@ -38,16 +40,10 @@ const OsmMap = () => {
   const activeLegends = state['activeLegends']
   const dhsIndicator = state['dhs_indicator']
 
-  const {
-    newProjection,
-    seLayersData,
-    svLayersData,
-    categoriesData,
-    AOI_projection,
-  } = useMapFunctions()
+  const { newProjection, seLayersData, svLayersData, categoriesData } =
+    useMapFunctions()
 
   const se = seLayersData(state)
-
   const sv = svLayersData(state)
 
   const cats = categoriesData(state)
@@ -216,8 +212,14 @@ const OsmMap = () => {
 
       <Pane name="area-of-interest-pane" style={{ zIndex: 200 }}>
         {show_area_of_interest &&
-          AOI.features.map((library, index) => {
-            return AOI_projection(library, index)
+          AOI.features.map((feature, index) => {
+            return (
+              <AOIprojection
+                key={index}
+                geojsonFeature={feature}
+                index={index}
+              />
+            )
           })}
       </Pane>
 
