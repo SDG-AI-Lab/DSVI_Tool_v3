@@ -731,7 +731,7 @@ export const reducerInitialState: ReducerInitialStateType = {
   tile_providers,
   show_area_of_interest: true,
   geolayers_description: {},
-  activeLegends: categories,
+  activeLegends: [],
   socioeconomic: {
     status: false,
     data: seGeoData,

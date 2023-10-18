@@ -54,11 +54,7 @@ const OsmMap = () => {
   const seStatuses = se.map((x) => x.layerInfo.status)
   const svStatuses = sv.map((x) => x.status)
 
-  const showLegend =
-    seStatuses.some((x) => x === true) ||
-    svStatuses.some((x) => x === true) ||
-    dhsIndicator ||
-    cats.some((x) => x === true)
+  console.log(activeLegends.length)
 
   function UpdateMap() {
     const map = useMap()
@@ -218,7 +214,7 @@ const OsmMap = () => {
       <MapControls position="topright" />
       <InfoBox position="topleft" />
 
-      {showLegend ? <NewLegend_2 /> : null}
+      {activeLegends.length ? <NewLegend_2 /> : null}
 
       <Pane name="area-of-interest-pane" style={{ zIndex: 200 }}>
         {show_area_of_interest &&
