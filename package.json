@@ -28,6 +28,7 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.10.0",
+    "react-icons": "^4.11.0",
     "react-leaflet": "^4.0.0",
     "react-leaflet-box-zoom": "^1.0.2",
     "react-leaflet-custom-control": "^1.2.6",

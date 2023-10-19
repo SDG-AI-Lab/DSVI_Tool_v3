@@ -7,6 +7,7 @@ import SidebarToggle from './SidebarToggle'
 import VulnerabilityOptions from './VulnerabilityOptions'
 import SocioeconLayers from './SocioeconLayers'
 import HighResLayers from './HighResLayers'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
 
 const Sidebar = (props) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -16,6 +17,7 @@ const Sidebar = (props) => {
   const dhsDataColumn = state['dhs_data_column']
   const selectedDataColumn = state['selected_data_column']
   const selectedDhsDataColumn = state['selected_dhs_data_column']
+  const { show_infoBox_data } = state
 
   const [dsvModal, setDsvModal] = useState(false)
   const [dhsModal, setDhsModal] = useState(false)
@@ -61,6 +63,17 @@ const Sidebar = (props) => {
                 <>
                   <ResetIcon />
                   <span>Reset tool</span>
+                </>
+              </SidebarToggle>
+            </li>
+
+            <li className="relative">
+              <SidebarToggle
+                onClick={() => dispatch({ type: 'TOGGLE_INFOBOX_DATA' })}
+              >
+                <>
+                  <AiOutlineInfoCircle className="mr-2 h-4 w-4" />
+                  <span>{show_infoBox_data ? 'Hide' : 'Show'} Infobox</span>
                 </>
               </SidebarToggle>
             </li>
