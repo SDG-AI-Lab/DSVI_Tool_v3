@@ -1,8 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import { Polygon, Popup } from 'react-leaflet'
-import CustomTooltip from './CustomTooltip'
-import CustomPopup from './CustomPopup'
-import { LegendContext } from '../../context/LegendContext'
+import { Polygon, Popup, Tooltip } from 'react-leaflet'
 import { FilterContext } from '../../context/FilterContext'
 
 const CustomPolygon = (props) => {
@@ -71,21 +68,21 @@ const CustomPolygon = (props) => {
       positions={positions}
       children={
         <>
-          <CustomTooltip
+          <Tooltip
             direction={tooltipDirection}
             offset={tooltipOffset}
-            count={tooltipCount}
-            bgcolor={tooltipBgcolor}
-            textcolor={tooltipTextColor}
-            tooltipName_1={tooltipName_1}
-            tooltipName_2={tooltipName_2}
-            tooltipName_3={tooltipName_3}
-            normalizeDataValue={normalizeDataValue}
-            units={units}
-            _mean={_mean}
-            minMeanNumber={minMeanNumber}
-            maxMeanNumber={maxMeanNumber}
-          />
+            className={`m-0 border-none p-0`}
+            pane="tooltipPane"
+          >
+            <p className={`p-1 ${tooltipTextColor}`}>
+              {`Oblast: ${tooltipName_1 ? tooltipName_1 : 'no data'}`}
+              <br />
+              {`District: ${tooltipName_2 ? tooltipName_2 : 'no data'}`}
+              <br />
+              {`Value: ${_mean ? `${_mean} ${units}` : 'no data'}`}
+            </p>
+          </Tooltip>
+
           <Popup className={`m-0 rounded-lg p-0`} pane="popupPane">
             <p className={`p-1 ${popupTextColor}`}>
               {`Oblast: ${tooltipName_1 ? tooltipName_1 : 'no data'}`}
@@ -93,7 +90,6 @@ const CustomPolygon = (props) => {
               {`District: ${tooltipName_2 ? tooltipName_2 : 'no data'}`}
               <br />
               {`Value: ${_mean ? `${_mean} ${units}` : 'no data'}`}
-              <br />
             </p>
           </Popup>
         </>
