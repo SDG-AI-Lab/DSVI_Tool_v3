@@ -8,7 +8,6 @@ import {
   useMap,
   Pane,
 } from 'react-leaflet'
-
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
 import CircleMarkers from '../marker/CircleMarkers'
@@ -22,25 +21,22 @@ import { useMapFunctions } from './useMapFunctions'
 import AOIprojection from '../controls/AOIprojection'
 import NewProjection from '../controls/NewProjection'
 
-const defaultMap = { lat: 22.167057857886153, lng: 79.6728515625, zoom: 5 }
-
 // export const geoServerUrl = 'http://3.136.245.50:8080/geoserver/sdg-ai-lab/wms'
 export const geoServerUrl = 'http://localhost:8080/geoserver/sdg-ai-lab/wms'
 
 const OsmMap = () => {
-  const { state, dispatch } = useContext(FilterContext)
+  const { state } = useContext(FilterContext)
 
-  const level = state['level']
-  const reset_settings = state['reset_settings']
-  const map_settings = state['map_settings']
-  const tile_providers = state['tile_providers']
-
-  const show_data = state['show_data']
-  const show_area_of_interest = state['show_area_of_interest']
-
-  const activeLegends = state['activeLegends']
-  const dhsIndicator = state['dhs_indicator']
-
+  const {
+    level,
+    reset_settings,
+    map_settings,
+    tile_providers,
+    show_area_of_interest,
+    activeLegends,
+    show_data,
+    dhs_indicator,
+  } = state
   const { seLayersData, svLayersData, categoriesData } = useMapFunctions()
 
   const se = seLayersData(state)
@@ -131,7 +127,6 @@ const OsmMap = () => {
                 format: 'image/png',
                 transparent: true,
                 version: '1.1.0',
-                //style: "sdg-ai-lab:xgboost",
               }}
               url={geoServerUrl}
               zIndex={9999}
@@ -154,7 +149,6 @@ const OsmMap = () => {
                     format: 'image/png',
                     transparent: true,
                     version: '1.1.0',
-                    //style: "sdg-ai-lab:xgboost",
                   }}
                   url={geoServerUrl}
                   zIndex={9999}
@@ -165,6 +159,15 @@ const OsmMap = () => {
           )
         }
       }
+    })
+  }
+
+  const displayAreaOfInterest = () => {
+    if (!show_area_of_interest) return
+    return AOI.features.map((feature, index) => {
+      return (
+        <AOIprojection key={index} geojsonFeature={feature} index={index} />
+      )
     })
   }
 
@@ -196,16 +199,7 @@ const OsmMap = () => {
       {activeLegends.length ? <NewLegend_2 /> : null}
 
       <Pane name="area-of-interest-pane" style={{ zIndex: 200 }}>
-        {show_area_of_interest &&
-          AOI.features.map((feature, index) => {
-            return (
-              <AOIprojection
-                key={index}
-                geojsonFeature={feature}
-                index={index}
-              />
-            )
-          })}
+        {displayAreaOfInterest()}
       </Pane>
 
       <Pane name="socioeconomic-pane" style={{ zIndex: 201 }}>
@@ -217,7 +211,6 @@ const OsmMap = () => {
       </Pane>
 
       <CircleMarkers />
-
       <CircleMarkersVulnerability />
     </MapContainer>
   )
