@@ -10,12 +10,12 @@ const data = [
   },
   {
     id: 2,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
+    name: 'Vadim Fattakhov',
+    image: './images/Photo_Vadim_Fattakhov.jpg',
     motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
+      'I am a web developer motivated to contribute to the United Nations project, eager to enhance web solutions to advance UN initiatives. Passionate about leveraging technology for social good.',
+    Bio: 'Web Developer with over three years of experience. Previously, Petroleum Engineer with 15 years of experience.',
+    Linkedin: 'https://www.linkedin.com/in/vadim-fthv/',
   },
   {
     id: 3,
