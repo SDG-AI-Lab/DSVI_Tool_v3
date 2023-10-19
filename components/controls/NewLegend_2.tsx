@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { FilterContext } from '../../context/FilterContext'
 import Control from 'react-leaflet-custom-control'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from 'react-beautiful-dnd'
 import L from 'leaflet'
 import SocioEconLegend from './SocioEconLegend'
 import GeoLegend from './GeoLegend'
@@ -33,7 +38,7 @@ const NewLegend_2 = (props) => {
     }
   }, [])
 
-  function handleOnDragEnd(result) {
+  function handleOnDragEnd(result: DropResult) {
     if (!result.destination) return
     dispatch({ type: 'DRAG_DROP_CHANGE_ACTIVE_LEGENDS', payload: result })
   }
@@ -56,46 +61,44 @@ const NewLegend_2 = (props) => {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {activeLegends.map((item, index) => {
-                    return (
-                      <Draggable
-                        key={index}
-                        draggableId={index.toString()}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <li
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            {item.hasOwnProperty('slug') &&
-                            item.slug.indexOf('se_') === 0 ? (
-                              <SocioEconLegend
-                                layer={item as SeLayerObjectType}
-                              />
-                            ) : null}
-                            {item.hasOwnProperty('slug') &&
-                            item.slug.indexOf('sv_') === 0 ? (
-                              <GeoLegend layer={item as SvLayerObjectType} />
-                            ) : null}
-                            {item.hasOwnProperty('slug') &&
-                            item.slug.indexOf('cats_') === 0 &&
-                            vulnerability ? (
-                              <CategoriesLegend
-                                category={item as CategoriesCollectionType}
-                              />
-                            ) : null}
+                  {activeLegends.map((item, index) => (
+                    <Draggable
+                      key={index}
+                      draggableId={index.toString()}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          {item.hasOwnProperty('slug') &&
+                          item.slug.indexOf('se_') === 0 ? (
+                            <SocioEconLegend
+                              layer={item as SeLayerObjectType}
+                            />
+                          ) : null}
+                          {item.hasOwnProperty('slug') &&
+                          item.slug.indexOf('sv_') === 0 ? (
+                            <GeoLegend layer={item as SvLayerObjectType} />
+                          ) : null}
+                          {item.hasOwnProperty('slug') &&
+                          item.slug.indexOf('cats_') === 0 &&
+                          vulnerability ? (
+                            <CategoriesLegend
+                              category={item as CategoriesCollectionType}
+                            />
+                          ) : null}
 
-                            {/* {item.hasOwnProperty('Name') &&
+                          {/* {item.hasOwnProperty('Name') &&
                             item.hasOwnProperty('Additional Information') ? (
                               <DHS_indicators name={item.Name} />
                             ) : null} */}
-                          </li>
-                        )}
-                      </Draggable>
-                    )
-                  })}
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
                   {provided.placeholder}
                 </ul>
               )}
