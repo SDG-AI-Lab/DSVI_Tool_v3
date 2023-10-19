@@ -103,7 +103,6 @@ export default function NewProjection({
 
   return (
     <CustomPolygon
-      key={index}
       positions={L.GeoJSON.coordsToLatLngs(
         geojsonFeature.geometry.coordinates[0][0]
       )}
@@ -112,23 +111,11 @@ export default function NewProjection({
       opacity={layerObject.value / 100}
       tooltipDirection="auto"
       tooltipOffset={[20, 0]}
-      tooltipCount={geojsonFeature.properties._mean.toFixed(2)} // geojsonFeature.properties._count
-      normalizeDataValue={normalizeDataValue.toFixed(2)}
-      units={layerObject.units}
-      _mean={_mean.toFixed(2)}
-      minMeanNumber={minMeanNumber.toFixed(2)}
-      maxMeanNumber={maxMeanNumber.toFixed(2)}
       tooltipName_1={geojsonFeature.properties.NAME_1}
       tooltipName_2={geojsonFeature.properties.NAME_2}
-      tooltipName_3={geojsonFeature.properties.NAME_2}
-      tooltipBgcolor="rgb(255 255 255)"
       tooltipTextColor="text-slate-700"
-      show_data={show_data}
-      popupMaxWidth="auto"
-      popupMaxHeight="auto"
-      popupBgColor="rgb(255 255 255)"
-      popupTextColor="text-slate-700"
-      data={data}
+      units={layerObject.units}
+      _mean={_mean.toFixed(2)}
     />
   )
 }

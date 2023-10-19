@@ -8,32 +8,17 @@ const CustomPolygon = (props) => {
   const socioeconomic = state['socioeconomic']
 
   const {
-    index,
     positions,
     fillColor,
     hoverColor,
     opacity,
     tooltipDirection,
     tooltipOffset,
-    tooltipCount,
     tooltipName_1,
     tooltipName_2,
-    tooltipName_3,
-    tooltipBgcolor,
     tooltipTextColor,
-    show_data,
-    popupMaxWidth,
-    popupMaxHeight,
-    popupBgColor,
-    popupTextColor,
-    data,
-    legendTitle,
-    legendDescription,
-    normalizeDataValue,
     units,
     _mean,
-    minMeanNumber,
-    maxMeanNumber,
   } = props
 
   const PolygonRef = useRef(null)
@@ -52,9 +37,18 @@ const CustomPolygon = (props) => {
     })
   }, [fillColor])
 
+  const toolTipPopupContent = (
+    <p className={`p-1 ${tooltipTextColor}`}>
+      {tooltipName_1 && `Oblast: ${tooltipName_1}`}
+      <br />
+      {tooltipName_2 && `District: ${tooltipName_2}`}
+      <br />
+      {_mean && `Value: ${_mean} ${units}`}
+    </p>
+  )
+
   return (
     <Polygon
-      key={index}
       ref={PolygonRef}
       pathOptions={{
         bubblingMouseEvents: true,
@@ -74,23 +68,11 @@ const CustomPolygon = (props) => {
             className={`m-0 border-none p-0`}
             pane="tooltipPane"
           >
-            <p className={`p-1 ${tooltipTextColor}`}>
-              {`Oblast: ${tooltipName_1 ? tooltipName_1 : 'no data'}`}
-              <br />
-              {`District: ${tooltipName_2 ? tooltipName_2 : 'no data'}`}
-              <br />
-              {`Value: ${_mean ? `${_mean} ${units}` : 'no data'}`}
-            </p>
+            {toolTipPopupContent}
           </Tooltip>
 
           <Popup className={`m-0 rounded-lg p-0`} pane="popupPane">
-            <p className={`p-1 ${popupTextColor}`}>
-              {`Oblast: ${tooltipName_1 ? tooltipName_1 : 'no data'}`}
-              <br />
-              {`District: ${tooltipName_2 ? tooltipName_2 : 'no data'}`}
-              <br />
-              {`Value: ${_mean ? `${_mean} ${units}` : 'no data'}`}
-            </p>
+            {toolTipPopupContent}
           </Popup>
         </>
       }
