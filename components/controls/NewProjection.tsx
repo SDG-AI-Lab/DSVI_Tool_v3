@@ -6,31 +6,15 @@ import L from 'leaflet'
 type NewProjectionProps = {
   full_JSON_library: SingleGeoJson
   geojsonFeature: GeoJsonFeaturesType
-  index: number
   layerObject: SeLayerObjectType
-  show_data: boolean
 }
 
 export default function NewProjection({
   full_JSON_library,
   geojsonFeature,
-  index,
   layerObject,
-  show_data,
 }: NewProjectionProps) {
-  const {
-    NAME,
-    NAME_1,
-    NAME_2,
-    _mean,
-    _count,
-    _stdev,
-    _max,
-    _min,
-    _sum,
-    // _avg may not exist on geojson at all?!!!
-    // _avg,
-  } = geojsonFeature.properties
+  const { NAME_1, NAME_2, _mean, _count } = geojsonFeature.properties
 
   const data = [
     // These are shown when the user clicks on the polygon

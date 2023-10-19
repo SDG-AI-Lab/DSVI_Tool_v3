@@ -109,9 +109,7 @@ const OsmMap = () => {
               key={index}
               full_JSON_library={geojson1}
               geojsonFeature={feature}
-              index={index}
               layerObject={combinedLayer.layerInfo}
-              show_data={show_data}
             />
           )
         })
