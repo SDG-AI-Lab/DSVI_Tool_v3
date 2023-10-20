@@ -149,7 +149,7 @@ const InfoBox = ({ position }: InfoBoxProps) => {
 
 // the tabs inside the infoBox: Social vulnerability, Data Exploration, Methods, and How to use
 const Tabs = (props) => {
-  const [openTab, setOpenTab] = useState(3)
+  const [openTab, setOpenTab] = useState(1)
 
   const renderCarouselImages = () => {
     return Array(17)

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { DialogIcon, MapMarker } from './SVGs'
+import { BiMessageAltDetail } from 'react-icons/bi'
+import { FiMapPin } from 'react-icons/fi'
 
 const Navbar = () => {
   const router = useRouter()
@@ -9,6 +10,10 @@ const Navbar = () => {
       ? router.pathname
       : router.pathname.substring(1)
 
+  const returnIconClassname = (path: string): string => {
+    return pathname === path ? 'text-blue-700 font-bold' : 'text-slate-700'
+  }
+
   const className = 'pl-1 text-lg font-bold text-blue-700 hover:bg-blue-50'
 
   return (
@@ -16,7 +21,8 @@ const Navbar = () => {
     <nav className="mb-3 flex items-end align-bottom font-bold ">
       <Link href={'/'} as={`/`}>
         <a className="mr-5 flex px-2 hover:text-gray-900">
-          <MapMarker pathname={pathname} />
+          <FiMapPin className={`h-6 w-6  ${returnIconClassname('/')}`} />
+          {/* <MapMarker pathname={pathname} /> */}
           <span className={pathname === '/' ? className : 'pl-1'}>
             Map Window
           </span>
@@ -26,7 +32,10 @@ const Navbar = () => {
       {/*// About us*/}
       <Link href="/about">
         <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
-          <DialogIcon pathname={pathname} />
+          <BiMessageAltDetail
+            className={`h-6 w-6  ${returnIconClassname('about')}`}
+          />
+          {/* <DialogIcon pathname={pathname} /> */}
           <span className={pathname === 'about' ? className : 'pl-1'}>
             About us
           </span>

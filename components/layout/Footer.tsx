@@ -1,7 +1,10 @@
 import Image from 'next/image'
-import { GlobeIcon2, TwitterIcon } from '../SVGs'
+import { BsTwitter, BsGlobe } from 'react-icons/bs'
 
 const Footer = () => {
+  const iconClassname =
+    'h-5 w-5 drop-shadow-lg hover:h-8 hover:w-8 hover:text-blue-400 hover:drop-shadow-2xl'
+
   return (
     <>
       <footer className="body-font bg-white text-gray-600">
@@ -26,16 +29,17 @@ const Footer = () => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              © 2022 — @SDG AI LAB
+              © 2023 — @SDG AI LAB
             </a>
             <a
               className="ml-3 text-gray-500"
               href="https://twitter.com/sdgailab"
             >
-              <TwitterIcon />
+              {/* <TwitterIcon /> */}
+              <BsTwitter className={iconClassname} />
             </a>
             <a className="ml-3 text-gray-500" href="https://sdgailab.org/">
-              <GlobeIcon2 />
+              <BsGlobe className={iconClassname} />
             </a>
           </li>
           {/* <li key="3">
