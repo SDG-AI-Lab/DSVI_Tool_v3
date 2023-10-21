@@ -2,12 +2,12 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Modal } from 'react-responsive-modal'
 import { FilterContext } from '../../context/FilterContext'
 import DHS_COLUMN from '../../public/static/color_gradient_lookup.json'
-import { HeartIcon, ResetIcon } from '../SVGs'
 import SidebarToggle from './SidebarToggle'
 import VulnerabilityOptions from './VulnerabilityOptions'
 import SocioeconLayers from './SocioeconLayers'
 import HighResLayers from './HighResLayers'
-import { AiOutlineInfoCircle } from 'react-icons/ai'
+import { AiOutlineHeart, AiOutlineInfoCircle } from 'react-icons/ai'
+import { PiArrowsCounterClockwiseBold } from 'react-icons/pi'
 
 const Sidebar = (props) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -61,7 +61,7 @@ const Sidebar = (props) => {
                 }}
               >
                 <>
-                  <ResetIcon />
+                  <PiArrowsCounterClockwiseBold className="mr-2 h-4 w-4" />
                   <span>Reset tool</span>
                 </>
               </SidebarToggle>
@@ -72,7 +72,7 @@ const Sidebar = (props) => {
                 onClick={() => dispatch({ type: 'TOGGLE_INFOBOX_DATA' })}
               >
                 <>
-                  <AiOutlineInfoCircle className="mr-2 h-4 w-4" />
+                  <AiOutlineInfoCircle className="mr-2" />
                   <span>{show_infoBox_data ? 'Hide' : 'Show'} Infobox</span>
                 </>
               </SidebarToggle>
@@ -83,7 +83,7 @@ const Sidebar = (props) => {
                 onClick={() => dispatch({ type: 'TOGGLE_AREA_OF_INTEREST' })}
               >
                 <>
-                  <HeartIcon />
+                  <AiOutlineHeart className="mr-2 h-4 w-4" />
                   <span>
                     {areaofInterestStatus2 ? 'Hide' : 'Show'} Area of Interest
                   </span>

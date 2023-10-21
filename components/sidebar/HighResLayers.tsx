@@ -6,7 +6,8 @@ import {
   Draggable,
   DropResult,
 } from 'react-beautiful-dnd'
-import { ArrowDownIcon, ArrowUpIcon, GlobeIcon } from '../SVGs'
+import { IoIosArrowDown } from 'react-icons/io'
+import { HiOutlineGlobe } from 'react-icons/hi'
 import { SvLayerObjectType } from '../../reducer/reducerInitialState'
 import OpacityRange from './OpacityRange'
 
@@ -50,13 +51,13 @@ function HighResLayers() {
         className={`h-12 cursor-pointer  px-2  text-sm ${classNames}`}
         onClick={() => dispatch({ type: 'TOGGLE_GEODATA' })}
       >
-        <GlobeIcon />
+        <HiOutlineGlobe className="mr-2 h-4 w-4" />
         <span>High Res. Layers</span>
-        {geodata.status ? (
-          <ArrowUpIcon className="ml-14 h-5 w-5" />
-        ) : (
-          <ArrowDownIcon className="ml-14 h-5 w-5" />
-        )}
+
+        <IoIosArrowDown
+          style={{ transform: `${geodata.status ? 'rotate(180deg)' : ''}` }}
+          className="ml-14 h-5 w-5"
+        />
       </a>
       <ul className="accordion-collapse collapse relative">
         {geodata.status &&
