@@ -24,7 +24,13 @@ const dropDownOptions = [
 ]
 
 // each index for the above list has a description in the list below which is shown in infoBox
-const dropDownDescriptions = [
+
+type DropDownType = {
+  heading: string
+  desc: string
+}
+
+const dropDownDescriptions: DropDownType[] = [
   {
     heading: 'SV Prediction: Random Forest',
     desc: 'This layer is a prediction of Social Vulnerability with sklearns Random Forest Regressor. A random forest is a meta estimator that fits a number of classifying decision trees on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is controlled with the max_samples parameter if bootstrap=True (default), otherwise the whole dataset is used to build each tree.',
@@ -71,7 +77,7 @@ type InfoBoxProps = {
   position: L.ControlPosition
 }
 
-const InfoBox = ({ position }: InfoBoxProps) => {
+export default function InfoBox({ position }: InfoBoxProps) {
   const { state, dispatch } = useContext(FilterContext)
   const show_infoBox_data = state['show_infoBox_data']
   const [dropdownValue, setDropdownValue] = useState(dropDownOptions[0])
@@ -151,21 +157,192 @@ const InfoBox = ({ position }: InfoBoxProps) => {
 const Tabs = (props) => {
   const [openTab, setOpenTab] = useState(1)
 
-  const renderCarouselImages = () => {
-    return Array(17)
-      .fill(0)
-      .map((_, index) => {
-        const imgNum = index + 1
-        return (
-          <img
-            key={index}
-            style={{ width: '100px' }}
-            src={`https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg${imgNum}.png`}
-            alt="poverty"
-          />
-        )
-      })
+  const renderCarouselImages = (imageLinks: string[]) => {
+    return imageLinks.map((link) => {
+      return (
+        <img key={link} style={{ width: '100px' }} src={link} alt="poverty" />
+      )
+    })
   }
+
+  type TabContentType = {
+    tabHead: string
+    imgLinks: string[]
+    text?: {
+      h1: string
+      p: string
+    }
+    dropdown?: DropDownType[]
+  }
+
+  const tabContent: TabContentType[] = [
+    {
+      tabHead: 'How to use',
+      imgLinks: [
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png',
+      ],
+      text: {
+        h1: 'Welcome to the DSVI Tool',
+        p: 'Shift + drawing a box with your mouse will allow you to zoom into the area on the map',
+      },
+    },
+    {
+      tabHead: 'Social Vulnerability',
+      imgLinks: [
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png',
+      ],
+      text: {
+        h1: 'Social Vulnerability',
+        p: 'Social Vulnerability (SV) is the capacity of individuals or communities to cope with social and environmental shocks (Adger 2000, Cutter 2003). This includes climate change, natural disasters, and other societal risks. Vulnerable groups have a disproportionate risk of being affected and experiencing more profound consequences, due to their socio-economic preconditions. SV assessments help to better map the connection between local conditions, social characteristics, or individual vulnerabilities and risks. The calculation of SV scores is a frequent practice to measure a community’s ability to respond to outside stressors and risks. It is an indirect way to quantify resilience. Having such an assessment helps to understand, get prepared and respond in a more effective manner, using a combination of the most appropriate tools once the risk materializes.',
+      },
+    },
+    {
+      tabHead: 'Data Exploration',
+      imgLinks: [
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png',
+      ],
+      dropdown: dropDownDescriptions,
+    },
+    {
+      tabHead: 'Methods',
+      imgLinks: [
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png',
+        'https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg4.png',
+      ],
+      text: {
+        h1: 'Methods',
+        p: 'No method details yet.',
+      },
+    },
+  ]
+
+  const renderTabHeads = () => {
+    return (
+      <>
+        <div className="mb-3 flex items-start">
+          <ul
+            className="nav nav-tabs mr-1 flex list-none flex-col flex-wrap border-b-0 pl-0"
+            role="tablist"
+          >
+            {tabContent.map((tab, index) => {
+              return (
+                <>
+                  <li
+                    className="nav-item flex-grow text-left"
+                    style={{
+                      background:
+                        openTab === index + 1 ? '#e6f9ff' : 'transparent',
+                    }}
+                  >
+                    <a
+                      className="block rounded px-5 py-1 text-base leading-normal text-black"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setOpenTab(index + 1)
+                      }}
+                      data-toggle="tab"
+                      href={`#link${index + 1}`}
+                      role="tablist"
+                    >
+                      {tab.tabHead}
+                    </a>
+                  </li>
+                </>
+              )
+            })}
+          </ul>
+
+          <div className="tab-content">
+            <div className="ml-20 flex-auto">
+              {tabContent.map((tab, index) => {
+                return (
+                  <div
+                    className={`${
+                      openTab === index + 1 ? 'block' : 'hidden'
+                    } tab-pane fade show active`}
+                    style={{ width: '150px' }}
+                    id={`link${index + 1}`}
+                  >
+                    <Carousel
+                      className="info_carousel"
+                      showArrows={false}
+                      showIndicators={false}
+                      showThumbs={false}
+                      showStatus={false}
+                    >
+                      {renderCarouselImages(tab.imgLinks)}
+                    </Carousel>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+        {tabContent.map((tab, index) => {
+          return (
+            tab.text && (
+              <div
+                className={`${
+                  openTab === index + 1 ? 'block' : 'hidden'
+                } square my-3 mb-3 mt-5 max-w-md px-4 text-justify leading-relaxed`}
+              >
+                <h1 className="text-xl font-semibold leading-10">
+                  {tab.text.h1}
+                </h1>
+                <p>{tab.text.p}</p>
+              </div>
+            )
+          )
+        })}
+        {tabContent.map((tab, index) => {
+          return (
+            tab.dropdown && (
+              <div
+                className={`${
+                  openTab === index + 1 ? 'block' : 'hidden'
+                } square my-3 mb-3 mt-5 max-w-md px-4 text-justify leading-relaxed`}
+              >
+                <Dropdown
+                  menuClassName="max-w-11/12 left-4p rounded-xl h-50"
+                  controlClassName="rounded-xl w-11/12 m-auto"
+                  options={dropDownOptions}
+                  onChange={(e) => {
+                    props.changingDropdown(e.value)
+                    setOpenTab(index + 1)
+                  }}
+                  value={props.dropdownValue}
+                  placeholder="Select an option"
+                />
+                <div className="square mt-5 max-w-md px-4">
+                  <div>
+                    {dropDownDescriptions[props.dropdownDescIndex].img && (
+                      <img
+                        style={{ width: '100px' }}
+                        src={dropDownDescriptions[props.dropdownDescIndex].img}
+                        alt="poverty"
+                      />
+                    )}
+                  </div>
+                  <p className="my-3 mb-3 text-justify leading-relaxed">
+                    {dropDownDescriptions[props.dropdownDescIndex].desc}
+                  </p>
+                </div>
+              </div>
+            )
+          )
+        })}
+      </>
+    )
+  }
+
+  return <>{renderTabHeads()}</>
 
   return (
     <>
@@ -279,10 +456,24 @@ const Tabs = (props) => {
                 showThumbs={false}
                 showStatus={false}
               >
-                {renderCarouselImages()}
+                <img
+                  style={{ width: '100px' }}
+                  src="./images/logo-sdg-filled.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg2.png"
+                  alt="poverty"
+                />
+                <img
+                  style={{ width: '100px' }}
+                  src="https://knowsdgs.jrc.ec.europa.eu/themes/sdgs/assets/img/sdg3.png"
+                  alt="poverty"
+                />
               </Carousel>
             </div>
-            {/* <div
+            <div
               className={`${
                 openTab === 2 ? 'block' : 'hidden'
               } tab-pane fade show active`}
@@ -317,7 +508,7 @@ const Tabs = (props) => {
                   alt="poverty"
                 />
               </Carousel>
-            </div> */}
+            </div>
             <div
               className={`${
                 openTab === 3 ? 'block' : 'hidden'
@@ -472,35 +663,34 @@ const Tabs = (props) => {
   )
 }
 
-const InfoDiv = (props) => {
-  return (
-    <>
-      <Dropdown
-        menuClassName="max-w-11/12 left-4p rounded-xl h-50"
-        controlClassName="rounded-xl w-11/12 m-auto"
-        options={dropDownOptions}
-        onChange={(e) => props.changingDropdown(e.value)}
-        onClick={props.setTab(2)}
-        value={props.dropdownValue}
-        placeholder="Select an option"
-      />
-      <div className="square mt-5 max-w-md px-4">
-        {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
-        {/* <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p> */}
-        <div>
-          {dropDownDescriptions[props.dropdownDescIndex].img && (
-            <img
-              style={{ width: '100px' }}
-              src={dropDownDescriptions[props.dropdownDescIndex].img}
-              alt="poverty"
-            />
-          )}
-        </div>
-        <p className="my-3 mb-3 text-justify leading-relaxed">
-          {dropDownDescriptions[props.dropdownDescIndex].desc}
-        </p>
-      </div>
-    </>
-  )
-}
-export default InfoBox
+// const InfoDiv = (props) => {
+//   return (
+//     <>
+//       <Dropdown
+//         menuClassName="max-w-11/12 left-4p rounded-xl h-50"
+//         controlClassName="rounded-xl w-11/12 m-auto"
+//         options={dropDownOptions}
+//         onChange={(e) => props.changingDropdown(e.value)}
+//         onClick={props.setTab(2)}
+//         value={props.dropdownValue}
+//         placeholder="Select an option"
+//       />
+//       <div className="square mt-5 max-w-md px-4">
+//         {/* <h2 className='font-bold'>{dropDownDescriptions[dropdownDescIndex].heading}</h2> */}
+//         {/* <p className='my-3 leading-relaxed mb-3 text-justify'>{dropDownDescriptions[dropdownDescIndex].desc}</p> */}
+//         <div>
+//           {dropDownDescriptions[props.dropdownDescIndex].img && (
+//             <img
+//               style={{ width: '100px' }}
+//               src={dropDownDescriptions[props.dropdownDescIndex].img}
+//               alt="poverty"
+//             />
+//           )}
+//         </div>
+//         <p className="my-3 mb-3 text-justify leading-relaxed">
+//           {dropDownDescriptions[props.dropdownDescIndex].desc}
+//         </p>
+//       </div>
+//     </>
+//   )
+// }
