@@ -1,167 +1,18 @@
-import React from 'react'
-import CustomPolygon from '../controls/CustomPolygon'
-import CustomPolygon_AOI from '../controls/CustomPolygon_AOI'
-
-import L from 'leaflet'
-import { DataReducerInitialStateType } from '../../reducer/reducerInitialState'
+import {
+  ReducerInitialStateType,
+  SvLayerObjectType,
+} from '../../reducer/reducerInitialState'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
 import { geojson } from 'public/static'
 
-interface CombinedLayerData {
+type CombinedLayerData = {
   layerInfo: SeLayerObjectType | undefined
-  geojson: { crs: any; features: any; name: string; type: string }[]
-}
-
-interface Library {
-  geometry: {
-    coordinates: any[]
-    type: string
-  }
-  properties: any
-  type: string
+  geojson: SingleGeoJson[]
 }
 
 export const useMapFunctions = () => {
-  const mapPolygonColorToDensity = (
-    normalizeData: number,
-    layerObject: SeLayerObjectType
-  ): string => {
-    if (!layerObject.reverse_meaning) {
-      switch (true) {
-        case normalizeData > 0.8 && normalizeData <= 1:
-          return '#FF362C' // RED
-        case normalizeData > 0.6:
-          return '#ff962c' // ORANGE
-        case normalizeData > 0.4:
-          return '#FFDE2C' // YELLOW
-        case normalizeData > 0.2:
-          return '#00800A' // GREEN
-        case normalizeData >= 0:
-          return '#0c58ca' // BLUE
-        default:
-          return '#FFFFFF' // WHITE
-      }
-    } else {
-      switch (true) {
-        case normalizeData > 0.8 && normalizeData <= 1:
-          return '#0c58ca' // BLUE
-        case normalizeData > 0.6:
-          return '#00800A' // GREEN
-        case normalizeData > 0.4:
-          return '#FFDE2C' // YELLOW
-        case normalizeData > 0.2:
-          return '#ff962c' // ORANGE
-        case normalizeData >= 0:
-          return '#FF362C' // RED
-        default:
-          return '#FFFFFF' // WHITE
-      }
-    }
-  }
-
-  const newProjection = (
-    full_JSON_library,
-    library,
-    index: number,
-    layerObject: SeLayerObjectType,
-    show_data: boolean
-  ): JSX.Element => {
-    const {
-      NAME,
-      NAME_1,
-      NAME_2,
-      _mean,
-      _count,
-      _stdev,
-      _max,
-      _min,
-      _sum,
-      _avg,
-    } = library.properties
-    const {} = library.name
-    const data = [
-      // These are shown when the user clicks on the polygon
-      {
-        key: 'Oblast',
-        value: NAME_1,
-      },
-      {
-        key: 'District',
-        value: NAME_2,
-      },
-      {
-        key: 'Count',
-        value: _count,
-      },
-      {
-        key: 'Mean value',
-        value: _mean,
-      },
-    ]
-    const onlyAllMeanNumbers = full_JSON_library.features.map(
-      (object) => object.properties._mean
-    )
-    // console.log('onlyAllMeanNumbers');
-    // console.log(onlyAllMeanNumbers);
-    const minMeanNumber = Math.min(...onlyAllMeanNumbers)
-    const maxMeanNumber = Math.max(...onlyAllMeanNumbers)
-
-    const normalizeDataValue = Math.abs(
-      (_mean - minMeanNumber) / (maxMeanNumber - minMeanNumber)
-    )
-    const fillColor = mapPolygonColorToDensity(normalizeDataValue, layerObject)
-
-    return (
-      <CustomPolygon
-        key={index}
-        positions={L.GeoJSON.coordsToLatLngs(
-          library.geometry.coordinates[0][0]
-        )}
-        fillColor={fillColor}
-        hoverColor={fillColor}
-        opacity={layerObject.value / 100}
-        tooltipDirection="auto"
-        tooltipOffset={[20, 0]}
-        tooltipCount={library.properties._mean.toFixed(2)} // library.properties._count
-        normalizeDataValue={normalizeDataValue.toFixed(2)}
-        units={layerObject.units}
-        _mean={_mean.toFixed(2)}
-        minMeanNumber={minMeanNumber.toFixed(2)}
-        maxMeanNumber={maxMeanNumber.toFixed(2)}
-        tooltipName_1={library.properties.NAME_1}
-        tooltipName_2={library.properties.NAME_2}
-        tooltipName_3={library.properties.NAME_2}
-        tooltipBgcolor="rgb(255 255 255)"
-        tooltipTextColor="text-slate-700"
-        show_data={show_data}
-        popupMaxWidth="auto"
-        popupMaxHeight="auto"
-        popupBgColor="rgb(255 255 255)"
-        popupTextColor="text-slate-700"
-        data={data}
-      />
-    )
-  }
-
-  const AOI_projection = (library: Library, index: number) => {
-    const fillColorAOI = 'rgb(255, 255, 255)'
-    const hoverColor = 'blue'
-
-    return (
-      <CustomPolygon_AOI
-        key={index}
-        positions={L.GeoJSON.coordsToLatLngs(
-          library.geometry.coordinates[0][0]
-        )}
-        fillColor={fillColorAOI}
-        hoverColor={hoverColor}
-        opacity="0.7"
-      />
-    )
-  }
-
-  const seLayersData = (state: DataReducerInitialStateType) => {
+  const seLayersData = (state: ReducerInitialStateType) => {
     const se_xgboost = state.socioeconomic.data
       .find((x) => x.slug === 'se_social_vulnerability')
       ?.data.find((x) => x.slug === 'se_xgboost')
@@ -314,7 +165,9 @@ export const useMapFunctions = () => {
     return combinedLayerData
   }
 
-  const svLayersData = (state: DataReducerInitialStateType) => {
+  const svLayersData = (
+    state: ReducerInitialStateType
+  ): SvLayerObjectType[] => {
     const geodata = state['geodata']['data']
     const social_vulnerability = geodata.find(
       (e) => e.slug === 'sv_social_vulnerability'
@@ -386,18 +239,15 @@ export const useMapFunctions = () => {
     return [
       sv_xgboost,
       sv_random_forest,
-      distance_maps,
       distance_to_healthcare,
       distance_to_finance,
       distance_to_edu,
       roads,
-      bio_physical,
       elevation,
       slope,
       max_temp,
       plant_health,
       precipitation,
-      socio_economic,
       nightlight_intensity,
       pop_density,
       celltower,
@@ -406,7 +256,7 @@ export const useMapFunctions = () => {
     ]
   }
 
-  const categoriesData = (state: DataReducerInitialStateType) => {
+  const categoriesData = (state: ReducerInitialStateType) => {
     const { vulnerability, categories } = state
 
     const cats_very_low = categories.find((e) => e.slug === 'cats_very_low')
@@ -425,24 +275,17 @@ export const useMapFunctions = () => {
     const cats_very_high_status = cats_very_high?.status
 
     return [
-      // cats_very_low,
       cats_very_low_status,
-      // cats_low,
       cats_low_status,
-      // cats_medium,
       cats_medium_status,
-      // cats_high,
       cats_high_status,
-      // cats_very_high,
       cats_very_high_status,
     ]
   }
 
   return {
-    newProjection,
     seLayersData,
     svLayersData,
     categoriesData,
-    AOI_projection,
   }
 }

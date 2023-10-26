@@ -1,11 +1,8 @@
 import React, { useContext } from 'react'
 import { FilterContext } from '../../context/FilterContext'
-import {
-  DollarIcon,
-  ArrowDownIcon,
-  ArrowUpIcon,
-  AdministrativeIcon,
-} from '../SVGs'
+import { IoIosArrowDown } from 'react-icons/io'
+import { AiOutlineDollarCircle } from 'react-icons/ai'
+import { BsTextLeft } from 'react-icons/bs'
 import AdminLevels from './AdminLevels'
 import {
   DragDropContext,
@@ -57,15 +54,20 @@ function SocioeconLayers() {
         className={`h-12 cursor-pointer px-2 text-sm ${classNames}`}
         onClick={() => dispatch({ type: 'TOGGLE_SOCIOECONOMIC' })}
       >
-        <DollarIcon />
+        <AiOutlineDollarCircle className="mr-2 h-4 w-4" />
         <span>Socioeconomic Layers</span>
-        {socioeconomic.status ? <ArrowUpIcon /> : <ArrowDownIcon />}
+        <IoIosArrowDown
+          style={{
+            transform: `${socioeconomic.status ? 'rotate(180deg)' : ''}`,
+          }}
+          className="ml-5 h-5 w-5"
+        />
       </a>
       {socioeconomic.status && (
         <div className="relative">
           <span className={`h-12 px-5 text-sm ${classNames}`}>
-            <AdministrativeIcon />
-            <span>Select administrative level</span>
+            <BsTextLeft className="mr-2" />
+            <span>Administrative level</span>
           </span>
           <AdminLevels />
         </div>

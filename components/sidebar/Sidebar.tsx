@@ -2,11 +2,12 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Modal } from 'react-responsive-modal'
 import { FilterContext } from '../../context/FilterContext'
 import DHS_COLUMN from '../../public/static/color_gradient_lookup.json'
-import { HeartIcon, ResetIcon } from '../SVGs'
 import SidebarToggle from './SidebarToggle'
 import VulnerabilityOptions from './VulnerabilityOptions'
 import SocioeconLayers from './SocioeconLayers'
 import HighResLayers from './HighResLayers'
+import { AiOutlineHeart, AiOutlineInfoCircle } from 'react-icons/ai'
+import { PiArrowsCounterClockwiseBold } from 'react-icons/pi'
 
 const Sidebar = (props) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -16,6 +17,7 @@ const Sidebar = (props) => {
   const dhsDataColumn = state['dhs_data_column']
   const selectedDataColumn = state['selected_data_column']
   const selectedDhsDataColumn = state['selected_dhs_data_column']
+  const { show_infoBox_data } = state
 
   const [dsvModal, setDsvModal] = useState(false)
   const [dhsModal, setDhsModal] = useState(false)
@@ -59,8 +61,19 @@ const Sidebar = (props) => {
                 }}
               >
                 <>
-                  <ResetIcon />
+                  <PiArrowsCounterClockwiseBold className="mr-2 h-4 w-4" />
                   <span>Reset tool</span>
+                </>
+              </SidebarToggle>
+            </li>
+
+            <li className="relative">
+              <SidebarToggle
+                onClick={() => dispatch({ type: 'TOGGLE_INFOBOX_DATA' })}
+              >
+                <>
+                  <AiOutlineInfoCircle className="mr-2" />
+                  <span>{show_infoBox_data ? 'Hide' : 'Show'} Infobox</span>
                 </>
               </SidebarToggle>
             </li>
@@ -70,7 +83,7 @@ const Sidebar = (props) => {
                 onClick={() => dispatch({ type: 'TOGGLE_AREA_OF_INTEREST' })}
               >
                 <>
-                  <HeartIcon />
+                  <AiOutlineHeart className="mr-2 h-4 w-4" />
                   <span>
                     {areaofInterestStatus2 ? 'Hide' : 'Show'} Area of Interest
                   </span>
@@ -184,7 +197,9 @@ const Sidebar = (props) => {
                       })
                     }}
                   />
-                  <span className="px-2 text-xs text-gray-700">{val.Name}</span>
+                  <span className="px-2 text-xs text-gray-700">
+                    {val.title}
+                  </span>
                 </div>
               )
             })}

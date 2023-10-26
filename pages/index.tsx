@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '../components/sidebar/Sidebar'
 import DataSidebar from '../components/controls/Sidebar'
@@ -9,7 +9,7 @@ import sdgFilled from '/public/images/logo-sdg-filled.png'
 import marker1 from '../public/images/marker1.png'
 import undpWhite from '/public/images/logo-undp-white.png'
 import sdgAiLab from '/public/images/logo-sdg-ai-lab-black-alpha.png'
-import { reducer, initialState } from '../reducer/reducer'
+import { reducerInitialState } from '../reducer/reducerInitialState'
 
 const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
   ssr: false,
@@ -20,7 +20,7 @@ const Application = () => {
   const { state, dispatch } = useContext(FilterContext)
   const on_homepage = state['on_homepage']
 
-  const [firstState, setFirstState] = useState(initialState)
+  const [firstState, setFirstState] = useState(reducerInitialState)
   const originalInitialState = firstState
 
   return (
