@@ -19,7 +19,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "public/static/index.d.ts",
+    "public/static/geojson.d.ts",
     "public/static/all_geojson.d.ts"
   ],
   "exclude": ["node_modules"]

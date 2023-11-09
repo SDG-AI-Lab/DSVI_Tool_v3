@@ -1,4 +1,10 @@
-export const initialState = {
+export type LegendReducerStateType = {
+  title: string
+  description: string
+  data: any[]
+}
+
+export const initialState: LegendReducerStateType = {
   title: '',
   description: '',
   data: [],

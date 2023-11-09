@@ -1,8 +1,18 @@
 import React, { useReducer } from 'react'
 import { reducer } from '../reducer/reducer'
-import { reducerInitialState } from '../reducer/reducerInitialState'
+import {
+  ReducerInitialStateType,
+  reducerInitialState,
+} from '../reducer/reducerInitialState'
 
-export const FilterContext = React.createContext()
+type FilterContextType = {
+  state: ReducerInitialStateType
+  dispatch: React.Dispatch<any>
+}
+
+export const FilterContext = React.createContext<FilterContextType | undefined>(
+  undefined
+)
 
 export const FilterProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, reducerInitialState)
