@@ -67,7 +67,7 @@ const Sidebar = (props) => {
               </SidebarToggle>
             </li>
 
-            <li className="relative">
+            {/* <li className="relative">
               <SidebarToggle
                 onClick={() => dispatch({ type: 'TOGGLE_INFOBOX_DATA' })}
               >
@@ -76,7 +76,7 @@ const Sidebar = (props) => {
                   <span>{show_infoBox_data ? 'Hide' : 'Show'} Infobox</span>
                 </>
               </SidebarToggle>
-            </li>
+            </li> */}
 
             <li className="relative">
               <SidebarToggle
