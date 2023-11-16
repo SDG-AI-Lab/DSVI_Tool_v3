@@ -22,7 +22,7 @@ import AOIprojection from '../controls/AOIprojection'
 import NewProjection from '../controls/NewProjection'
 
 export const geoServerUrl =
-  'http://129.159.206.212:8080/geoserver/sdg-ai-lab/wms'
+  'https://sdg-geoserver.ddns.net:8443/geoserver/sdg-ai-lab/wms'
 // export const geoServerUrl = 'http://localhost:8080/geoserver/sdg-ai-lab/wms'
 
 const OsmMap = () => {
