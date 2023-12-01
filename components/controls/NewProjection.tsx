@@ -16,6 +16,7 @@ export default function NewProjection({
 }: NewProjectionProps) {
   const { NAME_1, NAME_2, _mean, _count } = geojsonFeature.properties
 
+  console.log(_mean)
   const data = [
     // These are shown when the user clicks on the polygon
     {
