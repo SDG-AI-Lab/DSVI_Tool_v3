@@ -89,6 +89,7 @@ const OsmMap = () => {
   }, [activeLegends])
 
   const displaySeLayers = () => {
+    console.log(se)
     return se.map((combinedLayer) => {
       const { status } = combinedLayer.layerInfo
       const [geojson1, geojson2, geojson3] = combinedLayer.geojson
