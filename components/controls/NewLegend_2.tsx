@@ -22,6 +22,7 @@ const NewLegend_2 = (props) => {
   const { state, dispatch } = useContext(FilterContext)
   const vulnerability = state['vulnerability']
   const activeLegends = state['activeLegends']
+  console.log(activeLegends)
 
   const legendRef = useRef()
   useEffect(() => {

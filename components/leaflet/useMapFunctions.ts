@@ -4,7 +4,7 @@ import {
 } from '../../reducer/reducerInitialState'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
-import { geojson } from 'public/static'
+import { geojson } from 'public/static/tajikistan'
 
 type CombinedLayerData = {
   layerInfo: SeLayerObjectType | undefined

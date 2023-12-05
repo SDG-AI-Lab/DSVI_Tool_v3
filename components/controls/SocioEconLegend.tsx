@@ -14,7 +14,9 @@ function SocioEconLegend({ layer }: SocioEconLegendProps) {
   useEffect(() => {
     let isMounted = true
 
-    import(`/public/static/${layer.json_library}_${state['level']}.geojson`)
+    import(
+      `/public/static/tajikistan/${layer.json_library}_${state['level']}.geojson`
+    )
       .then((library) => {
         if (isMounted) {
           const onlyAllMeanNumbers = library.features.map(

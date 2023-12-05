@@ -12,7 +12,7 @@ import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
 import CircleMarkers from '../marker/CircleMarkers'
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability'
-import AOI from 'public/static/AOI.geojson'
+import AOI from 'public/static/tajikistan/AOI.geojson'
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
@@ -89,7 +89,6 @@ const OsmMap = () => {
   }, [activeLegends])
 
   const displaySeLayers = () => {
-    console.log(se)
     return se.map((combinedLayer) => {
       const { status } = combinedLayer.layerInfo
       const [geojson1, geojson2, geojson3] = combinedLayer.geojson

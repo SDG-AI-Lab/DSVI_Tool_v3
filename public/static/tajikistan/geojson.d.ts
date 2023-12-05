@@ -1,4 +1,4 @@
-declare module 'public/static' {
+declare module 'public/static/tajikistan' {
   interface GeoJson {
     [key: string]: {
       type: string
