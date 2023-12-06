@@ -681,7 +681,7 @@ const data_column: DataColumnType[] = [
 ]
 
 export type ReducerInitialStateType = {
-  country: string
+  country: 'tajikistan' | 'niger'
   show_data: boolean
   show_sidebar_data: boolean
   show_infoBox_data: boolean
