@@ -17,3 +17,5 @@ Plans:
     * file: useMapFunctions.tsx, import of geojson at the top
     * file: reducerInitialState.tsx, map_settings.latlong 
     * file: reducer.ts, case 'CHANGE_MAP_SETTINGS' 
+    * AOI geojson in Map.tsx
+- Change Oblast to how each country calls it's regions

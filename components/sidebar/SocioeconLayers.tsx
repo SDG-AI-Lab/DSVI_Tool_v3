@@ -93,7 +93,7 @@ function SocioeconLayers() {
                       ref={provided.innerRef}
                     >
                       {val.data &&
-                        val.data.map((val2, index2) => (
+                        val.data.map((layer, index2) => (
                           <Draggable
                             key={index2}
                             draggableId={index2.toString()}
@@ -109,23 +109,23 @@ function SocioeconLayers() {
                                 <div className="i flex items-center">
                                   <input
                                     className="focus:ring-3 ml-5 h-4 w-4 rounded border-gray-300 bg-gray-50 focus:ring-blue-300"
-                                    id={`se${val2.title}`}
+                                    id={`se${layer.title}`}
                                     type="checkbox"
-                                    checked={val2.status}
+                                    checked={layer.status}
                                     onChange={() =>
-                                      onChange(val2, index, index2)
+                                      onChange(layer, index, index2)
                                     }
                                   />
                                   <label
                                     className={`h-6 cursor-pointer pl-2 pr-6 text-xs ${classNames}`}
-                                    htmlFor={`se${val2.title}`}
+                                    htmlFor={`se${layer.title}`}
                                   >
-                                    {val2.title}
+                                    {layer.title}
                                   </label>
                                 </div>
-                                {val2.status && (
+                                {layer.status && (
                                   <OpacityRange
-                                    val2={val2}
+                                    layer={layer}
                                     index={index}
                                     index2={index2}
                                     changeType={'SOCIOECONOMIC'}
