@@ -155,9 +155,7 @@ const OsmMap = () => {
   const displayAreaOfInterest = () => {
     if (!show_area_of_interest) return
     return AOI.features.map((feature, index) => {
-      return (
-        <AOIprojection key={index} geojsonFeature={feature} index={index} />
-      )
+      return <AOIprojection key={index} geojsonFeature={feature} />
     })
   }
 
