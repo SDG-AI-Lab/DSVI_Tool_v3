@@ -5,7 +5,6 @@ import {
   WMSTileLayer,
   ZoomControl,
   ScaleControl,
-  useMap,
   Pane,
 } from 'react-leaflet'
 import styles from './Map.module.scss'
@@ -20,6 +19,7 @@ import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
 import AOIprojection from '../controls/AOIprojection'
 import NewProjection from '../controls/NewProjection'
+import UpdateMap from './UpdateMap'
 
 export const geoServerUrl =
   'https://sdg-geoserver.ddns.net:8443/geoserver/sdg-ai-lab/wms'
@@ -46,18 +46,6 @@ const OsmMap = () => {
   const cats = categoriesData(state)
   const seStatuses = se.map((x) => x.layerInfo.status)
   const svStatuses = sv.map((x) => x.status)
-
-  function UpdateMap() {
-    const map = useMap()
-    // useEffect(() => {
-    //   if (reset_settings) {
-    //     map.setView(map_settings.latlong, map_settings.zoom)
-    //   }
-    // }, [reset_settings])
-
-    map.setView(map_settings.latlong, map_settings.zoom)
-    return null
-  }
 
   useEffect(() => {
     if (activeLegends.length > 0) {

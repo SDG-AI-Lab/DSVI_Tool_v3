@@ -16,4 +16,4 @@ Plans:
     * file: SocioEconLegend.tsx, link in import statement
     * file: useMapFunctions.tsx, import of geojson at the top
     * file: reducerInitialState.tsx, map_settings.latlong 
-    * file: reducer.ts, case 'CHANGE_COORDS' 
+    * file: reducer.ts, case 'CHANGE_MAP_SETTINGS' 
