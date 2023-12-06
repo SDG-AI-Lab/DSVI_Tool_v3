@@ -1,7 +1,16 @@
 import produce from 'immer'
+import { ReducerInitialStateType } from './reducerInitialState'
 
-export const reducer = (state, action) => {
+export const reducer = (state: ReducerInitialStateType, action) => {
   switch (action.type) {
+    case 'CHANGE_COORDS':
+      return produce(state, (draft) => {
+        draft.map_settings.latlong = action.payload
+      })
+    case 'CHANGE_COUNTRY':
+      return produce(state, (draft) => {
+        draft.country = action.payload
+      })
     case 'TOGGLE_SHOW_DATA':
       return {
         ...state,
@@ -196,11 +205,11 @@ export const reducer = (state, action) => {
         ...state,
         draw_area_of_interest: !state.draw_area_of_interest,
       }
-    case 'TOGGLE_STATISTICS':
-      return {
-        ...state,
-        show_statistics: !state.show_statistics,
-      }
+    // case 'TOGGLE_STATISTICS':
+    //   return {
+    //     ...state,
+    //     show_statistics: !state.show_statistics,
+    //   }
     case 'FETCH_CSV_DATA':
       return {
         ...state,

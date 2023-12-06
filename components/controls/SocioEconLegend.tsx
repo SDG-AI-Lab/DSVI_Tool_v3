@@ -8,6 +8,7 @@ type SocioEconLegendProps = {
 
 function SocioEconLegend({ layer }: SocioEconLegendProps) {
   const { state, dispatch } = useContext(FilterContext)
+  const { country } = state
   const [minMeanNumber, setMinMeanNumber] = useState(null)
   const [maxMeanNumber, setMaxMeanNumber] = useState(null)
 
@@ -15,7 +16,7 @@ function SocioEconLegend({ layer }: SocioEconLegendProps) {
     let isMounted = true
 
     import(
-      `/public/static/tajikistan/${layer.json_library}_${state['level']}.geojson`
+      `/public/static/${country}/${layer.json_library}_${state['level']}.geojson`
     )
       .then((library) => {
         if (isMounted) {

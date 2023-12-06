@@ -49,12 +49,13 @@ const OsmMap = () => {
 
   function UpdateMap() {
     const map = useMap()
-    useEffect(() => {
-      if (reset_settings) {
-        map.setView(map_settings.latlong, map_settings.zoom)
-      }
-    }, [reset_settings])
+    // useEffect(() => {
+    //   if (reset_settings) {
+    //     map.setView(map_settings.latlong, map_settings.zoom)
+    //   }
+    // }, [reset_settings])
 
+    map.setView(map_settings.latlong, map_settings.zoom)
     return null
   }
 

@@ -4,7 +4,8 @@ import {
 } from '../../reducer/reducerInitialState'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 
-import { geojson } from 'public/static/tajikistan'
+import { geojson as geojsonTajikistan } from 'public/static/tajikistan'
+import { geojson as geojsonNiger } from 'public/static/niger'
 
 type CombinedLayerData = {
   layerInfo: SeLayerObjectType | undefined
@@ -13,6 +14,9 @@ type CombinedLayerData = {
 
 export const useMapFunctions = () => {
   const seLayersData = (state: ReducerInitialStateType) => {
+    let geojson =
+      state.country === 'tajikistan' ? geojsonTajikistan : geojsonNiger
+
     const se_xgboost = state.socioeconomic.data
       .find((x) => x.slug === 'se_social_vulnerability')
       ?.data.find((x) => x.slug === 'se_xgboost')

@@ -9,11 +9,11 @@ What was done in the last 5 branches:
 - It was impossible to install dependencies: fixed 
 - Major refactoring - typescript migration
 - Fixed problem with TypeScript not recognizing the .geojson file format
+- Serve high res layers over https
 
 Plans: 
-- Figure out how to transfer layers using http protocol
-- If no funding: find free server for GeoServer. However, credit card input may still be required
-- Potential: make layers with radio input elements instead of checkbox
-- Make similar maps for other countries?
-- Build back end server so that accounts could be created for people from different countries
-- Add google traffic tracker?
+- Adapt for multiple countries. Files and variables that need dynamic change: 
+    * file: SocioEconLegend.tsx, link in import statement
+    * file: useMapFunctions.tsx, import of geojson at the top
+    * file: reducerInitialState.tsx, map_settings.latlong 
+    * file: reducer.ts, case 'CHANGE_COORDS' 

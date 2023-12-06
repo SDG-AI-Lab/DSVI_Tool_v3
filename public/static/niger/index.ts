@@ -1,7 +1,7 @@
-import { GeoJson } from '..'
+import { GeoJson } from '../tajikistan'
 
-import adm3_lm_9 from 'public/static/adm3_lm_9_et_12_pop_2023_pop_2020_UN.geojson'
+import se_celltowers_1 from 'public/static/niger/cellt_1.geojson'
 
 export const geojson: GeoJson = {
-  adm3_lm_9,
+  se_celltowers_1,
 }

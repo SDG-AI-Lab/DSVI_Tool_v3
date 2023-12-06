@@ -8,6 +8,7 @@ import SocioeconLayers from './SocioeconLayers'
 import HighResLayers from './HighResLayers'
 import { AiOutlineHeart, AiOutlineInfoCircle } from 'react-icons/ai'
 import { PiArrowsCounterClockwiseBold } from 'react-icons/pi'
+import SelectCountry from './SelectCountry'
 
 const Sidebar = (props) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -77,6 +78,10 @@ const Sidebar = (props) => {
                 </>
               </SidebarToggle>
             </li> */}
+
+            <li>
+              <SelectCountry />
+            </li>
 
             <li className="relative">
               <SidebarToggle
