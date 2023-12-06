@@ -3,9 +3,13 @@ import { ReducerInitialStateType } from './reducerInitialState'
 
 export const reducer = (state: ReducerInitialStateType, action) => {
   switch (action.type) {
-    case 'CHANGE_COORDS':
+    case 'CHANGE_MAP_SETTINGS':
       return produce(state, (draft) => {
-        draft.map_settings.latlong = action.payload
+        draft.map_settings = {
+          ...draft.map_settings,
+          latlong: action.payload.latlong,
+          zoom: action.payload.zoom,
+        }
       })
     case 'CHANGE_COUNTRY':
       return produce(state, (draft) => {

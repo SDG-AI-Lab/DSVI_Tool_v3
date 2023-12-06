@@ -1,20 +1,21 @@
 import React, { useContext, ChangeEvent } from 'react'
 import { FilterContext } from '../../context/FilterContext'
+import { CountryNameType } from '../../reducer/reducerInitialState'
 
 export default function SelectCountry() {
   const { state, dispatch } = useContext(FilterContext)
   const { country } = state
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const countryName = e.target.value
+    const countryName: CountryNameType = e.target.value as CountryNameType
     dispatch({ type: 'CHANGE_COUNTRY', payload: countryName })
 
-    const coords =
+    const coordsAndZoom =
       countryName === 'tajikistan'
-        ? [38.917275, 71.014469]
-        : [17.050981, 8.981712]
+        ? { latlong: [38.917275, 71.014469], zoom: 7 }
+        : { latlong: [17.050981, 8.981712], zoom: 6 }
 
-    dispatch({ type: 'CHANGE_COORDS', payload: coords })
+    dispatch({ type: 'CHANGE_MAP_SETTINGS', payload: coordsAndZoom })
   }
 
   return (

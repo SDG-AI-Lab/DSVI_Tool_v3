@@ -680,8 +680,10 @@ const data_column: DataColumnType[] = [
   },
 ]
 
+export type CountryNameType = 'tajikistan' | 'niger'
+
 export type ReducerInitialStateType = {
-  country: 'tajikistan' | 'niger'
+  country: CountryNameType
   show_data: boolean
   show_sidebar_data: boolean
   show_infoBox_data: boolean
