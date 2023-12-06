@@ -14,8 +14,8 @@ type CombinedLayerData = {
 
 export const useMapFunctions = () => {
   const seLayersData = (state: ReducerInitialStateType) => {
-    let geojson =
-      state.country === 'tajikistan' ? geojsonTajikistan : geojsonNiger
+    const { country } = state
+    let geojson = country === 'tajikistan' ? geojsonTajikistan : geojsonNiger
 
     const se_xgboost = state.socioeconomic.data
       .find((x) => x.slug === 'se_social_vulnerability')
@@ -41,22 +41,22 @@ export const useMapFunctions = () => {
       (x) => x.slug === 'se_socio_economic'
     )
     const se_population_counts = se_socio_economic?.data.find(
-      (e) => e.slug === 'se_population_counts'
+      (x) => x.slug === 'se_population_counts'
     )
 
     const se_celltowers = se_socio_economic?.data.find(
-      (e) => e.slug === 'se_celltowers'
+      (x) => x.slug === 'se_celltowers'
     )
 
     const se_nightlight_intensity = se_socio_economic?.data.find(
-      (e) => e.slug === 'se_nightlight_intensity'
+      (x) => x.slug === 'se_nightlight_intensity'
     )
 
     const se_relative_wealth = se_socio_economic?.data.find(
-      (e) => e.slug === 'se_relative_wealth'
+      (x) => x.slug === 'se_relative_wealth'
     )
 
-    const se_GDP = se_socio_economic?.data.find((e) => e.slug === 'se_GDP')
+    const se_GDP = se_socio_economic?.data.find((x) => x.slug === 'se_GDP')
 
     const se_bio_physical = state.socioeconomic.data.find(
       (x) => x.slug === 'se_bio_physical'
@@ -71,7 +71,7 @@ export const useMapFunctions = () => {
     )
 
     const se_elevation = se_bio_physical?.data.find(
-      (e) => e.slug === 'se_elevation'
+      (x) => x.slug === 'se_elevation'
     )
 
     const combinedLayerData: CombinedLayerData[] = [
@@ -174,71 +174,71 @@ export const useMapFunctions = () => {
   ): SvLayerObjectType[] => {
     const geodata = state['geodata']['data']
     const social_vulnerability = geodata.find(
-      (e) => e.slug === 'sv_social_vulnerability'
+      (x) => x.slug === 'sv_social_vulnerability'
     )
 
     // const sv_linear_model = social_vulnerability.data.find((e) => e.slug === 'sv_linear_model');
     // const {status: sv_linear_model_status, value: sv_linear_model_value} = sv_linear_model;
 
     const sv_xgboost = social_vulnerability?.data.find(
-      (e) => e.slug === 'sv_xgboost'
+      (x) => x.slug === 'sv_xgboost'
     )
 
     const sv_random_forest = social_vulnerability?.data.find(
-      (e) => e.slug === 'sv_random_forest'
+      (x) => x.slug === 'sv_random_forest'
     )
 
     const distance_maps = geodata.find((e) => e.slug === 'sv_distance_maps')
     const distance_to_healthcare = distance_maps?.data.find(
-      (e) => e.slug === 'sv_distance_to_healthcare'
+      (x) => x.slug === 'sv_distance_to_healthcare'
     )
 
     const distance_to_finance = distance_maps?.data.find(
-      (e) => e.slug === 'sv_distance_to_finance'
+      (x) => x.slug === 'sv_distance_to_finance'
     )
 
     const distance_to_edu = distance_maps?.data.find(
-      (e) => e.slug === 'sv_distance_to_edu'
+      (x) => x.slug === 'sv_distance_to_edu'
     )
 
-    const roads = distance_maps?.data.find((e) => e.slug === 'sv_roads')
+    const roads = distance_maps?.data.find((x) => x.slug === 'sv_roads')
 
-    const bio_physical = geodata.find((e) => e.slug === 'sv_bio_physical')
+    const bio_physical = geodata.find((x) => x.slug === 'sv_bio_physical')
     const elevation = bio_physical?.data.find((e) => e.slug === 'sv_elevation')
 
-    const slope = bio_physical?.data.find((e) => e.slug === 'sv_slope')
+    const slope = bio_physical?.data.find((x) => x.slug === 'sv_slope')
 
-    const max_temp = bio_physical?.data.find((e) => e.slug === 'sv_max_temp')
+    const max_temp = bio_physical?.data.find((x) => x.slug === 'sv_max_temp')
 
     const plant_health = bio_physical?.data.find(
-      (e) => e.slug === 'sv_plant_health'
+      (x) => x.slug === 'sv_plant_health'
     )
 
     const precipitation = bio_physical?.data.find(
-      (e) => e.slug === 'sv_precipitation'
+      (x) => x.slug === 'sv_precipitation'
     )
 
-    const socio_economic = geodata.find((e) => e.slug === 'sv_socio_economic')
+    const socio_economic = geodata.find((x) => x.slug === 'sv_socio_economic')
     const nightlight_intensity = socio_economic?.data.find(
-      (e) => e.slug === 'sv_nightlight_intensity'
+      (x) => x.slug === 'sv_nightlight_intensity'
     )
 
     const pop_density = socio_economic?.data.find(
-      (e) => e.slug === 'sv_pop_density'
+      (x) => x.slug === 'sv_pop_density'
     )
 
     const celltower = socio_economic?.data.find(
-      (e) => e.slug === 'sv_celltower'
+      (x) => x.slug === 'sv_celltower'
     )
 
     // const road_density = socio_economic.data.find((e) => e.slug === 'sv_road_density');
     // const {status: road_density_status, value: road_density_value} = road_density;
 
     const relative_wealth = socio_economic?.data.find(
-      (e) => e.slug === 'sv_relative_wealth'
+      (x) => x.slug === 'sv_relative_wealth'
     )
 
-    const gdp = socio_economic?.data.find((e) => e.slug === 'sv_gdp')
+    const gdp = socio_economic?.data.find((x) => x.slug === 'sv_gdp')
 
     return [
       sv_xgboost,
@@ -263,19 +263,19 @@ export const useMapFunctions = () => {
   const categoriesData = (state: ReducerInitialStateType) => {
     const { vulnerability, categories } = state
 
-    const cats_very_low = categories.find((e) => e.slug === 'cats_very_low')
+    const cats_very_low = categories.find((x) => x.slug === 'cats_very_low')
     const cats_very_low_status = cats_very_low?.status
 
-    const cats_low = categories.find((e) => e.slug === 'cats_low')
+    const cats_low = categories.find((x) => x.slug === 'cats_low')
     const cats_low_status = cats_low?.status
 
-    const cats_medium = categories.find((e) => e.slug === 'cats_medium')
+    const cats_medium = categories.find((x) => x.slug === 'cats_medium')
     const cats_medium_status = cats_medium?.status
 
-    const cats_high = categories.find((e) => e.slug === 'cats_high')
+    const cats_high = categories.find((x) => x.slug === 'cats_high')
     const cats_high_status = cats_high?.status
 
-    const cats_very_high = categories.find((e) => e.slug === 'cats_very_high')
+    const cats_very_high = categories.find((x) => x.slug === 'cats_very_high')
     const cats_very_high_status = cats_very_high?.status
 
     return [
