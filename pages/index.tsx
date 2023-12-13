@@ -22,6 +22,7 @@ const Application = () => {
 
   const [firstState, setFirstState] = useState(reducerInitialState)
   const originalInitialState = firstState
+  on_homepage
 
   return (
     <>

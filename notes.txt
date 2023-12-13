@@ -11,11 +11,21 @@ What was done in the last 5 branches:
 - Fixed problem with TypeScript not recognizing the .geojson file format
 - Serve high res layers over https
 
-Plans: 
-- Adapt for multiple countries. Files and variables that need dynamic change: 
+Plans:
+
+- Adapt for multiple countries. 
+    Files and variables that need dynamic change: 
     * file: SocioEconLegend.tsx, link in import statement
     * file: useMapFunctions.tsx, import of geojson at the top
     * file: reducerInitialState.tsx, map_settings.latlong 
     * file: reducer.ts, case 'CHANGE_MAP_SETTINGS' 
     * AOI geojson in AOIprojection.tsx
+
+    Give access to certain country to different accounts:
+    * Use country selection dropdown or option input elements 
+    * Each account to have array of countries it has access to
+    * Dropdown will show only countries indicated in this array
+
 - Change Oblast to how each country calls it's regions
+
+
