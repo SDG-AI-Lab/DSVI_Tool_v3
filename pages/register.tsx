@@ -1,5 +1,12 @@
-import React, { useState, FormEvent, ChangeEvent, useContext } from 'react'
+import React, {
+  useState,
+  FormEvent,
+  ChangeEvent,
+  useContext,
+  useEffect,
+} from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { useRouter } from 'next/router'
 
 const initialState = {
   name: '',
@@ -11,6 +18,7 @@ const initialState = {
 export default function Register() {
   const [values, setValues] = useState(initialState)
   const { state, dispatch } = useContext(AuthContext)
+  const router = useRouter()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
@@ -39,7 +47,15 @@ export default function Register() {
       setTimeout(resolve, duration)
     })
   }
+  console.log(state.user)
 
+  useEffect(() => {
+    if (state.user) {
+      setTimeout(() => {
+        router.push('/')
+      }, 2000)
+    }
+  }, [state.user])
   const registerUser = async () => {
     try {
       dispatch({ type: 'REGISTER_USER_PENDING' })
@@ -47,7 +63,7 @@ export default function Register() {
 
       await pause(2000)
 
-      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: { name: 'vadim' } })
+      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: null })
     } catch (error) {
       dispatch({ type: 'REGISTER_USER_FULFILLED', error })
     }

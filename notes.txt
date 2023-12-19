@@ -27,6 +27,7 @@ Plans:
     * Dropdown will show only countries indicated in this array
     * create a landing page with route "/". If not registered: redirect
     to "/"
+    * add interceptors to axios
 
     
 
