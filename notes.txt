@@ -25,6 +25,10 @@ Plans:
     * Use country selection dropdown or option input elements 
     * Each account to have array of countries it has access to
     * Dropdown will show only countries indicated in this array
+    * create a landing page with route "/". If not registered: redirect
+    to "/"
+
+    
 
 - Change Oblast to how each country calls it's regions
 
