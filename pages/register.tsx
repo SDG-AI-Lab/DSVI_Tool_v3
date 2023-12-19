@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
+import customFetch from '../utils/axios'
 
 const initialState = {
   name: '',
@@ -35,7 +36,7 @@ export default function Register() {
       loginUser()
       return
     }
-    registerUser()
+    registerUser(name, email, password)
   }
 
   const toggleMember = () => {
@@ -56,12 +57,22 @@ export default function Register() {
       }, 2000)
     }
   }, [state.user])
-  const registerUser = async () => {
+  const registerUser = async (
+    name: string,
+    email: string,
+    password: string
+  ) => {
     try {
       dispatch({ type: 'REGISTER_USER_PENDING' })
       // REQUEST HERE
 
-      await pause(2000)
+      // await pause(2000)
+
+      await customFetch.post('api/v1/auth/register', {
+        name,
+        email,
+        password,
+      })
 
       dispatch({ type: 'REGISTER_USER_FULFILLED', payload: null })
     } catch (error) {
