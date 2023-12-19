@@ -1,4 +1,5 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react'
+import React, { useState, FormEvent, ChangeEvent, useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 const initialState = {
   name: '',
@@ -9,6 +10,7 @@ const initialState = {
 
 export default function Register() {
   const [values, setValues] = useState(initialState)
+  const { state, dispatch } = useContext(AuthContext)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
@@ -22,14 +24,46 @@ export default function Register() {
     const { name, email, password, isMember } = values
 
     if (isMember) {
-      console.log('Logging in user')
+      loginUser()
       return
     }
-    console.log('Registering user')
+    registerUser()
   }
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })
+  }
+  // for DEV only
+  const pause = (duration) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, duration)
+    })
+  }
+
+  const registerUser = async () => {
+    try {
+      dispatch({ type: 'REGISTER_USER_PENDING' })
+      // REQUEST HERE
+
+      await pause(2000)
+
+      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: { name: 'vadim' } })
+    } catch (error) {
+      dispatch({ type: 'REGISTER_USER_FULFILLED', error })
+    }
+  }
+
+  const loginUser = async () => {
+    try {
+      dispatch({ type: 'REGISTER_USER_PENDING' })
+      // REQUEST HERE
+
+      await pause(2000)
+
+      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: { name: 'vadim' } })
+    } catch (error) {
+      dispatch({ type: 'REGISTER_USER_FULFILLED', error })
+    }
   }
 
   return (
@@ -70,7 +104,9 @@ export default function Register() {
       />
       <br />
       <br />
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={state.isLoading}>
+        {state.isLoading ? 'loading...' : 'Submit'}
+      </button>
       <p>
         {values.isMember ? 'Not a member yet?' : 'Already a member?'}
         <button type="button" onClick={toggleMember}>
