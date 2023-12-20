@@ -8,6 +8,7 @@ import React, {
 import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 import customFetch from '../utils/axios'
+import { addUserToLocalStorage } from '../utils/localStorage'
 
 const initialState = {
   name: '',
@@ -33,7 +34,7 @@ export default function Register() {
     const { name, email, password, isMember } = values
 
     if (isMember) {
-      loginUser()
+      loginUser(name, email, password)
       return
     }
     registerUser(name, email, password)
@@ -48,7 +49,6 @@ export default function Register() {
       setTimeout(resolve, duration)
     })
   }
-  console.log(state.user)
 
   useEffect(() => {
     if (state.user) {
@@ -64,30 +64,39 @@ export default function Register() {
   ) => {
     try {
       dispatch({ type: 'REGISTER_USER_PENDING' })
-      // REQUEST HERE
 
-      // await pause(2000)
-
-      await customFetch.post('api/v1/auth/register', {
+      // user register post request
+      const resp = await customFetch.post('api/v1/auth/register', {
         name,
         email,
         password,
       })
 
-      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: null })
+      console.log(resp.data.user)
+      const newUser = resp.data.user
+
+      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: newUser })
+      addUserToLocalStorage(newUser)
     } catch (error) {
       dispatch({ type: 'REGISTER_USER_FULFILLED', error })
     }
   }
 
-  const loginUser = async () => {
+  const loginUser = async (name: string, email: string, password: string) => {
     try {
       dispatch({ type: 'REGISTER_USER_PENDING' })
-      // REQUEST HERE
 
-      await pause(2000)
+      // user login post request
+      const resp = await customFetch.post('api/v1/auth/login', {
+        name,
+        email,
+        password,
+      })
 
-      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: { name: 'vadim' } })
+      const newUser = resp.data.user
+
+      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: newUser })
+      addUserToLocalStorage(newUser)
     } catch (error) {
       dispatch({ type: 'REGISTER_USER_FULFILLED', error })
     }

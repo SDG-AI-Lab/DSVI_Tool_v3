@@ -28,6 +28,7 @@ Plans:
     * create a landing page with route "/". If not registered: redirect
     to "/"
     * add interceptors to axios
+    * fix 11000 Mongoose error for duplicate emails
 
     
 
