@@ -1,11 +1,12 @@
 import React, { createContext, useReducer } from 'react'
+import { getUserFromLocalStorage } from '../utils/localStorage'
 
 export const AuthContext = createContext(undefined)
 
 export const AuthProvider = ({ children }) => {
   const initialState = {
     isLoading: false,
-    user: null,
+    user: getUserFromLocalStorage(),
     error: null,
   }
 

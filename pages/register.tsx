@@ -72,7 +72,6 @@ export default function Register() {
         password,
       })
 
-      console.log(resp.data.user)
       const newUser = resp.data.user
 
       dispatch({ type: 'REGISTER_USER_FULFILLED', payload: newUser })
