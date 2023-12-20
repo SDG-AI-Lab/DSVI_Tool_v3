@@ -27,8 +27,9 @@ Plans:
     * Dropdown will show only countries indicated in this array
     * create a landing page with route "/". If not registered: redirect
     to "/"
-    * add interceptors to axios
+    * add interceptors to axios - DONE
     * fix 11000 Mongoose error for duplicate emails
+    * add checkForUnauthorizedReponse in axios localStorage logic
 
     
 

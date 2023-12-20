@@ -7,7 +7,6 @@ export const getUserFromLocalStorage = () => {
     const result = localStorage.getItem('user')
     const user = result ? JSON.parse(result) : null
 
-    localStorage.setItem('user', JSON.stringify({ name: 'Friend' }))
     return user
   }
   return null
