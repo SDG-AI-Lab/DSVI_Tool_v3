@@ -9,12 +9,13 @@ import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 
 import { toast } from 'react-toastify'
-import { useRegister } from '../components/hooks/useRegister'
+import { useAuth } from '../components/hooks/useAuth'
 
 const initialState = {
   name: '',
   email: '',
   password: '',
+  confirmPassword: '',
   isMember: true,
 }
 
@@ -22,7 +23,7 @@ export default function Register() {
   const [values, setValues] = useState(initialState)
   const { state } = useContext(AuthContext)
   const router = useRouter()
-  const { registerUser, loginUser } = useRegister()
+  const { registerUser, loginUser } = useAuth()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
@@ -33,7 +34,7 @@ export default function Register() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { name, email, password, isMember } = values
+    const { name, email, password, confirmPassword, isMember } = values
 
     if (!email || !password || (!isMember && !name)) {
       toast.error('Please fill out all the fields')
@@ -44,19 +45,13 @@ export default function Register() {
       loginUser(email, password)
       return
     }
-    registerUser(name, email, password)
+    registerUser(name, email, password, confirmPassword)
   }
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })
   }
-  // for DEV only
-  const pause = (duration) => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, duration)
-    })
-  }
-  console.log(state.user)
+
   useEffect(() => {
     console.log('redirecting to root')
     if (state.user) {
@@ -102,6 +97,20 @@ export default function Register() {
         value={values.password}
         onChange={handleChange}
       />
+      <br />
+      <br />
+      {!values.isMember && (
+        <>
+          <label htmlFor="name">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirmPassword"
+            value={values.confirmPassword}
+            onChange={handleChange}
+          />
+        </>
+      )}
       <br />
       <br />
       <button type="submit" disabled={state.isLoading}>

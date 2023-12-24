@@ -30,12 +30,12 @@ Plans:
     * add interceptors to axios - DONE
     * remove QUIT_HOMEPAGE reducer - DONE
     * potentially remove all reducers conntected with homepage - DONE
+    * add INVALID CREDENTIALS case - DONE
+    * add CONFIRM EMAIL case - DONE
     * fix 11000 Mongoose error for duplicate emails
     * add checkForUnauthorizedReponse in axios localStorage logic
     * add logout logic with removeUserFromLocalStorage
     * add authenticateUser middleware on backend
-    * add INVALID CREDENTIALS case
-    * add CONFIRM EMAIL case
     * add unique email case. User with this email already exists
 
     

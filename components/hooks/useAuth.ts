@@ -2,17 +2,31 @@ import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import { addUserToLocalStorage } from '../../utils/localStorage'
+import {
+  addUserToLocalStorage,
+  removeUserFromLocalStorage,
+} from '../../utils/localStorage'
 
-export const useRegister = () => {
-  const { state, dispatch } = useContext(AuthContext)
+export const useAuth = () => {
+  const { dispatch } = useContext(AuthContext)
 
-  const registerUser = (name: string, email: string, password: string) => {
+  const registerUser = (
+    name: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => {
     const asyncRegister = async (
       name: string,
       email: string,
-      password: string
+      password: string,
+      confirmPassword: string
     ) => {
+      if (password !== confirmPassword) {
+        toast.error('Passwords are not matching!!!')
+        return
+      }
+
       try {
         dispatch({ type: 'REGISTER_USER_PENDING' })
 
@@ -28,11 +42,10 @@ export const useRegister = () => {
         toast.success(`Hello there ${user.name}`)
         addUserToLocalStorage(user)
       } catch (error) {
-        dispatch({ type: 'REGISTER_USER_FULFILLED', error })
-        console.log(error)
+        dispatch({ type: 'REGISTER_USER_REJECTED', error })
       }
     }
-    asyncRegister(name, email, password)
+    asyncRegister(name, email, password, confirmPassword)
   }
 
   const loginUser = (email: string, password: string) => {
@@ -58,5 +71,23 @@ export const useRegister = () => {
     }
     asyncLogin(email, password)
   }
-  return { registerUser, loginUser }
+
+  const logoutUser = () => {
+    const asyncLogout = async () => {
+      removeUserFromLocalStorage()
+      dispatch({ type: 'REGISTER_USER_PENDING' })
+
+      // for DEV only
+      // const pause = (duration) => {
+      //   return new Promise((resolve) => {
+      //     setTimeout(resolve, duration)
+      //   })
+      // }
+      // await pause(2000)
+
+      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: null })
+    }
+    asyncLogout()
+  }
+  return { registerUser, loginUser, logoutUser }
 }

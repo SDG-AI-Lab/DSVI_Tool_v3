@@ -11,3 +11,9 @@ export const getUserFromLocalStorage = () => {
   }
   return null
 }
+
+export const removeUserFromLocalStorage = () => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('user')
+  }
+}

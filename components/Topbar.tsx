@@ -1,7 +1,13 @@
 import Image from 'next/image'
 import Navbar from './Navbar'
+import { useAuth } from './hooks/useAuth'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 const TopBar = () => {
+  const { state } = useContext(AuthContext)
+  const { logoutUser } = useAuth()
+
   return (
     <header className="body-font bg-white text-gray-800">
       <nav>
@@ -43,6 +49,14 @@ const TopBar = () => {
                 layout="intrinsic"
               />
             </a>
+            {state.user && (
+              <button
+                onClick={logoutUser}
+                className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"
+              >
+                {state.isLoading ? 'Loading...' : 'Logout'}
+              </button>
+            )}
           </li>
         </ul>
       </nav>
