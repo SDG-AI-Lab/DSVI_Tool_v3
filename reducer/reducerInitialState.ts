@@ -720,7 +720,6 @@ export type ReducerInitialStateType = {
   draw_area_of_interest: boolean
   statistics: boolean
   csv_data: any[]
-  on_homepage: boolean
 }
 
 export const reducerInitialState: ReducerInitialStateType = {
@@ -756,7 +755,7 @@ export const reducerInitialState: ReducerInitialStateType = {
   draw_area_of_interest: false,
   statistics: false,
   csv_data: [],
-  on_homepage: false,
+
   /*"dhs_data_column": [
         {
             id: 0,

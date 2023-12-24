@@ -18,7 +18,7 @@ const TopBar = () => {
               />
             </a>
             <a className="text-align: center flex pl-3 text-center">
-              <p className="text-2xl font-bold">DSVI Tajikistan Tool</p>
+              <p className="text-2xl font-bold">DSVI Tool</p>
             </a>
           </li>
           <li className="flex items-end">

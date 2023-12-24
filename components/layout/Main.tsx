@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import { FilterContext } from '../../context/FilterContext'
 import { AuthContext } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
 

@@ -224,11 +224,6 @@ export const reducer = (state: ReducerInitialStateType, action) => {
         ...state,
         dhs_data_column: action.payload,
       }
-    case 'QUIT_HOMEPAGE':
-      return {
-        ...state,
-        on_homepage: action.payload,
-      }
     default:
       return state
   }
