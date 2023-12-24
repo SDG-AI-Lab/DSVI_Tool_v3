@@ -2,16 +2,16 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '../components/sidebar/Sidebar'
 import DataSidebar from '../components/controls/Sidebar'
-
 import { reducerInitialState } from '../reducer/reducerInitialState'
-import { useProtectedRoute } from '../components/hooks/useProtectedRoute'
+import { useAuth } from '../components/hooks/useAuth'
 
 const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
   ssr: false,
 })
 
 const Application = () => {
-  useProtectedRoute()
+  const { protectedRoute } = useAuth()
+  protectedRoute()
   return (
     <div className="flex">
       <Sidebar show={true} originalInitialState={reducerInitialState} />

@@ -1,4 +1,5 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { AuthContext } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
@@ -87,5 +88,22 @@ export const useAuth = () => {
     }
     asyncLogout()
   }
-  return { registerUser, loginUser, logoutUser }
+
+  const protectedRoute = () => {
+    const { state: authState } = useContext(AuthContext)
+    const [route, setRoute] = useState('')
+    const router = useRouter()
+
+    useEffect(() => {
+      if (router.route === route /*|| router.route !== 'register'*/) return
+      setRoute(router.route)
+    }, [router.route])
+
+    useEffect(() => {
+      if (typeof window !== 'undefined' && !authState.user) {
+        router.push('/landing')
+      }
+    }, [authState.user, route])
+  }
+  return { registerUser, loginUser, logoutUser, protectedRoute }
 }

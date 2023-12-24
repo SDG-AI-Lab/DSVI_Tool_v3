@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Navbar from './Navbar'
+import Link from 'next/link'
 import { useAuth } from './hooks/useAuth'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
@@ -13,19 +14,23 @@ const TopBar = () => {
       <nav>
         <ul className="h-35 flex justify-between px-3">
           <li className="flex items-center">
-            <a className="flex items-center">
-              <Image
-                src="/images/logo-sdg-alpha.png"
-                alt="SDG LOGO"
-                width="40px"
-                height="40px"
-                layout="intrinsic"
-                className="rounded-full"
-              />
-            </a>
-            <a className="text-align: center flex pl-3 text-center">
-              <p className="text-2xl font-bold">DSVI Tool</p>
-            </a>
+            <Link href="/landing">
+              <>
+                <a className="flex items-center">
+                  <Image
+                    src="/images/logo-sdg-alpha.png"
+                    alt="SDG LOGO"
+                    width="40px"
+                    height="40px"
+                    layout="intrinsic"
+                    className="rounded-full"
+                  />
+                </a>
+                <a className="text-align: center flex pl-3 text-center">
+                  <p className="text-2xl font-bold">DSVI Tool</p>
+                </a>
+              </>
+            </Link>
           </li>
           <li className="flex items-end">
             <Navbar />

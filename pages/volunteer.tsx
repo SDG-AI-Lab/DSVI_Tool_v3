@@ -1,4 +1,4 @@
-import { useProtectedRoute } from '../components/hooks/useProtectedRoute'
+import { useAuth } from '../components/hooks/useAuth'
 
 const data = [
   {
@@ -98,7 +98,8 @@ const data = [
  */
 const isBrowser = typeof window !== 'undefined'
 const Volunteer = () => {
-  useProtectedRoute()
+  const { protectedRoute } = useAuth()
+  protectedRoute()
   return isBrowser ? (
     <div className="my-2 mx-5 rounded-lg bg-white px-2 py-5">
       <div className="container">
