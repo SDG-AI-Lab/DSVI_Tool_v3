@@ -27,10 +27,7 @@ export default function Landing() {
           <Image src={sdgFilled} alt="Logo" width={300} height={300} />
         </div>
         <div className="basis-1/3 text-center">
-          <Link
-            href={'register'}
-            // onClick={() => dispatch({ type: 'QUIT_HOMEPAGE', payload: false })}
-          >
+          <Link href={'register'}>
             <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
               Log in / Register
             </button>
