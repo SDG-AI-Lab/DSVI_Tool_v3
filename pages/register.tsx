@@ -9,6 +9,8 @@ import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 import customFetch from '../utils/axios'
 import { addUserToLocalStorage } from '../utils/localStorage'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const initialState = {
   name: '',
@@ -32,6 +34,11 @@ export default function Register() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { name, email, password, isMember } = values
+
+    if (!email || !password || (!isMember && !name)) {
+      toast.error('Please fill out all the fields')
+      return
+    }
 
     if (isMember) {
       loginUser(name, email, password)
@@ -57,6 +64,7 @@ export default function Register() {
       }, 2000)
     }
   }, [state.user])
+
   const registerUser = async (
     name: string,
     email: string,

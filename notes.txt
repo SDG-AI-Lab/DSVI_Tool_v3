@@ -28,15 +28,15 @@ Plans:
     * create a landing page with route "/". If not registered: redirect
     to "/"
     * add interceptors to axios - DONE
+    * remove QUIT_HOMEPAGE reducer - DONE
     * fix 11000 Mongoose error for duplicate emails
     * add checkForUnauthorizedReponse in axios localStorage logic
     * add logout logic with removeUserFromLocalStorage
-    * remove QUIT_HOMEPAGE reducer
     * potentially remove all reducers conntected with homepage
+    * add authenticateUser middleware on backend
     * add INVALID CREDENTIALS case
     * add CONFIRM EMAIL case
     * add unique email case. User with this email already exists
-    * add authenticateUser middleware on backend
 
     
 
