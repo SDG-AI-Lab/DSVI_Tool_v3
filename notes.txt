@@ -33,11 +33,10 @@ Plans:
     * add INVALID CREDENTIALS case - DONE
     * add CONFIRM EMAIL case - DONE
     * bug - not redirecting to landing from different links when not logged in. Main.tsx - DONE
-    * finish adding different error cases in AuthContext.tsx
-    * fix 11000 Mongoose error for duplicate emails
+    * finish adding different error cases in AuthContext.tsx - DONE
+    * fix 11000 Mongoose error for duplicate emails - DONE
+    * add logout logic with removeUserFromLocalStorage - DONE
     * add checkForUnauthorizedResponse in axios localStorage logic
-    * add unique email case. User with this email already exists
-    * add logout logic with removeUserFromLocalStorage
     * add authenticateUser middleware on backend
 
     

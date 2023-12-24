@@ -18,19 +18,8 @@ export const AuthProvider = ({ children }) => {
       case 'REGISTER_USER_FULFILLED':
         return { ...state, isLoading: false, user: action.payload }
       case 'REGISTER_USER_REJECTED': {
-        // register errors:
-        // low number of password characters
-        // account with this email exists
-        // proper password syntax
-        //  login errors:
-        // invalid credentials
-        console.log(action.payload)
-        const errMsg = action.payload.response
-          ? action.payload.response.data.err.message
-          : 'other error'
-
-        toast.error(errMsg)
-
+        const { msg } = action.payload.response.data
+        toast.error(msg)
         return { ...state, isLoading: false, error: action.payload }
       }
       default:

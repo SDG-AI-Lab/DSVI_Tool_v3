@@ -16,7 +16,7 @@ export default function Landing() {
       className="flex h-screen flex-col bg-cover bg-no-repeat pl-16 pr-16 text-white"
     >
       <div className="content-center text-center font-bold">
-        <h1>DSVI Tool Tajikistan</h1>{' '}
+        <h1>DSVI Tool</h1>{' '}
         <p>
           This tool is a collaboration between SDG AI Lab, UN Online Volunteers
           and UNDP Tajikistan

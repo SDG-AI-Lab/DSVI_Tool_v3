@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
             <ToastContainer
               position="top-center"
               autoClose={2000}
-              pauseOnHover={false}
+              pauseOnHover
             />
             <Component {...pageProps} />
           </Main>
