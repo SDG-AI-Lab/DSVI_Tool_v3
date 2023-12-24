@@ -1,3 +1,5 @@
+import { useProtectedRoute } from '../components/hooks/useProtectedRoute'
+
 const data = [
   {
     id: 1,
@@ -10,6 +12,7 @@ const data = [
 ]
 
 const Home = () => {
+  useProtectedRoute()
   return (
     <div className="my-2 mx-5 rounded-lg bg-white px-2 py-5">
       <div className="container">

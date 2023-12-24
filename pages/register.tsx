@@ -51,15 +51,14 @@ export default function Register() {
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember })
   }
-
+  // console.log(router)
   useEffect(() => {
-    console.log('redirecting to root')
     if (state.user) {
       setTimeout(() => {
         router.push('/')
       }, 2000)
     }
-  }, [state.user])
+  }, [state.user, router])
 
   return (
     <form onSubmit={onSubmit}>

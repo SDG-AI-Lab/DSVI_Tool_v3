@@ -42,7 +42,7 @@ export const useAuth = () => {
         toast.success(`Hello there ${user.name}`)
         addUserToLocalStorage(user)
       } catch (error) {
-        dispatch({ type: 'REGISTER_USER_REJECTED', error })
+        dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
     }
     asyncRegister(name, email, password, confirmPassword)
@@ -64,9 +64,7 @@ export const useAuth = () => {
         toast.success(`Welcome back ${user.name}`)
         addUserToLocalStorage(user)
       } catch (error) {
-        const errMsg = error.response.data.msg || error.message
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
-        toast.error(errMsg)
       }
     }
     asyncLogin(email, password)

@@ -32,11 +32,13 @@ Plans:
     * potentially remove all reducers conntected with homepage - DONE
     * add INVALID CREDENTIALS case - DONE
     * add CONFIRM EMAIL case - DONE
+    * bug - not redirecting to landing from different links when not logged in. Main.tsx
+    * finish adding different error cases in AuthContext.tsx
     * fix 11000 Mongoose error for duplicate emails
     * add checkForUnauthorizedReponse in axios localStorage logic
+    * add unique email case. User with this email already exists
     * add logout logic with removeUserFromLocalStorage
     * add authenticateUser middleware on backend
-    * add unique email case. User with this email already exists
 
     
 

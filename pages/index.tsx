@@ -4,12 +4,14 @@ import Sidebar from '../components/sidebar/Sidebar'
 import DataSidebar from '../components/controls/Sidebar'
 
 import { reducerInitialState } from '../reducer/reducerInitialState'
+import { useProtectedRoute } from '../components/hooks/useProtectedRoute'
 
 const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
   ssr: false,
 })
 
 const Application = () => {
+  useProtectedRoute()
   return (
     <div className="flex">
       <Sidebar show={true} originalInitialState={reducerInitialState} />
