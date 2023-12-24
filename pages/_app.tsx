@@ -3,7 +3,8 @@ import Main from '../components/layout/Main'
 import { FilterProvider } from '../context/FilterContext'
 import { LegendProvider } from '../context/LegendContext'
 import { AuthProvider } from '../context/AuthContext'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }) {
   return (

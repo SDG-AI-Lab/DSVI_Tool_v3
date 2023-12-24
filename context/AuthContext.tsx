@@ -16,8 +16,12 @@ export const AuthProvider = ({ children }) => {
         return { ...state, isLoading: true }
       case 'REGISTER_USER_FULFILLED':
         return { ...state, isLoading: false, user: action.payload }
-      case 'REGISTER_USER_REJECTED':
-        return { ...state, isLoading: false, error: action.error.message }
+      case 'REGISTER_USER_REJECTED': {
+        console.log(action.payload)
+        const errMsg =
+          action.payload.response.data.msg || action.payload.message
+        return { ...state, isLoading: false, error: errMsg }
+      }
       default:
         return state
     }

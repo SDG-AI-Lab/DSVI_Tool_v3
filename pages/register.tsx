@@ -7,10 +7,9 @@ import React, {
 } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
-import customFetch from '../utils/axios'
-import { addUserToLocalStorage } from '../utils/localStorage'
+
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { useRegister } from '../components/hooks/useRegister'
 
 const initialState = {
   name: '',
@@ -21,8 +20,9 @@ const initialState = {
 
 export default function Register() {
   const [values, setValues] = useState(initialState)
-  const { state, dispatch } = useContext(AuthContext)
+  const { state } = useContext(AuthContext)
   const router = useRouter()
+  const { registerUser, loginUser } = useRegister()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
@@ -41,7 +41,7 @@ export default function Register() {
     }
 
     if (isMember) {
-      loginUser(name, email, password)
+      loginUser(email, password)
       return
     }
     registerUser(name, email, password)
@@ -56,58 +56,15 @@ export default function Register() {
       setTimeout(resolve, duration)
     })
   }
-
+  console.log(state.user)
   useEffect(() => {
+    console.log('redirecting to root')
     if (state.user) {
       setTimeout(() => {
         router.push('/')
       }, 2000)
     }
   }, [state.user])
-
-  const registerUser = async (
-    name: string,
-    email: string,
-    password: string
-  ) => {
-    try {
-      dispatch({ type: 'REGISTER_USER_PENDING' })
-
-      // user register post request
-      const resp = await customFetch.post('api/v1/auth/register', {
-        name,
-        email,
-        password,
-      })
-
-      const newUser = resp.data.user
-
-      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: newUser })
-      addUserToLocalStorage(newUser)
-    } catch (error) {
-      dispatch({ type: 'REGISTER_USER_FULFILLED', error })
-    }
-  }
-
-  const loginUser = async (name: string, email: string, password: string) => {
-    try {
-      dispatch({ type: 'REGISTER_USER_PENDING' })
-
-      // user login post request
-      const resp = await customFetch.post('api/v1/auth/login', {
-        name,
-        email,
-        password,
-      })
-
-      const newUser = resp.data.user
-
-      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: newUser })
-      addUserToLocalStorage(newUser)
-    } catch (error) {
-      dispatch({ type: 'REGISTER_USER_FULFILLED', error })
-    }
-  }
 
   return (
     <form onSubmit={onSubmit}>

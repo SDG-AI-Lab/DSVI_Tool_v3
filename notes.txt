@@ -29,10 +29,10 @@ Plans:
     to "/"
     * add interceptors to axios - DONE
     * remove QUIT_HOMEPAGE reducer - DONE
+    * potentially remove all reducers conntected with homepage - DONE
     * fix 11000 Mongoose error for duplicate emails
     * add checkForUnauthorizedReponse in axios localStorage logic
     * add logout logic with removeUserFromLocalStorage
-    * potentially remove all reducers conntected with homepage
     * add authenticateUser middleware on backend
     * add INVALID CREDENTIALS case
     * add CONFIRM EMAIL case
