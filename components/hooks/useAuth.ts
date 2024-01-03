@@ -99,10 +99,16 @@ export const useAuth = () => {
       setRoute(router.route)
     }, [router.route])
 
+    const authenticateUser = () => {
+      // request authentication token from server from cookies
+      // if token not verified, then send to '/landing'
+    }
+
     useEffect(() => {
       if (typeof window !== 'undefined' && !authState.user) {
         router.push('/landing')
       }
+      authenticateUser()
     }, [authState.user, route])
   }
   return { registerUser, loginUser, logoutUser, protectedRoute }

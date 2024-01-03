@@ -36,8 +36,20 @@ Plans:
     * finish adding different error cases in AuthContext.tsx - DONE
     * fix 11000 Mongoose error for duplicate emails - DONE
     * add logout logic with removeUserFromLocalStorage - DONE
+    * front-end update protectedRoute to check if this account exists in database like authenticateUser
+    in useAuth.tsx
+
+    * add confirm email functionality: admin confirms the email. But user gets email notification
+        - install nodemailer and create sendEmail controller
+        - refactor login and register controllers as 11-auth-workflow
+    * add forgot password functionality
+    that their account is waiting for admin's confirmation
+    * add .geojson files to MongoDB. Create separate collection for each country
     * add checkForUnauthorizedResponse in axios localStorage logic
-    * add authenticateUser middleware on backend
+    * user model to contain array of authorized countries
+    * add authenticateUser middleware on backend. Functionality:
+        check if user's countries authorization array contains(country) --> next()
+    * front end: create api functionality to request layers
 
     
 
