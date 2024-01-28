@@ -13,7 +13,7 @@ export default function VerifyEmail() {
 
   const verifyToken = async () => {
     setLoading(true)
-    // hellodd
+
     try {
       if (token && email) {
         console.log('verifying email')

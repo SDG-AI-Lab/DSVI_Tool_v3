@@ -1,7 +1,11 @@
 import axios from 'axios'
 import { getUserFromLocalStorage } from './localStorage'
 
-const customFetch = axios.create({ baseURL: 'http://localhost:3000/' })
+const customFetch = axios.create({
+  baseURL: 'http://localhost:3000/',
+  // this option allows to receive cookies for this nextJS app
+  withCredentials: true,
+})
 
 customFetch.interceptors.request.use((config) => {
   const user = getUserFromLocalStorage()

@@ -14,7 +14,7 @@ What was done in the last 5 branches:
 Plans:
 
 - Adapt for multiple countries. 
-    Files and variables that need dynamic change: 
+    Files and variables that need dynamic change:
     * file: SocioEconLegend.tsx, link in import statement
     * file: useMapFunctions.tsx, import of geojson at the top
     * file: reducerInitialState.tsx, map_settings.latlong 

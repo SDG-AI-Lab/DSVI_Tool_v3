@@ -18,8 +18,12 @@ export const AuthProvider = ({ children }) => {
       case 'REGISTER_USER_FULFILLED':
         return { ...state, isLoading: false, user: action.payload }
       case 'REGISTER_USER_REJECTED': {
-        const { msg } = action.payload.response.data
-        toast.error(msg)
+        // choosing between express server error and axios error
+        const errMsg = action.payload.response.data
+          ? action.payload.response.data.msg
+          : action.payload.message
+
+        toast.error(errMsg)
         return { ...state, isLoading: false, error: action.payload }
       }
       default:

@@ -73,6 +73,7 @@ export default function Register() {
             name="name"
             value={values.name}
             onChange={handleChange}
+            // required
           />
         </>
       )}
@@ -85,6 +86,7 @@ export default function Register() {
         name="email"
         value={values.email}
         onChange={handleChange}
+        // required
       />
       <br />
       <br />
@@ -95,6 +97,7 @@ export default function Register() {
         name="password"
         value={values.password}
         onChange={handleChange}
+        // required
       />
       <br />
       <br />
@@ -107,6 +110,7 @@ export default function Register() {
             name="confirmPassword"
             value={values.confirmPassword}
             onChange={handleChange}
+            // required
           />
         </>
       )}
