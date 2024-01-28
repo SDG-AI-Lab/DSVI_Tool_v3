@@ -1,7 +1,3 @@
-import { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { useAuth } from '../components/hooks/useAuth'
-
 const data = [
   {
     id: 1,
@@ -13,14 +9,7 @@ const data = [
   },
 ]
 
-const Home = () => {
-  // const { protectedRoute } = useAuth()
-  // protectedRoute()
-
-  // const { state } = useContext(AuthContext)
-  // if (!state.isAuthenticated) {
-  //   return <></>
-  // } else {
+const About = () => {
   return (
     <div className="my-2 mx-5 rounded-lg bg-white px-2 py-5">
       <div className="container">
@@ -47,4 +36,4 @@ const Home = () => {
   )
   // }
 }
-export default Home
+export default About
