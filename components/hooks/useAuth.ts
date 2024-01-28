@@ -3,13 +3,9 @@ import { useRouter } from 'next/router'
 import { AuthContext } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import {
-  addUserToLocalStorage,
-  removeUserFromLocalStorage,
-} from '../../utils/localStorage'
 
 export const useAuth = () => {
-  const { dispatch } = useContext(AuthContext)
+  const { state, dispatch } = useContext(AuthContext)
 
   const registerUser = (
     name: string,
@@ -41,7 +37,7 @@ export const useAuth = () => {
 
         dispatch({ type: 'REGISTER_USER_FULFILLED', payload: user })
         toast.success(`Hello there ${user.name}`)
-        addUserToLocalStorage(user)
+        // addUserToLocalStorage(user)
       } catch (error) {
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
@@ -60,10 +56,10 @@ export const useAuth = () => {
           password,
         })
         const user = resp.data.user
-
         dispatch({ type: 'REGISTER_USER_FULFILLED', payload: user })
+
         toast.success(`Welcome back ${user.name}`)
-        addUserToLocalStorage(user)
+        // addUserToLocalStorage(user)
       } catch (error) {
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
@@ -73,7 +69,7 @@ export const useAuth = () => {
 
   const logoutUser = () => {
     const asyncLogout = async () => {
-      removeUserFromLocalStorage()
+      // removeUserFromLocalStorage()
       dispatch({ type: 'REGISTER_USER_PENDING' })
 
       // for DEV only
@@ -90,26 +86,32 @@ export const useAuth = () => {
   }
 
   const protectedRoute = () => {
-    const { state: authState } = useContext(AuthContext)
-    const [route, setRoute] = useState('')
     const router = useRouter()
 
+    const { isAuthenticated } = state
+
     useEffect(() => {
-      if (router.route === route /*|| router.route !== 'register'*/) return
-      setRoute(router.route)
+      authenticateRouting()
     }, [router.route])
 
-    const authenticateUser = () => {
-      // request authentication token from server from cookies
-      // if token not verified, then send to '/landing'
+    const authenticateRouting = async () => {
+      try {
+        const response = await customFetch.get('api/v1/auth/routing')
+        const { isAuthenticated } = response.data
+
+        dispatch({
+          type: 'AUTHENTICATE_USER_FULFILLED',
+          payload: isAuthenticated,
+        })
+      } catch (error) {
+        const { authenticated } = error.response.data
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: authenticated })
+      }
     }
 
-    useEffect(() => {
-      if (typeof window !== 'undefined' && !authState.user) {
-        router.push('/landing')
-      }
-      authenticateUser()
-    }, [authState.user, route])
+    if (typeof window !== 'undefined' && !isAuthenticated) {
+      router.push('/landing')
+    }
   }
   return { registerUser, loginUser, logoutUser, protectedRoute }
 }

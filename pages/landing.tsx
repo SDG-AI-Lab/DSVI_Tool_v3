@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { FilterContext } from '../context/FilterContext'
+import React from 'react'
 import Image from 'next/image'
 import sdgFilled from '/public/images/logo-sdg-filled.png'
 import bg from '../public/images/launch-background.jpeg'
@@ -9,7 +8,6 @@ import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
 import Link from 'next/link'
 
 export default function Landing() {
-  const { dispatch } = useContext(FilterContext)
   return (
     <div
       style={{ backgroundImage: `url(${bg})` }}

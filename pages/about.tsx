@@ -12,6 +12,7 @@ const data = [
 ]
 
 const Home = () => {
+  console.log('re-render about us')
   const { protectedRoute } = useAuth()
   protectedRoute()
   return (
