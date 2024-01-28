@@ -1,5 +1,3 @@
-import { useAuth } from '../components/hooks/useAuth'
-
 const data = [
   {
     id: 1,
@@ -19,78 +17,15 @@ const data = [
     Bio: 'Web Developer with over three years of experience. Previously, Petroleum Engineer with 15 years of experience.',
     Linkedin: 'https://www.linkedin.com/in/vadim-fthv/',
   },
-  {
-    id: 3,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 4,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 5,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 6,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 7,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 8,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 9,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com',
-  },
-  {
-    id: 10,
-    name: 'Name Name',
-    image: 'https://via.placeholder.com/250',
-    motivation:
-      'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
-    Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
-    Linkedin: 'https://www.linkedin.com/',
-  },
+  // {
+  //   id: 3,
+  //   name: 'Name Name',
+  //   image: 'https://via.placeholder.com/250',
+  //   motivation:
+  //     'Sample motivation Sample motivation  Sample motivation Sample motivation Sample motivation',
+  //   Bio: 'Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio Sample Bio',
+  //   Linkedin: 'https://www.linkedin.com',
+  // },
 ]
 
 /**
@@ -98,8 +33,6 @@ const data = [
  */
 const isBrowser = typeof window !== 'undefined'
 const Volunteer = () => {
-  const { protectedRoute } = useAuth()
-  protectedRoute()
   return isBrowser ? (
     <div className="my-2 mx-5 rounded-lg bg-white px-2 py-5">
       <div className="container">

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { BiMessageAltDetail } from 'react-icons/bi'
+import { MdOutlineVolunteerActivism } from 'react-icons/md'
 import { FiMapPin } from 'react-icons/fi'
 
 const Navbar = () => {
@@ -38,6 +39,18 @@ const Navbar = () => {
           {/* <DialogIcon pathname={pathname} /> */}
           <span className={pathname === 'about' ? className : 'pl-1'}>
             About us
+          </span>
+        </a>
+      </Link>
+
+      <Link href="/volunteer">
+        <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
+          <MdOutlineVolunteerActivism
+            className={`h-6 w-6  ${returnIconClassname('volunteer')}`}
+          />
+          {/* <DialogIcon pathname={pathname} /> */}
+          <span className={pathname === 'volunteer' ? className : 'pl-1'}>
+            Our Volunteers
           </span>
         </a>
       </Link>
