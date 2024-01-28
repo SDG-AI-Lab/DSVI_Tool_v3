@@ -52,13 +52,13 @@ export default function Register() {
     setValues({ ...values, isMember: !values.isMember })
   }
 
-  // useEffect(() => {
-  //   if (state.user) {
-  //     setTimeout(() => {
-  //       router.push('/')
-  //     }, 2000)
-  //   }
-  // }, [state.user, router])
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      setTimeout(() => {
+        router.push('/')
+      }, 2000)
+    }
+  }, [state.isAuthenticated /*router*/])
 
   return (
     <form onSubmit={onSubmit}>
