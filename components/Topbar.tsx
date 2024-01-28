@@ -54,7 +54,7 @@ const TopBar = () => {
                 layout="intrinsic"
               />
             </a>
-            {state.user && (
+            {state.isAuthenticated && (
               <button
                 onClick={logoutUser}
                 className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"

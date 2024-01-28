@@ -60,7 +60,12 @@ export const AuthProvider = ({ children }) => {
         return { ...state, isAuthenticated: action.payload }
       }
       case 'AUTHENTICATE_USER_REJECTED': {
-        return { ...state, isAuthenticated: action.payload }
+        return {
+          ...state,
+          isAuthenticated: action.payload,
+          user: null,
+          isLoading: false,
+        }
       }
       default:
         return state

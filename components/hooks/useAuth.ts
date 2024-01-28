@@ -51,11 +51,11 @@ export const useAuth = () => {
         dispatch({ type: 'REGISTER_USER_PENDING' })
 
         // user login post request
-        const resp = await customFetch.post('api/v1/auth/login', {
+        const response = await customFetch.post('api/v1/auth/login', {
           email,
           password,
         })
-        const user = resp.data.user
+        const user = response.data.user
         dispatch({ type: 'REGISTER_USER_FULFILLED', payload: user })
 
         toast.success(`Welcome back ${user.name}`)
@@ -65,24 +65,6 @@ export const useAuth = () => {
       }
     }
     asyncLogin(email, password)
-  }
-
-  const logoutUser = () => {
-    const asyncLogout = async () => {
-      // removeUserFromLocalStorage()
-      dispatch({ type: 'REGISTER_USER_PENDING' })
-
-      // for DEV only
-      // const pause = (duration) => {
-      //   return new Promise((resolve) => {
-      //     setTimeout(resolve, duration)
-      //   })
-      // }
-      // await pause(2000)
-
-      dispatch({ type: 'REGISTER_USER_FULFILLED', payload: null })
-    }
-    asyncLogout()
   }
 
   const protectedRoute = () => {
@@ -102,6 +84,7 @@ export const useAuth = () => {
         dispatch({
           type: 'AUTHENTICATE_USER_FULFILLED',
           payload: isAuthenticated,
+          // add user here from server
         })
       } catch (error) {
         const { authenticated } = error.response.data
@@ -112,6 +95,30 @@ export const useAuth = () => {
     if (typeof window !== 'undefined' && !isAuthenticated) {
       router.push('/landing')
     }
+  }
+  const logoutUser = () => {
+    const asyncLogout = async () => {
+      dispatch({ type: 'REGISTER_USER_PENDING' })
+
+      // for DEV only
+      // const pause = (duration) => {
+      //   return new Promise((resolve) => {
+      //     setTimeout(resolve, duration)
+      //   })
+      // }
+      // await pause(2000)
+
+      try {
+        const response = await customFetch.get('api/v1/auth/logout')
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: false })
+        const { msg } = response.data
+
+        toast.success(msg)
+      } catch (error) {
+        toast.error(error.message)
+      }
+    }
+    asyncLogout()
   }
   return { registerUser, loginUser, logoutUser, protectedRoute }
 }
