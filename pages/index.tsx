@@ -5,6 +5,7 @@ import Sidebar from '../components/sidebar/Sidebar'
 import DataSidebar from '../components/controls/Sidebar'
 import { reducerInitialState } from '../reducer/reducerInitialState'
 import { useAuth } from '../components/hooks/useAuth'
+import { toast } from 'react-toastify'
 
 const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
   ssr: false,
@@ -16,6 +17,7 @@ const Application = () => {
 
   const { state } = useContext(AuthContext)
   if (!state.isAuthenticated) {
+    toast.error('Please log in to view the Map')
     return <></>
   } else {
     return (

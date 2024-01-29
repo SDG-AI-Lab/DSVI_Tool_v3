@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { AuthContext } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
@@ -28,16 +28,19 @@ export const useAuth = () => {
         dispatch({ type: 'REGISTER_USER_PENDING' })
 
         // user register post request
-        const resp = await customFetch.post('api/v1/auth/register', {
+        const response = await customFetch.post('api/v1/auth/register', {
           name,
           email,
           password,
         })
-        const user = resp.data.user
 
-        dispatch({ type: 'REGISTER_USER_FULFILLED', payload: user })
-        toast.success(`Hello there ${user.name}`)
-        // addUserToLocalStorage(user)
+        const user = response.data.user
+        const payload = { user, isAuthenticated: false }
+
+        dispatch({ type: 'REGISTER_USER_FULFILLED', payload })
+        toast.success(
+          `Verification email sent. Please verify account, then login`
+        )
       } catch (error) {
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
@@ -55,11 +58,13 @@ export const useAuth = () => {
           email,
           password,
         })
-        const user = response.data.user
-        dispatch({ type: 'REGISTER_USER_FULFILLED', payload: user })
+
+        const { user } = response.data
+
+        const payload = { user, isAuthenticated: true }
+        dispatch({ type: 'REGISTER_USER_FULFILLED', payload })
 
         toast.success(`Welcome back ${user.name}`)
-        // addUserToLocalStorage(user)
       } catch (error) {
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }

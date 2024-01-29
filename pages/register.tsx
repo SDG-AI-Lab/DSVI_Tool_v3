@@ -46,14 +46,17 @@ export default function Register() {
       return
     }
     registerUser(name, email, password, confirmPassword)
+    setValues(initialState)
   }
 
   const toggleMember = () => {
-    setValues({ ...values, isMember: !values.isMember })
+    // clear form entries and toggle
+    setValues({ ...initialState, isMember: !values.isMember })
   }
 
   useEffect(() => {
     if (state.isAuthenticated) {
+      console.log('is authenticated')
       setTimeout(() => {
         router.push('/')
       }, 2000)
@@ -116,12 +119,20 @@ export default function Register() {
       )}
       <br />
       <br />
-      <button type="submit" disabled={state.isLoading}>
+      <button
+        type="submit"
+        className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"
+        disabled={state.isLoading}
+      >
         {state.isLoading ? 'loading...' : 'Submit'}
       </button>
       <p>
         {values.isMember ? 'Not a member yet?' : 'Already a member?'}
-        <button type="button" onClick={toggleMember}>
+        <button
+          className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"
+          type="button"
+          onClick={toggleMember}
+        >
           {values.isMember ? 'Register' : 'Login'}
         </button>
       </p>

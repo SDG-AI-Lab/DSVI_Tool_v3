@@ -1,5 +1,4 @@
 import React, { createContext, useReducer } from 'react'
-// import { getUserFromLocalStorage } from '../utils/localStorage'
 import { toast } from 'react-toastify'
 
 export const AuthContext = createContext(undefined)
@@ -39,8 +38,8 @@ export const AuthProvider = ({ children }) => {
         return {
           ...state,
           isLoading: false,
-          user: action.payload,
-          isAuthenticated: true,
+          user: action.payload.user,
+          isAuthenticated: action.payload.isAuthenticated,
         }
       case 'REGISTER_USER_REJECTED': {
         // choosing between express server error and axios error
