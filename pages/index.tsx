@@ -17,7 +17,6 @@ const Application = () => {
 
   const { state } = useContext(AuthContext)
   if (!state.isAuthenticated) {
-    toast.error('Please log in to view the Map')
     return <></>
   } else {
     return (

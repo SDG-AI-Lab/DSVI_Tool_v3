@@ -40,11 +40,11 @@ Plans:
     in useAuth.tsx
 
     * add confirm email functionality: admin confirms the email. But user gets email notification
-        - install nodemailer and create sendEmail controller
-        - refactor login and register controllers as 11-auth-workflow
+        - install nodemailer and create sendEmail controller - DONE
+        - refactor login and register controllers as 11-auth-workflow - DONE
     * add forgot password functionality
     that their account is waiting for admin's confirmation
-    * add .geojson files to MongoDB. Create separate collection for each country
+    * add re-send verification email functionality 
     * add checkForUnauthorizedResponse in axios localStorage logic
     * user model to contain array of authorized countries
     * add authenticateUser middleware on backend. Functionality:

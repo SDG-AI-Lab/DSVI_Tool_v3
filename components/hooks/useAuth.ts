@@ -89,11 +89,10 @@ export const useAuth = () => {
         dispatch({
           type: 'AUTHENTICATE_USER_FULFILLED',
           payload: isAuthenticated,
-          // add user here from server
         })
       } catch (error) {
-        const { authenticated } = error.response.data
-        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: authenticated })
+        toast.warning(error.response.data.msg)
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: false })
       }
     }
 
