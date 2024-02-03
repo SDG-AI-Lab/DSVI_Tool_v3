@@ -11,13 +11,14 @@ export default function VerifyEmail() {
   const router = useRouter()
   const { token, email } = router.query
 
+  // may need to set isAuthenticated to false in case other
+  // user is signed while new user is verifying email
+
   const verifyToken = async () => {
     setLoading(true)
 
     try {
       if (token && email) {
-        console.log('verifying email')
-        console.log('request token: ', token)
         const { data } = await customFetch.post('api/v1/auth/verify-email', {
           verificationToken: token,
           email: email,

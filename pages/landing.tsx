@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import sdgFilled from '/public/images/logo-sdg-filled.png'
 import bg from '../public/images/launch-background.jpeg'
@@ -8,6 +10,15 @@ import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
 import Link from 'next/link'
 
 export default function Landing() {
+  const { state } = useContext(AuthContext)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      router.push('/')
+    }
+  }, [state.isAuthenticated])
+
   return (
     <div
       style={{ backgroundImage: `url(${bg})` }}

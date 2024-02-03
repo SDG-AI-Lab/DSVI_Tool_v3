@@ -56,7 +56,6 @@ export default function Register() {
 
   useEffect(() => {
     if (state.isAuthenticated) {
-      console.log('is authenticated')
       setTimeout(() => {
         router.push('/')
       }, 2000)

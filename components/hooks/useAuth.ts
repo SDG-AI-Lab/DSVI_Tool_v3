@@ -72,16 +72,8 @@ export const useAuth = () => {
     asyncLogin(email, password)
   }
 
-  const protectedRoute = () => {
-    const router = useRouter()
-
-    const { isAuthenticated } = state
-
-    useEffect(() => {
-      authenticateRouting()
-    }, [router.route])
-
-    const authenticateRouting = async () => {
+  const checkAuth = ({ protectedRoute }: { protectedRoute: boolean }) => {
+    const asyncCheckAuth = async () => {
       try {
         const response = await customFetch.get('api/v1/auth/routing')
         const { isAuthenticated } = response.data
@@ -91,12 +83,25 @@ export const useAuth = () => {
           payload: isAuthenticated,
         })
       } catch (error) {
-        toast.warning(error.response.data.msg)
+        if (protectedRoute) {
+          toast.warning(error.response.data.msg)
+        }
         dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: false })
       }
     }
+    asyncCheckAuth()
+  }
 
-    if (typeof window !== 'undefined' && !isAuthenticated) {
+  const protectedRoute = () => {
+    const router = useRouter()
+    const { isAuthenticated } = state
+
+    useEffect(() => {
+      checkAuth({ protectedRoute: true })
+    }, [router.route])
+
+    if (typeof window === 'undefined') return
+    if (!isAuthenticated && router.route === '/') {
       router.push('/landing')
     }
   }
@@ -124,5 +129,5 @@ export const useAuth = () => {
     }
     asyncLogout()
   }
-  return { registerUser, loginUser, logoutUser, protectedRoute }
+  return { registerUser, loginUser, logoutUser, protectedRoute, checkAuth }
 }
