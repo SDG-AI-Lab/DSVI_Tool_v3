@@ -11,7 +11,7 @@ export default function VerifyEmail() {
   const router = useRouter()
   const { token, email } = router.query
 
-  // may need to set isAuthenticated to false in case other
+  // may need to set state.user to null in case other
   // user is signed while new user is verifying email
 
   const verifyToken = async () => {

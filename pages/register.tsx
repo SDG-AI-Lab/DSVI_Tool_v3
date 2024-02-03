@@ -55,12 +55,12 @@ export default function Register() {
   }
 
   useEffect(() => {
-    if (state.isAuthenticated) {
+    if (state.user) {
       setTimeout(() => {
         router.push('/')
       }, 2000)
     }
-  }, [state.isAuthenticated /*router*/])
+  }, [<state className="user"></state> /*router*/])
 
   return (
     <form onSubmit={onSubmit}>

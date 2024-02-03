@@ -14,10 +14,10 @@ export default function Landing() {
   const router = useRouter()
 
   useEffect(() => {
-    if (state.isAuthenticated) {
+    if (state.user) {
       router.push('/')
     }
-  }, [state.isAuthenticated])
+  }, [state.user])
 
   return (
     <div

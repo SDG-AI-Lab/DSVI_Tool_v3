@@ -15,7 +15,7 @@ const Application = () => {
   protectedRoute()
 
   const { state } = useContext(AuthContext)
-  if (!state.isAuthenticated) {
+  if (!state.user) {
     return <></>
   } else {
     return (

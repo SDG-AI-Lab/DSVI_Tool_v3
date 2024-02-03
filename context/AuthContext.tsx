@@ -8,18 +8,16 @@ export const AuthProvider = ({ children }) => {
     isLoading: boolean
     user: { name: string; userId: string; role: string } | null
     error: any
-    isAuthenticated: boolean
   }
   const initialState: AuthInitialStateType = {
     isLoading: false,
     user: null,
     error: null,
-    isAuthenticated: false,
   }
 
   type AuthProviderActionType = {
     type:
-      | 'REGISTER_USER_PENDING'
+      | 'AUTHENTICATION_PENDING'
       | 'REGISTER_USER_FULFILLED'
       | 'REGISTER_USER_REJECTED'
       | 'AUTHENTICATE_USER_FULFILLED'
@@ -32,14 +30,13 @@ export const AuthProvider = ({ children }) => {
     action: AuthProviderActionType
   ): AuthInitialStateType => {
     switch (action.type) {
-      case 'REGISTER_USER_PENDING':
+      case 'AUTHENTICATION_PENDING':
         return { ...state, isLoading: true }
       case 'REGISTER_USER_FULFILLED':
         return {
           ...state,
           isLoading: false,
-          user: action.payload.user,
-          isAuthenticated: action.payload.isAuthenticated,
+          user: null,
         }
       case 'REGISTER_USER_REJECTED': {
         // choosing between express server error and axios error
@@ -52,18 +49,18 @@ export const AuthProvider = ({ children }) => {
           ...state,
           isLoading: false,
           error: action.payload,
-          isAuthenticated: false,
+          user: null,
         }
       }
       case 'AUTHENTICATE_USER_FULFILLED': {
-        return { ...state, isAuthenticated: action.payload }
+        return { ...state, isLoading: false, user: action.payload }
       }
       case 'AUTHENTICATE_USER_REJECTED': {
         return {
           ...state,
-          isAuthenticated: action.payload,
-          user: null,
           isLoading: false,
+          error: action.payload,
+          user: null,
         }
       }
       default:

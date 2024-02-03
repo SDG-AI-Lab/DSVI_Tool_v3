@@ -25,7 +25,7 @@ export const useAuth = () => {
       }
 
       try {
-        dispatch({ type: 'REGISTER_USER_PENDING' })
+        dispatch({ type: 'AUTHENTICATION_PENDING' })
 
         // user register post request
         const response = await customFetch.post('api/v1/auth/register', {
@@ -34,10 +34,7 @@ export const useAuth = () => {
           password,
         })
 
-        const user = response.data.user
-        const payload = { user, isAuthenticated: false }
-
-        dispatch({ type: 'REGISTER_USER_FULFILLED', payload })
+        dispatch({ type: 'REGISTER_USER_FULFILLED' })
         toast.success(
           `Verification email sent. Please verify account, then login`
         )
@@ -51,7 +48,7 @@ export const useAuth = () => {
   const loginUser = (email: string, password: string) => {
     const asyncLogin = async (email: string, password: string) => {
       try {
-        dispatch({ type: 'REGISTER_USER_PENDING' })
+        dispatch({ type: 'AUTHENTICATION_PENDING' })
 
         // user login post request
         const response = await customFetch.post('api/v1/auth/login', {
@@ -61,12 +58,12 @@ export const useAuth = () => {
 
         const { user } = response.data
 
-        const payload = { user, isAuthenticated: true }
-        dispatch({ type: 'REGISTER_USER_FULFILLED', payload })
-
+        dispatch({ type: 'AUTHENTICATE_USER_FULFILLED', payload: user })
         toast.success(`Welcome back ${user.name}`)
       } catch (error) {
-        dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
+        console.log(error)
+        toast.error(error.response.data.msg)
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: error })
       }
     }
     asyncLogin(email, password)
@@ -76,11 +73,11 @@ export const useAuth = () => {
     const asyncCheckAuth = async () => {
       try {
         const response = await customFetch.get('api/v1/auth/routing')
-        const { isAuthenticated } = response.data
+        const { user } = response.data
 
         dispatch({
           type: 'AUTHENTICATE_USER_FULFILLED',
-          payload: isAuthenticated,
+          payload: user,
         })
       } catch (error) {
         if (protectedRoute) {
@@ -94,20 +91,20 @@ export const useAuth = () => {
 
   const protectedRoute = () => {
     const router = useRouter()
-    const { isAuthenticated } = state
+    const { user } = state
 
     useEffect(() => {
       checkAuth({ protectedRoute: true })
     }, [router.route])
 
     if (typeof window === 'undefined') return
-    if (!isAuthenticated && router.route === '/') {
+    if (!user && router.route === '/') {
       router.push('/landing')
     }
   }
   const logoutUser = () => {
     const asyncLogout = async () => {
-      dispatch({ type: 'REGISTER_USER_PENDING' })
+      dispatch({ type: 'AUTHENTICATION_PENDING' })
 
       // for DEV only
       // const pause = (duration) => {
