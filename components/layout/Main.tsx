@@ -7,7 +7,6 @@ import { useAuth } from '../hooks/useAuth'
 const layout = ({ children }) => {
   const { state } = useContext(AuthContext)
   const { checkAuth } = useAuth()
-  console.log('User: ', state.user)
 
   useEffect(() => {
     checkAuth({ protectedRoute: false })

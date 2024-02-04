@@ -36,9 +36,10 @@ export const useAuth = () => {
 
         dispatch({ type: 'REGISTER_USER_FULFILLED' })
         toast.success(
-          `Verification email sent. Please verify account, then login`
+          `Account created. Verification email sent. Verify email, then login`
         )
       } catch (error) {
+        toast.error(error.response.data.msg)
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
     }
@@ -61,7 +62,6 @@ export const useAuth = () => {
         dispatch({ type: 'AUTHENTICATE_USER_FULFILLED', payload: user })
         toast.success(`Welcome back ${user.name}`)
       } catch (error) {
-        console.log(error)
         toast.error(error.response.data.msg)
         dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: error })
       }
@@ -83,7 +83,7 @@ export const useAuth = () => {
         if (protectedRoute) {
           toast.warning(error.response.data.msg)
         }
-        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: false })
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: null })
       }
     }
     asyncCheckAuth()
@@ -116,9 +116,8 @@ export const useAuth = () => {
 
       try {
         const response = await customFetch.get('api/v1/auth/logout')
-        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: false })
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: null })
         const { msg } = response.data
-
         toast.success(msg)
       } catch (error) {
         toast.error(error.message)
