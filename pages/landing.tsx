@@ -13,12 +13,13 @@ export default function Landing() {
   const { state } = useContext(AuthContext)
   const router = useRouter()
 
-  useEffect(() => {
-    if (state.user) {
-      router.push('/')
-    }
-  }, [state.user])
+  // useEffect(() => {
+  //   if (state.user) {
+  //     router.push('/')
+  //   }
+  // }, [state.user, router.route])
 
+  // if (state.user) return <></>
   return (
     <div
       style={{ backgroundImage: `url(${bg})` }}
@@ -38,7 +39,14 @@ export default function Landing() {
         <div className="basis-1/3 text-center">
           <Link href={'register'}>
             <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
-              Log in / Register
+              Register
+            </button>
+          </Link>
+        </div>
+        <div className="basis-1/3 text-center">
+          <Link href={'login'}>
+            <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+              Log in
             </button>
           </Link>
         </div>

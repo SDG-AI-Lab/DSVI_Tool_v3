@@ -1,22 +1,46 @@
-import React, { useState, FormEvent, ChangeEvent, useContext } from 'react'
+import React, {
+  useState,
+  FormEvent,
+  ChangeEvent,
+  useContext,
+  Fragment,
+  useEffect,
+} from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { toast } from 'react-toastify'
 import { useAuth } from '../components/hooks/useAuth'
+import { useRouter } from 'next/router'
 
-type CountryArrayType = Array<'Tajikistan' | 'Niger' | 'Burkina Faso'> | []
+export type SelectedCountryType = 'Tajikistan' | 'Niger' | 'Burkina Faso'
+const countryValues: SelectedCountryType[] = [
+  'Tajikistan',
+  'Niger',
+  'Burkina Faso',
+]
 
 const initialState = {
   name: '',
   email: '',
   password: '',
   confirmPassword: '',
-  countries: [] as CountryArrayType,
+  countries: [] as SelectedCountryType[],
 }
 
 export default function Register() {
-  const [values, setValues] = useState<typeof initialState>(initialState)
-  const [selectedCountries, setSelectedCountries] = useState([])
   const { state } = useContext(AuthContext)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (state.user && state.user.role !== 'admin') {
+      toast.error('Not enough rights to view this page')
+      router.push('/')
+    }
+  }, [state.user, router.route])
+
+  const [values, setValues] = useState<typeof initialState>(initialState)
+  const [selectedCountries, setSelectedCountries] = useState<
+    SelectedCountryType[]
+  >([])
   const { registerUser } = useAuth()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +51,7 @@ export default function Register() {
   }
 
   const handleCountrySelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
+    const value: SelectedCountryType = e.target.value as SelectedCountryType
 
     if (selectedCountries.includes(value)) {
       setSelectedCountries(
@@ -41,14 +65,20 @@ export default function Register() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { name, email, password, confirmPassword } = values
-
     if (!email || !password || !name) {
       toast.error('Please fill out all the fields')
       return
     }
-
-    registerUser(name, email, password, confirmPassword)
+    if (password !== confirmPassword) {
+      toast.error('Passwords are not matching!!!')
+      return
+    }
+    registerUser(name, email, password, selectedCountries)
     setValues(initialState)
+  }
+
+  if (!state.user || (state.user && state.user.role !== 'admin')) {
+    return <h1>NOT ADMIN</h1>
   }
 
   return (
@@ -70,7 +100,7 @@ export default function Register() {
       <br />
       <label htmlFor="email">Email:</label>
       <input
-        type="text"
+        type="email"
         id="email"
         name="email"
         value={values.email}
@@ -111,37 +141,23 @@ export default function Register() {
         {state.isLoading ? 'loading...' : 'Submit'}
       </button>
       <br />
-
       <div>
-        <label>
-          <input
-            type="checkbox"
-            value="Tajikistan"
-            checked={selectedCountries.includes('Tajikistan')}
-            onChange={handleCountrySelect}
-          />
-          Tajikistan
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="Niger"
-            checked={selectedCountries.includes('Niger')}
-            onChange={handleCountrySelect}
-          />
-          Niger
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="Burkina Faso"
-            checked={selectedCountries.includes('Burkina Faso')}
-            onChange={handleCountrySelect}
-          />
-          Burkina Faso
-        </label>
+        {countryValues.map((country) => {
+          return (
+            <Fragment key={country}>
+              <label>
+                <input
+                  type="checkbox"
+                  value={country}
+                  checked={selectedCountries.includes(country)}
+                  onChange={handleCountrySelect}
+                />
+                {country}
+              </label>
+              <br />
+            </Fragment>
+          )
+        })}
       </div>
     </form>
   )

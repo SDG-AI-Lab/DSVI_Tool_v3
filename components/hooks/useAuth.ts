@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { AuthContext } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
+import { SelectedCountryType } from '../../pages/register'
 
 export const useAuth = () => {
   const { state, dispatch } = useContext(AuthContext)
@@ -11,19 +12,14 @@ export const useAuth = () => {
     name: string,
     email: string,
     password: string,
-    confirmPassword: string
+    countries: SelectedCountryType[]
   ) => {
     const asyncRegister = async (
       name: string,
       email: string,
       password: string,
-      confirmPassword: string
+      countries: SelectedCountryType[]
     ) => {
-      if (password !== confirmPassword) {
-        toast.error('Passwords are not matching!!!')
-        return
-      }
-
       try {
         dispatch({ type: 'AUTHENTICATION_PENDING' })
 
@@ -32,6 +28,7 @@ export const useAuth = () => {
           name,
           email,
           password,
+          countries,
         })
 
         dispatch({ type: 'REGISTER_USER_FULFILLED' })
@@ -43,7 +40,7 @@ export const useAuth = () => {
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
     }
-    asyncRegister(name, email, password, confirmPassword)
+    asyncRegister(name, email, password, countries)
   }
 
   const loginUser = (email: string, password: string) => {

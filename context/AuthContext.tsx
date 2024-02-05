@@ -1,11 +1,17 @@
 import React, { createContext, useReducer } from 'react'
+import { SelectedCountryType } from '../pages/register'
 
 export const AuthContext = createContext(undefined)
 
 export const AuthProvider = ({ children }) => {
   type AuthInitialStateType = {
     isLoading: boolean
-    user: { name: string; userId: string; role: string } | null
+    user: {
+      name: string
+      userId: string
+      role: 'user' | 'admin'
+      countries: SelectedCountryType[]
+    } | null
     error: any
   }
   const initialState: AuthInitialStateType = {
