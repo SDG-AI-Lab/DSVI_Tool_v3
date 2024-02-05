@@ -70,7 +70,7 @@ export default function Register() {
   const { registerUser } = useAuth()
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { name, email, password, confirmPassword } = values
+    const { name, email, password, confirmPassword, role } = values
     if (!email || !password || !name) {
       toast.error('Please fill out all the fields')
       return
@@ -79,7 +79,7 @@ export default function Register() {
       toast.error('Passwords are not matching!!!')
       return
     }
-    registerUser(name, email, password, selectedCountries)
+    registerUser(name, email, password, selectedCountries, role)
     setValues(initialState)
     setSelectedCountries([])
   }

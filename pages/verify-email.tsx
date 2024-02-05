@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-
 import customFetch from '../utils/axios'
 import Link from 'next/link'
+import { useAuth } from '../components/hooks/useAuth'
 
 export default function VerifyEmail() {
   const [errorText, setErrorText] = useState('')
   const [loading, setLoading] = useState(false)
-
   const router = useRouter()
   const { token, email } = router.query
 
-  // may need to set state.user to null in case other
-  // user is signed while new user is verifying email
+  const { logoutUser } = useAuth()
 
   const verifyToken = async () => {
     setLoading(true)
@@ -29,6 +27,9 @@ export default function VerifyEmail() {
     }
     setLoading(false)
   }
+  useEffect(() => {
+    logoutUser()
+  }, [])
 
   useEffect(() => {
     if (token && email) {
@@ -41,13 +42,18 @@ export default function VerifyEmail() {
   }
 
   if (errorText) {
-    return <h4>{errorText}</h4>
+    return (
+      <>
+        <h4>{errorText}</h4>
+        <Link href={'/login'}>Please login</Link>
+      </>
+    )
   }
 
   return (
     <>
       <h2>Account Confirmed</h2>
-      <Link href={'/register'}>Please login</Link>
+      <Link href={'/login'}>Please login</Link>
     </>
   )
 }

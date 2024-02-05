@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { AuthContext } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import { SelectedCountryType } from '../../pages/register'
+import { RoleType, SelectedCountryType } from '../../pages/register'
 
 export const useAuth = () => {
   const { state, dispatch } = useContext(AuthContext)
@@ -12,13 +12,15 @@ export const useAuth = () => {
     name: string,
     email: string,
     password: string,
-    countries: SelectedCountryType[]
+    countries: SelectedCountryType[],
+    role: RoleType
   ) => {
     const asyncRegister = async (
       name: string,
       email: string,
       password: string,
-      countries: SelectedCountryType[]
+      countries: SelectedCountryType[],
+      role: RoleType
     ) => {
       try {
         dispatch({ type: 'AUTHENTICATION_PENDING' })
@@ -29,6 +31,7 @@ export const useAuth = () => {
           email,
           password,
           countries,
+          role,
         })
 
         dispatch({ type: 'REGISTER_USER_FULFILLED' })
@@ -40,7 +43,7 @@ export const useAuth = () => {
         dispatch({ type: 'REGISTER_USER_REJECTED', payload: error })
       }
     }
-    asyncRegister(name, email, password, countries)
+    asyncRegister(name, email, password, countries, role)
   }
 
   const loginUser = (email: string, password: string) => {
