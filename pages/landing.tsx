@@ -27,7 +27,7 @@ export default function Landing() {
         <div className="basis-1/3">
           <Image src={sdgFilled} alt="Logo" width={300} height={300} />
         </div>
-        {state.user.role === 'admin' && (
+        {state.user && state.user.role === 'admin' && (
           <div className="basis-1/3 text-center">
             <Link href={'register'}>
               <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">

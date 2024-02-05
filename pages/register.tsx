@@ -18,23 +18,28 @@ const countryValues: SelectedCountryType[] = [
   'Burkina Faso',
 ]
 
+export type RoleType = 'user' | 'admin'
+const roleValues: RoleType[] = ['user', 'admin']
+
 const initialState = {
   name: '',
   email: '',
   password: '',
   confirmPassword: '',
-  countries: [] as SelectedCountryType[],
+  role: 'user' as RoleType,
 }
 
 export default function Register() {
   const { state } = useContext(AuthContext)
   const router = useRouter()
 
+  // auth protection
   useEffect(() => {
-    toast.error('Not enough rights to view this page')
     if (state.user && state.user.role !== 'admin') {
+      toast.error('Not enough rights to view this page')
       router.push('/')
     } else if (!state.user) {
+      toast.error('Not enough rights to view this page')
       router.push('/landing')
     }
   }, [state.user, router.route])
@@ -43,12 +48,10 @@ export default function Register() {
   const [selectedCountries, setSelectedCountries] = useState<
     SelectedCountryType[]
   >([])
-  const { registerUser } = useAuth()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     const value = e.target.value
-
     setValues({ ...values, [name]: value })
   }
 
@@ -64,6 +67,7 @@ export default function Register() {
     }
   }
 
+  const { registerUser } = useAuth()
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { name, email, password, confirmPassword } = values
@@ -77,6 +81,7 @@ export default function Register() {
     }
     registerUser(name, email, password, selectedCountries)
     setValues(initialState)
+    setSelectedCountries([])
   }
 
   if (!state.user || (state.user && state.user.role !== 'admin')) {
@@ -144,6 +149,7 @@ export default function Register() {
       </button>
       <br />
       <div>
+        <h3>Countries accessible to new user</h3>
         {countryValues.map((country) => {
           return (
             <Fragment key={country}>
@@ -158,6 +164,26 @@ export default function Register() {
               </label>
               <br />
             </Fragment>
+          )
+        })}
+      </div>
+      <div>
+        <h3>Choose role for new user</h3>
+        {roleValues.map((role) => {
+          return (
+            <>
+              <label>
+                {role}
+                <input
+                  type="radio"
+                  name="role"
+                  value={role}
+                  checked={values.role === role}
+                  onChange={handleChange}
+                />
+              </label>
+              <br />
+            </>
           )
         })}
       </div>
