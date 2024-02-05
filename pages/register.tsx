@@ -31,9 +31,11 @@ export default function Register() {
   const router = useRouter()
 
   useEffect(() => {
+    toast.error('Not enough rights to view this page')
     if (state.user && state.user.role !== 'admin') {
-      toast.error('Not enough rights to view this page')
       router.push('/')
+    } else if (!state.user) {
+      router.push('/landing')
     }
   }, [state.user, router.route])
 

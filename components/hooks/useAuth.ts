@@ -78,7 +78,11 @@ export const useAuth = () => {
         })
       } catch (error) {
         if (protectedRoute) {
-          toast.warning(error.response.data.msg)
+          const errMsg = error.response.data
+            ? error.response.data.msg
+            : error.message
+
+          toast.warning(errMsg)
         }
         dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: null })
       }
