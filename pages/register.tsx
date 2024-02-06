@@ -42,7 +42,7 @@ export default function Register() {
       toast.error('Not enough rights to view this page')
       router.push('/landing')
     }
-  }, [state.user, router.route])
+  }, [router.route])
 
   const [values, setValues] = useState<typeof initialState>(initialState)
   const [selectedCountries, setSelectedCountries] = useState<

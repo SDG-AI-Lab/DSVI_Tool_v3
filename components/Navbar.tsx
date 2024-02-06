@@ -1,10 +1,16 @@
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { BiMessageAltDetail } from 'react-icons/bi'
 import { MdOutlineVolunteerActivism } from 'react-icons/md'
 import { FiMapPin } from 'react-icons/fi'
+import { FaRegRegistered } from 'react-icons/fa6'
 
 const Navbar = () => {
+  const { state } = useContext(AuthContext)
+  console.log(state.user)
+
   const router = useRouter()
   const pathname =
     router.pathname.length === 1 && router.pathname === '/'
@@ -24,9 +30,7 @@ const Navbar = () => {
         <a className="mr-5 flex px-2 hover:text-gray-900">
           <FiMapPin className={`h-6 w-6  ${returnIconClassname('/')}`} />
           {/* <MapMarker pathname={pathname} /> */}
-          <span className={pathname === '/' ? className : 'pl-1'}>
-            Map Window
-          </span>
+          <span className={pathname === '/' ? className : 'pl-1'}>Map</span>
         </a>
       </Link>
 
@@ -50,10 +54,23 @@ const Navbar = () => {
           />
           {/* <DialogIcon pathname={pathname} /> */}
           <span className={pathname === 'volunteer' ? className : 'pl-1'}>
-            Our Volunteers
+            Volunteers
           </span>
         </a>
       </Link>
+      {state.user && state.user.role === 'admin' && (
+        <Link href="/register">
+          <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
+            <FaRegRegistered
+              className={`h-6 w-6  ${returnIconClassname('register')}`}
+            />
+            {/* <DialogIcon pathname={pathname} /> */}
+            <span className={pathname === 'volunteer' ? className : 'pl-1'}>
+              Register a User
+            </span>
+          </a>
+        </Link>
+      )}
     </nav>
   )
 }
