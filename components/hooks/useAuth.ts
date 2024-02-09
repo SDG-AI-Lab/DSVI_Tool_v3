@@ -72,6 +72,7 @@ export const useAuth = () => {
   const checkAuth = ({ protectedRoute }: { protectedRoute: boolean }) => {
     const asyncCheckAuth = async () => {
       try {
+        console.log('fetching user with checkauth')
         const response = await customFetch.get('api/v1/auth/routing')
         const { user } = response.data
 

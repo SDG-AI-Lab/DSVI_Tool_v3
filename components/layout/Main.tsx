@@ -5,12 +5,13 @@ import { useContext, useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth'
 
 const layout = ({ children }) => {
-  const { state } = useContext(AuthContext)
-  const { checkAuth } = useAuth()
+  // const { state } = useContext(AuthContext)
+  // const { checkAuth } = useAuth()
 
-  useEffect(() => {
-    checkAuth({ protectedRoute: false })
-  }, [])
+  // console.log('Main: ', state.user)
+  // useEffect(() => {
+  //   checkAuth({ protectedRoute: false })
+  // }, [])
 
   return (
     <div className="min-h-screen bg-slate-200">

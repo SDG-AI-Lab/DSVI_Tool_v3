@@ -9,7 +9,6 @@ import { FaRegRegistered } from 'react-icons/fa6'
 
 const Navbar = () => {
   const { state } = useContext(AuthContext)
-  console.log(state.user)
 
   const router = useRouter()
   const pathname =
@@ -25,6 +24,7 @@ const Navbar = () => {
 
   return (
     // MAP WINDOW
+    // refactor these to array that maps Link elements
     <nav className="mb-3 flex items-end align-bottom font-bold ">
       <Link href={'/'} as={`/`}>
         <a className="mr-5 flex px-2 hover:text-gray-900">
@@ -59,14 +59,14 @@ const Navbar = () => {
         </a>
       </Link>
       {state.user && state.user.role === 'admin' && (
-        <Link href="/register">
+        <Link href="/admin">
           <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
             <FaRegRegistered
-              className={`h-6 w-6  ${returnIconClassname('register')}`}
+              className={`h-6 w-6  ${returnIconClassname('admin')}`}
             />
             {/* <DialogIcon pathname={pathname} /> */}
-            <span className={pathname === 'volunteer' ? className : 'pl-1'}>
-              Register a User
+            <span className={pathname === 'admin' ? className : 'pl-1'}>
+              Admin Page
             </span>
           </a>
         </Link>
