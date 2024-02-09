@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import React, { useContext, useState } from 'react'
-import { AuthContext, AuthUser } from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
 import { useAuth } from '../components/hooks/useAuth'
 import customFetch from '../utils/axios'
 import { toast } from 'react-toastify'
-import UserList from '../components/UserList'
+import UserList, { UserAdminDetails } from '../components/UserList'
 
 // link to register user page - done
 // get list of users
@@ -15,7 +15,7 @@ import UserList from '../components/UserList'
 export default function Admin() {
   const { state } = useContext(AuthContext)
   const { protectedRoute } = useAuth()
-  const [users, setUsers] = useState<AuthUser[]>([])
+  const [users, setUsers] = useState<UserAdminDetails[]>([])
 
   // auth protection
   protectedRoute()
@@ -24,7 +24,6 @@ export default function Admin() {
     try {
       const response = await customFetch.get('api/v1/auth/get-all-users')
       setUsers(response.data.users)
-      console.log(response)
     } catch (error) {
       const errMsg = error.response.data
         ? error.response.data.msg
@@ -33,7 +32,7 @@ export default function Admin() {
       toast.error(errMsg)
     }
   }
-  console.log(users)
+
   if (!state.user || (state.user && state.user.role !== 'admin')) return <></>
   return (
     <>
@@ -48,6 +47,14 @@ export default function Admin() {
         className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
       >
         Get All Users
+      </button>
+      <br />
+      <br />
+      <button
+        onClick={() => setUsers([])}
+        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+      >
+        Clear User List
       </button>
       <br />
       <br />
