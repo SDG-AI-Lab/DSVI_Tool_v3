@@ -102,6 +102,7 @@ export const useAuth = () => {
           router.push('/')
         }, 1000)
       } else if (router.route === '/admin' || router.route === '/register') {
+        console.log('in admin')
         if (!user) {
           toast.error('Unauthorized, please login as Admin')
           router.push('/landing')

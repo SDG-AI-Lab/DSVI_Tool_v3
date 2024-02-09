@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import React, { useContext } from 'react'
-import { AuthContext } from '../context/AuthContext'
+import React, { useContext, useState } from 'react'
+import { AuthContext, AuthUser } from '../context/AuthContext'
 import { useAuth } from '../components/hooks/useAuth'
+import customFetch from '../utils/axios'
 
 // link to register user page - done
 // get list of users
@@ -12,12 +13,22 @@ import { useAuth } from '../components/hooks/useAuth'
 export default function Admin() {
   const { state } = useContext(AuthContext)
   const { protectedRoute } = useAuth()
+  const [users, setUsers] = useState<AuthUser[]>([])
 
   // auth protection
   protectedRoute()
 
-  if (!state.user || (state.user && state.user !== 'admin')) return <></>
-
+  const getAllUsers = async () => {
+    try {
+      const response = await customFetch.get('api/v1/auth/get-all-users')
+      setUsers(response.data.users)
+      console.log(response)
+    } catch (error) {
+      console.log('Error: ', error)
+    }
+  }
+  console.log(users)
+  if (!state.user || (state.user && state.user.role !== 'admin')) return <></>
   return (
     <>
       <br />
@@ -26,7 +37,10 @@ export default function Admin() {
       </button>
       <br />
       <br />
-      <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+      <button
+        onClick={getAllUsers}
+        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+      >
         Get All Users
       </button>
       <br />

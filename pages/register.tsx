@@ -4,12 +4,10 @@ import React, {
   ChangeEvent,
   useContext,
   Fragment,
-  useEffect,
 } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { toast } from 'react-toastify'
 import { useAuth } from '../components/hooks/useAuth'
-import { useRouter } from 'next/router'
 
 export type SelectedCountryType = 'Tajikistan' | 'Niger' | 'Burkina Faso'
 const countryValues: SelectedCountryType[] = [
