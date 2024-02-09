@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react'
 import { AuthContext, AuthUser } from '../context/AuthContext'
 import { useAuth } from '../components/hooks/useAuth'
 import customFetch from '../utils/axios'
+import { toast } from 'react-toastify'
+import UserList from '../components/UserList'
 
 // link to register user page - done
 // get list of users
@@ -24,7 +26,11 @@ export default function Admin() {
       setUsers(response.data.users)
       console.log(response)
     } catch (error) {
-      console.log('Error: ', error)
+      const errMsg = error.response.data
+        ? error.response.data.msg
+        : error.message
+      console.log('Error: ', errMsg)
+      toast.error(errMsg)
     }
   }
   console.log(users)
@@ -45,6 +51,7 @@ export default function Admin() {
       </button>
       <br />
       <br />
+      <UserList users={users} />
     </>
   )
 }
