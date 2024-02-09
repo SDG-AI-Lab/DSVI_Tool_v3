@@ -1,8 +1,6 @@
 import Link from 'next/link'
-import React, { useContext, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import { toast } from 'react-toastify'
 import { useAuth } from '../components/hooks/useAuth'
 
 // link to register user page - done
@@ -13,24 +11,12 @@ import { useAuth } from '../components/hooks/useAuth'
 
 export default function Admin() {
   const { state } = useContext(AuthContext)
-  const router = useRouter()
-  const { checkAuth } = useAuth()
+  const { protectedRoute } = useAuth()
 
   // auth protection
+  protectedRoute()
 
-  useEffect(() => {
-    checkAuth({ protectedRoute: false })
-    console.log('in useeffect')
-    if (state.user && state.user.role !== 'admin') {
-      toast.error('Not enough rights to view this page')
-      router.push('/')
-    } else if (!state.user) {
-      toast.error('Not enough rights to view this page')
-      router.push('/landing')
-    }
-  }, [router.route])
-
-  if (!state.user) return <></>
+  if (!state.user || (state.user && state.user !== 'admin')) return <></>
 
   return (
     <>

@@ -31,18 +31,10 @@ const initialState = {
 
 export default function Register() {
   const { state } = useContext(AuthContext)
-  const router = useRouter()
+  const { registerUser, protectedRoute } = useAuth()
 
   // auth protection
-  useEffect(() => {
-    if (state.user && state.user.role !== 'admin') {
-      toast.error('Not enough rights to view this page')
-      router.push('/')
-    } else if (!state.user) {
-      toast.error('Not enough rights to view this page')
-      router.push('/landing')
-    }
-  }, [router.route])
+  protectedRoute()
 
   const [values, setValues] = useState<typeof initialState>(initialState)
   const [selectedCountries, setSelectedCountries] = useState<
@@ -67,7 +59,6 @@ export default function Register() {
     }
   }
 
-  const { registerUser } = useAuth()
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { name, email, password, confirmPassword, role } = values

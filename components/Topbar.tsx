@@ -4,10 +4,17 @@ import Link from 'next/link'
 import { useAuth } from './hooks/useAuth'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { useRouter } from 'next/router'
 
 const TopBar = () => {
   const { state } = useContext(AuthContext)
   const { logoutUser } = useAuth()
+  const router = useRouter()
+
+  const onLogoutClick = () => {
+    logoutUser()
+    router.push('/landing')
+  }
 
   return (
     <header className="body-font bg-white text-gray-800">
@@ -56,7 +63,7 @@ const TopBar = () => {
             </a>
             {state.user && (
               <button
-                onClick={logoutUser}
+                onClick={onLogoutClick}
                 className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"
               >
                 {state.isLoading ? 'Loading...' : 'Logout'}

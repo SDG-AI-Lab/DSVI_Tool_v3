@@ -1,12 +1,13 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext, AuthUser } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
 import { RoleType, SelectedCountryType } from '../../pages/register'
 
 export const useAuth = () => {
   const { state, dispatch } = useContext(AuthContext)
+  const router = useRouter()
 
   const registerUser = (
     name: string,
@@ -69,44 +70,63 @@ export const useAuth = () => {
     asyncLogin(email, password)
   }
 
-  const checkAuth = ({ protectedRoute }: { protectedRoute: boolean }) => {
-    const asyncCheckAuth = async () => {
-      try {
-        console.log('fetching user with checkauth')
-        const response = await customFetch.get('api/v1/auth/routing')
-        const { user } = response.data
-
+  const checkAuth = () => {
+    const request = customFetch
+      .get('api/v1/auth/routing')
+      .then((response) => {
         dispatch({
           type: 'AUTHENTICATE_USER_FULFILLED',
-          payload: user,
+          payload: response.data.user,
         })
-      } catch (error) {
-        if (protectedRoute) {
-          const errMsg = error.response.data
-            ? error.response.data.msg
-            : error.message
+        return { user: response.data.user }
+      })
+      .catch((error) => {
+        const errMsg = error.response.data
+          ? error.response.data.msg
+          : error.message
 
-          toast.warning(errMsg)
-        }
-        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: null })
-      }
-    }
-    asyncCheckAuth()
+        dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: errMsg })
+        return { error: errMsg }
+      })
+    return request
   }
 
   const protectedRoute = () => {
-    const router = useRouter()
-    const { user } = state
+    const redirect = ({ user, error }: { user: AuthUser; error: string }) => {
+      if (typeof window === 'undefined') return
+      if (router.route === '/' && !user) {
+        toast.error(error)
+        router.push('/landing')
+      } else if (router.route === '/login' && user) {
+        setTimeout(() => {
+          router.push('/')
+        }, 1000)
+      } else if (router.route === '/admin' || router.route === '/register') {
+        if (!user) {
+          toast.error('Unauthorized, please login as Admin')
+          router.push('/landing')
+        } else if (user && user.role !== 'admin') {
+          toast.error('Unauthorized, please login as Admin')
+          router.push('/')
+        }
+      }
+    }
 
     useEffect(() => {
-      checkAuth({ protectedRoute: true })
-    }, [router.route])
+      checkAuth().then((response) => {
+        let user: AuthUser = null
+        let error: string = null
+        if ('user' in response) {
+          user = response.user
+        } else {
+          error = response.error
+        }
 
-    if (typeof window === 'undefined') return
-    if (!user && router.route === '/') {
-      router.push('/landing')
-    }
+        redirect({ user, error })
+      })
+    }, [router.route])
   }
+
   const logoutUser = () => {
     const asyncLogout = async () => {
       dispatch({ type: 'AUTHENTICATION_PENDING' })

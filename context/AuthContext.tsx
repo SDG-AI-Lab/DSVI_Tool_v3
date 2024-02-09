@@ -3,31 +3,34 @@ import { SelectedCountryType } from '../pages/register'
 
 export const AuthContext = createContext(undefined)
 
+export type AuthUser = {
+  name: string
+  userId: string
+  role: 'user' | 'admin'
+  countries: SelectedCountryType[]
+} | null
+
+export type AuthInitialStateType = {
+  isLoading: boolean
+  user: AuthUser
+  error: any
+}
+
+export type AuthProviderActionType = {
+  type:
+    | 'AUTHENTICATION_PENDING'
+    | 'REGISTER_USER_FULFILLED'
+    | 'REGISTER_USER_REJECTED'
+    | 'AUTHENTICATE_USER_FULFILLED'
+    | 'AUTHENTICATE_USER_REJECTED'
+  payload: any
+}
+
 export const AuthProvider = ({ children }) => {
-  type AuthInitialStateType = {
-    isLoading: boolean
-    user: {
-      name: string
-      userId: string
-      role: 'user' | 'admin'
-      countries: SelectedCountryType[]
-    } | null
-    error: any
-  }
   const initialState: AuthInitialStateType = {
     isLoading: false,
     user: null,
     error: null,
-  }
-
-  type AuthProviderActionType = {
-    type:
-      | 'AUTHENTICATION_PENDING'
-      | 'REGISTER_USER_FULFILLED'
-      | 'REGISTER_USER_REJECTED'
-      | 'AUTHENTICATE_USER_FULFILLED'
-      | 'AUTHENTICATE_USER_REJECTED'
-    payload: any
   }
 
   const reducer = (

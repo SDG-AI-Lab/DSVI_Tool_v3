@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import dynamic from 'next/dynamic'
 import Sidebar from '../components/sidebar/Sidebar'
@@ -11,22 +11,18 @@ const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
 })
 
 const Application = () => {
+  const { state } = useContext(AuthContext)
   const { protectedRoute } = useAuth()
   protectedRoute()
 
-  const { state } = useContext(AuthContext)
-  if (!state.user) {
-    return <></>
-  } else {
-    return (
-      <div className="flex">
-        <Sidebar show={true} originalInitialState={reducerInitialState} />
-
-        <LeafletMap />
-        <DataSidebar />
-      </div>
-    )
-  }
+  if (!state.user) return <></>
+  return (
+    <div className="flex">
+      <Sidebar show={true} originalInitialState={reducerInitialState} />
+      <LeafletMap />
+      <DataSidebar />
+    </div>
+  )
 }
 
 export default Application

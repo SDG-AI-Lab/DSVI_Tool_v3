@@ -10,6 +10,7 @@ import { AuthContext } from '../context/AuthContext'
 
 export default function Landing() {
   const { state } = useContext(AuthContext)
+  // do checkAuth here
 
   return (
     <div

@@ -18,7 +18,7 @@ const initialState = {
 export default function Login() {
   const [values, setValues] = useState<typeof initialState>(initialState)
   const { state } = useContext(AuthContext)
-  const { loginUser } = useAuth()
+  const { loginUser, protectedRoute } = useAuth()
   const router = useRouter()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +38,8 @@ export default function Login() {
     loginUser(email, password)
     setValues(initialState)
   }
+
+  protectedRoute()
 
   useEffect(() => {
     if (state.user) {
