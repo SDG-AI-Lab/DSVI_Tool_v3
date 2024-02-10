@@ -7,10 +7,8 @@ type UserListPropsType = {
 }
 
 export default function UserList({ users }: UserListPropsType) {
-  const { state, dispatch } = useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const router = useRouter()
-
-  console.log(state)
 
   const onAddUserToContext = (user: UserAdminDetails) => {
     dispatch({ type: 'SET_USER_ADMIN_DETAILS', payload: user })

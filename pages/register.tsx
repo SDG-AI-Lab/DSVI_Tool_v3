@@ -5,19 +5,15 @@ import React, {
   useContext,
   Fragment,
 } from 'react'
-import { AuthContext } from '../context/AuthContext'
+import {
+  AuthContext,
+  RoleType,
+  SelectedCountryType,
+  countryValues,
+  roleValues,
+} from '../context/AuthContext'
 import { toast } from 'react-toastify'
 import { useAuth } from '../components/hooks/useAuth'
-
-export type SelectedCountryType = 'Tajikistan' | 'Niger' | 'Burkina Faso'
-const countryValues: SelectedCountryType[] = [
-  'Tajikistan',
-  'Niger',
-  'Burkina Faso',
-]
-
-export type RoleType = 'user' | 'admin'
-const roleValues: RoleType[] = ['user', 'admin']
 
 const initialState = {
   name: '',

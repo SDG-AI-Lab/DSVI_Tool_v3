@@ -1,5 +1,14 @@
 import React, { createContext, useReducer } from 'react'
-import { RoleType, SelectedCountryType } from '../pages/register'
+
+export type SelectedCountryType = 'Tajikistan' | 'Niger' | 'Burkina Faso'
+export const countryValues: SelectedCountryType[] = [
+  'Tajikistan',
+  'Niger',
+  'Burkina Faso',
+]
+
+export type RoleType = 'user' | 'admin'
+export const roleValues: RoleType[] = ['user', 'admin']
 
 export type AuthUser = {
   name: string
@@ -18,6 +27,7 @@ export type UserAdminDetails = {
   verificationToken: string
   verified: string
   __v: number
+  password?: string
 }
 
 export type AuthInitialStateType = {
