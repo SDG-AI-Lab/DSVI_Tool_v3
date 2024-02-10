@@ -35,15 +35,21 @@ export default function UserList({ users }: UserListPropsType) {
       <tbody>
         {users.map((user: UserAdminDetails) => {
           return (
-            <tr>
-              <td>{user.name}</td>
-              <td>{user.role}</td>
-              <td>{user.email}</td>
-              <td>{user.isVerified ? 'yes' : 'no'}</td>
-              <td>{user.countries.join(', ')}</td>
+            <tr key={user._id} style={{ border: '2px solid black' }}>
+              <td style={{ border: '1px solid black' }}>{user.name}</td>
+              <td style={{ border: '1px solid black' }}>{user.role}</td>
+              <td style={{ border: '1px solid black' }}>{user.email}</td>
+              <td style={{ border: '1px solid black' }}>
+                {user.isVerified ? 'yes' : 'no'}
+              </td>
+              <td style={{ border: '1px solid black' }}>
+                {user.countries.join(', ')}
+              </td>
 
-              <td>
-                <button>Edit</button>
+              <td style={{ border: '1px solid black' }}>
+                <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+                  Edit
+                </button>
               </td>
             </tr>
           )

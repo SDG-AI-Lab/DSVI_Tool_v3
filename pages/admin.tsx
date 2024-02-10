@@ -18,6 +18,7 @@ export default function Admin() {
   const { protectedRoute } = useAuth()
   const [users, setUsers] = useState<UserAdminDetails[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [searchTerm, setSearchTerm] = useState<string>('')
 
   // auth protection
   protectedRoute()
@@ -25,7 +26,7 @@ export default function Admin() {
   const getAllUsers = async () => {
     try {
       setIsLoading(true)
-      const response = await customFetch.get('api/v1/auth/get-all-users')
+      const response = await customFetch.get('api/v1/user/get-all-users')
 
       setUsers(response.data.users)
       setIsLoading(false)
@@ -33,7 +34,28 @@ export default function Admin() {
       const errMsg = error.response.data
         ? error.response.data.msg
         : error.message
-      console.log('Error: ', errMsg)
+
+      toast.error(errMsg)
+      setIsLoading(false)
+    }
+  }
+
+  const getSingleUser = async () => {
+    try {
+      setIsLoading(true)
+      const response = await customFetch.get('api/v1/user', {
+        params: {
+          email: searchTerm,
+        },
+      })
+      console.log(response)
+      setUsers([response.data.user])
+      setIsLoading(false)
+    } catch (error) {
+      const errMsg = error.response.data
+        ? error.response.data.msg
+        : error.message
+
       toast.error(errMsg)
       setIsLoading(false)
     }
@@ -60,11 +82,28 @@ export default function Admin() {
       <button
         onClick={() => setUsers([])}
         className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+        disabled={isLoading}
       >
         Clear User List
       </button>
       <br />
       <br />
+      <label>
+        Find User by Email
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </label>
+      <button
+        onClick={getSingleUser}
+        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+        disabled={isLoading}
+      >
+        Find
+      </button>
+
       <UserList users={users} />
     </>
   )
