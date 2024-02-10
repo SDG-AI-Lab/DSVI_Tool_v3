@@ -1,8 +1,7 @@
 import React from 'react'
-import { AuthUser } from '../context/AuthContext'
 import { RoleType, SelectedCountryType } from '../pages/register'
 
-type UserAdminDetails = {
+export type UserAdminDetails = {
   countries: SelectedCountryType[]
   email: string
   isVerified: boolean
