@@ -48,7 +48,12 @@ export default function Admin() {
           email: searchTerm,
         },
       })
-      console.log(response)
+      const pause = (delay) => {
+        return new Promise((res) => {
+          setTimeout(res, delay)
+        })
+      }
+      await pause(2000)
       setUsers([response.data.user])
       setIsLoading(false)
     } catch (error) {
@@ -84,12 +89,12 @@ export default function Admin() {
         className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
         disabled={isLoading}
       >
-        Clear User List
+        {isLoading ? 'loading...' : 'Clear User List'}
       </button>
       <br />
       <br />
       <label>
-        Find User by Email
+        Find One User by Email
         <input
           type="text"
           value={searchTerm}
@@ -101,7 +106,7 @@ export default function Admin() {
         className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
         disabled={isLoading}
       >
-        Find
+        {isLoading ? 'loading...' : 'Find'}
       </button>
 
       <UserList users={users} />
