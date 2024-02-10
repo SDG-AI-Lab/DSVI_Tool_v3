@@ -29,10 +29,7 @@ const initialState = {
 
 export default function Register() {
   const { state } = useContext(AuthContext)
-  const { registerUser, protectedRoute } = useAuth()
-
-  // auth protection
-  protectedRoute()
+  const { registerUser } = useAuth()
 
   const [values, setValues] = useState<typeof initialState>(initialState)
   const [selectedCountries, setSelectedCountries] = useState<

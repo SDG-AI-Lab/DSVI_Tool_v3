@@ -92,6 +92,7 @@ export const useAuth = () => {
   }
 
   const protectedRoute = () => {
+    console.log('protected route fired')
     const redirect = ({ user, error }: { user: AuthUser; error: string }) => {
       if (typeof window === 'undefined') return
       if (router.route === '/' && !user) {

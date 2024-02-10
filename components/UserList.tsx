@@ -1,25 +1,23 @@
-import React from 'react'
-import { RoleType, SelectedCountryType } from '../pages/register'
-
-export type UserAdminDetails = {
-  countries: SelectedCountryType[]
-  email: string
-  isVerified: boolean
-  name: string
-  role: RoleType
-  verificationToken: string
-  verified: string
-  __v: number
-  _id: string
-}
+import React, { useContext } from 'react'
+import { AuthContext, UserAdminDetails } from '../context/AuthContext'
+import { useRouter } from 'next/router'
 
 type UserListPropsType = {
   users: UserAdminDetails[] | []
 }
 
 export default function UserList({ users }: UserListPropsType) {
-  if (!users.length) return <></>
+  const { state, dispatch } = useContext(AuthContext)
+  const router = useRouter()
 
+  console.log(state)
+
+  const onAddUserToContext = (user: UserAdminDetails) => {
+    dispatch({ type: 'SET_USER_ADMIN_DETAILS', payload: user })
+    router.push('/admin/edit-user')
+  }
+
+  if (!users.length) return <></>
   return (
     <table>
       <thead>
@@ -47,7 +45,10 @@ export default function UserList({ users }: UserListPropsType) {
               </td>
 
               <td style={{ border: '1px solid black' }}>
-                <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+                <button
+                  onClick={() => onAddUserToContext(user)}
+                  className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                >
                   Edit
                 </button>
               </td>

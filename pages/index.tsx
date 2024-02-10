@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import dynamic from 'next/dynamic'
 import Sidebar from '../components/sidebar/Sidebar'
 import DataSidebar from '../components/controls/Sidebar'
 import { reducerInitialState } from '../reducer/reducerInitialState'
-import { useAuth } from '../components/hooks/useAuth'
 
 const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
   ssr: false,
@@ -12,8 +11,6 @@ const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
 
 const Application = () => {
   const { state } = useContext(AuthContext)
-  const { protectedRoute } = useAuth()
-  protectedRoute()
 
   if (!state.user) return <></>
   return (

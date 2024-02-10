@@ -1,35 +1,56 @@
 import React, { createContext, useReducer } from 'react'
-import { SelectedCountryType } from '../pages/register'
-
-export const AuthContext = createContext(undefined)
+import { RoleType, SelectedCountryType } from '../pages/register'
 
 export type AuthUser = {
   name: string
   userId: string
-  role: 'user' | 'admin'
+  role: RoleType
   countries: SelectedCountryType[]
 } | null
+
+export type UserAdminDetails = {
+  name: string
+  _id: string
+  role: RoleType
+  countries: SelectedCountryType[]
+  email: string
+  isVerified: boolean
+  verificationToken: string
+  verified: string
+  __v: number
+}
 
 export type AuthInitialStateType = {
   isLoading: boolean
   user: AuthUser
+  userAdminDetails: UserAdminDetails
   error: any
 }
 
-export type AuthProviderActionType = {
-  type:
-    | 'AUTHENTICATION_PENDING'
-    | 'REGISTER_USER_FULFILLED'
-    | 'REGISTER_USER_REJECTED'
-    | 'AUTHENTICATE_USER_FULFILLED'
-    | 'AUTHENTICATE_USER_REJECTED'
-  payload: any
+export type AuthProviderActionType =
+  | {
+      type:
+        | 'REGISTER_USER_REJECTED'
+        | 'AUTHENTICATE_USER_FULFILLED'
+        | 'AUTHENTICATE_USER_REJECTED'
+        | 'SET_USER_ADMIN_DETAILS'
+        | 'CLEAR_USER_ADMIN_DETAILS'
+      payload: any
+    }
+  | { type: 'AUTHENTICATION_PENDING' | 'REGISTER_USER_FULFILLED' }
+
+type AuthContextType = {
+  state: AuthInitialStateType
+  dispatch: React.Dispatch<AuthProviderActionType>
 }
+
+export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }) => {
   const initialState: AuthInitialStateType = {
     isLoading: false,
     user: null,
+    userAdminDetails: null,
     error: null,
   }
 
@@ -47,12 +68,6 @@ export const AuthProvider = ({ children }) => {
           // user: null,
         }
       case 'REGISTER_USER_REJECTED': {
-        // choosing between express server error and axios error
-        // const errMsg = action.payload.response.data
-        //   ? action.payload.response.data.msg
-        //   : action.payload.message
-
-        // toast.error(errMsg)
         return {
           ...state,
           isLoading: false,
@@ -70,6 +85,12 @@ export const AuthProvider = ({ children }) => {
           error: action.payload,
           user: null,
         }
+      }
+      case 'SET_USER_ADMIN_DETAILS': {
+        return { ...state, userAdminDetails: action.payload }
+      }
+      case 'CLEAR_USER_ADMIN_DETAILS': {
+        return { ...state, userAdminDetails: null }
       }
       default:
         return state

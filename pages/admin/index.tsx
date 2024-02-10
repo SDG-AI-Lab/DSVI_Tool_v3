@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import React, { useContext, useState } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { useAuth } from '../components/hooks/useAuth'
-import customFetch from '../utils/axios'
+import { AuthContext, UserAdminDetails } from '../../context/AuthContext'
+import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import UserList, { UserAdminDetails } from '../components/UserList'
+import UserList from '../../components/UserList'
 
 // only admins can access this page - done
 // link to register user page - done
@@ -15,13 +14,9 @@ import UserList, { UserAdminDetails } from '../components/UserList'
 
 export default function Admin() {
   const { state } = useContext(AuthContext)
-  const { protectedRoute } = useAuth()
   const [users, setUsers] = useState<UserAdminDetails[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string>('')
-
-  // auth protection
-  protectedRoute()
 
   const getAllUsers = async () => {
     try {
@@ -48,13 +43,16 @@ export default function Admin() {
           email: searchTerm,
         },
       })
-      const pause = (delay) => {
-        return new Promise((res) => {
-          setTimeout(res, delay)
-        })
-      }
-      await pause(2000)
+      // DEV only
+      // const pause = (delay) => {
+      //   return new Promise((res) => {
+      //     setTimeout(res, delay)
+      //   })
+      // }
+      // await pause(2000)
+
       setUsers([response.data.user])
+      setSearchTerm('')
       setIsLoading(false)
     } catch (error) {
       const errMsg = error.response.data
