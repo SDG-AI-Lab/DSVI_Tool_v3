@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { AuthContext, AuthUser } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import { RoleType, SelectedCountryType } from '../../pages/register'
+import { RoleType, SelectedCountryType } from '../../context/AuthContext'
 
 export const useAuth = () => {
   const { state, dispatch } = useContext(AuthContext)

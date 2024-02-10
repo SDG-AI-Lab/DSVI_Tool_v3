@@ -1,4 +1,10 @@
-import React, { ChangeEvent, Fragment, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FormEvent,
+  Fragment,
+  useEffect,
+  useState,
+} from 'react'
 import { useContext } from 'react'
 import {
   AuthContext,
@@ -7,9 +13,13 @@ import {
   countryValues,
   roleValues,
 } from '../../context/AuthContext'
+import customFetch from '../../utils/axios'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
+import _ from 'lodash'
 
 export default function EditUser() {
-  const { state } = useContext(AuthContext)
+  const { state, dispatch } = useContext(AuthContext)
   if (!state.userAdminDetails) return <></>
   const [values, setValues] = useState<UserAdminDetails>(state.userAdminDetails)
 
@@ -42,8 +52,37 @@ export default function EditUser() {
     }
   }
 
+  const router = useRouter()
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const isFormUpdated = !_.isEqual(values, state.userAdminDetails)
+
+    if (!isFormUpdated) {
+      toast.warning('Make changes before submitting')
+      return
+    }
+
+    return customFetch
+      .post('api/v1/user/update-user-admin', values)
+      .then((response) => {
+        // dispatch set admin user with response.data.user?
+        toast.success(response.data.msg)
+        router.push('/admin')
+      })
+      .catch((error) => {
+        // dispatch clear admin user?
+        dispatch({ type: 'SET_USER_ADMIN_DETAILS', payload: values })
+        const errMsg = error.response.data
+          ? error.response.data.msg
+          : error.message
+        toast.error(errMsg)
+        return error
+      })
+  }
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <label>
         Name:
         <input
@@ -77,17 +116,7 @@ export default function EditUser() {
       </label>
       <br />
       <br />
-      <label>
-        Role:
-        <input
-          type="text"
-          name="role"
-          value={values.role}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <br />
+
       <div>
         <h3>Account Verified:</h3>
         <label>
@@ -155,6 +184,9 @@ export default function EditUser() {
           )
         })}
       </div>
+      <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+        Submit Changes
+      </button>
     </form>
   )
 }
