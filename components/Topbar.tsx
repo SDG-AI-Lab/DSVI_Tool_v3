@@ -5,6 +5,7 @@ import { useAuth } from './hooks/useAuth'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
+import DropDown from './DropDown'
 
 const TopBar = () => {
   const { state } = useContext(AuthContext)
@@ -69,6 +70,7 @@ const TopBar = () => {
                 {state.isLoading ? 'Loading...' : 'Logout'}
               </button>
             )}
+            <DropDown />
           </li>
         </ul>
       </nav>
