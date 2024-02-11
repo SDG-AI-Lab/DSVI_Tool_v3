@@ -7,27 +7,30 @@ import {
   countryValues,
   roleValues,
 } from '../../context/AuthContext'
-import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
-import { useRouter } from 'next/router'
 import _ from 'lodash'
 import { useAuth } from '../../components/hooks/useAuth'
 
 export default function EditUser() {
   const {
     state: { userAdminDetails },
+    state,
   } = useContext(AuthContext)
-  const { persistServerUserChange, deleteUserAccount } = useAuth()
-  if (!userAdminDetails) return <></>
+
+  const { persistServerUserChange, deleteUserAccount, protectedRoute } =
+    useAuth()
+
+  if (!userAdminDetails) return <>No data to display</>
+  if (state.user.role !== 'admin') return <>Not admin</>
 
   const [values, setValues] = useState<UserAdminDetails>(userAdminDetails)
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     const value = e.target.value
     setValues({ ...values, [name]: value })
   }
 
-  const handleCountrySelect = (e: ChangeEvent<HTMLInputElement>) => {
+  const onCountrySelect = (e: ChangeEvent<HTMLInputElement>) => {
     const value: SelectedCountryType = e.target.value as SelectedCountryType
     if (values.countries.includes(value)) {
       setValues({
@@ -39,7 +42,7 @@ export default function EditUser() {
     }
   }
 
-  const handleVerification = (e: ChangeEvent<HTMLInputElement>) => {
+  const onVerificationChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     if (value.toLowerCase() === 'yes') {
       setValues({ ...values, isVerified: true })
@@ -47,8 +50,6 @@ export default function EditUser() {
       setValues({ ...values, isVerified: false })
     }
   }
-
-  const router = useRouter()
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -69,6 +70,18 @@ export default function EditUser() {
     return { color }
   }
 
+  const [confirmedDelete, setConfirmedDelete] = useState(false)
+  const onUserDelete = () => {
+    if (!confirmedDelete) {
+      toast.info('Please press Delete User again to DELETE user account', {
+        autoClose: false,
+      })
+      toast.onChange(() => setConfirmedDelete(true))
+      return
+    }
+    deleteUserAccount(values._id)
+  }
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -78,7 +91,7 @@ export default function EditUser() {
             type="text"
             name="name"
             value={values.name}
-            onChange={handleChange}
+            onChange={onChange}
           />
         </label>
         <br />
@@ -89,7 +102,7 @@ export default function EditUser() {
             type="text"
             name="email"
             value={values.email.trim()}
-            onChange={handleChange}
+            onChange={onChange}
           />
         </label>
         <br />
@@ -103,7 +116,7 @@ export default function EditUser() {
             type="text"
             name="password"
             value={values.password}
-            onChange={handleChange}
+            onChange={onChange}
           />
         </label>
         <br />
@@ -123,7 +136,7 @@ export default function EditUser() {
               name="isVerified"
               value="yes"
               checked={values.isVerified}
-              onChange={handleVerification}
+              onChange={onVerificationChange}
             />
           </label>
           <br />
@@ -134,7 +147,7 @@ export default function EditUser() {
               name="isVerified"
               value="no"
               checked={!values.isVerified}
-              onChange={handleVerification}
+              onChange={onVerificationChange}
             />
           </label>
           <br />
@@ -153,7 +166,7 @@ export default function EditUser() {
                     name="role"
                     value={role}
                     checked={values.role === role}
-                    onChange={handleChange}
+                    onChange={onChange}
                   />
                 </label>
                 <br />
@@ -177,7 +190,7 @@ export default function EditUser() {
                     type="checkbox"
                     value={country}
                     checked={values.countries.includes(country)}
-                    onChange={handleCountrySelect}
+                    onChange={onCountrySelect}
                   />
                   {country}
                 </label>
@@ -193,7 +206,7 @@ export default function EditUser() {
       </form>
       <br />
       <button
-        onClick={() => deleteUserAccount(values._id)}
+        onClick={() => onUserDelete()}
         className="rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
       >
         Delete User

@@ -96,6 +96,7 @@ export const useAuth = () => {
   }
 
   const protectedRoute = () => {
+    console.log('protected route running')
     const redirect = ({ user, error }: { user: AuthUser; error: string }) => {
       if (typeof window === 'undefined') return
       if (router.route === '/' && !user) {
@@ -105,7 +106,11 @@ export const useAuth = () => {
         setTimeout(() => {
           router.push('/')
         }, 1000)
-      } else if (router.route === '/admin' || router.route === '/register') {
+      } else if (
+        router.route === '/admin' ||
+        router.route === '/register' ||
+        router.route === '/admin/edit-user'
+      ) {
         if (!user) {
           toast.error('Unauthorized, please login as Admin')
           router.push('/landing')
@@ -161,8 +166,8 @@ export const useAuth = () => {
       .then((response) => {
         // dispatch set admin user with response.data.user?
         toast.success(response.data.msg)
-        dispatch({ type: 'CLEAR_USER_ADMIN_DETAILS', payload: values })
         router.push('/admin')
+        dispatch({ type: 'CLEAR_USER_ADMIN_DETAILS', payload: values })
       })
       .catch((error) => {
         const errMsg = error.response.data
