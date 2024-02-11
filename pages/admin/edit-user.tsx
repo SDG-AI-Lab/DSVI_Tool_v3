@@ -11,12 +11,13 @@ import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import _ from 'lodash'
+import { useAuth } from '../../components/hooks/useAuth'
 
 export default function EditUser() {
   const {
     state: { userAdminDetails },
-    dispatch,
   } = useContext(AuthContext)
+  const { persistServerUserChange, deleteUserAccount } = useAuth()
   if (!userAdminDetails) return <></>
 
   const [values, setValues] = useState<UserAdminDetails>(userAdminDetails)
@@ -57,41 +58,7 @@ export default function EditUser() {
       toast.warning('Make changes before submitting')
       return
     }
-
-    customFetch
-      .post('api/v1/user/update-user-admin', values)
-      .then((response) => {
-        // dispatch set admin user with response.data.user?
-        toast.success(response.data.msg)
-        router.push('/admin')
-      })
-      .catch((error) => {
-        // dispatch clear admin user?
-        dispatch({ type: 'SET_USER_ADMIN_DETAILS', payload: values })
-        const errMsg = error.response.data
-          ? error.response.data.msg
-          : error.message
-        toast.error(errMsg)
-      })
-  }
-
-  const onDeleteUser = () => {
-    customFetch
-      .delete('api/v1/user/delete-user', {
-        data: {
-          _id: values._id,
-        },
-      })
-      .then((response) => {
-        toast.success('User Deleted Successfully')
-        router.push('/admin')
-      })
-      .catch((error) => {
-        const errMsg = error.response.data
-          ? error.response.data.msg
-          : error.message
-        toast.error(errMsg)
-      })
+    persistServerUserChange(values)
   }
 
   const onChangeFontStyle = (
@@ -226,7 +193,7 @@ export default function EditUser() {
       </form>
       <br />
       <button
-        onClick={onDeleteUser}
+        onClick={() => deleteUserAccount(values._id)}
         className="rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
       >
         Delete User

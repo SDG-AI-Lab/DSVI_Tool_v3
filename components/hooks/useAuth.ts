@@ -1,6 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { AuthContext, AuthUser } from '../../context/AuthContext'
+import {
+  AuthContext,
+  AuthUser,
+  UserAdminDetails,
+} from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
 import { RoleType, SelectedCountryType } from '../../context/AuthContext'
@@ -150,5 +154,48 @@ export const useAuth = () => {
     }
     asyncLogout()
   }
-  return { registerUser, loginUser, logoutUser, protectedRoute, checkAuth }
+
+  const persistServerUserChange = (values: UserAdminDetails) => {
+    customFetch
+      .post('api/v1/user/update-user-admin', values)
+      .then((response) => {
+        // dispatch set admin user with response.data.user?
+        toast.success(response.data.msg)
+        dispatch({ type: 'CLEAR_USER_ADMIN_DETAILS', payload: values })
+        router.push('/admin')
+      })
+      .catch((error) => {
+        const errMsg = error.response.data
+          ? error.response.data.msg
+          : error.message
+        toast.error(errMsg)
+      })
+  }
+
+  const deleteUserAccount = (userId: string) => {
+    customFetch
+      .delete('api/v1/user/delete-user', {
+        data: { _id: userId },
+      })
+      .then((response) => {
+        toast.success('User Deleted Successfully')
+        router.push('/admin')
+      })
+      .catch((error) => {
+        const errMsg = error.response.data
+          ? error.response.data.msg
+          : error.message
+        toast.error(errMsg)
+      })
+  }
+
+  return {
+    registerUser,
+    loginUser,
+    logoutUser,
+    protectedRoute,
+    checkAuth,
+    persistServerUserChange,
+    deleteUserAccount,
+  }
 }
