@@ -11,6 +11,7 @@ export default function UserList({ users }: UserListPropsType) {
   const router = useRouter()
 
   const onAddUserToContext = (user: UserAdminDetails) => {
+    user.password = '' // to set initial value
     dispatch({ type: 'SET_USER_ADMIN_DETAILS', payload: user })
     router.push('/admin/edit-user')
   }
