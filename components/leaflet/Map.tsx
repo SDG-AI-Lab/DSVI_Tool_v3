@@ -11,7 +11,7 @@ import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
 import CircleMarkers from '../marker/CircleMarkers'
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability'
-import AOI from 'public/static/tajikistan/AOI.geojson'
+import AOI from '../../public/static/tajikistan/AOI.json'
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
@@ -83,7 +83,7 @@ const OsmMap = () => {
       const [geojson1, geojson2, geojson3] = combinedLayer.geojson
 
       if (status) {
-        let geojson: SingleGeoJson = geojson1
+        let geojson /*: set type of geojson*/ = geojson1
         if (level === 2) {
           geojson = geojson2
         } else if (level === 3) {

@@ -27,16 +27,16 @@ const Navbar = () => {
     // refactor these to array that maps Link elements
     <nav className="mb-3 flex items-end align-bottom font-bold ">
       <Link href={'/'} as={`/`}>
-        <a className="mr-5 flex px-2 hover:text-gray-900">
+        <div className="mr-5 flex px-2 hover:text-gray-900">
           <FiMapPin className={`h-6 w-6  ${returnIconClassname('/')}`} />
           {/* <MapMarker pathname={pathname} /> */}
           <span className={pathname === '/' ? className : 'pl-1'}>Map</span>
-        </a>
+        </div>
       </Link>
 
       {/*// About us*/}
       <Link href="/about">
-        <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
+        <div className="mr-5 flex px-2 font-bold hover:text-gray-900">
           <BiMessageAltDetail
             className={`h-6 w-6  ${returnIconClassname('about')}`}
           />
@@ -44,11 +44,11 @@ const Navbar = () => {
           <span className={pathname === 'about' ? className : 'pl-1'}>
             About us
           </span>
-        </a>
+        </div>
       </Link>
 
       <Link href="/volunteer">
-        <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
+        <div className="mr-5 flex px-2 font-bold hover:text-gray-900">
           <MdOutlineVolunteerActivism
             className={`h-6 w-6  ${returnIconClassname('volunteer')}`}
           />
@@ -56,11 +56,11 @@ const Navbar = () => {
           <span className={pathname === 'volunteer' ? className : 'pl-1'}>
             Volunteers
           </span>
-        </a>
+        </div>
       </Link>
       {state.user && state.user.role === 'admin' && (
         <Link href="/admin">
-          <a className="mr-5 flex px-2 font-bold hover:text-gray-900">
+          <div className="mr-5 flex px-2 font-bold hover:text-gray-900">
             <FaRegRegistered
               className={`h-6 w-6  ${returnIconClassname('admin')}`}
             />
@@ -68,7 +68,7 @@ const Navbar = () => {
             <span className={pathname === 'admin' ? className : 'pl-1'}>
               Admin Page
             </span>
-          </a>
+          </div>
         </Link>
       )}
     </nav>

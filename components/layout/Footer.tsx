@@ -14,8 +14,8 @@ const Footer = () => {
               <Image
                 src="/images/whitesquare.png"
                 alt=""
-                width="40px"
-                height="40px"
+                width={40}
+                height={40}
                 layout="intrinsic"
                 className=""
               />

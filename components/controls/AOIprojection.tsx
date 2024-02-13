@@ -2,7 +2,7 @@ import L from 'leaflet'
 import CustomPolygon_AOI from './CustomPolygon_AOI'
 
 type AOIprojectionProps = {
-  geojsonFeature: GeoJsonFeaturesType
+  geojsonFeature: any /*set geojson features type*/
 }
 
 const AOIprojection = ({ geojsonFeature }: AOIprojectionProps) => {

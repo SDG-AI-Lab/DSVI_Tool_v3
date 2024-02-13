@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import Image from 'next/image'
 import sdgFilled from '/public/images/logo-sdg-filled.png'
 import bg from '../public/images/launch-background.jpeg'
-import marker1 from '../public/images/marker1.png'
-import undpWhite from '/public/images/logo-undp-white.png'
-import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
+// import marker1 from '../public/images/marker1.png'
+// import undpWhite from '/public/images/logo-undp-white.png'
+// import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
 import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
 
@@ -49,13 +49,20 @@ export default function Landing() {
       </div>
       <div className="flex justify-evenly">
         <div>
-          <Image src={marker1} alt="Logo" width={90} height={100} />
+          <img src="/images/marker1.png" alt="Logo" width={90} height={100} />
         </div>
         <div>
-          <Image src={undpWhite} alt="Logo" width={50} height={100} />
+          <img
+            src="/images/logo-undp-white.png"
+            alt="Logo"
+            width={90}
+            height={100}
+          />
+          {/* <Image src={undpWhite} alt="Logo" width={50} height={100} /> */}
         </div>
         <div>
-          <Image src={sdgAiLab} alt="Logo" width={100} height={100} />
+          <img src="../public/images/logo-sdg-ai-lab-black-alpha.png" alt="" />
+          {/* <Image src={sdgAiLab} alt="Logo" width={100} height={100} /> */}
         </div>
       </div>
     </div>
