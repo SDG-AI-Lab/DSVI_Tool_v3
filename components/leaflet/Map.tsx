@@ -167,6 +167,7 @@ const OsmMap = () => {
       // scrollWheelZone={true}
       className={styles.container}
       attributionControl={true}
+      style={{ zIndex: 1 }} // for Dropdown in TopBar.tsx
     >
       <UpdateMap />
 
