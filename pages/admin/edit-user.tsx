@@ -17,7 +17,7 @@ export default function EditUser() {
     state,
   } = useContext(AuthContext)
 
-  const { persistServerUserChange, deleteUserAccount, protectedRoute } =
+  const { changeUserDetailsAdmin, deleteUserAccount, protectedRoute } =
     useAuth()
 
   if (!userAdminDetails) return <>No data to display</>
@@ -59,7 +59,7 @@ export default function EditUser() {
       toast.warning('Make changes before submitting')
       return
     }
-    persistServerUserChange(values)
+    changeUserDetailsAdmin(values)
   }
 
   const onChangeFontStyle = (

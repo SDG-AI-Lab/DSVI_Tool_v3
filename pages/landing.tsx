@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Image from 'next/image'
-import sdgFilled from '/public/images/logo-sdg-filled.png'
+import sdgFilled from '/public/miages/logo-sdg-filled.png'
 import bg from '../public/images/launch-background.jpeg'
 // import marker1 from '../public/images/marker1.png'
 // import undpWhite from '/public/images/logo-undp-white.png'

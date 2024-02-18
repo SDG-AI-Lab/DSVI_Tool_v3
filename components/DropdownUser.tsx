@@ -4,6 +4,7 @@ import { useAuth } from './hooks/useAuth'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export default function DropdownUser() {
   const { state } = useContext(AuthContext)
@@ -20,8 +21,12 @@ export default function DropdownUser() {
       <Dropdown.Header>
         <span className="block font-medium">{state.user.name}</span>
       </Dropdown.Header>
-      <Dropdown.Item>Change User Details</Dropdown.Item>
-      <Dropdown.Item>Change Password</Dropdown.Item>
+      <Dropdown.Item>
+        <Link href={'/edit-user'}>Change User Details</Link>
+      </Dropdown.Item>
+      <Dropdown.Item>
+        <Link href={'/edit-user'}>Change Password</Link>
+      </Dropdown.Item>
       <Dropdown.Divider />
       <Dropdown.Item onClick={onLogoutClick}>
         <span className="font-bold">

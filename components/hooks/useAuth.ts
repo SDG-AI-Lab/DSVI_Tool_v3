@@ -160,7 +160,7 @@ export const useAuth = () => {
     asyncLogout()
   }
 
-  const persistServerUserChange = (values: UserAdminDetails) => {
+  const changeUserDetailsAdmin = (values: UserAdminDetails) => {
     customFetch
       .post('api/v1/user/update-user-admin', values)
       .then((response) => {
@@ -200,7 +200,7 @@ export const useAuth = () => {
     logoutUser,
     protectedRoute,
     checkAuth,
-    persistServerUserChange,
+    changeUserDetailsAdmin,
     deleteUserAccount,
   }
 }
