@@ -1,16 +1,10 @@
 import Link from 'next/link'
 import React, { useContext, useState } from 'react'
+import { Button, TextInput, Label } from 'flowbite-react'
 import { AuthContext, UserAdminDetails } from '../../context/AuthContext'
 import customFetch from '../../utils/axios'
 import { toast } from 'react-toastify'
 import UserList from '../../components/UserList'
-
-// only admins can access this page - done
-// link to register user page - done
-// get list of users - done
-// implement loading - done
-// delete user
-// reset password = edit user's password
 
 export default function Admin() {
   const { state } = useContext(AuthContext)
@@ -64,48 +58,54 @@ export default function Admin() {
     }
   }
 
-  if (!state.user || (state.user && state.user.role !== 'admin')) return <></>
+  if (!state.user || (state.user && state.user.role !== 'admin')) {
+    return <>Not logged in or not admin</>
+  }
+
   return (
     <>
-      <br />
-      <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+      <Button className="m-2" color="blue">
         <Link href={'/register'}>Register New User</Link>
-      </button>
-      <br />
-      <br />
-      <button
+      </Button>
+
+      <Button
+        className="m-2"
+        color="blue"
         onClick={getAllUsers}
-        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
         disabled={isLoading}
       >
         {isLoading ? 'loading...' : 'Get All Users'}
-      </button>
-      <br />
-      <br />
-      <button
+      </Button>
+
+      <Button
+        className="m-2"
+        color="blue"
         onClick={() => setUsers([])}
-        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
         disabled={isLoading}
       >
         {isLoading ? 'loading...' : 'Clear User List'}
-      </button>
-      <br />
-      <br />
-      <label>
-        Find One User by Email
-        <input
+      </Button>
+      <div className="flex items-center">
+        <Label className="m-2 " htmlFor="find">
+          Find One User by Email
+        </Label>
+
+        <TextInput
+          className="m-2 max-w-md"
+          id="find"
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </label>
-      <button
-        onClick={getSingleUser}
-        className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-        disabled={isLoading}
-      >
-        {isLoading ? 'loading...' : 'Find'}
-      </button>
+        <Button
+          onClick={getSingleUser}
+          className="m-2"
+          color="blue"
+          disabled={isLoading}
+        >
+          {isLoading ? 'loading...' : 'Find'}
+        </Button>
+      </div>
 
       <UserList users={users} />
     </>
