@@ -14,6 +14,7 @@ import {
 } from '../context/AuthContext'
 import { toast } from 'react-toastify'
 import { useAuth } from '../components/hooks/useAuth'
+import { Button, Checkbox, Label, Select, TextInput } from 'flowbite-react'
 
 const initialState = {
   name: '',
@@ -32,7 +33,9 @@ export default function Register() {
     SelectedCountryType[]
   >([])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const name = e.target.name
     const value = e.target.value
     setValues({ ...values, [name]: value })
@@ -71,104 +74,102 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <h3>Register</h3>
+    <form onSubmit={onSubmit} className="m-2 flex max-w-md flex-col gap-4">
+      <h1>Register</h1>
 
-      <>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="name" value="Name:" />
+        </div>
+        <TextInput
           id="name"
+          type="text"
           name="name"
+          placeholder="John Doe"
           value={values.name}
           onChange={handleChange}
-          // required
         />
-      </>
-      <br />
-      <br />
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        // required
-      />
-      <br />
-      <br />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        // required
-      />
-      <br />
-      <br />
-      <>
-        <label htmlFor="name">Confirm Password:</label>
-        <input
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="email" value="Email:" />
+        </div>
+        <TextInput
+          type="email"
+          id="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          placeholder="john@gmail.com"
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password" value="Password: " />
+        </div>
+        <TextInput
+          type="password"
+          id="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="confirm-password" value="Confirm Password:" />
+        </div>
+        <TextInput
           type="password"
           id="confirm-password"
           name="confirmPassword"
           value={values.confirmPassword}
           onChange={handleChange}
-          // required
         />
-      </>
-      <br />
-      <br />
-      <button
-        type="submit"
-        className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"
-        disabled={state.isLoading}
-      >
-        {state.isLoading ? 'loading...' : 'Submit'}
-      </button>
-      <br />
+      </div>
+
       <div>
-        <h3>Countries accessible to new user</h3>
-        {countryValues.map((country) => {
-          return (
-            <Fragment key={country}>
-              <label>
-                <input
-                  type="checkbox"
-                  value={country}
-                  checked={selectedCountries.includes(country)}
+        <h2>Countries accessible to new user</h2>
+        <div className="flex max-w-md flex-col gap-2" id="checkbox">
+          {countryValues.map((country) => {
+            return (
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id={country}
                   onChange={handleCountrySelect}
+                  value={country}
+                  color="blue"
                 />
-                {country}
-              </label>
-              <br />
-            </Fragment>
-          )
-        })}
+                <Label htmlFor={country}>{country}</Label>
+              </div>
+            )
+          })}
+        </div>
       </div>
-      <div>
-        <h3>Choose role for new user</h3>
-        {roleValues.map((role) => {
-          return (
-            <>
-              <label>
-                {role}
-                <input
-                  type="radio"
-                  name="role"
-                  value={role}
-                  checked={values.role === role}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-            </>
-          )
-        })}
+
+      <div className="max-w-md">
+        <div className="mb-2 block">
+          <Label htmlFor="roles" value="New User's Role:" />
+        </div>
+        <Select
+          id="roles"
+          name="role"
+          onChange={handleChange}
+          value={values.role}
+          required
+        >
+          {roleValues.map((role) => {
+            return <option value={role}>{role}</option>
+          })}
+        </Select>
       </div>
+
+      <Button color="blue" type="submit" disabled={state.isLoading}>
+        {state.isLoading ? 'loading...' : 'Submit'}
+      </Button>
     </form>
   )
 }
