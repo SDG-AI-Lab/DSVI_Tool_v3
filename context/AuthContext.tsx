@@ -12,6 +12,7 @@ export const roleValues: RoleType[] = ['user', 'admin']
 
 export type AuthUser = {
   name: string
+  email: string
   userId: string
   role: RoleType
   countries: SelectedCountryType[]
@@ -47,7 +48,13 @@ export type AuthProviderActionType =
         | 'CLEAR_USER_ADMIN_DETAILS'
       payload: any
     }
-  | { type: 'AUTHENTICATION_PENDING' | 'REGISTER_USER_FULFILLED' }
+  | {
+      type:
+        | 'AUTHENTICATION_PENDING'
+        | 'REGISTER_USER_FULFILLED'
+        | 'SET_IS_LOADING'
+        | 'CLEAR_IS_LOADING'
+    }
 
 type AuthContextType = {
   state: AuthInitialStateType
@@ -101,6 +108,12 @@ export const AuthProvider = ({ children }) => {
       }
       case 'CLEAR_USER_ADMIN_DETAILS': {
         return { ...state, userAdminDetails: null }
+      }
+      case 'SET_IS_LOADING': {
+        return { ...state, isLoading: true }
+      }
+      case 'CLEAR_IS_LOADING': {
+        return { ...state, isLoading: false }
       }
       default:
         return state

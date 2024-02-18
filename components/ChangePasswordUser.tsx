@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import { Button, TextInput, Label } from 'flowbite-react'
-import { toast } from 'react-toastify'
-import customFetch from '../utils/axios'
+import { useAuth } from './hooks/useAuth'
+import { AuthContext } from '../context/AuthContext'
 
 const initialPasswordValues = {
   oldPassword: '',
@@ -11,9 +11,10 @@ const initialPasswordValues = {
 
 export default function ChangePasswordUser() {
   const [passwordValues, setPasswordValues] = useState(initialPasswordValues)
-  const [isLoading, setIsLoading] = useState(false)
+  const { changePasswordUser } = useAuth()
+  const { state } = useContext(AuthContext)
 
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     const value = e.target.value
     setPasswordValues({ ...passwordValues, [name]: value })
@@ -21,32 +22,9 @@ export default function ChangePasswordUser() {
 
   const onPasswordChangeSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsLoading(true)
     console.log('submitting')
-    const { newPassword, confirmPassword, oldPassword } = passwordValues
 
-    if (newPassword !== confirmPassword) {
-      toast.error('New passwords are not matching')
-      return
-    }
-    if (oldPassword === newPassword) {
-      toast.error('Cannot use previous password')
-      return
-    }
-
-    customFetch
-      .patch('api/v1/user/update-user-password', passwordValues)
-      .then((response) => {
-        toast.success(response.data.msg)
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        const errMsg = error.response.data
-          ? error.response.data.msg
-          : error.message
-        toast.error(errMsg)
-        setIsLoading(false)
-      })
+    changePasswordUser(passwordValues)
   }
 
   return (
@@ -59,11 +37,11 @@ export default function ChangePasswordUser() {
           <Label value="Current Password:" htmlFor="oldPassword" />
         </div>
         <TextInput
-          type="text"
+          type="password"
           name="oldPassword"
           id="oldPassword"
           value={passwordValues.oldPassword}
-          onChange={onPasswordChange}
+          onChange={onChange}
           shadow
         />
       </div>
@@ -72,11 +50,11 @@ export default function ChangePasswordUser() {
           <Label value="New Password:" htmlFor="newPassword" />
         </div>
         <TextInput
-          type="text"
+          type="password"
           name="newPassword"
           id="newPassword"
           value={passwordValues.newPassword}
-          onChange={onPasswordChange}
+          onChange={onChange}
           shadow
         />
       </div>
@@ -85,16 +63,16 @@ export default function ChangePasswordUser() {
           <Label value="Confirm New Password:" htmlFor="confirmPassword" />
         </div>
         <TextInput
-          type="text"
+          type="password"
           name="confirmPassword"
           id="confirmPassword"
           value={passwordValues.confirmPassword}
-          onChange={onPasswordChange}
+          onChange={onChange}
           shadow
         />
       </div>
-      <Button type="submit" color="blue" disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Change Password'}
+      <Button type="submit" color="blue" disabled={state.isLoading}>
+        {state.isLoading ? 'Loading...' : 'Change Password'}
       </Button>
     </form>
   )

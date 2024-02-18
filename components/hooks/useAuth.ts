@@ -96,7 +96,6 @@ export const useAuth = () => {
   }
 
   const protectedRoute = () => {
-    console.log('protected route running')
     const redirect = ({ user, error }: { user: AuthUser; error: string }) => {
       if (typeof window === 'undefined') return
       if (router.route === '/' && !user) {
@@ -194,6 +193,54 @@ export const useAuth = () => {
       })
   }
 
+  const changePasswordUser = async (passwordValues: {
+    oldPassword: String
+    newPassword: String
+    confirmPassword: String
+  }) => {
+    const { newPassword, confirmPassword, oldPassword } = passwordValues
+
+    if (newPassword !== confirmPassword) {
+      toast.error('New passwords are not matching')
+      return
+    }
+    if (oldPassword === newPassword) {
+      toast.error('Cannot use previous password')
+      return
+    }
+
+    dispatch({ type: 'SET_IS_LOADING' })
+
+    try {
+      const response = await customFetch.patch(
+        'api/v1/user/update-user-password',
+        passwordValues
+      )
+
+      toast.success(response.data.msg)
+      dispatch({ type: 'CLEAR_IS_LOADING' })
+    } catch (error) {
+      const errMsg = error.response.data
+        ? error.response.data.msg
+        : error.message
+      toast.error(errMsg)
+      dispatch({ type: 'CLEAR_IS_LOADING' })
+    }
+    // customFetch
+    //   .patch('api/v1/user/update-user-password', passwordValues)
+    //   .then((response) => {
+    //     toast.success(response.data.msg)
+    //     dispatch({ type: 'CLEAR_IS_LOADING' })
+    //   })
+    //   .catch((error) => {
+    //     const errMsg = error.response.data
+    //       ? error.response.data.msg
+    //       : error.message
+    //     toast.error(errMsg)
+    //     dispatch({ type: 'CLEAR_IS_LOADING' })
+    //   })
+  }
+
   return {
     registerUser,
     loginUser,
@@ -202,5 +249,6 @@ export const useAuth = () => {
     checkAuth,
     changeUserDetailsAdmin,
     deleteUserAccount,
+    changePasswordUser,
   }
 }
