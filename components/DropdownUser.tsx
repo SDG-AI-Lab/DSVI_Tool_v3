@@ -17,9 +17,9 @@ export default function DropdownUser() {
   }
 
   return (
-    <Dropdown className="z-10" label="Settings">
+    <Dropdown className="z-10" label={state.user.name}>
       <Dropdown.Header>
-        <span className="block font-medium">{state.user.name}</span>
+        <span className="block font-medium">{state.user.email}</span>
       </Dropdown.Header>
       <Dropdown.Item>
         <Link href={'/edit-user'}>Change User Details</Link>

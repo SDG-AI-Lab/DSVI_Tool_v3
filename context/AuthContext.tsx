@@ -46,6 +46,7 @@ export type AuthProviderActionType =
         | 'AUTHENTICATE_USER_REJECTED'
         | 'SET_USER_ADMIN_DETAILS'
         | 'CLEAR_USER_ADMIN_DETAILS'
+        | 'SET_USER'
       payload: any
     }
   | {
@@ -114,6 +115,9 @@ export const AuthProvider = ({ children }) => {
       }
       case 'CLEAR_IS_LOADING': {
         return { ...state, isLoading: false }
+      }
+      case 'SET_USER': {
+        return { ...state, user: action.payload }
       }
       default:
         return state
