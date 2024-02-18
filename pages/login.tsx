@@ -9,6 +9,7 @@ import { AuthContext } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { useAuth } from '../components/hooks/useAuth'
+import { Button, Label, TextInput } from 'flowbite-react'
 
 const initialState = {
   email: '',
@@ -43,43 +44,46 @@ export default function Login() {
     if (state.user) {
       setTimeout(() => {
         router.push('/')
+        // setIsLoading false here
       }, 2000)
     }
   }, [state.user])
 
   return (
-    <form onSubmit={onSubmit}>
-      <h3>Login</h3>
+    <form onSubmit={onSubmit} className="m-2 flex max-w-md flex-col gap-4">
+      <h1>Login</h1>
 
-      <label htmlFor="email">Email:</label>
-      <input
-        type="text"
-        id="email"
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        // required
-      />
-      <br />
-      <br />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        // required
-      />
-      <br />
-      <br />
-      <button
-        type="submit"
-        className="flex items-center rounded bg-blue-500 px-4 py-2 pl-5 text-white"
-        disabled={state.isLoading}
-      >
-        {state.isLoading ? 'loading...' : 'Submit'}
-      </button>
+      <div>
+        <div className="mb-2 block">
+          <Label value="Email:" htmlFor="name" />
+        </div>
+        <TextInput
+          type="text"
+          id="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          shadow
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label value="Password:" htmlFor="password" />
+        </div>
+        <TextInput
+          type="password"
+          id="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          shadow
+        />
+      </div>
+
+      <Button type="submit" color="blue" disabled={state.isLoading}>
+        {state.isLoading ? 'Loading...' : 'Submit'}
+      </Button>
     </form>
   )
 }

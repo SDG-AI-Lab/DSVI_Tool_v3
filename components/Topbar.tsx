@@ -24,7 +24,7 @@ const TopBar = () => {
               </div>
             </Link>
           </li>
-          <li className="flex items-end">
+          <li className="flex items-center">
             <Navbar />
           </li>
           <li className="flex items-center justify-end">
