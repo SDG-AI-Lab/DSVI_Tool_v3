@@ -17,7 +17,7 @@ export default function DropdownUser() {
   }
 
   return (
-    <Dropdown className="z-10" label={state.user.name}>
+    <Dropdown className="z-10" color="blue" label={state.user.name}>
       <Dropdown.Header>
         <span className="block font-medium">{state.user.email}</span>
       </Dropdown.Header>

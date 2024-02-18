@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { AuthContext, UserAdminDetails } from '../context/AuthContext'
 import { useRouter } from 'next/router'
+import { Table } from 'flowbite-react'
 
 type UserListPropsType = {
   users: UserAdminDetails[] | []
@@ -18,43 +19,47 @@ export default function UserList({ users }: UserListPropsType) {
 
   if (!users.length) return <></>
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Email</th>
-          <th>Email Verified</th>
-          <th>Countries</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user: UserAdminDetails) => {
-          return (
-            <tr key={user._id} style={{ border: '2px solid black' }}>
-              <td style={{ border: '1px solid black' }}>{user.name}</td>
-              <td style={{ border: '1px solid black' }}>{user.role}</td>
-              <td style={{ border: '1px solid black' }}>{user.email}</td>
-              <td style={{ border: '1px solid black' }}>
-                {user.isVerified ? 'yes' : 'no'}
-              </td>
-              <td style={{ border: '1px solid black' }}>
-                {user.countries.join(', ')}
-              </td>
+    <div className="m-2 overflow-x-auto">
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Role</Table.HeadCell>
+          <Table.HeadCell>Email</Table.HeadCell>
+          <Table.HeadCell>Email Verified</Table.HeadCell>
+          <Table.HeadCell>Countries</Table.HeadCell>
+          <Table.HeadCell>
+            {' '}
+            <span className="sr-only">Edit</span>
+          </Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {users.map((user: UserAdminDetails) => {
+            return (
+              <Table.Row
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                key={user._id}
+              >
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {user.name}
+                </Table.Cell>
+                <Table.Cell>{user.role}</Table.Cell>
+                <Table.Cell>{user.email}</Table.Cell>
+                <Table.Cell>{user.isVerified ? 'yes' : 'no'}</Table.Cell>
+                <Table.Cell>{user.countries.join(', ')}</Table.Cell>
 
-              <td style={{ border: '1px solid black' }}>
-                <button
-                  onClick={() => onAddUserToContext(user)}
-                  className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+                <Table.Cell>
+                  <a
+                    onClick={() => onAddUserToContext(user)}
+                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                  >
+                    Edit
+                  </a>
+                </Table.Cell>
+              </Table.Row>
+            )
+          })}
+        </Table.Body>
+      </Table>
+    </div>
   )
 }

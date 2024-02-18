@@ -41,7 +41,8 @@ export const useAuth = () => {
 
         dispatch({ type: 'REGISTER_USER_FULFILLED' })
         toast.success(
-          `Account created. Verification email sent. Verify email, then login`
+          `Account created. Verification email sent. Verify email, then login`,
+          { autoClose: false }
         )
       } catch (error) {
         toast.error(error.response.data.msg)
