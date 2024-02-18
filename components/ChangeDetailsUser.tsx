@@ -1,6 +1,5 @@
-import React, { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import React, { FormEvent, useContext, useState } from 'react'
 import { Button, TextInput, Label } from 'flowbite-react'
-import { useAuth } from './hooks/useAuth'
 import { AuthContext } from '../context/AuthContext'
 import customFetch from '../utils/axios'
 import { toast } from 'react-toastify'
@@ -11,13 +10,21 @@ export default function ChangeDetailsUser() {
 
   const [name, setName] = useState(state.user.name)
   const [email, setEmail] = useState(state.user.email)
+  const [confirmedChanges, setConfirmedChanges] = useState(false)
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('submitting')
 
     if (name === state.user.name && email === state.user.email) {
       toast.error('No changes to submit')
+      return
+    }
+
+    if (!confirmedChanges) {
+      toast.error('Press Change again to CONFIRM changes!', {
+        autoClose: false,
+      })
+      toast.onChange(() => setConfirmedChanges(true))
       return
     }
 
@@ -59,7 +66,10 @@ export default function ChangeDetailsUser() {
           name="name"
           id="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value)
+            setConfirmedChanges(false)
+          }}
           shadow
           style={onChangeFontStyle(name, state.user.name)}
         />
@@ -77,7 +87,10 @@ export default function ChangeDetailsUser() {
           name="email"
           id="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value.trim())}
+          onChange={(e) => {
+            setEmail(e.target.value.trim())
+            setConfirmedChanges(false)
+          }}
           shadow
           style={onChangeFontStyle(email, state.user.email)}
         />

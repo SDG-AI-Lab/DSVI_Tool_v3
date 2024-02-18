@@ -9,9 +9,9 @@ export default function EditUser() {
   const { state } = useContext(AuthContext)
   if (!state.user) return <>Not logged in</>
   return (
-    <>
+    <div className="m-4 flex justify-start gap-4">
       <ChangePasswordUser />
       <ChangeDetailsUser />
-    </>
+    </div>
   )
 }

@@ -17,8 +17,7 @@ export default function EditUser() {
     state,
   } = useContext(AuthContext)
 
-  const { changeUserDetailsAdmin, deleteUserAccount, protectedRoute } =
-    useAuth()
+  const { changeUserDetailsAdmin, deleteUserAccount } = useAuth()
 
   if (!userAdminDetails) return <>No data to display</>
   if (state.user.role !== 'admin') return <>Not admin</>
