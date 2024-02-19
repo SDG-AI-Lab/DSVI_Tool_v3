@@ -10,6 +10,7 @@ import {
 import { toast } from 'react-toastify'
 import _ from 'lodash'
 import { useAuth } from '../../components/hooks/useAuth'
+import { Button, Checkbox, Label, Select, TextInput } from 'flowbite-react'
 
 export default function EditUser() {
   const {
@@ -23,7 +24,7 @@ export default function EditUser() {
   if (state.user.role !== 'admin') return <>Not admin</>
 
   const [values, setValues] = useState<UserAdminDetails>(userAdminDetails)
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const name = e.target.name
     const value = e.target.value
     setValues({ ...values, [name]: value })
@@ -41,7 +42,9 @@ export default function EditUser() {
     }
   }
 
-  const onVerificationChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onVerificationChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const value = e.target.value
     if (value.toLowerCase() === 'yes') {
       setValues({ ...values, isVerified: true })
@@ -82,134 +85,145 @@ export default function EditUser() {
   }
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <label style={onChangeFontStyle(values.name, userAdminDetails.name)}>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={values.name}
-            onChange={onChange}
+    <form onSubmit={onSubmit} className="m-2 flex max-w-md flex-col gap-4">
+      <h1>Edit User</h1>
+      <div>
+        <div className="mb-2 block">
+          <Label
+            value="Name:"
+            htmlFor="name"
+            style={onChangeFontStyle(values.name, userAdminDetails.name)}
           />
-        </label>
-        <br />
-        <br />
-        <label style={onChangeFontStyle(values.email, userAdminDetails.email)}>
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={values.email.trim()}
-            onChange={onChange}
-          />
-        </label>
-        <br />
-        <br />
-        {/* password needs to conform to backend requirements */}
-        <label
-          style={onChangeFontStyle(values.password, userAdminDetails.password)}
-        >
-          Password:
-          <input
-            type="text"
-            name="password"
-            value={values.password}
-            onChange={onChange}
-          />
-        </label>
-        <br />
-        <br />
-
-        <div
-          style={onChangeFontStyle(
-            values.isVerified,
-            userAdminDetails.isVerified
-          )}
-        >
-          <h3>Account Verified:</h3>
-          <label>
-            Yes
-            <input
-              type="radio"
-              name="isVerified"
-              value="yes"
-              checked={values.isVerified}
-              onChange={onVerificationChange}
-            />
-          </label>
-          <br />
-          <label>
-            No
-            <input
-              type="radio"
-              name="isVerified"
-              value="no"
-              checked={!values.isVerified}
-              onChange={onVerificationChange}
-            />
-          </label>
-          <br />
         </div>
-        <br />
-        <br />
-        <div style={onChangeFontStyle(values.role, userAdminDetails.role)}>
-          <h3>Choose role for user</h3>
-          {roleValues.map((role, i) => {
+        <TextInput
+          type="text"
+          id="name"
+          name="name"
+          value={values.name}
+          onChange={onChange}
+          shadow
+          style={onChangeFontStyle(values.name, userAdminDetails.name)}
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label
+            value="Email:"
+            htmlFor="email"
+            style={onChangeFontStyle(values.email, userAdminDetails.email)}
+          />
+        </div>
+        <TextInput
+          type="text"
+          name="email"
+          value={values.email.trim()}
+          onChange={onChange}
+          id="email"
+          shadow
+          style={onChangeFontStyle(values.name, userAdminDetails.name)}
+        />
+      </div>
+
+      {/* password needs to conform to backend requirements */}
+      <div>
+        <div className="mb-2 block">
+          <Label
+            value="Password:"
+            htmlFor="password"
+            style={onChangeFontStyle(
+              values.password,
+              userAdminDetails.password
+            )}
+          />
+        </div>
+        <TextInput
+          type="text"
+          name="password"
+          value={values.password}
+          onChange={onChange}
+          id="password"
+          shadow
+          style={onChangeFontStyle(values.password, userAdminDetails.password)}
+        />
+      </div>
+
+      <div className="max-w-md">
+        <div className="mb-2 block">
+          <Label
+            htmlFor="roles"
+            value="Account Verified:"
+            style={onChangeFontStyle(
+              values.isVerified,
+              userAdminDetails.isVerified
+            )}
+          />
+        </div>
+        <Select id="roles" name="role" onChange={onVerificationChange} required>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </Select>
+      </div>
+
+      <div className="max-w-md">
+        <div className="mb-2 block">
+          <Label
+            htmlFor="roles"
+            value="User's Role:"
+            style={onChangeFontStyle(values.role, userAdminDetails.role)}
+          />
+        </div>
+        <Select
+          id="roles"
+          name="role"
+          onChange={onChange}
+          value={values.role}
+          required
+        >
+          {roleValues.map((role) => {
             return (
-              <Fragment key={i}>
-                <label>
-                  {role}
-                  <input
-                    type="radio"
-                    name="role"
-                    value={role}
-                    checked={values.role === role}
-                    onChange={onChange}
-                  />
-                </label>
-                <br />
-              </Fragment>
+              <option key={role} value={role}>
+                {role}
+              </option>
             )
           })}
-        </div>
-        <br />
-        <div
+        </Select>
+      </div>
+
+      <div>
+        <h2
           style={onChangeFontStyle(
             values.countries.sort(),
             userAdminDetails.countries.sort()
           )}
         >
-          <h3>Countries accessible to user</h3>
+          Countries accessible to user
+        </h2>
+        <div className="flex max-w-md flex-col gap-2" id="checkbox">
           {countryValues.map((country) => {
             return (
-              <Fragment key={country}>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={country}
-                    checked={values.countries.includes(country)}
-                    onChange={onCountrySelect}
-                  />
-                  {country}
-                </label>
-                <br />
-              </Fragment>
+              <div key={country} className="flex items-center gap-2">
+                <Checkbox
+                  id={country}
+                  onChange={onCountrySelect}
+                  value={country}
+                  color="blue"
+                  checked={values.countries.includes(country)}
+                />
+                <Label htmlFor={country}>{country}</Label>
+              </div>
             )
           })}
         </div>
-        <br />
-        <button className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
-          Submit Changes
-        </button>
-      </form>
-      <br />
-      <button
-        onClick={() => onUserDelete()}
-        className="rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-      >
-        Delete User
-      </button>
-    </>
+      </div>
+
+      <Button color="blue" type="submit" disabled={state.isLoading}>
+        {state.isLoading ? 'loading...' : 'Submit Changes'}
+      </Button>
+
+      <Button color="failure" disabled={state.isLoading} onClick={onUserDelete}>
+        {state.isLoading ? 'loading...' : 'Delete User'}
+      </Button>
+    </form>
   )
 }

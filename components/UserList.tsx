@@ -50,7 +50,7 @@ export default function UserList({ users }: UserListPropsType) {
                 <Table.Cell>
                   <a
                     onClick={() => onAddUserToContext(user)}
-                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                    className="cursor-pointer font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Edit
                   </a>

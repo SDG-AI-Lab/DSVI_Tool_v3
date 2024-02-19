@@ -136,11 +136,12 @@ export default function Register() {
         <div className="flex max-w-md flex-col gap-2" id="checkbox">
           {countryValues.map((country) => {
             return (
-              <div className="flex items-center gap-2">
+              <div key={country} className="flex items-center gap-2">
                 <Checkbox
                   id={country}
                   onChange={handleCountrySelect}
                   value={country}
+                  checked={selectedCountries.includes(country)}
                   color="blue"
                 />
                 <Label htmlFor={country}>{country}</Label>
@@ -162,7 +163,11 @@ export default function Register() {
           required
         >
           {roleValues.map((role) => {
-            return <option value={role}>{role}</option>
+            return (
+              <option key={role} value={role}>
+                {role}
+              </option>
+            )
           })}
         </Select>
       </div>

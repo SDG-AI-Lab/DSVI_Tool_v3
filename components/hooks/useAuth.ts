@@ -161,6 +161,8 @@ export const useAuth = () => {
   }
 
   const changeUserDetailsAdmin = (values: UserAdminDetails) => {
+    dispatch({ type: 'SET_IS_LOADING' })
+
     customFetch
       .post('api/v1/user/update-user-admin', values)
       .then((response) => {
@@ -168,12 +170,14 @@ export const useAuth = () => {
         toast.success(response.data.msg)
         router.push('/admin')
         dispatch({ type: 'CLEAR_USER_ADMIN_DETAILS', payload: values })
+        dispatch({ type: 'CLEAR_IS_LOADING' })
       })
       .catch((error) => {
         const errMsg = error.response.data
           ? error.response.data.msg
           : error.message
         toast.error(errMsg)
+        dispatch({ type: 'CLEAR_IS_LOADING' })
       })
   }
 
