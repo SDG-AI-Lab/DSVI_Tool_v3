@@ -64,11 +64,16 @@ export const useAuth = () => {
         })
 
         const { user } = response.data
+        console.log('loginUser, user: ', user)
 
         dispatch({ type: 'AUTHENTICATE_USER_FULFILLED', payload: user })
         toast.success(`Welcome back ${user.name}`)
       } catch (error) {
-        toast.error(error.response.data.msg)
+        const errMsg = error.response.data
+          ? error.response.data.msg
+          : error.message
+
+        toast.error(errMsg)
         dispatch({ type: 'AUTHENTICATE_USER_REJECTED', payload: error })
       }
     }
@@ -98,6 +103,7 @@ export const useAuth = () => {
 
   const protectedRoute = () => {
     const redirect = ({ user, error }: { user: AuthUser; error: string }) => {
+      console.log(user)
       if (typeof window === 'undefined') return
       if (router.route === '/' && !user) {
         toast.error(error)
