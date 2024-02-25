@@ -63,7 +63,7 @@ type AuthContextType = {
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
-
+// authContext
 export const AuthProvider = ({ children }) => {
   const initialState: AuthInitialStateType = {
     isLoading: false,
