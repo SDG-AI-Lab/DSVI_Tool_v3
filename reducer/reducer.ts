@@ -1,5 +1,9 @@
 import produce from 'immer'
-import { ReducerInitialStateType } from './reducerInitialState'
+import {
+  CategoriesCollectionType,
+  ReducerInitialStateType,
+} from './reducerInitialState'
+import { WritableDraft } from 'immer/dist/internal'
 
 export const reducer = (state: ReducerInitialStateType, action) => {
   switch (action.type) {
@@ -181,7 +185,7 @@ export const reducer = (state: ReducerInitialStateType, action) => {
         const items = Array.from(action.categories)
         const [reorderedItem] = items.splice(source.index, 1)
         items.splice(destination.index, 0, reorderedItem)
-        draft.categories = items
+        draft.categories = items as WritableDraft<CategoriesCollectionType>[]
       })
 
     case 'TOGGLE_DSV_INDICATOR':

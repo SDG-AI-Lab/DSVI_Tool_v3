@@ -9,7 +9,7 @@ import { geojson as geojsonNiger } from '../../public/static/niger'
 
 type CombinedLayerData = {
   layerInfo: SeLayerObjectType | undefined
-  geojson: SingleGeoJson[]
+  geojson: /*SingleGeoJson[]*/ any[]
 }
 
 export const useMapFunctions = () => {
