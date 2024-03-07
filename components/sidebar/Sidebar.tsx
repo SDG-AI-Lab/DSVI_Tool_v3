@@ -8,6 +8,7 @@ import SocioeconLayers from './SocioeconLayers'
 import HighResLayers from './HighResLayers'
 import { AiOutlineHeart, AiOutlineInfoCircle } from 'react-icons/ai'
 import { PiArrowsCounterClockwiseBold } from 'react-icons/pi'
+import SelectCountry from './SelectCountry'
 
 const Sidebar = (props) => {
   const { state, dispatch } = useContext(FilterContext)
@@ -67,7 +68,7 @@ const Sidebar = (props) => {
               </SidebarToggle>
             </li>
 
-            {/* <li className="relative">
+            <li className="relative">
               <SidebarToggle
                 onClick={() => dispatch({ type: 'TOGGLE_INFOBOX_DATA' })}
               >
@@ -76,7 +77,11 @@ const Sidebar = (props) => {
                   <span>{show_infoBox_data ? 'Hide' : 'Show'} Infobox</span>
                 </>
               </SidebarToggle>
-            </li> */}
+            </li>
+
+            <li>
+              <SelectCountry />
+            </li>
 
             <li className="relative">
               <SidebarToggle

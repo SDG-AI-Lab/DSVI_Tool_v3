@@ -1,7 +1,24 @@
 import produce from 'immer'
+import {
+  CategoriesCollectionType,
+  ReducerInitialStateType,
+} from './reducerInitialState'
+import { WritableDraft } from 'immer/dist/internal'
 
-export const reducer = (state, action) => {
+export const reducer = (state: ReducerInitialStateType, action) => {
   switch (action.type) {
+    case 'CHANGE_MAP_SETTINGS':
+      return produce(state, (draft) => {
+        draft.map_settings = {
+          ...draft.map_settings,
+          latlong: action.payload.latlong,
+          zoom: action.payload.zoom,
+        }
+      })
+    case 'CHANGE_COUNTRY':
+      return produce(state, (draft) => {
+        draft.country = action.payload
+      })
     case 'TOGGLE_SHOW_DATA':
       return {
         ...state,
@@ -168,7 +185,7 @@ export const reducer = (state, action) => {
         const items = Array.from(action.categories)
         const [reorderedItem] = items.splice(source.index, 1)
         items.splice(destination.index, 0, reorderedItem)
-        draft.categories = items
+        draft.categories = items as WritableDraft<CategoriesCollectionType>[]
       })
 
     case 'TOGGLE_DSV_INDICATOR':
@@ -196,11 +213,11 @@ export const reducer = (state, action) => {
         ...state,
         draw_area_of_interest: !state.draw_area_of_interest,
       }
-    case 'TOGGLE_STATISTICS':
-      return {
-        ...state,
-        show_statistics: !state.show_statistics,
-      }
+    // case 'TOGGLE_STATISTICS':
+    //   return {
+    //     ...state,
+    //     show_statistics: !state.show_statistics,
+    //   }
     case 'FETCH_CSV_DATA':
       return {
         ...state,
@@ -210,11 +227,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         dhs_data_column: action.payload,
-      }
-    case 'QUIT_HOMEPAGE':
-      return {
-        ...state,
-        on_homepage: action.payload,
       }
     default:
       return state

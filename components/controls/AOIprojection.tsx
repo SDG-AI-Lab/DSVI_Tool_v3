@@ -2,11 +2,10 @@ import L from 'leaflet'
 import CustomPolygon_AOI from './CustomPolygon_AOI'
 
 type AOIprojectionProps = {
-  geojsonFeature: GeoJsonFeaturesType
-  index: number
+  geojsonFeature: any /*set geojson features type*/
 }
 
-const AOIprojection = ({ geojsonFeature, index }: AOIprojectionProps) => {
+const AOIprojection = ({ geojsonFeature }: AOIprojectionProps) => {
   const fillColorAOI = 'rgb(255, 255, 255)'
   const hoverColor = 'blue'
 

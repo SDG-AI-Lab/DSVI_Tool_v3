@@ -9,11 +9,50 @@ What was done in the last 5 branches:
 - It was impossible to install dependencies: fixed 
 - Major refactoring - typescript migration
 - Fixed problem with TypeScript not recognizing the .geojson file format
+- Serve high res layers over https
 
-Plans: 
-- Figure out how to transfer layers using http protocol
-- If no funding: find free server for GeoServer. However, credit card input may still be required
-- Potential: make layers with radio input elements instead of checkbox
-- Make similar maps for other countries?
-- Build back end server so that accounts could be created for people from different countries
-- Add google traffic tracker?
+Plans:
+
+- Adapt for multiple countries. 
+    Files and variables that need dynamic change:
+    * file: SocioEconLegend.tsx, link in import statement
+    * file: useMapFunctions.tsx, import of geojson at the top
+    * file: reducerInitialState.tsx, map_settings.latlong 
+    * file: reducer.ts, case 'CHANGE_MAP_SETTINGS' 
+    * AOI geojson in AOIprojection.tsx
+
+    Give access to certain country to different accounts:
+    * Use country selection dropdown or option input elements 
+    * Each account to have array of countries it has access to
+    * Dropdown will show only countries indicated in this array
+    * create a landing page with route "/". If not registered: redirect
+    to "/"
+    * add interceptors to axios - DONE
+    * remove QUIT_HOMEPAGE reducer - DONE
+    * potentially remove all reducers conntected with homepage - DONE
+    * add INVALID CREDENTIALS case - DONE
+    * add CONFIRM EMAIL case - DONE
+    * bug - not redirecting to landing from different links when not logged in. Main.tsx - DONE
+    * finish adding different error cases in AuthContext.tsx - DONE
+    * fix 11000 Mongoose error for duplicate emails - DONE
+    * add logout logic with removeUserFromLocalStorage - DONE
+    * front-end update protectedRoute to check if this account exists in database like authenticateUser
+    in useAuth.tsx
+
+    * add confirm email functionality: admin confirms the email. But user gets email notification
+        - install nodemailer and create sendEmail controller - DONE
+        - refactor login and register controllers as 11-auth-workflow - DONE
+    * add forgot password functionality
+    that their account is waiting for admin's confirmation
+    * add re-send verification email functionality 
+    * add checkForUnauthorizedResponse in axios localStorage logic
+    * user model to contain array of authorized countries
+    * add authenticateUser middleware on backend. Functionality:
+        check if user's countries authorization array contains(country) --> next()
+    * front end: create api functionality to request layers
+
+    
+
+- Change Oblast to how each country calls it's regions
+
+

@@ -3,17 +3,17 @@ import CustomPolygon from './CustomPolygon'
 import { SeLayerObjectType } from '../../reducer/reducerInitialState'
 import L from 'leaflet'
 
-type NewProjectionProps = {
-  full_JSON_library: SingleGeoJson
-  geojsonFeature: GeoJsonFeaturesType
-  layerObject: SeLayerObjectType
-}
+// type NewProjectionProps = {
+//   full_JSON_library: SingleGeoJson
+//   geojsonFeature: GeoJsonFeaturesType
+//   layerObject: SeLayerObjectType
+// }
 
 export default function NewProjection({
   full_JSON_library,
   geojsonFeature,
   layerObject,
-}: NewProjectionProps) {
+}) {
   const { NAME_1, NAME_2, _mean, _count } = geojsonFeature.properties
 
   const data = [

@@ -5,14 +5,13 @@ import {
   WMSTileLayer,
   ZoomControl,
   ScaleControl,
-  useMap,
   Pane,
 } from 'react-leaflet'
 import styles from './Map.module.scss'
 import { FilterContext } from '../../context/FilterContext'
 import CircleMarkers from '../marker/CircleMarkers'
 import CircleMarkersVulnerability from '../marker/CircleMarkersVulnerability'
-import AOI from 'public/static/AOI.geojson'
+import AOI from '../../public/static/tajikistan/AOI.json'
 import BetterWMSTileLayer from '../controls/BetterWMSTileLayer'
 import NewLegend_2 from '../controls/NewLegend_2'
 import MapControls from '../controls/MapControls'
@@ -20,6 +19,7 @@ import InfoBox from '../controls/InfoBox'
 import { useMapFunctions } from './useMapFunctions'
 import AOIprojection from '../controls/AOIprojection'
 import NewProjection from '../controls/NewProjection'
+import UpdateMap from './UpdateMap'
 
 export const geoServerUrl =
   'https://sdg-geoserver.ddns.net:8443/geoserver/sdg-ai-lab/wms'
@@ -46,17 +46,6 @@ const OsmMap = () => {
   const cats = categoriesData(state)
   const seStatuses = se.map((x) => x.layerInfo.status)
   const svStatuses = sv.map((x) => x.status)
-
-  function UpdateMap() {
-    const map = useMap()
-    useEffect(() => {
-      if (reset_settings) {
-        map.setView(map_settings.latlong, map_settings.zoom)
-      }
-    }, [reset_settings])
-
-    return null
-  }
 
   useEffect(() => {
     if (activeLegends.length > 0) {
@@ -94,7 +83,7 @@ const OsmMap = () => {
       const [geojson1, geojson2, geojson3] = combinedLayer.geojson
 
       if (status) {
-        let geojson: SingleGeoJson = geojson1
+        let geojson /*: set type of geojson*/ = geojson1
         if (level === 2) {
           geojson = geojson2
         } else if (level === 3) {
@@ -166,9 +155,7 @@ const OsmMap = () => {
   const displayAreaOfInterest = () => {
     if (!show_area_of_interest) return
     return AOI.features.map((feature, index) => {
-      return (
-        <AOIprojection key={index} geojsonFeature={feature} index={index} />
-      )
+      return <AOIprojection key={index} geojsonFeature={feature} />
     })
   }
 
@@ -180,6 +167,7 @@ const OsmMap = () => {
       // scrollWheelZone={true}
       className={styles.container}
       attributionControl={true}
+      style={{ zIndex: 1 }} // for Dropdown in TopBar.tsx
     >
       <UpdateMap />
 

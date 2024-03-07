@@ -8,13 +8,16 @@ type SocioEconLegendProps = {
 
 function SocioEconLegend({ layer }: SocioEconLegendProps) {
   const { state, dispatch } = useContext(FilterContext)
+  const { country } = state
   const [minMeanNumber, setMinMeanNumber] = useState(null)
   const [maxMeanNumber, setMaxMeanNumber] = useState(null)
 
   useEffect(() => {
     let isMounted = true
 
-    import(`/public/static/${layer.json_library}_${state['level']}.geojson`)
+    import(
+      `/public/static/${country}/${layer.json_library}_${state['level']}.geojson`
+    )
       .then((library) => {
         if (isMounted) {
           const onlyAllMeanNumbers = library.features.map(

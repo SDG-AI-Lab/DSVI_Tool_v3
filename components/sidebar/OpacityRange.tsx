@@ -6,33 +6,31 @@ import {
 } from '../../reducer/reducerInitialState'
 
 interface OpacityRangeProps {
-  val2: SvLayerObjectType | SeLayerObjectType
+  layer: SvLayerObjectType | SeLayerObjectType
   index: number
   index2: number
   changeType: 'SOCIOECONOMIC' | 'GEODATA'
 }
 
-function OpacityRange({ val2, index, index2, changeType }: OpacityRangeProps) {
+function OpacityRange({ layer, index, index2, changeType }: OpacityRangeProps) {
   const { dispatch } = useContext(FilterContext)
 
   const inputClassNames =
     'input-sm mx-2 w-14 border rounded border-solid border-gray-300 bg-white bg-clip-padding text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none'
 
-  const { value } = val2
-
-  /* COMMENT #1 (AT THE BOTTOM OF THE FILE) WAS HERE */
+  const { value } = layer
 
   const onRangeChange = (range: number) => {
     dispatch({
       type: `CHANGE_${changeType}`,
-      payload: { ...val2, value: range },
+      payload: { ...layer, value: range },
       index_1: index,
       index_2: index2,
     })
   }
 
   // DEBOUNCING THE DRAG OF RANGE ITEM TO AVOID TOO MANY RE-RENDERS
-  const [range, setRange] = useState<number>(Number(val2.value))
+  const [range, setRange] = useState<number>(Number(layer.value))
   const [debouncedRange, setDebouncedRange] = useState<number>(range)
 
   const debounceDelay = 100
@@ -81,23 +79,3 @@ function OpacityRange({ val2, index, index2, changeType }: OpacityRangeProps) {
 }
 
 export default OpacityRange
-
-// COMMENT #1:
-// const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-//   const newItem = {
-//     id: val2.id,
-//     slug: val2.slug,
-//     title: val2.title,
-//     status: !val2.status,
-//     value: val2.value,
-//     reverse_meaning: val2.reverse_meaning,
-//     units: val2.units,
-//     json_library: val2.json_library,
-//   }
-//   dispatch({
-//     type: 'CHANGE_SOCIOECONOMIC',
-//     payload: newItem,
-//     index_1: index,
-//     index_2: index2,
-//   })
-// }

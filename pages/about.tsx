@@ -9,7 +9,7 @@ const data = [
   },
 ]
 
-const Home = () => {
+const About = () => {
   return (
     <div className="my-2 mx-5 rounded-lg bg-white px-2 py-5">
       <div className="container">
@@ -25,7 +25,7 @@ const Home = () => {
         })}
 
         <p className="py-5 px-5 ">
-          <a href="./volunteer" className="volunteer-link" target="_blank">
+          <a href="./volunteer" className="volunteer-link">
             <button className="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white">
               United Nations Online Volunteers
             </button>
@@ -34,5 +34,6 @@ const Home = () => {
       </div>
     </div>
   )
+  // }
 }
-export default Home
+export default About

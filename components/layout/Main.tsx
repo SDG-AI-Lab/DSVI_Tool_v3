@@ -1,17 +1,17 @@
-import { useContext } from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import { FilterContext } from '../../context/FilterContext'
+import { useAuth } from '../hooks/useAuth'
 
 const layout = ({ children }) => {
-  const { state, dispatch } = useContext(FilterContext)
-  const on_homepage = state['on_homepage']
+  const { protectedRoute } = useAuth()
+  // auth protection
+  protectedRoute()
 
   return (
     <div className="min-h-screen bg-slate-200">
-      {!on_homepage && <Header />}
+      <Header />
       {children}
-      {!on_homepage && <Footer />}
+      <Footer />
     </div>
   )
 }

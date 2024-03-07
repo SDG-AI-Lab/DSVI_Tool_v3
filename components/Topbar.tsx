@@ -1,48 +1,54 @@
-import Image from 'next/image'
 import Navbar from './Navbar'
+import Link from 'next/link'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import DropdownUser from './DropdownUser'
 
 const TopBar = () => {
+  const { state } = useContext(AuthContext)
+
   return (
     <header className="body-font bg-white text-gray-800">
       <nav>
         <ul className="h-35 flex justify-between px-3">
           <li className="flex items-center">
-            <a className="flex items-center">
-              <Image
-                src="/images/logo-sdg-alpha.png"
-                alt="SDG LOGO"
-                width="40px"
-                height="40px"
-                layout="intrinsic"
-                className="rounded-full"
-              />
-            </a>
-            <a className="text-align: center flex pl-3 text-center">
-              <p className="text-2xl font-bold">DSVI Tajikistan Tool</p>
-            </a>
+            <Link href="/landing">
+              <div className="flex items-center">
+                <img
+                  src="/images/logo-sdg-alpha.png"
+                  alt="SDG LOGO"
+                  width={40}
+                  height={40}
+                />
+                <p className="text-2xl font-bold">DSVI Tool</p>
+              </div>
+            </Link>
           </li>
-          <li className="flex items-end">
+          <li className="flex items-center">
             <Navbar />
           </li>
           <li className="flex items-center justify-end">
             <a className="flex items-center">
-              <Image
+              <img
                 src="images/logo-sdg-ai-lab-black-alpha.png"
+                width={85}
+                height={70}
                 alt="circular"
-                width="85px"
-                height="70px"
-                layout="intrinsic"
               />
             </a>
             <a className="flex items-center pl-5">
-              <Image
+              <img
                 src="/images/logo-undp-alpha.png"
+                width={50}
+                height={70}
                 alt="undp logo"
-                width="50px"
-                height="70px"
-                layout="intrinsic"
               />
             </a>
+            {state.user && (
+              <div>
+                <DropdownUser />
+              </div>
+            )}
           </li>
         </ul>
       </nav>

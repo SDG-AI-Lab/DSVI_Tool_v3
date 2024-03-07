@@ -17,7 +17,7 @@ import {
   SvLayerObjectType,
 } from '../../reducer/reducerInitialState'
 
-const NewLegend_2 = (props) => {
+const NewLegend_2 = () => {
   const [showUIElements, setShowUIElements] = useState(false)
   const { state, dispatch } = useContext(FilterContext)
   const vulnerability = state['vulnerability']
