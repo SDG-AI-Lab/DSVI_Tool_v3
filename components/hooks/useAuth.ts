@@ -81,6 +81,7 @@ export const useAuth = () => {
   }
 
   const checkAuth = () => {
+    console.log('cookie: ', document.cookie)
     const request = customFetch
       .get('api/v1/auth/routing')
       .then((response) => {
@@ -103,7 +104,6 @@ export const useAuth = () => {
 
   const protectedRoute = () => {
     const redirect = ({ user, error }: { user: AuthUser; error: string }) => {
-      console.log(user)
       if (typeof window === 'undefined') return
       if (router.route === '/' && !user) {
         toast.error(error)

@@ -1,10 +1,4 @@
 import React, { useContext } from 'react'
-import Image from 'next/image'
-import sdgFilled from '/public/images/logo-sdg-filled.png'
-import bg from '../public/images/launch-background.jpeg'
-// import marker1 from '../public/images/marker1.png'
-// import undpWhite from '/public/images/logo-undp-white.png'
-// import sdgAiLab from '../public/images/logo-sdg-ai-lab-black-alpha.png'
 import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
 
@@ -13,7 +7,7 @@ export default function Landing() {
 
   return (
     <div
-      style={{ backgroundImage: `url(${bg})` }}
+      style={{ backgroundImage: `url(/images/launch-background.jpeg)` }}
       className="flex h-screen flex-col bg-cover bg-no-repeat pl-16 pr-16 text-white"
     >
       <div className="content-center text-center font-bold">
@@ -25,7 +19,7 @@ export default function Landing() {
       </div>
       <div className="flex shrink grow basis-0 flex-row items-center">
         <div className="basis-1/3">
-          <Image src={sdgFilled} alt="Logo" width={300} height={300} />
+          <img src="/images/logo-sdg-filled.png" alt="" />
         </div>
         {state.user && state.user.role === 'admin' && (
           <div className="basis-1/3 text-center">
@@ -57,11 +51,9 @@ export default function Landing() {
             width={90}
             height={100}
           />
-          {/* <Image src={undpWhite} alt="Logo" width={50} height={100} /> */}
         </div>
         <div>
           <img src="../public/images/logo-sdg-ai-lab-black-alpha.png" alt="" />
-          {/* <Image src={sdgAiLab} alt="Logo" width={100} height={100} /> */}
         </div>
       </div>
     </div>
