@@ -12,7 +12,7 @@ const LeafletMap = dynamic(() => import('../components/leaflet/Map'), {
 const Application = () => {
   const { state } = useContext(AuthContext)
 
-  if (!state.user) return <></>
+  // if (!state.user) return <></>
   return (
     <div className="flex">
       <Sidebar show={true} originalInitialState={reducerInitialState} />

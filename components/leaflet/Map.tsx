@@ -22,7 +22,8 @@ import NewProjection from '../controls/NewProjection'
 import UpdateMap from './UpdateMap'
 
 export const geoServerUrl =
-  'https://sdg-geoserver.ddns.net:8443/geoserver/sdg-ai-lab/wms'
+  'http://sdg-geoserver.ddns.net:8080/geoserver/sdg-ai-lab/wms'
+// 'https://sdg-geoserver.ddns.net:8443/geoserver/sdg-ai-lab/wms'
 // export const geoServerUrl = 'http://localhost:8080/geoserver/sdg-ai-lab/wms'
 
 const OsmMap = () => {

@@ -16,7 +16,7 @@ function SocioEconLegend({ layer }: SocioEconLegendProps) {
     let isMounted = true
 
     import(
-      `/public/static/${country}/${layer.json_library}_${state['level']}.geojson`
+      `/public/static/${country}/${layer.json_library}_${state['level']}.json`
     )
       .then((library) => {
         if (isMounted) {

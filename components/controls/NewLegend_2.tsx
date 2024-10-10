@@ -44,7 +44,7 @@ const NewLegend_2 = () => {
   }
 
   //  COMMENT #1 WAS HERE
-
+  console.log({ activeLegends })
   return (
     <Control position="bottomright">
       <div

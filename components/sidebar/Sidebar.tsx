@@ -79,9 +79,7 @@ const Sidebar = (props) => {
               </SidebarToggle>
             </li>
 
-            <li>
-              <SelectCountry />
-            </li>
+            <li>{/* <SelectCountry /> */}</li>
 
             <li className="relative">
               <SidebarToggle
