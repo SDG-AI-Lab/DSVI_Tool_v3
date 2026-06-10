@@ -2,6 +2,7 @@
 
 Code base seated on repo  [UNDP DSVI Tool]([](https://github.com/SDG-AI-Lab/DSVI_Tool_v3/)).
 Sharepoint link: https://undp.sharepoint.com/:f:/s/SDGAILabTeam/IgC9ygeNwLf7R4aidrE0Bw-WAcdG-X_mm1QwhLydTLgt5Xs?e=yfhrxY
+CN: https://undp.sharepoint.com/:w:/s/SDGAILabTeam/IQA0DPILQu6US7KpwBzjKs1hAeADiX86AZrdMeyIJ3Vz7As?e=rPQXl8
 
 ## Available Scripts
 
