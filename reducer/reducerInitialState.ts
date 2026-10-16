@@ -100,8 +100,9 @@ export type SvLayerObjectType = {
   title: string
   status: boolean
   value: number
-  layer: string
-  style: string
+  // Fill colours from 'Very Low' to 'Very High'. The data is loaded from
+  // public/static/tajikistan/high_res/<slug>.json + <slug>.bin.gz
+  colors: string[]
 }
 
 interface SvGeoData {
@@ -127,6 +128,9 @@ export const catColors: CatColorsType = {
   veryHigh: 'rgb(239 68 68)',
 }
 
+// Same colours as catColors, as hex for the High Res. raster layers
+const svColors = ['#3b82f6', '#22c55e', '#eab308', '#f97316', '#ef4444']
+
 const svGeoData: SvGeoData[] = [
   {
     id: 1,
@@ -147,8 +151,7 @@ const svGeoData: SvGeoData[] = [
         title: 'SV: XG Boost',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:SV_XGBOOST',
-        style: 'sdg-ai-lab:xgboost',
+        colors: svColors,
       },
       {
         id: 1.3,
@@ -156,8 +159,7 @@ const svGeoData: SvGeoData[] = [
         title: 'SV: Random Forest',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:SV_random_forest',
-        style: 'sdg-ai-lab:random_forest',
+        colors: svColors,
       },
     ],
   },
@@ -172,8 +174,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Nightlight Intensity',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:Nightlight',
-        style: 'sdg-ai-lab:ntl',
+        colors: ['#ffffd4', '#fed98e', '#fe9929', '#d95f0e', '#993404'],
       },
       {
         id: 2.2,
@@ -181,8 +182,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Population Density',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:population',
-        style: 'sdg-ai-lab:pop',
+        colors: ['#ffffb2', '#fecc5c', '#fd8d3c', '#f03b20', '#bd0026'],
       },
       {
         id: 2.3,
@@ -190,25 +190,15 @@ const svGeoData: SvGeoData[] = [
         title: 'Celltower Density',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:celltower',
-        style: 'sdg-ai-lab:celltower',
+        colors: ['#f2f0f7', '#cbc9e2', '#9e9ac8', '#756bb1', '#54278f'],
       },
-      // {
-      //     id: 4.4,
-      //     slug: 'sv_road_density',
-      //     title: 'Road Density',
-      //     status: false,
-      //     value: 70,
-      //     layer: 'sdg-ai-lab:scaled_r_norm_road_density'
-      // },
       {
         id: 2.5,
         slug: 'sv_relative_wealth',
         title: 'Relative Wealth',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:rwi_relativewealth',
-        style: 'sdg-ai-lab:rwi',
+        colors: ['#edf8e9', '#bae4b3', '#74c476', '#31a354', '#006d2c'],
       },
       {
         id: 2.6,
@@ -216,8 +206,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Gross Domestic Product',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:GDP',
-        style: 'sdg-ai-lab:gdp',
+        colors: ['#f0f9e8', '#bae4bc', '#7bccc4', '#43a2ca', '#0868ac'],
       },
     ],
   },
@@ -232,8 +221,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Distance to Healthcare',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:health_penalty',
-        style: 'sdg-ai-lab:health',
+        colors: ['#fee5d9', '#fcae91', '#fb6a4a', '#de2d26', '#a50f15'],
       },
       {
         id: 3.2,
@@ -241,8 +229,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Distance to Finance',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:financial_penalty',
-        style: 'sdg-ai-lab:finan',
+        colors: ['#feedde', '#fdbe85', '#fd8d3c', '#e6550d', '#a63603'],
       },
       {
         id: 3.3,
@@ -250,17 +237,15 @@ const svGeoData: SvGeoData[] = [
         title: 'Distance to Education',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:Education_penalty',
-        style: 'sdg-ai-lab:edu',
+        colors: ['#f1eef6', '#d7b5d8', '#df65b0', '#dd1c77', '#980043'],
       },
       {
         id: 3.4,
-        slug: 'sv_roads',
-        title: 'Road Network',
+        slug: 'sv_road_density',
+        title: 'Road Density',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:lines_merged',
-        style: 'sdg-ai-lab:xgboost',
+        colors: ['#f7f7f7', '#cccccc', '#969696', '#636363', '#252525'],
       },
     ],
   },
@@ -275,8 +260,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Elevation in meters',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:elevation',
-        style: 'sdg-ai-lab:elevation',
+        colors: ['#1a9850', '#a6d96a', '#fee08b', '#d9a066', '#8c510a'],
       },
       {
         id: 4.2,
@@ -284,8 +268,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Slope in degrees',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:slope',
-        style: 'sdg-ai-lab:slope',
+        colors: ['#ffffcc', '#c7e9b4', '#7fcdbb', '#2c7fb8', '#253494'],
       },
       {
         id: 4.3,
@@ -293,8 +276,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Max Temp Winter',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:temperature_max_winter',
-        style: 'sdg-ai-lab:temp',
+        colors: ['#2c7bb6', '#abd9e9', '#ffffbf', '#fdae61', '#d7191c'],
       },
       {
         id: 4.4,
@@ -302,8 +284,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Plant Health (NDVI)',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:NDVI',
-        style: 'sdg-ai-lab:ndvi',
+        colors: ['#d8b365', '#f6e8c3', '#c7e9c0', '#41ab5d', '#006d2c'],
       },
       {
         id: 4.5,
@@ -311,8 +292,7 @@ const svGeoData: SvGeoData[] = [
         title: 'Rainfall',
         status: false,
         value: 70,
-        layer: 'sdg-ai-lab:precipitation',
-        style: 'sdg-ai-lab:precip',
+        colors: ['#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c'],
       },
     ],
   },
