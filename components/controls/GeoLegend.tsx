@@ -9,7 +9,7 @@ type GeoLegendProps = {
 function GeoLegend({ layer }: GeoLegendProps) {
   const { state, dispatch } = useContext(FilterContext)
 
-  const arrayLegends = state['geolayers_description'][layer.layer]
+  const arrayLegends = state['geolayers_description'][layer.slug]
 
   const getWordExplanation = (index: number): string => {
     switch (index) {
